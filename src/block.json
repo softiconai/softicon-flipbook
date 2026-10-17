@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "softicon/flipbook",
+	"version": "1.2.0",
+	"title": "Flipbook",
+	"category": "media",
+	"description": "Turn a PDF or a set of images into a page-turning flipbook.",
+	"keywords": [ "flipbook", "pdf", "magazine", "catalog", "brochure" ],
+	"textdomain": "softicon-flipbook",
+	"attributes": {
+		"source": { "type": "string", "default": "pdf" },
+		"pdfId": { "type": "number", "default": 0 },
+		"pdfUrl": { "type": "string", "default": "" },
+		"images": { "type": "array", "default": [] },
+		"pageMode": { "type": "string", "default": "auto" },
+		"showCover": { "type": "boolean", "default": true },
+		"startPage": { "type": "number", "default": 1 },
+		"maxHeight": { "type": "number", "default": 700 },
+		"showDownload": { "type": "boolean", "default": true },
+		"showFullscreen": { "type": "boolean", "default": true },
+		"showZoom": { "type": "boolean", "default": true },
+		"showThumbnails": { "type": "boolean", "default": true },
+		"bookStyle": { "type": "string", "default": "flat" },
+		"sideArrows": { "type": "boolean", "default": false },
+		"coverColor": { "type": "string", "default": "" },
+		"flipSound": { "type": "boolean", "default": true },
+		"bgColor": { "type": "string", "default": "" },
+		"toolbarBg": { "type": "string", "default": "" },
+		"toolbarColor": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true }
+	},
+	"example": { "attributes": { "source": "images" } },
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

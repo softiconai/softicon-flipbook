@@ -1,0 +1,341 @@
+# Copyright (C) 2026 softiconai
+# This file is distributed under the GPLv3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-17T02:42:18+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: softicon-flipbook\n"
+
+#. Plugin Name of the plugin
+#: softicon-flipbook.php
+msgid "SoftIcon Flipbook – PDF Flipbook & Magazine Viewer"
+msgstr ""
+
+#. Description of the plugin
+#: softicon-flipbook.php
+msgid "Turn any PDF or set of images into a page-turning flipbook with a block editor block. Single page on phones, two-page spreads on desktop."
+msgstr ""
+
+#. Author of the plugin
+#: softicon-flipbook.php
+msgid "softiconai"
+msgstr ""
+
+#. Author URI of the plugin
+#: softicon-flipbook.php
+msgid "https://profiles.wordpress.org/softiconai/"
+msgstr ""
+
+#: build/render.php:28
+#: build/index.js:4
+msgid "Flipbook"
+msgstr ""
+
+#: build/render.php:36
+msgid "Open the PDF"
+msgstr ""
+
+#: build/index.js:1
+msgid "General"
+msgstr ""
+
+#: build/index.js:1
+msgid "Style"
+msgstr ""
+
+#: build/index.js:1
+msgid "Auto – two pages, one on phones"
+msgstr ""
+
+#: build/index.js:1
+msgid "Always two pages"
+msgstr ""
+
+#: build/index.js:1
+msgid "Always one page"
+msgstr ""
+
+#: build/index.js:1
+msgid "Classic"
+msgstr ""
+
+#: build/index.js:1
+msgid "Hardcover book"
+msgstr ""
+
+#: build/index.js:1
+msgid "PDF file"
+msgstr ""
+
+#: build/index.js:1
+msgid "Images"
+msgstr ""
+
+#: build/index.js:1
+msgid "Source"
+msgstr ""
+
+#: build/index.js:1
+msgid "Pages from"
+msgstr ""
+
+#: build/index.js:1
+#: build/index.js:4
+msgid "Replace PDF"
+msgstr ""
+
+#: build/index.js:1
+msgid "Choose PDF"
+msgstr ""
+
+#: build/index.js:1
+msgid "PDFs from your Media Library always work. A link to a PDF on another website works only if that site allows it."
+msgstr ""
+
+#: build/index.js:1
+#: build/index.js:4
+msgid "Edit pages"
+msgstr ""
+
+#: build/index.js:1
+msgid "Choose images"
+msgstr ""
+
+#: build/index.js:1
+msgid "Each image is one page. Drag them in the media window to change the order."
+msgstr ""
+
+#: build/index.js:1
+msgid "Pages"
+msgstr ""
+
+#: build/index.js:1
+msgid "Layout"
+msgstr ""
+
+#: build/index.js:1
+msgid "Cover page"
+msgstr ""
+
+#: build/index.js:1
+msgid "The first and last pages turn on their own, like a printed book."
+msgstr ""
+
+#: build/index.js:1
+msgid "Open at page"
+msgstr ""
+
+#: build/index.js:1
+msgid "Toolbar"
+msgstr ""
+
+#: build/index.js:1
+msgid "Download button"
+msgstr ""
+
+#: build/index.js:1
+msgid "Fullscreen button"
+msgstr ""
+
+#: build/index.js:1
+#: build/index.js:4
+#: build/view.js:4
+msgid "Thumbnails"
+msgstr ""
+
+#: build/index.js:1
+msgid "A button that shows all pages, a click opens one."
+msgstr ""
+
+#: build/index.js:1
+msgid "Zoom"
+msgstr ""
+
+#: build/index.js:1
+msgid "Zoom buttons, pinch on phones and Ctrl + scroll on computers."
+msgstr ""
+
+#: build/index.js:1
+#: build/index.js:4
+#: build/view.js:4
+msgid "Page turn sound"
+msgstr ""
+
+#: build/index.js:1
+msgid "Visitors can mute it from the toolbar."
+msgstr ""
+
+#: build/index.js:1
+msgid "Design"
+msgstr ""
+
+#: build/index.js:1
+msgid "A hard cover around the pages, the stack of page edges, a shadow at the spine and large arrows beside the book."
+msgstr ""
+
+#: build/index.js:1
+msgid "Plain pages that turn like a magazine."
+msgstr ""
+
+#: build/index.js:1
+msgid "Side arrows"
+msgstr ""
+
+#: build/index.js:1
+msgid "On phones they sit over the page edges."
+msgstr ""
+
+#: build/index.js:1
+msgid "Cover color"
+msgstr ""
+
+#: build/index.js:1
+msgid "Size"
+msgstr ""
+
+#: build/index.js:1
+msgid "Maximum height (px)"
+msgstr ""
+
+#: build/index.js:1
+msgid "The book keeps the page shape and shrinks to fit smaller screens."
+msgstr ""
+
+#: build/index.js:1
+msgid "Colors"
+msgstr ""
+
+#: build/index.js:1
+msgid "Background"
+msgstr ""
+
+#: build/index.js:1
+msgid "Toolbar background"
+msgstr ""
+
+#: build/index.js:1
+msgid "Toolbar icons and text"
+msgstr ""
+
+#. translators: %d: page number
+#: build/index.js:3
+#: build/view.js:3
+#, js-format
+msgid "Page %d"
+msgstr ""
+
+#. translators: 1: visible page or pages, 2: total pages
+#: build/index.js:4
+#: build/view.js:4
+#, js-format
+msgid "%1$s / %2$s"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Previous page"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Next page"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Go to page"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Zoom out"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Zoom in"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Download PDF"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Fullscreen"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "Page number"
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "This PDF is on another website that does not allow it to be shown here. Upload the PDF to your Media Library instead."
+msgstr ""
+
+#: build/index.js:4
+#: build/view.js:4
+msgid "This flipbook could not be loaded."
+msgstr ""
+
+#: build/index.js:4
+msgid "Use images instead"
+msgstr ""
+
+#: build/index.js:4
+msgid "Use a PDF instead"
+msgstr ""
+
+#: build/index.js:4
+msgid "Upload or pick the page images, in reading order."
+msgstr ""
+
+#: build/index.js:4
+msgid "Upload a PDF, pick one from the Media Library or paste a link."
+msgstr ""
+
+#: build/block.json
+msgctxt "block title"
+msgid "Flipbook"
+msgstr ""
+
+#: build/block.json
+msgctxt "block description"
+msgid "Turn a PDF or a set of images into a page-turning flipbook."
+msgstr ""
+
+#: build/block.json
+msgctxt "block keyword"
+msgid "flipbook"
+msgstr ""
+
+#: build/block.json
+msgctxt "block keyword"
+msgid "pdf"
+msgstr ""
+
+#: build/block.json
+msgctxt "block keyword"
+msgid "magazine"
+msgstr ""
+
+#: build/block.json
+msgctxt "block keyword"
+msgid "catalog"
+msgstr ""
+
+#: build/block.json
+msgctxt "block keyword"
+msgid "brochure"
+msgstr ""

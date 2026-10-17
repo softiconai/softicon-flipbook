@@ -1,0 +1,24 @@
+.alfbMt {
+	margin-top: 16px;
+}
+
+.alfbHelp {
+	margin: 8px 0 0;
+	color: #757575;
+	font-size: 12px;
+}
+
+.alfbImages {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 4px;
+	margin: 0 0 12px;
+
+	img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 3 / 4;
+		object-fit: cover;
+		border-radius: 2px;
+	}
+}

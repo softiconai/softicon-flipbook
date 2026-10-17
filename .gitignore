@@ -1,0 +1,25 @@
+# Dependencies, restored by `npm install`
+node_modules/
+
+# Build output, rebuilt from src/ by `npm run build`
+build/
+*.map
+
+# Release zip
+*.zip
+
+# Generated translations, rebuilt by `npm run i18n` (the .pot stays tracked)
+languages/*.mo
+languages/*.json
+
+# OS and editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Private project notes, kept out of the public repo
+PROJECT-NOTES.md
+
+# Local credentials, never commit
+svn.txt
+*.secret
