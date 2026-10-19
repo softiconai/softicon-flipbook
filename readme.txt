@@ -90,6 +90,10 @@ Yes, from the download button in the toolbar. You can hide the button in the blo
 
 On small screens the book shows one page at a time at the full width of the screen. Visitors can pinch to zoom into a page and drag to move around it, and fullscreen redraws the pages at a higher resolution.
 
+= Where can I get help? =
+
+Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipbook/) and we will reply there, so the answer can help others too. For anything you would rather not post in public, such as a site you cannot share, email us at softiconai@gmail.com. Tell us your WordPress version, the page with the flipbook and what you see, and we will get back to you.
+
 == Screenshots ==
 
 1. A realistic page turn – drag a corner or use the toolbar.
