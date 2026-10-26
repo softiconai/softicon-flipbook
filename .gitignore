@@ -23,3 +23,6 @@ PROJECT-NOTES.md
 # Local credentials, never commit
 svn.txt
 *.secret
+elevenlabs.txt
+.elevenlabs_key
+marketing/
