@@ -1,26 +1,24 @@
-// Settings panels for SoftIcon blocks (components/Panels.js). One accent color, a clear blue by default;
+// Settings panels for SoftIcon blocks (components/Panels.js). One accent color, the WordPress admin blue by default;
 // a plugin can set $si-accent and friends before importing this file.
-$si-accent: #1a50eb !default;
-$si-accent-dark: #1440c4 !default;
-$si-tint: #d7e6fd !default;
-$si-line: #c4d7fb !default;
+$si-accent: #2271b1 !default;
+$si-accent-dark: #135e96 !default;
+$si-tint: #e5f0f8 !default;
+$si-line: #c5d9ed !default;
 
-// with such a block selected the whole block sidebar (also WordPress's Dimensions panel) uses the accent color
+// with such a block selected the whole block sidebar uses the accent color: buttons, toggles, focus rings and links
 .block-editor-block-inspector:has(.siSettings),
 .siSettings {
 	--wp-admin-theme-color: #{$si-accent};
-	--wp-admin-theme-color--rgb: 26, 80, 235;
+	--wp-admin-theme-color--rgb: 34, 113, 177;
 	--wp-admin-theme-color-darker-10: #{$si-accent-dark};
-	--wp-admin-theme-color-darker-20: #1236a6;
+	--wp-admin-theme-color-darker-20: #0a4b78;
+	// WordPress buttons read this one first, so it changes too
+	--wp-components-color-accent: #{$si-accent};
+	--wp-components-color-accent-darker-10: #{$si-accent-dark};
+	--wp-components-color-accent-darker-20: #0a4b78;
 }
 
 .siSettings {
-	// WordPress buttons, toggles, focus rings and links in here use the brand color
-	--wp-admin-theme-color: #{$si-accent};
-	--wp-admin-theme-color--rgb: 26, 80, 235;
-	--wp-admin-theme-color-darker-10: #{$si-accent-dark};
-	--wp-admin-theme-color-darker-20: #1236a6;
-
 	// two equal tabs, the active one underlined
 	.components-tab-panel__tabs {
 		display: flex;
@@ -291,7 +289,7 @@ $si-line: #c4d7fb !default;
 		border-color: transparent;
 		color: #fff;
 		background: $si-accent;
-		box-shadow: 0 4px 10px rgba(26, 80, 235, 0.25);
+		box-shadow: 0 4px 10px rgba(34, 113, 177, 0.25);
 	}
 }
 
@@ -328,7 +326,7 @@ $si-line: #c4d7fb !default;
 	border-radius: 10px;
 	color: #fff !important;
 	background: $si-accent;
-	box-shadow: 0 4px 10px rgba(26, 80, 235, 0.2);
+	box-shadow: 0 4px 10px rgba(34, 113, 177, 0.2);
 	font-size: 12.5px;
 	font-weight: 600;
 	text-align: center;
@@ -346,7 +344,7 @@ $si-line: #c4d7fb !default;
 		color: #fff;
 		background: $si-accent-dark;
 		transform: translateY(-2px);
-		box-shadow: 0 8px 16px rgba(26, 80, 235, 0.3);
+		box-shadow: 0 8px 16px rgba(34, 113, 177, 0.3);
 	}
 
 	&:focus-visible {
