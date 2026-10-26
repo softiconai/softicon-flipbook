@@ -3,7 +3,7 @@
 *
 * Plugin Name: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer
 * Description: Turn any PDF or set of images into a page-turning flipbook with a block editor block. Single page on phones, two-page spreads on desktop.
-* Version: 1.2.0
+* Version: 1.2.1
 * Requires at least: 6.5
 * Requires PHP: 7.1
 * Author: softiconai
@@ -38,7 +38,7 @@ class ALFB_Flipbook{
     }
 
     public function defined_constants() {
-        define('ALFB_PLUGIN_VERSION', '1.2.0');
+        define('ALFB_PLUGIN_VERSION', '1.2.1');
         define('ALFB_PLUGIN_PATH', plugin_dir_path(__FILE__));
         define('ALFB_PLUGIN_URL', plugin_dir_url(__FILE__));
     }
@@ -46,8 +46,10 @@ class ALFB_Flipbook{
     public function load_classes() {
 
         require_once ALFB_PLUGIN_PATH . 'includes/block.php';
+        require_once ALFB_PLUGIN_PATH . 'includes/videos.php';
 
         new ALFB_Flipbook\block();
+        new ALFB_Flipbook\videos();
 
         // add-ons such as SoftIcon Flipbook Pro hook in here
         do_action( 'alfb_loaded' );

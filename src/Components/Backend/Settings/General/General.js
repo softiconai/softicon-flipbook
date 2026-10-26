@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { Button, PanelBody, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
-import { pageModes, sources } from '../../../../utils/options';
+import { Button, ExternalLink, PanelBody, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
+import { pageModes, sources, videos } from '../../../../utils/options';
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
 	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, flipSound } = attributes;
@@ -57,6 +57,19 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			<ToggleControl className='alfbMt' label={__('Zoom', 'softicon-flipbook')} help={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} __nextHasNoMarginBottom />
 
 			<ToggleControl className='alfbMt' label={__('Page turn sound', 'softicon-flipbook')} help={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} __nextHasNoMarginBottom />
+		</PanelBody>
+
+		<PanelBody title={__('Help', 'softicon-flipbook')} initialOpen={false}>
+			<p className='alfbHelp alfbHelpTitle'>{__('Video tutorials, under a minute each:', 'softicon-flipbook')}</p>
+			<ul className='alfbLinks'>
+				<li><ExternalLink href={videos.overview}>{__('Overview', 'softicon-flipbook')}</ExternalLink></li>
+				<li><ExternalLink href={videos.add}>{__('Add a flipbook', 'softicon-flipbook')}</ExternalLink></li>
+				<li><ExternalLink href={videos.design}>{__('Hardcover design', 'softicon-flipbook')}</ExternalLink></li>
+				<li><ExternalLink href={videos.reading}>{__('Zoom, thumbnails and page links', 'softicon-flipbook')}</ExternalLink></li>
+			</ul>
+			<p className='alfbHelp'>
+				{__('Still stuck? Ask in the', 'softicon-flipbook')} <ExternalLink href='https://wordpress.org/support/plugin/softicon-flipbook/'>{__('support forum', 'softicon-flipbook')}</ExternalLink> {__('or email softiconai@gmail.com.', 'softicon-flipbook')}
+			</p>
 		</PanelBody>
 	</>;
 };

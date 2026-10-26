@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { ColorPalette, PanelColorSettings } from '@wordpress/block-editor';
-import { BaseControl, PanelBody, RangeControl, SelectControl, ToggleControl } from '@wordpress/components';
-import { designs } from '../../../../utils/options';
+import { BaseControl, ExternalLink, PanelBody, RangeControl, SelectControl, ToggleControl } from '@wordpress/components';
+import { designs, videos } from '../../../../utils/options';
 
 const Style = ({ attributes, setAttributes }) => {
 	const { maxHeight, bookStyle, sideArrows, bgColor, toolbarBg, toolbarColor, coverColor } = attributes;
@@ -13,6 +13,8 @@ const Style = ({ attributes, setAttributes }) => {
 	return <>
 		<PanelBody title={__('Design', 'softicon-flipbook')} initialOpen={true}>
 			<SelectControl label={__('Design', 'softicon-flipbook')} hideLabelFromVision value={bookStyle} options={designs} onChange={setDesign} help={hardcover ? __('A hard cover around the pages, the stack of page edges, a shadow at the spine and large arrows beside the book.', 'softicon-flipbook') : __('Plain pages that turn like a magazine.', 'softicon-flipbook')} __nextHasNoMarginBottom />
+
+			<p className='alfbHelp'><ExternalLink href={videos.design}>{__('See the Hardcover design in action', 'softicon-flipbook')}</ExternalLink></p>
 
 			{hardcover && <>
 				<ToggleControl className='alfbMt' label={__('Side arrows', 'softicon-flipbook')} help={__('On phones they sit over the page edges.', 'softicon-flipbook')} checked={sideArrows} onChange={val => setAttributes({ sideArrows: val })} __nextHasNoMarginBottom />

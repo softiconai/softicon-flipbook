@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.2.0\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-17T02:42:18+00:00\n"
+"POT-Creation-Date: 2026-10-26T13:08:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -41,6 +41,10 @@ msgstr ""
 
 #: build/render.php:36
 msgid "Open the PDF"
+msgstr ""
+
+#: includes/videos.php:17
+msgid "Video tutorials"
 msgstr ""
 
 #: build/index.js:1
@@ -174,6 +178,42 @@ msgid "Visitors can mute it from the toolbar."
 msgstr ""
 
 #: build/index.js:1
+msgid "Help"
+msgstr ""
+
+#: build/index.js:1
+msgid "Video tutorials, under a minute each:"
+msgstr ""
+
+#: build/index.js:1
+msgid "Overview"
+msgstr ""
+
+#: build/index.js:1
+msgid "Add a flipbook"
+msgstr ""
+
+#: build/index.js:1
+msgid "Hardcover design"
+msgstr ""
+
+#: build/index.js:1
+msgid "Zoom, thumbnails and page links"
+msgstr ""
+
+#: build/index.js:1
+msgid "Still stuck? Ask in the"
+msgstr ""
+
+#: build/index.js:1
+msgid "support forum"
+msgstr ""
+
+#: build/index.js:1
+msgid "or email softiconai@gmail.com."
+msgstr ""
+
+#: build/index.js:1
 msgid "Design"
 msgstr ""
 
@@ -183,6 +223,10 @@ msgstr ""
 
 #: build/index.js:1
 msgid "Plain pages that turn like a magazine."
+msgstr ""
+
+#: build/index.js:1
+msgid "See the Hardcover design in action"
 msgstr ""
 
 #: build/index.js:1
@@ -295,6 +339,10 @@ msgstr ""
 
 #: build/index.js:4
 msgid "Use a PDF instead"
+msgstr ""
+
+#: build/index.js:4
+msgid "New here? Watch the 36-second tutorial"
 msgstr ""
 
 #: build/index.js:4
