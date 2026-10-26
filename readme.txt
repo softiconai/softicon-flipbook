@@ -14,6 +14,10 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 **SoftIcon Flipbook** turns your brochures, magazines, catalogs, menus and ebooks into a realistic page-turning book, right inside the block editor. Add the **Flipbook** block, pick a PDF and you see the finished book in the editor – no shortcodes, no separate "flipbook" screens.
 
+https://www.youtube.com/watch?v=5geq69DXoN8
+
+Video tutorials: [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
+
 = Why choose SoftIcon Flipbook? =
 
 * **Block first** – upload or pick a PDF in the block and preview the real flipbook while you edit.
@@ -58,6 +62,14 @@ The plugin is developed on GitHub: [github.com/softiconai/softicon-flipbook](htt
 
 == Frequently Asked Questions ==
 
+= How do I add a flipbook? =
+
+Edit a page, open the block inserter, search for Flipbook and add the block. Pick a PDF from your Media Library or upload one, and the live book appears right away. Watch the [36-second tutorial](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g).
+
+= How do I get the hardcover look? =
+
+Select the flipbook, open the Style tab and choose Hardcover book under Design. The pages get a cover, page edges and a shadow at the spine, with large arrows beside the book; you can pick the cover color there too. See it in the [Hardcover video](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g).
+
 = Does it work with a PDF hosted on another website? =
 
 Only if that website allows it (CORS). Browsers block reading PDFs from other sites otherwise. Upload the PDF to your Media Library and it always works.
@@ -80,7 +92,7 @@ The flipbook is a block, so you add it in the block editor (Gutenberg). It works
 
 = How do I link to a specific page? =
 
-Add #page= and the page number to the address of the page with the flipbook, for example https://example.com/catalog/#page=12. The first flipbook on the page opens at that page. Links like `<a href="#page=8">` on the same page turn the book to that page, so you can write your own table of contents.
+Add #page= and the page number to the address of the page with the flipbook, for example https://example.com/catalog/#page=12. The first flipbook on the page opens at that page. Links like `<a href="#page=8">` on the same page turn the book to that page, so you can write your own table of contents. The [reading features video](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) shows it.
 
 = Can visitors download the PDF? =
 
