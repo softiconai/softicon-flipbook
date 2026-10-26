@@ -7,6 +7,15 @@ class block {
     public function __construct()
     {
         add_action('init', array( $this, 'register' ));
+        add_filter('block_editor_settings_all', array( $this, 'no_inspector_tabs' ));
+    }
+
+    // the block has its own General and Style tabs; without this WordPress adds its Settings/Styles tabs above them for the margin control
+    public function no_inspector_tabs( $settings ) {
+        $tabs = isset( $settings['blockInspectorTabs'] ) && is_array( $settings['blockInspectorTabs'] ) ? $settings['blockInspectorTabs'] : array();
+        $tabs['softicon/flipbook'] = false;
+        $settings['blockInspectorTabs'] = $tabs;
+        return $settings;
     }
 
     public function register() {
