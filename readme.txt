@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -116,6 +116,10 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.2.2 =
+* Clearer block settings: one panel open at a time, choices shown as icon tiles, short tips behind the (i) icons and a reset button for the height.
+* The block now shows only its own General and Style tabs, without the extra WordPress tabs and Dimensions panel. Margins already set on a flipbook stay as they are.
 
 = 1.2.1 =
 * New: short video tutorials, linked from the empty block, a Help panel in the block settings, the Design panel and the Plugins screen.
