@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -116,6 +116,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.2.1 =
+* New: short video tutorials, linked from the empty block, a Help panel in the block settings, the Design panel and the Plugins screen.
 
 = 1.2.0 =
 * New: Hardcover book design – a cover around the pages, the stack of page edges and a shadow at the spine. Choose it under Design in the block's Style tab.

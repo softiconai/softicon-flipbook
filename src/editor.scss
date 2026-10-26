@@ -8,6 +8,26 @@
 	font-size: 12px;
 }
 
+.alfbHelpTitle {
+	margin-top: 0;
+}
+
+.alfbLinks {
+	margin: 8px 0 12px;
+	padding: 0;
+	list-style: none;
+
+	li {
+		margin: 0 0 6px;
+	}
+}
+
+.alfbPlaceholderHelp {
+	flex-basis: 100%;
+	margin: 12px 0 0;
+	font-size: 13px;
+}
+
 .alfbImages {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);

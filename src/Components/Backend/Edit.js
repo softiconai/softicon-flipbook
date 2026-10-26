@@ -1,13 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { BlockControls, MediaPlaceholder, MediaReplaceFlow, MediaUpload, MediaUploadCheck, useBlockProps } from '@wordpress/block-editor';
-import { Button, ToolbarButton } from '@wordpress/components';
+import { Button, ExternalLink, ToolbarButton } from '@wordpress/components';
 // copied from the shared softicon-tools folder by `npm run tools` (prebuild), edit it there
 import useIframeAssets from '../../vendor/softicon-tools/hooks/useIframeAssets';
 import Settings from './Settings/Settings';
 import Flipbook from '../../viewer/Flipbook';
 import { blockIcon } from '../../utils/icons';
 import { cssVars, hasContent, toConfig, toImage } from '../../utils/functions';
+import { videos } from '../../utils/options';
 
 // waits for the user to stop dragging a slider before the preview reloads the PDF
 const useDebounced = (value, delay) => {
@@ -68,9 +69,12 @@ const Edit = (props) => {
 	};
 	useEffect(applyColors, [attributes.bgColor, attributes.toolbarBg, attributes.toolbarColor, attributes.coverColor]);
 
-	const switchSource = value => <Button variant='link' onClick={() => setAttributes({ source: value })}>
-		{'images' === value ? __('Use images instead', 'softicon-flipbook') : __('Use a PDF instead', 'softicon-flipbook')}
-	</Button>;
+	const switchSource = value => <>
+		<Button variant='link' onClick={() => setAttributes({ source: value })}>
+			{'images' === value ? __('Use images instead', 'softicon-flipbook') : __('Use a PDF instead', 'softicon-flipbook')}
+		</Button>
+		<p className='alfbPlaceholderHelp'><ExternalLink href={videos.add}>{__('New here? Watch the 36-second tutorial', 'softicon-flipbook')}</ExternalLink></p>
+	</>;
 
 	if (!ready) {
 		return <div {...useBlockProps({ ref: assetsRef })}>
