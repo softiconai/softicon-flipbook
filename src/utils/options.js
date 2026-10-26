@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { icons } from './icons';
 
 export const tabs = [
 	{ name: 'general', title: __('General', 'softicon-flipbook'), className: 'general' },
@@ -6,9 +7,14 @@ export const tabs = [
 ];
 
 export const pageModes = [
-	{ label: __('Auto – two pages, one on phones', 'softicon-flipbook'), value: 'auto' },
-	{ label: __('Always two pages', 'softicon-flipbook'), value: 'double' },
-	{ label: __('Always one page', 'softicon-flipbook'), value: 'single' }
+	{ label: __('Auto', 'softicon-flipbook'), value: 'auto', icon: icons.auto },
+	{ label: __('Two pages', 'softicon-flipbook'), value: 'double', icon: icons.twoPages },
+	{ label: __('One page', 'softicon-flipbook'), value: 'single', icon: icons.onePage }
+];
+
+export const sources = [
+	{ label: __('PDF file', 'softicon-flipbook'), value: 'pdf', icon: icons.pdf },
+	{ label: __('Images', 'softicon-flipbook'), value: 'images', icon: icons.images }
 ];
 
 // tutorial videos on the SoftIcon YouTube channel (the Plugins screen links the playlist from includes/videos.php)
@@ -21,11 +27,14 @@ export const videos = {
 };
 
 export const designs = [
-	{ label: __('Classic', 'softicon-flipbook'), value: 'flat' },
-	{ label: __('Hardcover book', 'softicon-flipbook'), value: 'hardcover' }
+	{ label: __('Classic', 'softicon-flipbook'), value: 'flat', icon: icons.classic },
+	{ label: __('Hardcover', 'softicon-flipbook'), value: 'hardcover', icon: icons.hardcover }
 ];
 
-export const sources = [
-	{ label: __('PDF file', 'softicon-flipbook'), value: 'pdf' },
-	{ label: __('Images', 'softicon-flipbook'), value: 'images' }
+// the cards in the Help panel
+export const helpCards = [
+	{ href: 'https://www.youtube.com/playlist?list=PLJEAefIarF4g', label: __('Video tutorials', 'softicon-flipbook'), icon: icons.video },
+	{ href: 'https://wordpress.org/support/plugin/softicon-flipbook/', label: __('Get support', 'softicon-flipbook'), icon: icons.support },
+	{ href: 'https://wordpress.org/support/plugin/softicon-flipbook/reviews/#new-post', label: __('Rate Flipbook', 'softicon-flipbook'), icon: icons.star },
+	{ href: 'https://wordpress.org/plugins/author/softiconai/', label: __('More plugins', 'softicon-flipbook'), icon: icons.plugins }
 ];

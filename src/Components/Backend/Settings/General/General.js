@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { Button, ExternalLink, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
-import { Panel } from '../Panel';
-import { pageModes, sources, videos } from '../../../../utils/options';
+import { Button, TextControl } from '@wordpress/components';
+import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../Panel';
+import { helpCards, pageModes, sources } from '../../../../utils/options';
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
 	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, flipSound } = attributes;
@@ -18,17 +18,23 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 	})();
 
 	return <>
-		<Panel id='source' title={__('Source', 'softicon-flipbook')}>
-			<SelectControl label={__('Pages from', 'softicon-flipbook')} value={source} options={sources} onChange={set('source')} __nextHasNoMarginBottom />
+		<Panel id='help' title={__('Help', 'softicon-flipbook')}>
+			<HelpCards cards={helpCards} />
+			<p className='alfbHelp'>{__('Email:', 'softicon-flipbook')} <a href='mailto:softiconai@gmail.com'>softiconai@gmail.com</a></p>
+		</Panel>
 
-			{'pdf' === source ? <div>
-				{fileName && <p><strong>{fileName}</strong></p>}
+		<Panel id='source' title={__('Source', 'softicon-flipbook')}>
+			<Tiles label={__('Pages from', 'softicon-flipbook')} value={source} options={sources} onChange={set('source')} />
+
+			{'pdf' === source ? <div className='alfbStack'>
+				<FieldHead label={__('PDF', 'softicon-flipbook')} tip={__('PDFs from your Media Library always work. A link to a PDF on another website works only if that site allows it.', 'softicon-flipbook')} />
+				{fileName && <p className='alfbFile'>{fileName}</p>}
 				<MediaUploadCheck>
 					<MediaUpload allowedTypes={['application/pdf']} value={pdfId} onSelect={onSelectPdf}
 						render={({ open }) => <Button variant='secondary' onClick={open}>{pdfUrl ? __('Replace PDF', 'softicon-flipbook') : __('Choose PDF', 'softicon-flipbook')}</Button>} />
 				</MediaUploadCheck>
-				<p className='alfbHelp'>{__('PDFs from your Media Library always work. A link to a PDF on another website works only if that site allows it.', 'softicon-flipbook')}</p>
-			</div> : <div>
+			</div> : <div className='alfbStack'>
+				<FieldHead label={__('Pages', 'softicon-flipbook')} tip={__('Each image is one page. Drag them in the media window to change the order.', 'softicon-flipbook')} />
 				{!!images.length && <div className='alfbImages'>
 					{images.slice(0, 8).map(image => <img key={image.id || image.url} src={image.url} alt='' />)}
 				</div>}
@@ -36,41 +42,30 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 					<MediaUpload allowedTypes={['image']} multiple gallery value={images.map(image => image.id)} onSelect={onSelectImages}
 						render={({ open }) => <Button variant='secondary' onClick={open}>{images.length ? __('Edit pages', 'softicon-flipbook') : __('Choose images', 'softicon-flipbook')}</Button>} />
 				</MediaUploadCheck>
-				<p className='alfbHelp'>{__('Each image is one page. Drag them in the media window to change the order.', 'softicon-flipbook')}</p>
 			</div>}
 		</Panel>
 
 		<Panel id='pages' title={__('Pages', 'softicon-flipbook')}>
-			<SelectControl label={__('Layout', 'softicon-flipbook')} value={pageMode} options={pageModes} onChange={set('pageMode')} __nextHasNoMarginBottom />
+			<Tiles label={__('Layout', 'softicon-flipbook')} tip={__('Auto shows two pages side by side on wide screens and one page on phones. Or keep one layout everywhere.', 'softicon-flipbook')} value={pageMode} options={pageModes} onChange={set('pageMode')} />
 
-			<ToggleControl label={__('Cover page', 'softicon-flipbook')} help={__('The first and last pages turn on their own, like a printed book.', 'softicon-flipbook')} checked={showCover} onChange={set('showCover')} __nextHasNoMarginBottom />
+			<ToggleRow label={__('Cover page', 'softicon-flipbook')} tip={__('The first and last pages turn on their own, like a printed book.', 'softicon-flipbook')} checked={showCover} onChange={set('showCover')} />
 
-			<TextControl type='number' min={1} label={__('Open at page', 'softicon-flipbook')} value={startPage} onChange={val => setAttributes({ startPage: Math.max(1, parseInt(val, 10) || 1) })} __nextHasNoMarginBottom />
+			<div>
+				<FieldHead label={__('Open at page', 'softicon-flipbook')} tip={__('The book opens at this page. A link ending in #page=5 opens it at page 5.', 'softicon-flipbook')} />
+				<TextControl type='number' min={1} label={__('Open at page', 'softicon-flipbook')} hideLabelFromVision value={startPage} onChange={val => setAttributes({ startPage: Math.max(1, parseInt(val, 10) || 1) })} __nextHasNoMarginBottom />
+			</div>
 		</Panel>
 
 		<Panel id='toolbar' title={__('Toolbar', 'softicon-flipbook')}>
-			{'pdf' === source && <ToggleControl label={__('Download button', 'softicon-flipbook')} checked={showDownload} onChange={set('showDownload')} __nextHasNoMarginBottom />}
+			{'pdf' === source && <ToggleRow label={__('Download button', 'softicon-flipbook')} tip={__('Lets visitors save the PDF.', 'softicon-flipbook')} checked={showDownload} onChange={set('showDownload')} />}
 
-			<ToggleControl label={__('Fullscreen button', 'softicon-flipbook')} checked={showFullscreen} onChange={set('showFullscreen')} __nextHasNoMarginBottom />
+			<ToggleRow label={__('Fullscreen button', 'softicon-flipbook')} tip={__('Fits the book to the screen and redraws the pages sharper.', 'softicon-flipbook')} checked={showFullscreen} onChange={set('showFullscreen')} />
 
-			<ToggleControl label={__('Thumbnails', 'softicon-flipbook')} help={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} __nextHasNoMarginBottom />
+			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />
 
-			<ToggleControl label={__('Zoom', 'softicon-flipbook')} help={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} __nextHasNoMarginBottom />
+			<ToggleRow label={__('Zoom', 'softicon-flipbook')} tip={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} />
 
-			<ToggleControl label={__('Page turn sound', 'softicon-flipbook')} help={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} __nextHasNoMarginBottom />
-		</Panel>
-
-		<Panel id='help' title={__('Help', 'softicon-flipbook')}>
-			<p className='alfbHelp'>{__('Video tutorials, under a minute each:', 'softicon-flipbook')}</p>
-			<ul className='alfbLinks'>
-				<li><ExternalLink href={videos.overview}>{__('Overview', 'softicon-flipbook')}</ExternalLink></li>
-				<li><ExternalLink href={videos.add}>{__('Add a flipbook', 'softicon-flipbook')}</ExternalLink></li>
-				<li><ExternalLink href={videos.design}>{__('Hardcover design', 'softicon-flipbook')}</ExternalLink></li>
-				<li><ExternalLink href={videos.reading}>{__('Zoom, thumbnails and page links', 'softicon-flipbook')}</ExternalLink></li>
-			</ul>
-			<p className='alfbHelp'>
-				{__('Still stuck? Ask in the', 'softicon-flipbook')} <ExternalLink href='https://wordpress.org/support/plugin/softicon-flipbook/'>{__('support forum', 'softicon-flipbook')}</ExternalLink> {__('or email softiconai@gmail.com.', 'softicon-flipbook')}
-			</p>
+			<ToggleRow label={__('Page turn sound', 'softicon-flipbook')} tip={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} />
 		</Panel>
 	</>;
 };
