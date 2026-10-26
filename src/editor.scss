@@ -42,6 +42,15 @@ $si-cyan: #06b6d4;
 $si-tint: #eef2ff;
 $si-line: #e3e7ff;
 
+// with a flipbook selected the whole block sidebar (also WordPress's Dimensions panel) uses the brand color
+.block-editor-block-inspector:has(.alfbTabs),
+.alfbTabs {
+	--wp-admin-theme-color: #{$si-indigo};
+	--wp-admin-theme-color--rgb: 79, 70, 229;
+	--wp-admin-theme-color-darker-10: #{$si-indigo-dark};
+	--wp-admin-theme-color-darker-20: #3730a3;
+}
+
 .alfbTabs {
 	// WordPress buttons, toggles, focus rings and links in here use the brand color
 	--wp-admin-theme-color: #{$si-indigo};
@@ -241,4 +250,187 @@ $si-line: #e3e7ff;
 .alfbColorPopover {
 	width: 260px;
 	padding: 16px;
+}
+
+// a field name with its (i) tip
+.alfbFieldHead {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 8px;
+}
+
+.alfbFieldLabel {
+	color: #1e1e1e;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1.4;
+	text-transform: uppercase;
+}
+
+.alfbTip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	color: #8c8f94;
+	background: none;
+	cursor: help;
+
+	svg {
+		width: 16px;
+		height: 16px;
+		fill: currentColor;
+	}
+
+	&:hover,
+	&:focus-visible {
+		color: $si-indigo;
+		background: $si-tint;
+		outline: none;
+	}
+}
+
+.alfbToggleRow {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+
+	.components-toggle-control {
+		margin: 0;
+	}
+}
+
+// choices as icon tiles
+.alfbTilesGrid {
+	display: grid;
+	gap: 8px;
+}
+
+.alfbTile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-height: 68px;
+	margin: 0;
+	padding: 10px 6px;
+	border: 1px solid #dcdcde;
+	border-radius: 10px;
+	color: #3c434a;
+	background: #fff;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.2;
+	text-align: center;
+	cursor: pointer;
+	transition: border-color 0.15s, background 0.15s, color 0.15s, box-shadow 0.15s;
+
+	svg {
+		width: 24px;
+		height: 24px;
+		fill: currentColor;
+	}
+
+	&:hover {
+		border-color: $si-indigo;
+		color: $si-indigo;
+		background: $si-tint;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $si-indigo;
+		outline-offset: 2px;
+	}
+
+	&.is-selected {
+		border-color: transparent;
+		color: #fff;
+		background: linear-gradient(135deg, $si-indigo, #6366f1);
+		box-shadow: 0 6px 14px rgba(79, 70, 229, 0.28);
+	}
+}
+
+.alfbFile {
+	color: #1e1e1e;
+	font-weight: 600;
+}
+
+// a small tag on a panel title, like "New"
+.alfbBadge {
+	margin-left: 8px;
+	padding: 2px 7px;
+	border: 1px solid #a5f3fc;
+	border-radius: 999px;
+	color: #0e7490;
+	background: #ecfeff;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	vertical-align: 1px;
+}
+
+// help links as cards
+.alfbHelpCards {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+}
+
+.alfbHelpCard {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-height: 86px;
+	padding: 12px 8px;
+	border-radius: 10px;
+	color: #fff !important;
+	background: linear-gradient(135deg, $si-indigo, #6366f1);
+	box-shadow: 0 6px 14px rgba(79, 70, 229, 0.22);
+	font-size: 12.5px;
+	font-weight: 600;
+	text-align: center;
+	text-decoration: none;
+	transition: transform 0.15s, box-shadow 0.15s;
+
+	svg {
+		width: 26px;
+		height: 26px;
+		fill: currentColor;
+	}
+
+	&:hover,
+	&:focus-visible {
+		color: #fff;
+		transform: translateY(-2px);
+		box-shadow: 0 10px 20px rgba(79, 70, 229, 0.32);
+	}
+
+	&:focus-visible {
+		outline: 2px solid $si-cyan;
+		outline-offset: 2px;
+	}
+}
+
+// the tip's text: wraps instead of running off the sidebar, in the brand's dark indigo
+.components-tooltip.alfbTipBubble {
+	max-width: 240px;
+	padding: 8px 11px;
+	border-radius: 8px;
+	background: #1e1b4b;
+	color: #eef2ff;
+	font-size: 12px;
+	line-height: 1.45;
+	text-align: left;
+	white-space: normal;
+	box-shadow: 0 8px 20px rgba(30, 27, 75, 0.25);
 }
