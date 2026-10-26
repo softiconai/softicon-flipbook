@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { icons } from './icons';
+import { icons as shared } from '../vendor/softicon-tools/components/icons';
 
 export const tabs = [
 	{ name: 'general', title: __('General', 'softicon-flipbook'), className: 'general' },
@@ -33,8 +34,8 @@ export const designs = [
 
 // the cards in the Help panel
 export const helpCards = [
-	{ href: 'https://www.youtube.com/playlist?list=PLJEAefIarF4g', label: __('Video tutorials', 'softicon-flipbook'), icon: icons.video },
-	{ href: 'https://wordpress.org/support/plugin/softicon-flipbook/', label: __('Get support', 'softicon-flipbook'), icon: icons.support },
-	{ href: 'https://wordpress.org/support/plugin/softicon-flipbook/reviews/#new-post', label: __('Rate Flipbook', 'softicon-flipbook'), icon: icons.star },
-	{ href: 'https://wordpress.org/plugins/author/softiconai/', label: __('More plugins', 'softicon-flipbook'), icon: icons.plugins }
+	{ href: 'https://www.youtube.com/playlist?list=PLJEAefIarF4g', label: __('Video tutorials', 'softicon-flipbook'), icon: shared.video },
+	{ href: 'https://wordpress.org/support/plugin/softicon-flipbook/', label: __('Get support', 'softicon-flipbook'), icon: shared.support },
+	{ href: 'https://wordpress.org/support/plugin/softicon-flipbook/reviews/#new-post', label: __('Rate Flipbook', 'softicon-flipbook'), icon: shared.star },
+	{ href: 'https://wordpress.org/plugins/author/softiconai/', label: __('More plugins', 'softicon-flipbook'), icon: shared.plugins }
 ];

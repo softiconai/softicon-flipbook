@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { ExternalLink, RangeControl } from '@wordpress/components';
 import { designs, videos } from '../../../../utils/options';
-import { ColorRow, FieldHead, Panel, Tiles, ToggleRow } from '../Panel';
+import { ColorRow, FieldHead, Panel, Reset, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 
 const Style = ({ attributes, setAttributes }) => {
 	const { maxHeight, bookStyle, sideArrows } = attributes;
@@ -22,13 +22,14 @@ const Style = ({ attributes, setAttributes }) => {
 
 		<Panel id='size' title={__('Size', 'softicon-flipbook')}>
 			<div>
-				<FieldHead label={__('Maximum height (px)', 'softicon-flipbook')} tip={__('The book keeps the page shape and shrinks to fit smaller screens.', 'softicon-flipbook')} />
+				<FieldHead label={__('Maximum height (px)', 'softicon-flipbook')} tip={__('The book keeps the page shape and shrinks to fit smaller screens.', 'softicon-flipbook')}
+					action={<Reset onClick={() => setAttributes({ maxHeight: 700 })} disabled={700 === maxHeight} />} />
 				<RangeControl label={__('Maximum height (px)', 'softicon-flipbook')} hideLabelFromVision value={maxHeight} onChange={val => setAttributes({ maxHeight: val || 700 })} min={300} max={1400} step={10} __nextHasNoMarginBottom />
 			</div>
 		</Panel>
 
 		<Panel id='colors' title={__('Colors', 'softicon-flipbook')}>
-			<div className='alfbColors'>
+			<div className='siColors'>
 				{hardcover && <ColorRow label={__('Cover', 'softicon-flipbook')} {...color('coverColor')} />}
 				<ColorRow label={__('Background', 'softicon-flipbook')} {...color('bgColor')} />
 				<ColorRow label={__('Toolbar background', 'softicon-flipbook')} {...color('toolbarBg')} />

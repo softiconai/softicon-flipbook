@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, TextControl } from '@wordpress/components';
-import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../Panel';
+import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources } from '../../../../utils/options';
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {

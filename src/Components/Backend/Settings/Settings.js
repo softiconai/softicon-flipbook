@@ -3,12 +3,12 @@ import { TabPanel } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import General from './General/General';
 import Style from './Style/Style';
-import { PanelGroup } from './Panel';
+import { PanelGroup } from '../../../vendor/softicon-tools/components/Panels';
 import { tabs } from '../../../utils/options';
 
 const Settings = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
 	return <InspectorControls>
-		<TabPanel className='alfbTabs' tabs={tabs}>
+		<TabPanel className='siSettings' tabs={tabs}>
 			{(tab) => <PanelGroup key={tab.name} initial={'style' === tab.name ? 'design' : 'source'}>
 				{'general' === tab.name && <General {...{ attributes, setAttributes, onSelectPdf, onSelectImages }} />}
 

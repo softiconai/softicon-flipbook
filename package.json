@@ -8,7 +8,7 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"format": "wp-scripts format",
-		"tools": "[ -d ../softicon-tools ] && mkdir -p src/vendor/softicon-tools/hooks && cp ../softicon-tools/hooks/useIframeAssets.js src/vendor/softicon-tools/hooks/ || true",
+		"tools": "[ -d ../softicon-tools ] && node ../softicon-tools/sync.js src/vendor/softicon-tools softicon-flipbook || true",
 		"prestart": "npm run -s tools",
 		"prebuild": "npm run -s tools",
 		"start": "wp-scripts start --webpack-copy-php",
