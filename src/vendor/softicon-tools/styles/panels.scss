@@ -16,6 +16,20 @@ $si-line: #b0e6d2 !default;
 	--wp-components-color-accent: #{$si-accent};
 	--wp-components-color-accent-darker-10: #{$si-accent-dark};
 	--wp-components-color-accent-darker-20: #065f46;
+	// and newer WordPress (design tokens) for focus rings, toggles and brand borders
+	--wpds-color-stroke-focus: #{$si-accent};
+	--wpds-color-background-interactive-brand-strong: #{$si-accent};
+	--wpds-color-background-interactive-brand-strong-active: #{$si-accent-dark};
+	--wpds-color-background-interactive-brand-weak-active: #{$si-tint};
+	--wpds-color-background-surface-brand: #{$si-tint};
+	--wpds-color-background-thumb-brand: #{$si-accent};
+	--wpds-color-background-thumb-brand-active: #{$si-accent};
+	--wpds-color-foreground-interactive-brand: #{$si-accent};
+	--wpds-color-foreground-interactive-brand-active: #{$si-accent-dark};
+	--wpds-color-stroke-interactive-brand: #{$si-accent};
+	--wpds-color-stroke-interactive-brand-active: #{$si-accent-dark};
+	--wpds-color-stroke-surface-brand: #{$si-line};
+	--wpds-color-stroke-surface-brand-strong: #{$si-accent};
 }
 
 .siSettings {
@@ -294,14 +308,15 @@ $si-line: #b0e6d2 !default;
 }
 
 // a small tag on a panel title, like "New"
+// solid, so it stands out on the light header of an open panel too
 .siBadge {
 	margin-left: 8px;
-	padding: 2px 7px;
-	border: 1px solid $si-line;
+	padding: 3px 8px;
 	border-radius: 999px;
-	color: $si-accent;
-	background: $si-tint;
+	color: #fff;
+	background: $si-accent;
 	font-size: 10px;
+	line-height: 1.2;
 	font-weight: 700;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
