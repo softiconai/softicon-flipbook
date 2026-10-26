@@ -1,15 +1,7 @@
-.alfbMt {
-	margin-top: 16px;
-}
-
 .alfbHelp {
 	margin: 8px 0 0;
 	color: #757575;
 	font-size: 12px;
-}
-
-.alfbHelpTitle {
-	margin-top: 0;
 }
 
 .alfbLinks {
@@ -41,4 +33,212 @@
 		object-fit: cover;
 		border-radius: 2px;
 	}
+}
+
+// SoftIcon brand for the block settings: indigo, with cyan as the second color
+$si-indigo: #4f46e5;
+$si-indigo-dark: #4338ca;
+$si-cyan: #06b6d4;
+$si-tint: #eef2ff;
+$si-line: #e3e7ff;
+
+.alfbTabs {
+	// WordPress buttons, toggles, focus rings and links in here use the brand color
+	--wp-admin-theme-color: #{$si-indigo};
+	--wp-admin-theme-color--rgb: 79, 70, 229;
+	--wp-admin-theme-color-darker-10: #{$si-indigo-dark};
+	--wp-admin-theme-color-darker-20: #3730a3;
+
+	// two equal tabs, the active one underlined with the brand gradient
+	.components-tab-panel__tabs {
+		display: flex;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.components-tab-panel__tabs-item {
+		flex: 1;
+		justify-content: center;
+		height: 48px;
+		color: #50575e;
+		font-weight: 500;
+
+		// only the active tab is underlined
+		&::after {
+			height: 3px;
+			background: transparent;
+		}
+
+		&.is-active {
+			color: $si-indigo;
+			font-weight: 600;
+
+			&::after {
+				background: linear-gradient(90deg, $si-indigo, $si-cyan);
+			}
+		}
+
+		&:hover:not(.is-active) {
+			color: $si-indigo;
+		}
+	}
+
+	a,
+	.components-external-link {
+		color: $si-indigo;
+	}
+
+	.components-toggle-control .components-form-toggle.is-checked .components-form-toggle__track {
+		background: $si-indigo;
+		border-color: $si-indigo;
+	}
+}
+
+// one panel open at a time; the open one is tinted and marked with a brand bar
+.alfbPanel {
+	position: relative;
+	transition: background-color 0.2s;
+
+	> .components-panel__body-title .components-panel__body-toggle {
+		font-weight: 600;
+		transition: color 0.15s, background-color 0.15s;
+	}
+
+	&:not(.is-opened) > .components-panel__body-title:hover {
+		background: #f6f7ff;
+
+		.components-panel__body-toggle {
+			color: $si-indigo;
+		}
+	}
+
+	&.is-opened {
+		background: linear-gradient(180deg, $si-tint 0, #fff 56px);
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			width: 3px;
+			background: linear-gradient(180deg, $si-indigo, $si-cyan);
+		}
+
+		> .components-panel__body-title {
+			background: transparent;
+
+			.components-panel__body-toggle,
+			.components-panel__arrow {
+				color: $si-indigo;
+			}
+		}
+	}
+}
+
+// controls inside a panel, evenly spaced; WordPress margins are replaced by the gap
+.alfbFields {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 4px 0 8px;
+
+	> *,
+	.components-base-control,
+	.components-base-control__field {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.components-base-control__help {
+		margin-top: 6px;
+		margin-bottom: 0;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.alfbHelp + .alfbLinks {
+		margin-top: -10px;
+	}
+}
+
+// a file name, its button and a hint, kept close together
+.alfbStack {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+
+	p {
+		margin: 0;
+		word-break: break-all;
+	}
+
+	.alfbHelp {
+		margin: 0;
+	}
+}
+
+// color settings: one row per color, the palette opens in a popover
+.alfbColors {
+	border: 1px solid $si-line;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.alfbColorRow {
+	display: block;
+
+	& + & {
+		border-top: 1px solid $si-line;
+	}
+}
+
+.alfbColorToggle.components-button {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	height: 44px;
+	padding: 0 12px;
+	color: #1e1e1e;
+
+	&:hover,
+	&[aria-expanded="true"] {
+		background: $si-tint;
+		color: $si-indigo;
+	}
+
+	.component-color-indicator {
+		flex: none;
+		width: 22px;
+		height: 22px;
+		margin: 0;
+		border-radius: 50%;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+
+		&.is-empty {
+			background: repeating-conic-gradient(#e0e0e0 0% 25%, #fff 0% 50%) 50% / 8px 8px;
+		}
+	}
+
+	span {
+		flex: 1;
+		text-align: left;
+	}
+
+	code {
+		padding: 2px 6px;
+		border-radius: 4px;
+		background: #f0f0f1;
+		color: #50575e;
+		font-size: 11px;
+	}
+}
+
+.alfbColorPopover {
+	width: 260px;
+	padding: 16px;
 }

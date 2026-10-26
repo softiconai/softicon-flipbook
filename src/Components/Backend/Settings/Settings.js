@@ -3,19 +3,20 @@ import { TabPanel } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import General from './General/General';
 import Style from './Style/Style';
+import { PanelGroup } from './Panel';
 import { tabs } from '../../../utils/options';
 
 const Settings = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
 	return <InspectorControls>
 		<TabPanel className='alfbTabs' tabs={tabs}>
-			{(tab) => <>
+			{(tab) => <PanelGroup key={tab.name} initial={'style' === tab.name ? 'design' : 'source'}>
 				{'general' === tab.name && <General {...{ attributes, setAttributes, onSelectPdf, onSelectImages }} />}
 
 				{'style' === tab.name && <Style {...{ attributes, setAttributes }} />}
 
 				{/* Add-ons append their own panels to either tab. */}
 				{applyFilters('alfb.block.inspector', null, { tab: tab.name, attributes, setAttributes })}
-			</>}
+			</PanelGroup>}
 		</TabPanel>
 	</InspectorControls>;
 };
