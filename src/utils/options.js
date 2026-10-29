@@ -24,7 +24,8 @@ export const videos = {
 	overview: 'https://www.youtube.com/watch?v=5geq69DXoN8' + LIST,
 	add: 'https://www.youtube.com/watch?v=KGP_xpi8NGo' + LIST,
 	design: 'https://www.youtube.com/watch?v=qqQeZQkX5ms' + LIST,
-	reading: 'https://www.youtube.com/watch?v=1J7wCaUvugc' + LIST
+	reading: 'https://www.youtube.com/watch?v=1J7wCaUvugc' + LIST,
+	lightbox: 'https://www.youtube.com/watch?v=XBJuUV9HpkA' + LIST
 };
 
 export const designs = [

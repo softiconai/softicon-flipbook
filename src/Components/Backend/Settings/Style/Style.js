@@ -51,6 +51,8 @@ const Style = ({ attributes, setAttributes }) => {
 
 				<Tiles label={__('Alignment', 'softicon-flipbook')} value={lightboxAlign} options={aligns} onChange={set('lightboxAlign')} />
 			</>}
+
+			<p className='alfbHelp'><ExternalLink href={videos.lightbox}>{__('See the lightbox in action', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>
 
 		<Panel id='design' title={__('Design', 'softicon-flipbook')}>
