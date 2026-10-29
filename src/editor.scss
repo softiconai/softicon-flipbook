@@ -49,3 +49,22 @@
 	color: #1e1e1e;
 	font-weight: 600;
 }
+
+.alfbCoverThumb {
+	display: block;
+	max-width: 96px;
+	max-height: 128px;
+	border-radius: 2px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.alfbButtons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+// the cover is a preview, not a link in the editor
+.wp-block-softicon-flipbook .alfb_lb_trigger {
+	cursor: default;
+}

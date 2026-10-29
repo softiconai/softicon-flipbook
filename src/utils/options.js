@@ -32,6 +32,18 @@ export const designs = [
 	{ label: __('Hardcover', 'softicon-flipbook'), value: 'hardcover', icon: icons.hardcover }
 ];
 
+export const lightboxTriggers = [
+	{ label: __('Cover', 'softicon-flipbook'), value: 'cover', icon: icons.cover },
+	{ label: __('Button', 'softicon-flipbook'), value: 'button', icon: icons.button },
+	{ label: __('Text link', 'softicon-flipbook'), value: 'text', icon: icons.text }
+];
+
+export const aligns = [
+	{ label: __('Left', 'softicon-flipbook'), value: 'left', icon: icons.alignLeft },
+	{ label: __('Center', 'softicon-flipbook'), value: 'center', icon: icons.alignCenter },
+	{ label: __('Right', 'softicon-flipbook'), value: 'right', icon: icons.alignRight }
+];
+
 // the cards in the Help panel
 export const helpCards = [
 	{ href: 'https://www.youtube.com/playlist?list=PLJEAefIarF4g', label: __('Video tutorials', 'softicon-flipbook'), icon: shared.video },

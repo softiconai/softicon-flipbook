@@ -5,6 +5,7 @@ import { Button, ExternalLink, ToolbarButton } from '@wordpress/components';
 // copied from the shared softicon-tools folder by `npm run tools` (prebuild), edit it there
 import useIframeAssets from '../../vendor/softicon-tools/hooks/useIframeAssets';
 import Settings from './Settings/Settings';
+import LightboxPreview from './LightboxPreview';
 import Flipbook from '../../viewer/Flipbook';
 import { blockIcon } from '../../utils/icons';
 import { cssVars, hasContent, toConfig, toImage } from '../../utils/functions';
@@ -22,7 +23,8 @@ const useDebounced = (value, delay) => {
 
 const Edit = (props) => {
 	const { attributes, setAttributes } = props;
-	const { source, pdfId, pdfUrl, images } = attributes;
+	const { source, pdfId, pdfUrl, images, displayMode } = attributes;
+	const lightbox = 'lightbox' === displayMode;
 	const host = useRef();
 	const root = useRef();
 	// a block installed from the inserter's search gets these only in the top window
@@ -39,7 +41,7 @@ const Edit = (props) => {
 		const el = host.current;
 		const config = JSON.parse(configKey);
 		// the debounced config can still be the empty one right after a file is picked
-		if (!ready || !el || !('images' === config.source ? config.images.length : config.pdf)) {
+		if (!ready || lightbox || !el || !('images' === config.source ? config.images.length : config.pdf)) {
 			return;
 		}
 		const doc = el.ownerDocument;
@@ -58,7 +60,7 @@ const Edit = (props) => {
 			el.replaceChildren();
 			root.current = null;
 		};
-	}, [configKey, ready]);
+	}, [configKey, ready, lightbox]);
 
 	// colors change live, no need to reload the book
 	const applyColors = () => {
@@ -103,7 +105,7 @@ const Edit = (props) => {
 		</BlockControls>
 
 		<div {...useBlockProps({ ref: assetsRef })}>
-			<div ref={host} />
+			{lightbox ? <LightboxPreview attributes={attributes} /> : <div ref={host} />}
 		</div>
 	</>;
 };
