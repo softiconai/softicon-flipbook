@@ -116,4 +116,43 @@ class block {
 
         return apply_filters( 'alfb_config', $config, $attributes );
     }
+
+    // what opens the lightbox; the cover is the chosen image, else WordPress's preview of the PDF
+    // (servers with Imagick make one on upload), else the first page image, else view.js draws page 1
+    public static function lightbox( $attributes, $config ) {
+        $trigger = isset( $attributes['lightboxTrigger'] ) && in_array( $attributes['lightboxTrigger'], array( 'cover', 'button', 'text' ), true ) ? $attributes['lightboxTrigger'] : 'cover';
+        $align   = isset( $attributes['lightboxAlign'] ) && in_array( $attributes['lightboxAlign'], array( 'left', 'center', 'right' ), true ) ? $attributes['lightboxAlign'] : 'center';
+        $text    = isset( $attributes['lightboxText'] ) ? trim( sanitize_text_field( $attributes['lightboxText'] ) ) : '';
+
+        $image = '';
+        $alt   = '';
+        if ( 'cover' === $trigger ) {
+            $chosen = isset( $attributes['lightboxImage'] ) && is_array( $attributes['lightboxImage'] ) ? $attributes['lightboxImage'] : array();
+            $id     = isset( $chosen['id'] ) ? absint( $chosen['id'] ) : 0;
+            if ( $id && wp_attachment_is_image( $id ) ) {
+                $src   = wp_get_attachment_image_src( $id, 'large' );
+                $image = $src ? $src[0] : '';
+                $alt   = (string) get_post_meta( $id, '_wp_attachment_image_alt', true );
+            } elseif ( ! empty( $chosen['url'] ) ) {
+                $image = esc_url_raw( $chosen['url'] );
+            } elseif ( 'pdf' === $config['source'] && ! empty( $attributes['pdfId'] ) ) {
+                $src   = wp_get_attachment_image_src( absint( $attributes['pdfId'] ), 'large' );
+                $image = $src ? $src[0] : '';
+            } elseif ( 'images' === $config['source'] ) {
+                $image = $config['images'][0]['url'];
+                $alt   = $config['images'][0]['alt'];
+            }
+        }
+
+        return array(
+            'trigger' => $trigger,
+            'align'   => $align,
+            'text'    => $text,
+            'image'   => $image,
+            'alt'     => $alt,
+            'width'   => isset( $attributes['lightboxWidth'] ) ? min( 600, max( 120, absint( $attributes['lightboxWidth'] ) ) ) : 260,
+            // without JavaScript the trigger still opens the PDF or the first page
+            'href'    => 'pdf' === $config['source'] ? $config['pdf'] : $config['images'][0]['url'],
+        );
+    }
 }

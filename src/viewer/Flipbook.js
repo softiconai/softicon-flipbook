@@ -51,6 +51,30 @@ class JsonDataFactory {
 	}
 }
 
+// starts loading a PDF; the task's promise gives the document (also used for the lightbox cover)
+export const openDocument = async (url, doc) => {
+	const base = __webpack_public_path__ + 'pdfjs/';
+	const pdfjs = await import(/* webpackChunkName: "pdfjs" */ 'pdfjs-dist/legacy/build/pdf.mjs');
+	pdfjs.GlobalWorkerOptions.workerSrc = base + 'pdf.worker.min.js';
+
+	return pdfjs.getDocument({
+		url,
+		cMapUrl: base + 'cmaps/',
+		cMapPacked: true,
+		standardFontDataUrl: base + 'standard_fonts/',
+		BinaryDataFactory: JsonDataFactory,
+		// JavaScript image decoders instead of WebAssembly
+		useWasm: false,
+		wasmUrl: base + 'decoders/',
+		// load the PDF fonts into the document that holds the canvases (the editor canvas is an iframe)
+		ownerDocument: doc,
+		// big files stream in, only the pages being shown are fetched
+		disableAutoFetch: true,
+		// pdf.js warnings (missing system fonts, JS fallbacks) are not useful to site visitors
+		verbosity: pdfjs.VerbosityLevel.ERRORS
+	});
+};
+
 export default class Flipbook {
 	constructor(root, config, { editor = false } = {}) {
 		this.root = root;
@@ -85,26 +109,7 @@ export default class Flipbook {
 	}
 
 	async openPdf() {
-		const base = __webpack_public_path__ + 'pdfjs/';
-		const pdfjs = await import(/* webpackChunkName: "pdfjs" */ 'pdfjs-dist/legacy/build/pdf.mjs');
-		pdfjs.GlobalWorkerOptions.workerSrc = base + 'pdf.worker.min.js';
-
-		this.task = pdfjs.getDocument({
-			url: this.config.pdf,
-			cMapUrl: base + 'cmaps/',
-			cMapPacked: true,
-			standardFontDataUrl: base + 'standard_fonts/',
-			BinaryDataFactory: JsonDataFactory,
-			// JavaScript image decoders instead of WebAssembly
-			useWasm: false,
-			wasmUrl: base + 'decoders/',
-			// load the PDF fonts into the document that holds the canvases (the editor canvas is an iframe)
-			ownerDocument: this.doc,
-			// big files stream in, only the pages being shown are fetched
-			disableAutoFetch: true,
-			// pdf.js warnings (missing system fonts, JS fallbacks) are not useful to site visitors
-			verbosity: pdfjs.VerbosityLevel.ERRORS
-		});
+		this.task = await openDocument(this.config.pdf, this.doc);
 		this.pdf = await this.task.promise;
 		this.count = this.pdf.numPages;
 
@@ -122,8 +127,8 @@ export default class Flipbook {
 
 	build(PageFlip, size) {
 		const { pageMode, showCover, maxHeight } = this.config;
-		// a #page=5 link opens the first flipbook on the page there
-		const first = this.doc.querySelector('.alfb_wrapper[data-alfb]') === this.root;
+		// a #page=5 link opens the first flipbook on the page there (a lightbox passes the page as startPage)
+		const first = this.doc.querySelector('.alfb_wrapper[data-alfb], .alfb_lb[data-alfb]') === this.root;
 		const startPage = (!this.editor && first && linkedPage(this.win)) || this.config.startPage;
 		const ratio = size.width / size.height;
 		const maxWidth = Math.max(100, Math.floor(maxHeight * ratio));
@@ -179,6 +184,8 @@ export default class Flipbook {
 		// page-flip sets a min-width that overflows small phones
 		this.book.style.minWidth = '0px';
 		this.book.style.maxWidth = this.bookMaxWidth() + 'px';
+		// the lightbox sizes its box to the book
+		this.root.style.setProperty('--alfb-book-width', this.book.style.maxWidth);
 
 		this.flip.on('flip', () => this.onChange());
 		this.flip.on('changeOrientation', () => this.onChange());
@@ -536,8 +543,22 @@ export default class Flipbook {
 			settings.maxWidth = this.maxWidth;
 			settings.maxHeight = this.config.maxHeight;
 		}
+		// one page mode stays one page however wide the book gets
+		if ('single' === this.config.pageMode) {
+			settings.minWidth = settings.maxWidth;
+		}
 		this.book.style.maxWidth = this.bookMaxWidth() + 'px';
+		this.root.style.setProperty('--alfb-book-width', this.book.style.maxWidth);
 		this.refresh();
+	}
+
+	// a new maximum height, the lightbox fits the book to the window
+	setHeight(maxHeight) {
+		this.config.maxHeight = maxHeight;
+		this.maxWidth = Math.max(100, Math.floor(maxHeight * this.ratio));
+		if (this.flip && !this.root.classList.contains('alfb_is_fullscreen')) {
+			this.setFullscreen(false);
+		}
 	}
 
 	refresh() {
@@ -558,6 +579,8 @@ export default class Flipbook {
 				// the thumbnail panel covers the book, only Escape acts on it
 				if (this.thumbs?.open) {
 					if ('Escape' === event.key) {
+						// preventDefault keeps a lightbox around the book open
+						event.preventDefault();
 						this.thumbs.close(true);
 					}
 					return;
@@ -572,8 +595,10 @@ export default class Flipbook {
 				} else if (zoomKey && '-' === event.key) {
 					this.zoom.step(-1);
 				} else if ('Escape' === event.key && this.zoom?.active) {
+					event.preventDefault();
 					this.zoom.set(1);
 				} else if ('Escape' === event.key && this.root.classList.contains('alfb_overlay')) {
+					event.preventDefault();
 					this.setFullscreen(false);
 				}
 			});

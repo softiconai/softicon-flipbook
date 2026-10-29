@@ -16,5 +16,11 @@ export const icons = {
 	twoPages: icon('M2.5 5h8.5v14H2.5zM4 6.5v11h5.5v-11zM13 5h8.5v14H13zm1.5 1.5v11H20v-11z', true),
 	onePage: icon('M6.5 3h11v18h-11zM8 4.5v15h8v-15zM10 8h4v1.5h-4zm0 3h4v1.5h-4z', true),
 	classic: icon('M3 6.5h8.25v11H3zM4.5 8v8h5.25V8zM12.75 6.5H21v11h-8.25zm1.5 1.5v8h5.25V8z', true),
-	hardcover: icon('M1.5 4.5h21v15h-21zM3 6v12h8.25V6zm9.75 0v12H21V6z', true)
+	hardcover: icon('M1.5 4.5h21v15h-21zM3 6v12h8.25V6zm9.75 0v12H21V6z', true),
+	cover: icon('M6 2.5h12A1.5 1.5 0 0 1 19.5 4v16a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 20V4A1.5 1.5 0 0 1 6 2.5M8 4v16h10V4zm2.5 3H16v1.5h-5.5z', true),
+	button: icon('M4 7h16a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2m0 1.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h16a.5.5 0 0 0 .5-.5V9a.5.5 0 0 0-.5-.5zM7 11.25h10v1.5H7z', true),
+	text: icon('M3 7h18v1.5H3zm0 4.5h12V13H3zm0 4.5h7.5v1.5H3z'),
+	alignLeft: icon('M4 5h16v1.5H4zm0 4h10v1.5H4zm0 4h16v1.5H4zm0 4h10v1.5H4z'),
+	alignCenter: icon('M4 5h16v1.5H4zm3 4h10v1.5H7zm-3 4h16v1.5H4zm3 4h10v1.5H7z'),
+	alignRight: icon('M4 5h16v1.5H4zm6 4h10v1.5H10zm-6 4h16v1.5H4zm6 4h10v1.5H10z')
 };

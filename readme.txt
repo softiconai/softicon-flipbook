@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,12 +22,14 @@ Video tutorials: [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&li
 
 * **Block first** – upload or pick a PDF in the block and preview the real flipbook while you edit.
 * **Readable on phones** – the book switches to one page at a time on small screens, two-page spreads on wide ones. Or force one layout.
-* **Light on your pages** – the flipbook engine loads only when the book scrolls into view, and pages are drawn as the reader gets near them.
+* **Light on your pages** – the flipbook engine loads only when the book scrolls into view, and pages are drawn as the reader gets near them. In a lightbox the book loads only when a visitor opens it.
+* **Many books on one page** – show each one as a cover, button or link that opens the book in a popup.
 * **PDF or images** – build a book from a PDF, or from images in reading order.
 * **Clear errors** – if a PDF cannot be shown (for example a link to another website that blocks it), the block says why and keeps a link to the file.
 
 = Features =
 
+* Lightbox: a cover, button or text link on the page opens the book in a popup over the page
 * Two designs: Classic, or Hardcover book with a cover around the pages, the stack of page edges, a shadow at the spine and large arrows beside the book
 * PDF flipbook from the Media Library or a link
 * Image flipbook from any set of images
@@ -70,6 +72,10 @@ Edit a page, open the block inserter, search for Flipbook and add the block. Pic
 
 Select the flipbook, open the Style tab and choose Hardcover book under Design. The pages get a cover, page edges and a shadow at the spine, with large arrows beside the book; you can pick the cover color there too. See it in the [Hardcover video](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g).
 
+= Can the flipbook open in a popup? =
+
+Yes. Select the flipbook, open the Style tab and turn on Open in a lightbox under Display. Choose what shows on the page – the book's cover, a button or a text link – and a click opens the book in a popup over the page. The cover is the PDF's first page, or any image you choose. The book loads only when it is opened, so a page can list many books and stay fast.
+
 = Does it work with a PDF hosted on another website? =
 
 Only if that website allows it (CORS). Browsers block reading PDFs from other sites otherwise. Upload the PDF to your Media Library and it always works.
@@ -80,7 +86,7 @@ The plugin adds no limit of its own; your site's upload limit still applies. Pag
 
 = Does it slow down my pages? =
 
-The front end loads a 24 KB script (9 KB compressed). The PDF engine is loaded only when a flipbook comes near the screen.
+The front end loads a 31 KB script (10 KB compressed). The PDF engine is loaded only when a flipbook comes near the screen, or for a lightbox only when it is opened.
 
 = Does it work with caching and minify plugins? =
 
@@ -92,7 +98,7 @@ The flipbook is a block, so you add it in the block editor (Gutenberg). It works
 
 = How do I link to a specific page? =
 
-Add #page= and the page number to the address of the page with the flipbook, for example https://example.com/catalog/#page=12. The first flipbook on the page opens at that page. Links like `<a href="#page=8">` on the same page turn the book to that page, so you can write your own table of contents. The [reading features video](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) shows it.
+Add #page= and the page number to the address of the page with the flipbook, for example https://example.com/catalog/#page=12. The first flipbook on the page opens at that page; if it is a lightbox, the popup opens there. Links like `<a href="#page=8">` on the same page turn the book to that page, so you can write your own table of contents. The [reading features video](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) shows it.
 
 = Can visitors download the PDF? =
 
@@ -116,6 +122,11 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.3.0 =
+* New: Lightbox. Turn on Open in a lightbox (Style tab, Display) to show only the book's cover, a button or a text link on the page; a click opens the book in a popup. The book loads only when it is opened.
+* New: the cover can be the PDF's first page or an image you choose, with a caption, width and alignment.
+* Links like #page=5 open a lightbox at that page.
 
 = 1.2.2 =
 * Clearer block settings: one panel open at a time, choices shown as icon tiles, short tips behind the (i) icons and a reset button for the height.
