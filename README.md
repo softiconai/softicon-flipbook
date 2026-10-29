@@ -12,12 +12,14 @@ Turn any PDF or set of images into a page-turning flipbook with a WordPress bloc
 - [Add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g) – from PDF to book in the block editor
 - [Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) – cover, page edges, spine shadow and side arrows
 - [Reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) – zoom, thumbnails, page numbers, `#page=` links and fullscreen
+- [Lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g) – show covers on the page and open each book in a popup
 - [The whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g)
 
 ## Features
 
 - PDF from the Media Library or a link, or a set of images
 - Classic or Hardcover design, with large side arrows
+- Lightbox: a cover, button or text link that opens the book in a popup
 - Zoom (buttons, pinch, Ctrl + scroll), thumbnails, jump to a page, `#page=5` links, fullscreen
 - Auto, two-page or one-page layout; open at any page
 - Loads only when the book scrolls into view; large PDFs stream in parts

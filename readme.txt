@@ -16,7 +16,7 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 https://www.youtube.com/watch?v=5geq69DXoN8
 
-Video tutorials: [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
+Video tutorials: [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
 
 = Why choose SoftIcon Flipbook? =
 
@@ -74,7 +74,7 @@ Select the flipbook, open the Style tab and choose Hardcover book under Design. 
 
 = Can the flipbook open in a popup? =
 
-Yes. Select the flipbook, open the Style tab and turn on Open in a lightbox under Display. Choose what shows on the page – the book's cover, a button or a text link – and a click opens the book in a popup over the page. The cover is the PDF's first page, or any image you choose. The book loads only when it is opened, so a page can list many books and stay fast.
+Yes. Select the flipbook, open the Style tab and turn on Open in a lightbox under Display. Choose what shows on the page – the book's cover, a button or a text link – and a click opens the book in a popup over the page. The cover is the PDF's first page, or any image you choose. The book loads only when it is opened, so a page can list many books and stay fast. Watch the [lightbox video](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g).
 
 = Does it work with a PDF hosted on another website? =
 
