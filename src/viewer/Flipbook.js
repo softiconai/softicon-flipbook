@@ -3,6 +3,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { playFlip } from './sound';
 import Zoom from './Zoom';
 import Thumbnails from './Thumbnails';
+import Contents from './Contents';
 import Hardcover from './Hardcover';
 
 const svg = path => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="${path}"/></svg>`;
@@ -13,6 +14,7 @@ const icons = {
 	fullscreen: svg('M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z'),
 	exitFullscreen: svg('M5 16h3v3h2v-5H5zm3-8H5v2h5V5H8zm6 11h2v-3h3v-2h-5zm2-11V5h-2v5h5V8z'),
 	download: svg('M19 9h-4V3H9v6H5l7 7zM5 18v2h14v-2z'),
+	contents: svg('M3 5h2v2H3zm4 0h14v2H7zm-4 6h2v2H3zm4 0h14v2H7zm-4 6h2v2H3zm4 0h14v2H7z'),
 	thumbnails: svg('M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm8-2h8v8h-8zm2 2v4h4v-4z'),
 	zoomIn: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9m2.5-4h-2v2H9v-2H7V9h2V7h1v2h2z'),
 	zoomOut: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9M7 9h5v1H7z'),
@@ -112,6 +114,11 @@ export default class Flipbook {
 		this.task = await openDocument(this.config.pdf, this.doc);
 		this.pdf = await this.task.promise;
 		this.count = this.pdf.numPages;
+		// the bookmarks for the table of contents, a PDF without them gets no button
+		if (this.config.showContents && !this.editor) {
+			const outline = await this.pdf.getOutline().catch(() => null);
+			this.outline = outline?.length ? outline : null;
+		}
 
 		const first = await this.pdf.getPage(1);
 		const { width, height } = first.getViewport({ scale: 1 });
@@ -202,6 +209,9 @@ export default class Flipbook {
 		if (this.config.showThumbnails && !this.editor) {
 			this.thumbs = new Thumbnails(this);
 		}
+		if (this.outline) {
+			this.contents = new Contents(this, this.outline);
+		}
 		this.toolbar();
 		if (this.config.sideArrows) {
 			this.sideArrows();
@@ -274,6 +284,11 @@ export default class Flipbook {
 			this.zoomOutBtn.disabled = !this.zoom.active;
 		}
 		this.root.classList.toggle('alfb_zoomed', this.zoom.active);
+	}
+
+	onContents() {
+		this.contentsBtn.setAttribute('aria-expanded', this.contents.open ? 'true' : 'false');
+		this.root.classList.toggle('alfb_contents_open', this.contents.open);
 	}
 
 	onThumbs() {
@@ -350,7 +365,108 @@ export default class Flipbook {
 		// skip if the page was freed or re-queued while rendering
 		if (!this.destroyed && this.rendered[index] === width) {
 			this.pages[index].replaceChildren(canvas);
+			if (this.config.showLinks && !this.editor) {
+				this.addLinks(index);
+			}
 		}
+	}
+
+	// web, email and phone links only; a PDF can hold javascript: or file: links
+	safeUrl(url) {
+		try {
+			const parsed = new URL(url, this.win.location.href);
+			return ['http:', 'https:', 'mailto:', 'tel:'].includes(parsed.protocol) ? parsed.href : null;
+		} catch (e) {
+			return null;
+		}
+	}
+
+	// page index of a PDF destination (a name or [page ref, ...]), null when it points nowhere
+	destPage(dest) {
+		const key = JSON.stringify(dest);
+		this.dests = this.dests || {};
+		if (!(key in this.dests)) {
+			this.dests[key] = (async () => {
+				const explicit = 'string' === typeof dest ? await this.pdf.getDestination(dest) : dest;
+				const ref = Array.isArray(explicit) ? explicit[0] : null;
+				if (ref && 'object' === typeof ref) {
+					return this.pdf.getPageIndex(ref);
+				}
+				return Number.isInteger(ref) && ref < this.count ? ref : null;
+			})().catch(() => null);
+		}
+		return this.dests[key];
+	}
+
+	// the link areas of a page in percent of the page, so they follow every page size
+	pageLinks(index) {
+		this.links = this.links || [];
+		if (!this.links[index]) {
+			this.links[index] = (async () => {
+				const page = await this.pdf.getPage(index + 1);
+				const viewport = page.getViewport({ scale: 1 });
+				const links = [];
+				for (const note of await page.getAnnotations({ intent: 'display' })) {
+					if ('Link' !== note.subtype) {
+						continue;
+					}
+					const url = note.url ? this.safeUrl(note.url) : null;
+					const target = url || !note.dest ? null : await this.destPage(note.dest);
+					if (!url && null === target) {
+						continue;
+					}
+					// two corners, so a rotated page works too
+					const [x1, y1] = viewport.convertToViewportPoint(note.rect[0], note.rect[1]);
+					const [x2, y2] = viewport.convertToViewportPoint(note.rect[2], note.rect[3]);
+					links.push({
+						url,
+						target,
+						left: (Math.min(x1, x2) / viewport.width) * 100,
+						top: (Math.min(y1, y2) / viewport.height) * 100,
+						width: (Math.abs(x2 - x1) / viewport.width) * 100,
+						height: (Math.abs(y2 - y1) / viewport.height) * 100
+					});
+				}
+				return links;
+			})().catch(() => []);
+		}
+		return this.links[index];
+	}
+
+	// clickable areas over a drawn page; page-flip leaves clicks on <a> alone
+	async addLinks(index) {
+		const links = await this.pageLinks(index);
+		const page = this.pages[index];
+		if (this.destroyed || !links.length || !page.querySelector('canvas') || page.querySelector('.alfb_links')) {
+			return;
+		}
+		const layer = this.doc.createElement('div');
+		layer.className = 'alfb_links';
+		for (const link of links) {
+			const a = this.doc.createElement('a');
+			a.className = 'alfb_link';
+			Object.assign(a.style, { left: link.left + '%', top: link.top + '%', width: link.width + '%', height: link.height + '%' });
+			if (link.url) {
+				a.href = link.url;
+				a.title = link.url.replace(/^mailto:|^tel:/, '');
+				if (/^https?:/.test(link.url)) {
+					a.target = '_blank';
+					a.rel = 'noopener noreferrer';
+				}
+			} else {
+				/* translators: %d: page number */
+				a.title = sprintf(__('Go to page %d', 'softicon-flipbook'), link.target + 1);
+				a.href = '#page=' + (link.target + 1);
+				// turn this book, the address and other books on the page stay as they are
+				a.addEventListener('click', event => {
+					event.preventDefault();
+					this.go(link.target);
+				});
+			}
+			a.setAttribute('aria-label', a.title);
+			layer.append(a);
+		}
+		page.append(layer);
 	}
 
 	async drawPage(index, width) {
@@ -399,6 +515,12 @@ export default class Flipbook {
 		const tools = this.doc.createElement('div');
 		tools.className = 'alfb_tools';
 
+		if (this.contents) {
+			this.contentsBtn = this.button('contents', __('Table of contents', 'softicon-flipbook'), () => this.contents.toggle());
+			this.contentsBtn.setAttribute('aria-expanded', 'false');
+			tools.append(this.contentsBtn);
+		}
+
 		if (this.thumbs) {
 			this.thumbsBtn = this.button('thumbnails', __('Thumbnails', 'softicon-flipbook'), () => this.thumbs.toggle());
 			this.thumbsBtn.setAttribute('aria-expanded', 'false');
@@ -408,6 +530,7 @@ export default class Flipbook {
 		if (this.zoom) {
 			const zoom = direction => {
 				this.thumbs?.close(false);
+				this.contents?.close(false);
 				this.zoom.step(direction);
 			};
 			this.zoomOutBtn = this.button('zoomOut', __('Zoom out', 'softicon-flipbook'), () => zoom(-1));
@@ -576,12 +699,13 @@ export default class Flipbook {
 
 		if (!this.editor) {
 			this.on(this.root, 'keydown', event => {
-				// the thumbnail panel covers the book, only Escape acts on it
-				if (this.thumbs?.open) {
+				// the thumbnail or contents panel covers the book, only Escape acts on it
+				const panel = this.thumbs?.open ? this.thumbs : this.contents?.open && this.contents;
+				if (panel) {
 					if ('Escape' === event.key) {
 						// preventDefault keeps a lightbox around the book open
 						event.preventDefault();
-						this.thumbs.close(true);
+						panel.close(true);
 					}
 					return;
 				}
@@ -641,6 +765,7 @@ export default class Flipbook {
 		this.destroyed = true;
 		this.zoom?.close();
 		this.thumbs?.destroy();
+		this.contents?.destroy();
 		this.cover?.destroy();
 		this.sidePrev?.remove();
 		this.sideNext?.remove();
@@ -654,6 +779,6 @@ export default class Flipbook {
 		this.task?.destroy();
 		this.bar?.remove();
 		this.book?.remove();
-		this.root.classList.remove('alfb_ready', 'alfb_error', 'alfb_overlay', 'alfb_is_fullscreen', 'alfb_zoomed', 'alfb_thumbs_open', 'alfb_side_over');
+		this.root.classList.remove('alfb_ready', 'alfb_error', 'alfb_overlay', 'alfb_is_fullscreen', 'alfb_zoomed', 'alfb_thumbs_open', 'alfb_contents_open', 'alfb_side_over');
 	}
 }

@@ -5,7 +5,7 @@ import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendo
 import { helpCards, pageModes, sources } from '../../../../utils/options';
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	const fileName = (() => {
 		const name = pdfUrl ? pdfUrl.split('/').pop().split('?')[0] : '';
@@ -33,6 +33,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 					<MediaUpload allowedTypes={['application/pdf']} value={pdfId} onSelect={onSelectPdf}
 						render={({ open }) => <Button variant='secondary' onClick={open}>{pdfUrl ? __('Replace PDF', 'softicon-flipbook') : __('Choose PDF', 'softicon-flipbook')}</Button>} />
 				</MediaUploadCheck>
+				<ToggleRow label={__('Links in the PDF', 'softicon-flipbook')} tip={__('Web, email and page links inside the PDF can be clicked. Web links open in a new tab, page links turn the book.', 'softicon-flipbook')} checked={showLinks} onChange={set('showLinks')} />
 			</div> : <div className='alfbStack'>
 				<FieldHead label={__('Pages', 'softicon-flipbook')} tip={__('Each image is one page. Drag them in the media window to change the order.', 'softicon-flipbook')} />
 				{!!images.length && <div className='alfbImages'>
@@ -60,6 +61,8 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			{'pdf' === source && <ToggleRow label={__('Download button', 'softicon-flipbook')} tip={__('Lets visitors save the PDF.', 'softicon-flipbook')} checked={showDownload} onChange={set('showDownload')} />}
 
 			<ToggleRow label={__('Fullscreen button', 'softicon-flipbook')} tip={__('Fits the book to the screen and redraws the pages sharper.', 'softicon-flipbook')} checked={showFullscreen} onChange={set('showFullscreen')} />
+
+			{'pdf' === source && <ToggleRow label={__('Table of contents', 'softicon-flipbook')} tip={__("A button with the PDF's chapters (its bookmarks), a click opens one. It shows only when the PDF has bookmarks.", 'softicon-flipbook')} checked={showContents} onChange={set('showContents')} />}
 
 			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />
 

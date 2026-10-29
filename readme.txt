@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,6 +37,8 @@ Video tutorials: [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&li
 * Hard cover: first and last pages turn on their own
 * Open at any page, jump to a page from the page counter, or link straight to a page with #page=5
 * Thumbnails of all pages: a click opens that page
+* Links inside the PDF work: web and email links, and page links that turn the book
+* Table of contents from the PDF's bookmarks
 * Zoom with the toolbar buttons, a pinch on phones or Ctrl + scroll on computers; drag to move around a zoomed page
 * Toolbar with page counter, previous/next, thumbnails, zoom, download, fullscreen and a page-turn sound visitors can mute
 * Keyboard arrows turn the pages, the toolbar works with screen readers
@@ -86,7 +88,7 @@ The plugin adds no limit of its own; your site's upload limit still applies. Pag
 
 = Does it slow down my pages? =
 
-The front end loads a 31 KB script (10 KB compressed). The PDF engine is loaded only when a flipbook comes near the screen, or for a lightbox only when it is opened.
+The front end loads a 35 KB script (12 KB compressed). The PDF engine is loaded only when a flipbook comes near the screen, or for a lightbox only when it is opened.
 
 = Does it work with caching and minify plugins? =
 
@@ -99,6 +101,10 @@ The flipbook is a block, so you add it in the block editor (Gutenberg). It works
 = How do I link to a specific page? =
 
 Add #page= and the page number to the address of the page with the flipbook, for example https://example.com/catalog/#page=12. The first flipbook on the page opens at that page; if it is a lightbox, the popup opens there. Links like `<a href="#page=8">` on the same page turn the book to that page, so you can write your own table of contents. The [reading features video](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) shows it.
+
+= Do the links inside my PDF work? =
+
+Yes. Web and email links in the PDF can be clicked, web links open in a new tab, and links to another page (like a contents page) turn the book to that page. If the PDF has bookmarks, a Table of contents button in the toolbar lists them. You can turn off either one in the block settings.
 
 = Can visitors download the PDF? =
 
@@ -122,6 +128,11 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.4.0 =
+* New: links inside the PDF can be clicked. Web links open in a new tab, email links open the mail app, and page links turn the book to that page.
+* New: Table of contents. If the PDF has bookmarks, a toolbar button lists them; a click opens that page.
+* Both are on by default and can be turned off in the block settings (Source and Toolbar panels).
 
 = 1.3.1 =
 * A short video tutorial for the lightbox, linked from the Display panel.

@@ -111,6 +111,8 @@ class block {
             'showFullscreen' => ! isset( $attributes['showFullscreen'] ) || (bool) $attributes['showFullscreen'],
             'showZoom'       => ! isset( $attributes['showZoom'] ) || (bool) $attributes['showZoom'],
             'showThumbnails' => ! isset( $attributes['showThumbnails'] ) || (bool) $attributes['showThumbnails'],
+            'showContents'   => ! isset( $attributes['showContents'] ) || (bool) $attributes['showContents'],
+            'showLinks'      => ! isset( $attributes['showLinks'] ) || (bool) $attributes['showLinks'],
             'flipSound'      => ! isset( $attributes['flipSound'] ) || (bool) $attributes['flipSound'],
         );
 
