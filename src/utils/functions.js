@@ -1,6 +1,6 @@
 // The same config shape render.php builds, so the editor preview matches the front end.
 export const toConfig = attributes => {
-	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, startPage, maxHeight, showDownload, showFullscreen, showZoom, showThumbnails, flipSound } = attributes;
+	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, startPage, maxHeight, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, flipSound } = attributes;
 	return {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
@@ -15,6 +15,8 @@ export const toConfig = attributes => {
 		showFullscreen,
 		showZoom,
 		showThumbnails,
+		showContents,
+		showLinks,
 		flipSound
 	};
 };
