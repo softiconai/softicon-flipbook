@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -122,6 +122,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.3.1 =
+* A short video tutorial for the lightbox, linked from the Display panel.
 
 = 1.3.0 =
 * New: Lightbox. Turn on Open in a lightbox (Style tab, Display) to show only the book's cover, a button or a text link on the page; a click opens the book in a popup. The book loads only when it is opened.
