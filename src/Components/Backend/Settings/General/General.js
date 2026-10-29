@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { Button, TextControl } from '@wordpress/components';
+import { Button, ExternalLink, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
-import { helpCards, pageModes, sources } from '../../../../utils/options';
+import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
 	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, flipSound } = attributes;
@@ -20,6 +20,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 	return <>
 		<Panel id='help' title={__('Help', 'softicon-flipbook')}>
 			<HelpCards cards={helpCards} />
+			<p className='alfbHelp'><ExternalLink href={videos.settings}>{__('Every setting explained, in 2 minutes', 'softicon-flipbook')}</ExternalLink></p>
 			<p className='alfbHelp'>{__('Email:', 'softicon-flipbook')} <a href='mailto:softiconai@gmail.com'>softiconai@gmail.com</a></p>
 		</Panel>
 
