@@ -16,7 +16,7 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 https://www.youtube.com/watch?v=5geq69DXoN8
 
-Video tutorials: [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
+Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
 
 = Why choose SoftIcon Flipbook? =
 
@@ -133,6 +133,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: links inside the PDF can be clicked. Web links open in a new tab, email links open the mail app, and page links turn the book to that page.
 * New: Table of contents. If the PDF has bookmarks, a toolbar button lists them; a click opens that page.
 * Both are on by default and can be turned off in the block settings (Source and Toolbar panels).
+* A two-minute video that explains every setting, linked from the Help panel.
 
 = 1.3.1 =
 * A short video tutorial for the lightbox, linked from the Display panel.

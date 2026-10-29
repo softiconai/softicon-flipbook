@@ -25,7 +25,9 @@ export const videos = {
 	add: 'https://www.youtube.com/watch?v=KGP_xpi8NGo' + LIST,
 	design: 'https://www.youtube.com/watch?v=qqQeZQkX5ms' + LIST,
 	reading: 'https://www.youtube.com/watch?v=1J7wCaUvugc' + LIST,
-	lightbox: 'https://www.youtube.com/watch?v=XBJuUV9HpkA' + LIST
+	lightbox: 'https://www.youtube.com/watch?v=XBJuUV9HpkA' + LIST,
+	settings: 'https://www.youtube.com/watch?v=H9IxgIocY68' + LIST,
+	promo: 'https://www.youtube.com/watch?v=Oj9sHOZbb3A' + LIST
 };
 
 export const designs = [
