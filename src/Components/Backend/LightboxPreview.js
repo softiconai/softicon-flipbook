@@ -4,7 +4,12 @@ import { drawCover } from '../../viewer/Lightbox';
 
 // the cover, button or link the page shows in lightbox mode, the same markup as render.php
 const LightboxPreview = ({ attributes }) => {
-	const { source, pdfUrl, images, lightboxTrigger, lightboxText, lightboxImage, lightboxWidth, lightboxAlign } = attributes;
+	const { source, pdfUrl, images, lightboxImage } = attributes;
+	// the same fallbacks and limits as block::lightbox()
+	const lightboxTrigger = ['cover', 'button', 'text'].includes(attributes.lightboxTrigger) ? attributes.lightboxTrigger : 'cover';
+	const lightboxAlign = ['left', 'center', 'right'].includes(attributes.lightboxAlign) ? attributes.lightboxAlign : 'center';
+	const lightboxWidth = Math.min(600, Math.max(120, parseInt(attributes.lightboxWidth, 10) || 260));
+	const lightboxText = (attributes.lightboxText || '').trim();
 	const cover = 'cover' === lightboxTrigger;
 	const image = lightboxImage?.url || ('images' === source ? images[0]?.url : '');
 	const draw = cover && !image && 'pdf' === source && !!pdfUrl;

@@ -82,13 +82,37 @@ class block {
         return $images;
     }
 
-    // hex, rgb(a), hsl(a) or a preset var(), anything else is dropped
+    // hex, a color name or color functions (theme palettes use color-mix() and var()), anything else is dropped;
+    // no quotes, colons or semicolons, and only color function names, so no url() either
     public static function color( $value ) {
         $value = is_string( $value ) ? trim( $value ) : '';
-        if ( preg_match( '/^(#[0-9a-f]{3,8}|(rgb|hsl)a?\([0-9.,%\s\/]+\)|var\(--[a-z0-9-]+\))$/i', $value ) ) {
+        if ( preg_match( '/^(#[0-9a-f]{3,8}|[a-z]+)$/i', $value ) ) {
             return $value;
         }
-        return '';
+        if ( ! preg_match( '/^[a-z-]+\([a-z0-9\s,.%#()\/-]+\)$/i', $value ) || ! preg_match_all( '/([a-z-]*)\(/i', $value, $names ) ) {
+            return '';
+        }
+        $allowed = array( 'rgb', 'rgba', 'hsl', 'hsla', 'hwb', 'lab', 'lch', 'oklab', 'oklch', 'color', 'color-mix', 'var' );
+        foreach ( $names[1] as $name ) {
+            if ( ! in_array( strtolower( $name ), $allowed, true ) ) {
+                return '';
+            }
+        }
+        return $value;
+    }
+
+    // get_block_wrapper_attributes() passes the style through safecss_filter_attr(), which drops
+    // rgba(), hsl() and color-mix() values, so the checked variables go in after it
+    public static function wrapper_attributes( $extra, $vars ) {
+        $attributes = get_block_wrapper_attributes( $extra );
+        if ( '' === $vars ) {
+            return $attributes;
+        }
+        $vars = esc_attr( $vars );
+        if ( preg_match( '/(^|\s)style="/', $attributes ) ) {
+            return preg_replace_callback( '/(^|\s)style="/', function ( $match ) use ( $vars ) { return $match[0] . $vars; }, $attributes, 1 );
+        }
+        return $attributes . ' style="' . $vars . '"';
     }
 
     // settings read by view.js, the same shape the editor preview builds in JS

@@ -103,16 +103,24 @@ export default class Lightbox {
 
 		dialog.append(close, wrapper);
 		// a click on the empty area around the book closes it, not one on the book, its cover board or the toolbar
-		dialog.addEventListener('click', event => {
+		const empty = event => {
 			if (![dialog, wrapper, this.book?.stage].includes(event.target)) {
-				return;
+				return false;
 			}
 			const book = wrapper.querySelector('.alfb_book')?.getBoundingClientRect();
 			const board = 'hardcover' === this.config.bookStyle ? HARDCOVER : 0;
-			const onBook = book && event.clientX > book.left - board && event.clientX < book.right + board && event.clientY > book.top - board && event.clientY < book.bottom + board;
-			if (!onBook) {
+			return !(book && event.clientX > book.left - board && event.clientX < book.right + board && event.clientY > book.top - board && event.clientY < book.bottom + board);
+		};
+		// a page dragged off the book ends in a click on the empty area too, so the press must start there as well
+		let pressedEmpty = false;
+		dialog.addEventListener('pointerdown', event => {
+			pressedEmpty = empty(event);
+		});
+		dialog.addEventListener('click', event => {
+			if (pressedEmpty && empty(event)) {
 				this.close();
 			}
+			pressedEmpty = false;
 		});
 		// Escape; the book keeps it while zoomed or showing thumbnails
 		dialog.addEventListener('cancel', event => {
