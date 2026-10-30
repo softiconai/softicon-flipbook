@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +51,7 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 * PDF.js 6.4.299 (npm package pdfjs-dist) by Mozilla – [github.com/mozilla/pdf.js](https://github.com/mozilla/pdf.js) – Apache License 2.0. Bundled as build/pdfjs.js and build/pdfjs/pdf.worker.min.js (minified upstream build); license in build/pdfjs/LICENSE.txt.
   Also from the pdfjs-dist package: the JavaScript builds of the OpenJPEG (BSD-2) and JBIG2 (BSD-3) image decoders in build/pdfjs/decoders, the Foxit (BSD-3) and Liberation (GPLv2 with font exception) standard fonts in build/pdfjs/standard_fonts, and the Adobe CMaps (BSD-3) in build/pdfjs/cmaps, each with its license file. The fonts and CMaps are binary data files; the build stores each one unchanged as a base64 string in a .json file, which the plugin decodes back to the original bytes for pdf.js.
 * StPageFlip 2.0.7 (npm package page-flip) by Nodlik – [github.com/Nodlik/StPageFlip](https://github.com/Nodlik/StPageFlip) – MIT License. License in build/page-flip-LICENSE.txt.
+* Freemius WordPress SDK 2.13.4 – [github.com/Freemius/wordpress-sdk](https://github.com/Freemius/wordpress-sdk) – GPLv3. In the vendor/freemius folder, used only for the optional opt-in described in the FAQ.
 
 The unminified source of this plugin is in the src folder, with package.json and webpack.config.js. Build it with `npm install` and `npm run build`; the build copies the pdf.js files from node_modules/pdfjs-dist.
 
@@ -114,6 +115,10 @@ Yes, from the download button in the toolbar. You can hide the button in the blo
 
 On small screens the book shows one page at a time at the full width of the screen. Visitors can pinch to zoom into a page and drag to move around it, and fullscreen redraws the pages at a higher resolution.
 
+= Does the plugin collect any data? =
+
+Not from your visitors: the flipbook sets no cookies and sends nothing anywhere. After activation, the plugin asks if you want to opt in to security and feature update emails and share basic, non-sensitive diagnostic data (WordPress, PHP and plugin versions, site URL and admin email) with us through [Freemius](https://freemius.com). It is entirely optional: click "Skip" and nothing is sent. See the [Freemius privacy policy](https://freemius.com/privacy/).
+
 = Where can I get help? =
 
 Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipbook/) and we will reply there, so the answer can help others too. For anything you would rather not post in public, such as a site you cannot share, email us at softiconai@gmail.com. Tell us your WordPress version, the page with the flipbook and what you see, and we will get back to you.
@@ -128,6 +133,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.4.2 =
+* New: Optional opt-in for security and feature update emails (powered by Freemius, you can skip it). Nothing is sent unless you allow it.
 
 = 1.4.1 =
 * Fix: in a lightbox, dragging a page past the edge of the book no longer closes the popup.
