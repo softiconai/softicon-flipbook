@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -128,6 +128,14 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.4.1 =
+* Fix: in a lightbox, dragging a page past the edge of the book no longer closes the popup.
+* Fix: theme palette colors that use color-mix(), and see-through rgba() or hsl() colors, now show on the site and not only in the editor.
+* Fix: when the column is too narrow for two pages, the one-page book no longer leaves empty space above and below it.
+* Fix: a #page= link clicked while the lightbox is still loading now opens that page.
+* Fix: after clicking a page, the arrow keys and +/- work right away.
+* The editor preview now uses the same limits as the site, so a caption with only spaces shows the same in both.
 
 = 1.4.0 =
 * New: links inside the PDF can be clicked. Web links open in a new tab, email links open the mail app, and page links turn the book to that page.

@@ -5,12 +5,12 @@ export const toConfig = attributes => {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
 		images: 'images' === source ? images : [],
-		pageMode,
+		pageMode: ['auto', 'double', 'single'].includes(pageMode) ? pageMode : 'auto',
 		bookStyle: 'hardcover' === bookStyle ? 'hardcover' : 'flat',
 		sideArrows: !!sideArrows,
 		showCover,
 		startPage: Math.max(1, parseInt(startPage, 10) || 1),
-		maxHeight,
+		maxHeight: Math.min(2000, Math.max(200, parseInt(maxHeight, 10) || 700)),
 		showDownload,
 		showFullscreen,
 		showZoom,
@@ -32,9 +32,24 @@ export const toImage = media => ({
 	height: media.height || media.media_details?.height || 0
 });
 
+const colorFunctions = ['rgb', 'rgba', 'hsl', 'hsla', 'hwb', 'lab', 'lch', 'oklab', 'oklch', 'color', 'color-mix', 'var'];
+
+// the colors block::color() keeps on the site, so the editor drops the same ones
+export const safeColor = value => {
+	value = 'string' === typeof value ? value.trim() : '';
+	if (/^(#[0-9a-f]{3,8}|[a-z]+)$/i.test(value)) {
+		return value;
+	}
+	if (!/^[a-z-]+\([a-z0-9\s,.%#()/-]+\)$/i.test(value)) {
+		return undefined;
+	}
+	const names = [...value.matchAll(/([a-z-]*)\(/gi)].map(match => match[1].toLowerCase());
+	return names.every(name => colorFunctions.includes(name)) ? value : undefined;
+};
+
 export const cssVars = ({ bgColor, toolbarBg, toolbarColor, coverColor }) => ({
-	'--alfb-bg': bgColor || undefined,
-	'--alfb-bar-bg': toolbarBg || undefined,
-	'--alfb-bar-color': toolbarColor || undefined,
-	'--alfb-cover': coverColor || undefined
+	'--alfb-bg': safeColor(bgColor),
+	'--alfb-bar-bg': safeColor(toolbarBg),
+	'--alfb-bar-color': safeColor(toolbarColor),
+	'--alfb-cover': safeColor(coverColor)
 });

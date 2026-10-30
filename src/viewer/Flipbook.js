@@ -190,9 +190,7 @@ export default class Flipbook {
 
 		// page-flip sets a min-width that overflows small phones
 		this.book.style.minWidth = '0px';
-		this.book.style.maxWidth = this.bookMaxWidth() + 'px';
-		// the lightbox sizes its box to the book
-		this.root.style.setProperty('--alfb-book-width', this.book.style.maxWidth);
+		this.fit();
 
 		this.flip.on('flip', () => this.onChange());
 		this.flip.on('changeOrientation', () => this.onChange());
@@ -224,9 +222,17 @@ export default class Flipbook {
 		this.refresh();
 	}
 
-	bookMaxWidth() {
-		const width = this.flip.getSettings().maxWidth;
-		return 'single' === this.config.pageMode ? width : width * 2;
+	// page-flip shows one page when the room is under two minWidth pages; the book is then one page
+	// wide, else a page as tall as the block leaves empty space above and below it
+	fit() {
+		const { maxWidth, minWidth } = this.flip.getSettings();
+		const full = 'single' === this.config.pageMode ? maxWidth : maxWidth * 2;
+		const style = this.win.getComputedStyle(this.stage);
+		const room = this.stage.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+		const one = 'auto' === this.config.pageMode && room < minWidth * 2;
+		this.book.style.maxWidth = (one ? maxWidth : full) + 'px';
+		// the lightbox sizes its box to the two page book, so a one page book can grow back
+		this.root.style.setProperty('--alfb-book-width', full + 'px');
 	}
 
 	// indexes of the pages currently visible, spreads paired the way page-flip pairs them
@@ -265,6 +271,11 @@ export default class Flipbook {
 
 	// jumps to a page index, animated unless zoomed
 	go(index) {
+		// still loading: it opens there instead
+		if (!this.flip) {
+			this.config.startPage = index + 1;
+			return;
+		}
 		index = Math.min(this.count - 1, Math.max(0, index));
 		return this.zoom?.active ? this.flip.turnToPage(index) : this.flip.flip(index);
 	}
@@ -670,8 +681,6 @@ export default class Flipbook {
 		if ('single' === this.config.pageMode) {
 			settings.minWidth = settings.maxWidth;
 		}
-		this.book.style.maxWidth = this.bookMaxWidth() + 'px';
-		this.root.style.setProperty('--alfb-book-width', this.book.style.maxWidth);
 		this.refresh();
 	}
 
@@ -685,6 +694,7 @@ export default class Flipbook {
 	}
 
 	refresh() {
+		this.fit();
 		this.flip.update();
 		this.onChange();
 	}
@@ -698,6 +708,12 @@ export default class Flipbook {
 		this.on(this.doc, 'fullscreenchange', () => this.setFullscreen(this.doc.fullscreenElement === this.root));
 
 		if (!this.editor) {
+			// page-flip cancels the mouse press, so a click on a page would leave the arrow keys elsewhere
+			this.on(this.stage, 'pointerdown', () => {
+				if (!this.root.contains(this.doc.activeElement)) {
+					this.root.focus({ preventScroll: true });
+				}
+			}, true);
 			this.on(this.root, 'keydown', event => {
 				// the thumbnail or contents panel covers the book, only Escape acts on it
 				const panel = this.thumbs?.open ? this.thumbs : this.contents?.open && this.contents;

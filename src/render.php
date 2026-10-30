@@ -21,14 +21,13 @@ foreach ( array( 'bgColor' => '--alfb-bg', 'toolbarBg' => '--alfb-bar-bg', 'tool
 // lightbox: only a cover, button or link on the page, view.js opens the book in a popup
 if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayMode'] ) {
     $alfb_lb    = ALFB_Flipbook\block::lightbox( $attributes, $alfb_config );
-    $alfb_label = '' !== $alfb_lb['text'] ? $alfb_lb['text'] : __( 'Read the flipbook', 'softicon-flipbook' );
+    $alfb_label = '' !== $alfb_lb['text'] ?$alfb_lb['text'] : __( 'Read the flipbook', 'softicon-flipbook' );
     $alfb_class = 'alfb_lb alfb_lb_' . $alfb_lb['align'] . ( 'cover' === $alfb_lb['trigger'] && ! $alfb_lb['image'] ? ' alfb_lb_draw' : '' );
 
-    $alfb_wrapper = get_block_wrapper_attributes( array(
+    $alfb_wrapper = ALFB_Flipbook\block::wrapper_attributes( array(
         'class'     => $alfb_class,
-        'style'     => $alfb_style . ( 'cover' === $alfb_lb['trigger'] ? '--alfb-lb-width:' . $alfb_lb['width'] . 'px;' : '' ),
         'data-alfb' => wp_json_encode( $alfb_config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ),
-    ) );
+    ), $alfb_style . ( 'cover' === $alfb_lb['trigger'] ? '--alfb-lb-width:' . $alfb_lb['width'] . 'px;' : '' ) );
     ?>
     <div <?php echo $alfb_wrapper; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() escapes ?>>
         <?php if ( 'cover' === $alfb_lb['trigger'] ) : ?>
@@ -50,15 +49,14 @@ if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayM
     return;
 }
 
-$alfb_wrapper = get_block_wrapper_attributes( array(
+$alfb_wrapper = ALFB_Flipbook\block::wrapper_attributes( array(
     'class'      => 'alfb_wrapper',
-    'style'      => $alfb_style,
     // hex flags keep quotes and ampersands from breaking the attribute or JSON.parse
     'data-alfb'  => wp_json_encode( $alfb_config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ),
     'tabindex'   => '0',
     'role'       => 'region',
     'aria-label' => __( 'Flipbook', 'softicon-flipbook' ),
-) );
+), $alfb_style );
 ?>
 <div <?php echo $alfb_wrapper; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() escapes ?>>
     <div class="alfb_stage">
