@@ -218,8 +218,17 @@ export default class Flipbook {
 
 		this.root.classList.add('alfb_ready');
 		this.stage.querySelector('.alfb_loading')?.remove();
+		// before the first alfb:page
+		this.emit('ready');
 		// measure again now the spinner is gone, so the first pages render at the real size
 		this.refresh();
+	}
+
+	// alfb:ready and alfb:page on the block, for add-ons; detail.book is this book
+	emit(name, detail = {}) {
+		if (!this.editor) {
+			this.root.dispatchEvent(new this.win.CustomEvent('alfb:' + name, { bubbles: true, detail: { book: this, ...detail } }));
+		}
 	}
 
 	// page-flip shows one page when the room is under two minWidth pages; the book is then one page
@@ -267,6 +276,7 @@ export default class Flipbook {
 		this.cover?.update();
 		this.load(Math.min(...shown));
 		this.zoom?.update();
+		this.emit('page', { pages: shown });
 	}
 
 	// jumps to a page index, animated unless zoomed

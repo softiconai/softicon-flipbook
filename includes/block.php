@@ -23,9 +23,14 @@ class block {
 
         // the real build url for the lazy chunks and pdf.js files, JS combine plugins move view.js elsewhere
         $build_url = 'window.alfbBuildUrl = ' . wp_json_encode( ALFB_PLUGIN_URL . 'build/' ) . ';';
-        foreach ( array( 'viewScript', 'editorScript' ) as $field ) {
-            wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', $field ), $build_url, 'before' );
+        wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ), $build_url, 'before' );
+        // the editor also learns whether Pro is active, for the Pro features panel
+        $features = array();
+        foreach ( pro_features::all() as $feature ) {
+            $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
         }
+        $editor = $build_url . 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => pro_features::active(), 'dashboard' => dashboard::url( 'pro' ), 'features' => $features ) ) . ';';
+        wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $editor, 'before' );
     }
 
     // the PDF url, preferring the media library file so a changed site url still works
@@ -177,8 +182,8 @@ class block {
             'image'   => $image,
             'alt'     => $alt,
             'width'   => isset( $attributes['lightboxWidth'] ) ? min( 600, max( 120, absint( $attributes['lightboxWidth'] ) ) ) : 260,
-            // without JavaScript the trigger still opens the PDF or the first page
-            'href'    => 'pdf' === $config['source'] ? $config['pdf'] : $config['images'][0]['url'],
+            // without JavaScript the trigger still opens the PDF or the first page, unless an add-on protects it
+            'href'    => ! empty( $config['protect'] ) ? '#' : ( 'pdf' === $config['source'] ? $config['pdf'] : $config['images'][0]['url'] ),
         );
     }
 }

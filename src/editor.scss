@@ -68,3 +68,30 @@
 .wp-block-softicon-flipbook .alfb_lb_trigger {
 	cursor: default;
 }
+
+.alfbProList {
+	margin: 0;
+
+	li {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		margin: 0 0 10px;
+		padding-left: 22px;
+		position: relative;
+	}
+
+	li::before {
+		content: "\f160";
+		position: absolute;
+		left: 0;
+		top: 1px;
+		color: #b45309;
+		font: 16px/1 dashicons;
+	}
+
+	span {
+		color: #757575;
+		font-size: 12px;
+	}
+}

@@ -62,7 +62,7 @@ $alfb_wrapper = ALFB_Flipbook\block::wrapper_attributes( array(
     <div class="alfb_stage">
         <div class="alfb_loading"><span class="alfb_spinner"></span></div>
     </div>
-    <?php if ( 'pdf' === $alfb_config['source'] ) : ?>
+    <?php if ( 'pdf' === $alfb_config['source'] && empty( $alfb_config['protect'] ) ) : ?>
         <a class="alfb_fallback" href="<?php echo esc_url( $alfb_config['pdf'] ); ?>"><?php esc_html_e( 'Open the PDF', 'softicon-flipbook' ); ?></a>
     <?php endif; ?>
 </div>

@@ -18,7 +18,16 @@
 
 if ( !defined('ABSPATH') ) { exit; }
 
-if ( ! function_exists( 'alfb_fs' ) ) {
+if ( function_exists( 'alfb_fs' ) ) {
+    // SoftIcon Flipbook Pro (or another copy) is already loaded; activating this one switches the other off
+    register_activation_hook( __FILE__, function () {
+        foreach ( array( 'softicon-flipbook/softicon-flipbook.php', 'softicon-flipbook-pro/softicon-flipbook.php' ) as $alfb_plugin ) {
+            if ( plugin_basename( __FILE__ ) !== $alfb_plugin && is_plugin_active( $alfb_plugin ) ) {
+                deactivate_plugins( $alfb_plugin );
+            }
+        }
+    } );
+} else {
     // Freemius SDK: optional usage opt-in only. No plans, no license or purchase screens.
     function alfb_fs() {
         global $alfb_fs;
@@ -36,10 +45,12 @@ if ( ! function_exists( 'alfb_fs' ) ) {
                 'has_paid_plans'   => false,
                 'is_org_compliant' => true,
                 'menu'             => array(
-                    'account' => false,
-                    'addons'  => false,
-                    'contact' => false,
-                    'support' => false,
+                    'slug'       => 'softicon-flipbook',
+                    'first-path' => 'admin.php?page=softicon-flipbook',
+                    'account'    => false,
+                    'addons'     => false,
+                    'contact'    => false,
+                    'support'    => false,
                 ),
             ) );
             // the opt-in screen shows the plugin's own icon instead of downloading one
@@ -54,50 +65,49 @@ if ( ! function_exists( 'alfb_fs' ) ) {
     alfb_fs();
     do_action( 'alfb_fs_loaded' );
 
-    // the opt-in page has no menu item, so WordPress finds no title for it (a strip_tags() notice while debugging)
-    add_action( 'current_screen', function ( $screen ) {
-        global $title;
-        if ( 'admin_page_softicon-flipbook' === $screen->id && empty( $title ) ) {
-            $title = __( 'SoftIcon Flipbook', 'softicon-flipbook' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- the page title WordPress left empty
+    class ALFB_Flipbook{
+
+        public static $instance;
+
+        private function __construct()
+        {
+            $this->defined_constants();
+            $this->load_classes();
         }
-    } );
-}
 
-class ALFB_Flipbook{
+        public static function get_instance() {
+            if( self::$instance ) {
+                return self::$instance;
+            }
 
-    public static $instance;
-
-    private function __construct()
-    {
-        $this->defined_constants();
-        $this->load_classes();
-    }
-
-    public static function get_instance() {
-        if( self::$instance ) {
+            self::$instance = new self();
             return self::$instance;
         }
 
-        self::$instance = new self();
-        return self::$instance;
+        public function defined_constants() {
+            define('ALFB_PLUGIN_VERSION', '1.4.2');
+            define('ALFB_PLUGIN_PATH', plugin_dir_path(__FILE__));
+            define('ALFB_PLUGIN_URL', plugin_dir_url(__FILE__));
+        }
+
+        public function load_classes() {
+
+            require_once ALFB_PLUGIN_PATH . 'includes/block.php';
+            require_once ALFB_PLUGIN_PATH . 'includes/videos.php';
+            require_once ALFB_PLUGIN_PATH . 'includes/pro-features.php';
+            require_once ALFB_PLUGIN_PATH . 'includes/demos.php';
+            require_once ALFB_PLUGIN_PATH . 'includes/dashboard.php';
+
+            new ALFB_Flipbook\block();
+            new ALFB_Flipbook\videos();
+            if ( is_admin() ) {
+                new ALFB_Flipbook\demos();
+                new ALFB_Flipbook\dashboard();
+            }
+
+            // add-ons hook in here
+            do_action( 'alfb_loaded' );
+        }
     }
-
-    public function defined_constants() {
-        define('ALFB_PLUGIN_VERSION', '1.4.2');
-        define('ALFB_PLUGIN_PATH', plugin_dir_path(__FILE__));
-        define('ALFB_PLUGIN_URL', plugin_dir_url(__FILE__));
-    }
-
-    public function load_classes() {
-
-        require_once ALFB_PLUGIN_PATH . 'includes/block.php';
-        require_once ALFB_PLUGIN_PATH . 'includes/videos.php';
-
-        new ALFB_Flipbook\block();
-        new ALFB_Flipbook\videos();
-
-        // add-ons such as SoftIcon Flipbook Pro hook in here
-        do_action( 'alfb_loaded' );
-    }
+    ALFB_Flipbook::get_instance();
 }
-ALFB_Flipbook::get_instance();

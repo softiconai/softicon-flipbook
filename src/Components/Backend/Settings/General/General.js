@@ -4,6 +4,9 @@ import { Button, ExternalLink, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 
+// set by includes/block.php
+const editorInfo = window.alfbEditor || {};
+
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
 	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
@@ -71,6 +74,17 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 			<ToggleRow label={__('Page turn sound', 'softicon-flipbook')} tip={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} />
 		</Panel>
+
+		{/* what SoftIcon Flipbook Pro adds, listed only: the code is in Pro */}
+		{!editorInfo.pro && !!editorInfo.features?.length && <Panel id='pro' title={__('Pro features', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+			<ul className='alfbProList'>
+				{editorInfo.features.map(feature => <li key={feature.title}>
+					<strong>{feature.title}</strong>
+					<span>{feature.text}</span>
+				</li>)}
+			</ul>
+			<p className='alfbHelp'><ExternalLink href={editorInfo.dashboard}>{__('See Free vs Pro', 'softicon-flipbook')}</ExternalLink></p>
+		</Panel>}
 	</>;
 };
 
