@@ -76,6 +76,8 @@ class demos {
                 unset( $attrs['pdf'] );
                 $attrs = array_merge( array( 'pdfId' => $pdf['id'], 'pdfUrl' => $pdf['url'] ), $attrs );
             }
+            // other blocks (the Pro bookshelf) name their sample PDFs their own way
+            $attrs = apply_filters( 'alfb_demo_attrs', $attrs, $pdfs );
             $blocks[] = serialize_block( array( 'blockName' => $name, 'attrs' => $attrs, 'innerBlocks' => array(), 'innerHTML' => '', 'innerContent' => array() ) );
         }
         return apply_filters( 'alfb_demo_markup', implode( "\n", $blocks ), $demo, $pdfs );
