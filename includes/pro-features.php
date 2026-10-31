@@ -5,10 +5,68 @@ if ( !defined('ABSPATH') ) { exit;}
 // what SoftIcon Flipbook Pro adds; the free plugin only lists these, the code is in Pro
 class pro_features {
 
-    const CHECKOUT = 'https://checkout.freemius.com/plugin/43387/?billing_cycle=lifetime&licenses=1';
-
     public static function active() {
         return defined( 'ALFB_IS_PRO' ) && ALFB_IS_PRO;
+    }
+
+    public static function checkout( $licenses = 1 ) {
+        return add_query_arg( array( 'billing_cycle' => 'lifetime', 'licenses' => $licenses ), 'https://checkout.freemius.com/plugin/43387/' );
+    }
+
+    // lifetime licenses, as set in Freemius
+    public static function plans() {
+        return array(
+            array( 'licenses' => 1, 'price' => '14.99', 'title' => __('Single site', 'softicon-flipbook'), 'sites' => __('1 website', 'softicon-flipbook') ),
+            array( 'licenses' => 3, 'price' => '44.99', 'title' => __('Three sites', 'softicon-flipbook'), 'sites' => __('3 websites', 'softicon-flipbook') ),
+            array( 'licenses' => 'unlimited', 'price' => '199.99', 'title' => __('Unlimited', 'softicon-flipbook'), 'sites' => __('Unlimited websites', 'softicon-flipbook') ),
+        );
+    }
+
+    // the feature breakdown on the Free vs Pro tab: true when the free plugin has it too
+    public static function compare() {
+        return array(
+            __('Books and reading', 'softicon-flipbook') => array(
+                __('PDF or images as pages', 'softicon-flipbook') => true,
+                __('Two pages on wide screens, one page on phones', 'softicon-flipbook') => true,
+                __('Classic and Hardcover designs', 'softicon-flipbook') => true,
+                __('Lightbox: a cover, button or link opens the book in a popup', 'softicon-flipbook') => true,
+                __('Zoom, thumbnails, table of contents and fullscreen', 'softicon-flipbook') => true,
+                __('Clickable links inside the PDF', 'softicon-flipbook') => true,
+                __('Links that open a page (#page=5)', 'softicon-flipbook') => true,
+                __('Page turn sound and your own colors', 'softicon-flipbook') => true,
+            ),
+            __('Bookshelf', 'softicon-flipbook') => array(
+                __('Bookshelf block with many books', 'softicon-flipbook') => false,
+                __('Wood, light or no shelf', 'softicon-flipbook') => false,
+                __('Your own cover image, or page 1 as the cover', 'softicon-flipbook') => false,
+                __('Each book opens in a popup', 'softicon-flipbook') => false,
+            ),
+            __('Lead capture', 'softicon-flipbook') => array(
+                __('Ask for a name and email after the pages you choose', 'softicon-flipbook') => false,
+                __('Leads saved on your own site', 'softicon-flipbook') => false,
+                __('Download the leads as a CSV file', 'softicon-flipbook') => false,
+                __('An email for each new lead', 'softicon-flipbook') => false,
+            ),
+            __('Reading analytics', 'softicon-flipbook') => array(
+                __('How often each book is opened', 'softicon-flipbook') => false,
+                __('Which pages are read most', 'softicon-flipbook') => false,
+                __('Daily chart for 7, 30 or 90 days', 'softicon-flipbook') => false,
+                __('No cookies, and your own visits left out', 'softicon-flipbook') => false,
+            ),
+            __('PDF protection', 'softicon-flipbook') => array(
+                __('No right-click, dragging or saving from the pages', 'softicon-flipbook') => false,
+                __('The PDF address is kept out of the page', 'softicon-flipbook') => false,
+                __('The PDF opens only on your own site', 'softicon-flipbook') => false,
+            ),
+        );
+    }
+
+    public static function pro_count() {
+        $count = 0;
+        foreach ( self::compare() as $rows ) {
+            $count += count( array_filter( $rows, function ( $free ) { return ! $free; } ) );
+        }
+        return $count;
     }
 
     public static function all() {

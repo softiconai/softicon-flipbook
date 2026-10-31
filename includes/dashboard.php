@@ -43,6 +43,7 @@ class dashboard {
             return;
         }
         wp_enqueue_style( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/css/dashboard.css', array(), ALFB_PLUGIN_VERSION );
+        wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/js/dashboard.js', array(), ALFB_PLUGIN_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
         // the demos are real flipbooks
         wp_enqueue_style( generate_block_asset_handle( 'softicon/flipbook', 'style' ) );
         wp_enqueue_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ) );
@@ -50,12 +51,17 @@ class dashboard {
     }
 
     public static function tabs() {
-        return apply_filters( 'alfb_dashboard_tabs', array(
+        $pro  = pro_features::active();
+        $tabs = array(
             'welcome' => __('Welcome', 'softicon-flipbook'),
             'demos'   => __('Demos', 'softicon-flipbook'),
-            'pro'     => pro_features::active() ? __('Pro', 'softicon-flipbook') : __('Free vs Pro', 'softicon-flipbook'),
-            'help'    => __('Help', 'softicon-flipbook'),
-        ) );
+        );
+        if ( ! $pro ) {
+            $tabs['pricing'] = __('Pricing', 'softicon-flipbook');
+        }
+        $tabs['pro']  = $pro ? __('Settings', 'softicon-flipbook') : __('Free vs Pro', 'softicon-flipbook');
+        $tabs['help'] = __('Help', 'softicon-flipbook');
+        return apply_filters( 'alfb_dashboard_tabs', $tabs );
     }
 
     public function render() {
@@ -67,28 +73,31 @@ class dashboard {
         $tab  = isset( $tabs[ $tab ] ) ? $tab : 'welcome';
         $pro  = pro_features::active();
         ?>
-        <div class="wrap alfb-dash">
-            <h1 class="screen-reader-text"><?php esc_html_e('SoftIcon Flipbook', 'softicon-flipbook'); ?></h1>
-            <div class="alfb-dash-head">
-                <img src="<?php echo esc_url( ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png' ); ?>" alt="" width="44" height="44">
-                <div class="alfb-dash-name">
-                    <strong><?php echo $pro ? esc_html__('SoftIcon Flipbook Pro', 'softicon-flipbook') : esc_html__('SoftIcon Flipbook', 'softicon-flipbook'); ?></strong>
-                    <span><?php
-                        /* translators: %s: plugin version */
-                        printf( esc_html__('Version %s', 'softicon-flipbook'), esc_html( ALFB_PLUGIN_VERSION ) );
-                    ?></span>
-                </div>
+        <div class="alfb-dash">
+            <header class="alfb-dash-head">
+                <a class="alfb-dash-brand" href="<?php echo esc_url( self::url() ); ?>">
+                    <img src="<?php echo esc_url( ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png' ); ?>" alt="" width="36" height="36">
+                    <strong><?php echo $pro ? esc_html__('Flipbook Pro', 'softicon-flipbook') : esc_html__('Flipbook', 'softicon-flipbook'); ?></strong>
+                    <span class="alfb-version"><?php echo esc_html( 'v' . ALFB_PLUGIN_VERSION ); ?></span>
+                </a>
                 <nav class="alfb-dash-tabs" aria-label="<?php esc_attr_e('Flipbook dashboard', 'softicon-flipbook'); ?>">
                     <?php foreach ( $tabs as $key => $label ) : ?>
-                        <a href="<?php echo esc_url( self::url( 'welcome' === $key ? '' : $key ) ); ?>" class="<?php echo $key === $tab ? 'is-active' : ''; ?>"<?php echo $key === $tab ? ' aria-current="page"' : ''; ?>>
-                            <?php echo esc_html( $label ); ?>
-                            <?php if ( 'pro' === $key && ! $pro ) : ?><span class="alfb-badge"><?php esc_html_e('Pro', 'softicon-flipbook'); ?></span><?php endif; ?>
-                        </a>
+                        <a href="<?php echo esc_url( self::url( 'welcome' === $key ? '' : $key ) ); ?>" class="<?php echo $key === $tab ? 'is-active' : ''; ?>"<?php echo $key === $tab ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $label ); ?></a>
                     <?php endforeach; ?>
                 </nav>
-            </div>
+                <div class="alfb-dash-end">
+                    <a class="alfb-dash-more" href="https://wordpress.org/plugins/author/softiconai/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Our plugins', 'softicon-flipbook'); ?></a>
+                    <?php if ( $pro ) : ?>
+                        <span class="alfb-pro-on"><span class="dashicons dashicons-yes-alt" aria-hidden="true"></span><?php esc_html_e('Pro active', 'softicon-flipbook'); ?></span>
+                    <?php else : ?>
+                        <a class="alfb-btn alfb-btn-amber alfb-upgrade" href="<?php echo esc_url( self::url( 'pricing' ) ); ?>"><span class="dashicons dashicons-unlock" aria-hidden="true"></span><?php esc_html_e('Upgrade to Pro', 'softicon-flipbook'); ?></a>
+                    <?php endif; ?>
+                </div>
+            </header>
 
-            <div class="alfb-dash-body">
+            <div class="wrap alfb-dash-body">
+                <h1 class="screen-reader-text"><?php echo esc_html( $pro ? __('SoftIcon Flipbook Pro', 'softicon-flipbook') : __('SoftIcon Flipbook', 'softicon-flipbook') ); ?></h1>
+                <hr class="wp-header-end">
                 <?php
                 if ( method_exists( $this, 'tab_' . $tab ) ) {
                     call_user_func( array( $this, 'tab_' . $tab ) );
@@ -169,55 +178,120 @@ class dashboard {
         <?php
     }
 
-    private function tab_pro() {
-        $free = array(
-            __('PDF or images as pages', 'softicon-flipbook'),
-            __('Two pages on wide screens, one page on phones', 'softicon-flipbook'),
-            __('Classic and Hardcover designs', 'softicon-flipbook'),
-            __('Lightbox: a cover, button or link opens a popup', 'softicon-flipbook'),
-            __('Zoom, thumbnails, table of contents and fullscreen', 'softicon-flipbook'),
-            __('Clickable links inside the PDF', 'softicon-flipbook'),
-            __('Links to a page (#page=5) and page turn sound', 'softicon-flipbook'),
-        );
-        if ( pro_features::active() ) : ?>
-            <section class="alfb-hero alfb-hero-pro">
-                <div>
-                    <h2><?php esc_html_e('Pro is active. Thank you!', 'softicon-flipbook'); ?></h2>
-                    <p><?php esc_html_e('Every Pro feature below is ready to use. Questions? Email us and we will help you set it up.', 'softicon-flipbook'); ?></p>
-                </div>
-            </section>
-        <?php else : ?>
-            <section class="alfb-hero alfb-hero-pro">
-                <div>
-                    <h2><?php esc_html_e('Get more from every book', 'softicon-flipbook'); ?></h2>
-                    <p><?php esc_html_e('Shelves of books, leads from your readers, reading statistics and a protected PDF. One payment, updates for life.', 'softicon-flipbook'); ?></p>
-                    <p class="alfb-actions"><a class="alfb-btn alfb-btn-amber" href="<?php echo esc_url( pro_features::CHECKOUT ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Get Pro', 'softicon-flipbook'); ?></a></p>
-                </div>
-            </section>
-        <?php endif; ?>
+    // a plan's price, paid once
+    private static function price( $plan ) {
+        ?>
+        <p class="alfb-price"><sup>$</sup><?php echo esc_html( $plan['price'] ); ?><span><?php esc_html_e('one-time', 'softicon-flipbook'); ?></span></p>
+        <?php
+    }
 
-        <div class="alfb-grid alfb-pro-cards">
-            <?php foreach ( pro_features::all() as $feature ) : ?>
-                <div class="alfb-card">
-                    <span class="dashicons <?php echo esc_attr( $feature['icon'] ); ?> alfb-pro-icon" aria-hidden="true"></span>
-                    <h3><?php echo esc_html( $feature['title'] ); ?></h3>
-                    <p><?php echo esc_html( $feature['text'] ); ?></p>
+    private function tab_pricing() {
+        $includes = array(
+            __('Every free feature', 'softicon-flipbook'),
+            __('Bookshelf block', 'softicon-flipbook'),
+            __('Lead capture', 'softicon-flipbook'),
+            __('Reading analytics', 'softicon-flipbook'),
+            __('PDF protection', 'softicon-flipbook'),
+            __('Updates and email support for life', 'softicon-flipbook'),
+        );
+        ?>
+        <div class="alfb-intro">
+            <span class="alfb-eyebrow"><?php esc_html_e('Pricing', 'softicon-flipbook'); ?></span>
+            <h2><?php esc_html_e('Pay once, use it for life', 'softicon-flipbook'); ?></h2>
+            <p><?php esc_html_e('No subscription. Every plan has all Pro features; pick how many websites you need.', 'softicon-flipbook'); ?></p>
+        </div>
+        <div class="alfb-plans alfb-plans-3">
+            <?php foreach ( pro_features::plans() as $plan ) : ?>
+                <div class="alfb-plan">
+                    <span class="alfb-tag"><?php echo esc_html( $plan['sites'] ); ?></span>
+                    <h3><?php echo esc_html( $plan['title'] ); ?></h3>
+                    <?php self::price( $plan ); ?>
+                    <a class="alfb-btn alfb-btn-teal alfb-btn-block" href="<?php echo esc_url( pro_features::checkout( $plan['licenses'] ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Get Pro', 'softicon-flipbook'); ?> &rarr;</a>
+                    <ul class="alfb-checks">
+                        <li><?php echo esc_html( $plan['sites'] ); ?></li>
+                        <?php foreach ( $includes as $item ) : ?>
+                            <li><?php echo esc_html( $item ); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             <?php endforeach; ?>
         </div>
-
-        <table class="alfb-compare">
-            <thead><tr><th><?php esc_html_e('Feature', 'softicon-flipbook'); ?></th><th><?php esc_html_e('Free', 'softicon-flipbook'); ?></th><th><?php esc_html_e('Pro', 'softicon-flipbook'); ?></th></tr></thead>
-            <tbody>
-                <?php foreach ( $free as $label ) : ?>
-                    <tr><td><?php echo esc_html( $label ); ?></td><td class="yes" aria-label="<?php esc_attr_e('Included', 'softicon-flipbook'); ?>">&#10003;</td><td class="yes" aria-label="<?php esc_attr_e('Included', 'softicon-flipbook'); ?>">&#10003;</td></tr>
-                <?php endforeach; ?>
-                <?php foreach ( pro_features::all() as $feature ) : ?>
-                    <tr><td><?php echo esc_html( $feature['title'] ); ?></td><td class="no" aria-label="<?php esc_attr_e('Not included', 'softicon-flipbook'); ?>">&ndash;</td><td class="yes" aria-label="<?php esc_attr_e('Included', 'softicon-flipbook'); ?>">&#10003;</td></tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <p class="alfb-note">
+            <?php esc_html_e('Secure checkout by Freemius. Pro replaces the free plugin and keeps every book you made.', 'softicon-flipbook'); ?>
+            <a href="<?php echo esc_url( self::url( 'pro' ) ); ?>"><?php esc_html_e('Compare Free and Pro', 'softicon-flipbook'); ?></a>
+        </p>
         <?php
+    }
+
+    private function tab_pro() {
+        // Pro shows its settings here instead (alfb_dashboard_pro)
+        if ( pro_features::active() ) {
+            return;
+        }
+        $single = pro_features::plans()[0];
+        ?>
+        <div class="alfb-intro">
+            <span class="alfb-eyebrow"><?php esc_html_e('Compare', 'softicon-flipbook'); ?></span>
+            <h2><?php esc_html_e('Free vs Pro at a glance', 'softicon-flipbook'); ?></h2>
+            <p><?php
+                /* translators: %s: number of features */
+                printf( esc_html__('See what you get when you upgrade. %s features are only in Pro.', 'softicon-flipbook'), '<strong>' . esc_html( number_format_i18n( pro_features::pro_count() ) ) . '</strong>' );
+            ?></p>
+        </div>
+
+        <div class="alfb-plans">
+            <div class="alfb-plan">
+                <span class="alfb-tag"><?php esc_html_e('Free', 'softicon-flipbook'); ?></span>
+                <h3><?php esc_html_e('Free', 'softicon-flipbook'); ?></h3>
+                <p><?php esc_html_e('Free forever, everything you need to put books on your site.', 'softicon-flipbook'); ?></p>
+                <p class="alfb-price"><sup>$</sup>0<span><?php esc_html_e('forever', 'softicon-flipbook'); ?></span></p>
+                <span class="alfb-have"><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e('You already have it', 'softicon-flipbook'); ?></span>
+            </div>
+            <div class="alfb-plan is-pro">
+                <span class="alfb-tag"><?php esc_html_e('Pro', 'softicon-flipbook'); ?></span>
+                <h3><?php esc_html_e('Pro', 'softicon-flipbook'); ?></h3>
+                <p><?php esc_html_e('Everything in Free, plus shelves of books, leads, reading analytics and a protected PDF.', 'softicon-flipbook'); ?></p>
+                <?php self::price( $single ); ?>
+                <a class="alfb-btn alfb-btn-light alfb-btn-block" href="<?php echo esc_url( pro_features::checkout( $single['licenses'] ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Get Pro', 'softicon-flipbook'); ?> &rarr;</a>
+                <a class="alfb-more-plans" href="<?php echo esc_url( self::url( 'pricing' ) ); ?>"><?php esc_html_e('Plans for 3 or unlimited sites', 'softicon-flipbook'); ?></a>
+            </div>
+        </div>
+
+        <section class="alfb-breakdown" data-alfb-filter>
+            <header>
+                <h3 id="alfb-breakdown-title"><?php esc_html_e('Feature breakdown', 'softicon-flipbook'); ?></h3>
+                <label class="alfb-filter">
+                    <span class="dashicons dashicons-search" aria-hidden="true"></span>
+                    <span class="screen-reader-text"><?php esc_html_e('Filter features', 'softicon-flipbook'); ?></span>
+                    <input type="search" placeholder="<?php esc_attr_e('Filter features…', 'softicon-flipbook'); ?>">
+                </label>
+            </header>
+            <table class="alfb-compare" aria-labelledby="alfb-breakdown-title">
+                <thead><tr><th scope="col"><?php esc_html_e('Feature', 'softicon-flipbook'); ?></th><th scope="col"><?php esc_html_e('Free', 'softicon-flipbook'); ?></th><th scope="col" class="is-pro"><?php esc_html_e('Pro', 'softicon-flipbook'); ?></th></tr></thead>
+                <?php foreach ( pro_features::compare() as $group => $rows ) : ?>
+                    <tbody>
+                        <tr class="alfb-group"><th scope="rowgroup" colspan="3"><?php echo esc_html( $group ); ?></th></tr>
+                        <?php foreach ( $rows as $label => $free ) : ?>
+                            <tr>
+                                <th scope="row"><?php echo esc_html( $label ); ?></th>
+                                <td><?php self::mark( $free ); ?></td>
+                                <td><?php self::mark( true ); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                <?php endforeach; ?>
+                <tbody class="alfb-empty" hidden><tr><td colspan="3"><?php esc_html_e('No features match.', 'softicon-flipbook'); ?></td></tr></tbody>
+            </table>
+        </section>
+        <?php
+    }
+
+    private static function mark( $yes ) {
+        if ( $yes ) {
+            echo '<span class="alfb-mark is-yes"><span class="dashicons dashicons-yes" aria-hidden="true"></span><span class="screen-reader-text">' . esc_html__('Included', 'softicon-flipbook') . '</span></span>';
+        } else {
+            echo '<span class="alfb-mark is-no"><span class="dashicons dashicons-no-alt" aria-hidden="true"></span><span class="screen-reader-text">' . esc_html__('Not included', 'softicon-flipbook') . '</span></span>';
+        }
     }
 
     private function tab_help() {
