@@ -32,11 +32,17 @@ const whenNear = (elements, callback) => {
 	elements.forEach(el => observer.observe(el));
 };
 
+let linked = false;
+
 const boot = () => {
-	const all = [...document.querySelectorAll('.alfb_wrapper[data-alfb], .alfb_lb[data-alfb]')];
+	// each element once, a later boot only picks up the new ones
+	const all = [...document.querySelectorAll('.alfb_wrapper[data-alfb], .alfb_lb[data-alfb]')].filter(el => !el.alfbSeen);
 	if (!all.length) {
 		return;
 	}
+	all.forEach(el => {
+		el.alfbSeen = true;
+	});
 	const books = all.filter(el => !el.classList.contains('alfb_lb'));
 	const boxes = all.filter(el => el.classList.contains('alfb_lb'));
 
@@ -46,8 +52,14 @@ const boot = () => {
 	boxes.forEach(start);
 	whenNear(boxes.filter(el => el.classList.contains('alfb_lb_draw')), el => el.alfb?.cover());
 
+	whenNear(books, start);
+
 	// a #page=5 link: bring the first flipbook into view, it opens at that page when it starts,
 	// later links on the same page turn it there; a lightbox opens at that page
+	if (linked) {
+		return;
+	}
+	linked = true;
 	const first = all[0];
 	const toPage = page => {
 		if (first.alfb instanceof Lightbox) {
@@ -72,9 +84,10 @@ const boot = () => {
 			toPage(page);
 		}
 	});
-
-	whenNear(books, start);
 };
+
+// books added to the page later (the dashboard demos) start on this event
+window.addEventListener('alfb:boot', boot);
 
 if ('loading' === document.readyState) {
 	document.addEventListener('DOMContentLoaded', boot);
