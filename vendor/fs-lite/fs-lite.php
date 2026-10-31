@@ -4,6 +4,7 @@ if ( !defined('ABSPATH') ) { exit;}
 
 // A small Freemius opt-in for the free plugin, in place of the full SDK.
 // It talks only to Freemius (wp.freemius.com and api.freemius.com), and only after the site admin agrees.
+// Everything it needs from the plugin comes in the config: the admin page, the icon and the hook for the opt-in card.
 class fs_lite {
 
     const OPTION   = 'alfb_fs_lite';
@@ -22,6 +23,8 @@ class fs_lite {
     private $id;
     private $slug;
     private $public_key;
+    private $page;
+    private $icon;
 
     public function __construct( $file, array $config )
     {
@@ -30,6 +33,8 @@ class fs_lite {
         $this->id         = (string) $config['id'];
         $this->slug       = $config['slug'];
         $this->public_key = $config['public_key'];
+        $this->page       = $config['page'];
+        $this->icon       = isset( $config['icon'] ) ? $config['icon'] : '';
 
         register_activation_hook( $file, array( $this, 'activated' ) );
         register_deactivation_hook( $file, array( $this, 'deactivated' ) );
@@ -43,13 +48,24 @@ class fs_lite {
             add_action('admin_enqueue_scripts', array( $this, 'plugins_page_assets' ));
             add_action('admin_footer-plugins.php', array( $this, 'deactivate_form' ));
             add_filter('plugin_action_links_' . plugin_basename( $file ), array( $this, 'action_links' ));
-            add_action('alfb_dashboard_before', array( $this, 'opt_in_card' ));
+            if ( ! empty( $config['card_hook'] ) ) {
+                add_action( $config['card_hook'], array( $this, 'opt_in_card' ) );
+            }
             add_action('admin_notices', array( $this, 'notices' ));
         }
     }
 
     public static function instance() {
         return self::$instance;
+    }
+
+    // the plugin's admin page, where the opt-in card shows
+    private function page_url() {
+        return admin_url( 'admin.php?page=' . $this->page );
+    }
+
+    private static function asset( $name ) {
+        return array( plugins_url( 'assets/' . $name, __FILE__ ), (string) filemtime( __DIR__ . '/assets/' . $name ) );
     }
 
     // the free plugin has no paid code
@@ -135,7 +151,8 @@ class fs_lite {
     }
 
     private function version() {
-        return defined( 'ALFB_PLUGIN_VERSION' ) ? ALFB_PLUGIN_VERSION : '';
+        $data = get_file_data( $this->file, array( 'version' => 'Version' ) );
+        return $data['version'];
     }
 
     /* ----- Freemius requests ----- */
@@ -211,7 +228,7 @@ class fs_lite {
         return add_query_arg( array(
             'fs_action' => $this->slug . '_activate_new',
             '_wpnonce'  => wp_create_nonce( self::NONCE . '_return' ),
-        ), dashboard::url() );
+        ), $this->page_url() );
     }
 
     public function opt_in_action() {
@@ -232,7 +249,7 @@ class fs_lite {
                 'plugin_public_key'              => $this->public_key,
                 'plugin_version'                 => $this->version(),
                 'return_url'                     => $this->return_url(),
-                'account_url'                    => dashboard::url(),
+                'account_url'                    => $this->page_url(),
                 'is_premium'                     => false,
                 'is_active'                      => true,
                 'is_uninstalled'                 => false,
@@ -261,7 +278,7 @@ class fs_lite {
             $notice = 'pending';
         }
 
-        wp_safe_redirect( add_query_arg( 'alfb_fs', $notice, dashboard::url() ) );
+        wp_safe_redirect( add_query_arg( 'alfb_fs', $notice, $this->page_url() ) );
         exit;
     }
 
@@ -281,7 +298,7 @@ class fs_lite {
             wp_die( esc_html__('You are not allowed to do this.', 'softicon-flipbook'), '', array( 'response' => 403 ) );
         }
         $this->save( array( 'state' => 'skipped' ) );
-        wp_safe_redirect( dashboard::url() );
+        wp_safe_redirect( $this->page_url() );
         exit;
     }
 
@@ -292,7 +309,7 @@ class fs_lite {
             check_admin_referer( self::NONCE . '_return' );
             if ( current_user_can( 'manage_options' ) && 'pending' === $this->data()['state'] && isset( $_GET['install_id'], $_GET['install_public_key'] ) ) {
                 $this->connect( absint( $_GET['install_id'] ), sanitize_text_field( wp_unslash( $_GET['install_public_key'] ) ), sanitize_text_field( wp_unslash( $_GET['install_secret_key'] ) ) );
-                wp_safe_redirect( add_query_arg( 'alfb_fs', 'connected', dashboard::url() ) );
+                wp_safe_redirect( add_query_arg( 'alfb_fs', 'connected', $this->page_url() ) );
                 exit;
             }
         }
@@ -304,7 +321,7 @@ class fs_lite {
         if ( $data['redirect'] ) {
             $this->save( array( 'redirect' => false ) );
             if ( '' === $data['state'] && current_user_can( 'manage_options' ) && ! isset( $_GET['activate-multi'] ) && ! wp_doing_ajax() && ! is_network_admin() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only reads where WordPress came from
-                wp_safe_redirect( dashboard::url() );
+                wp_safe_redirect( $this->page_url() );
                 exit;
             }
         }
@@ -360,7 +377,7 @@ class fs_lite {
         $data   = $this->data();
         $enable = ! empty( $_POST['enable'] );
         if ( 'connected' !== $data['state'] ) {
-            wp_send_json_success( array( 'url' => dashboard::url() ) );
+            wp_send_json_success( array( 'url' => $this->page_url() ) );
         }
         $result = $this->api( 'permissions.json', 'PUT', array( 'permissions' => 'user,site,events,diagnostic', 'is_enabled' => $enable ), $data['install'] );
         if ( ! is_object( $result ) || ! isset( $result->install_id ) ) {
@@ -380,7 +397,7 @@ class fs_lite {
         } elseif ( 'connected' === $data['state'] ) {
             $links['alfb-opt'] = '<a href="#" class="alfb-fs-tracking" data-enable="1">' . esc_html__('Opt In', 'softicon-flipbook') . '</a>';
         } else {
-            $links['alfb-opt'] = '<a href="' . esc_url( add_query_arg( 'alfb_fs', 'ask', dashboard::url() ) ) . '">' . esc_html__('Opt In', 'softicon-flipbook') . '</a>';
+            $links['alfb-opt'] = '<a href="' . esc_url( add_query_arg( 'alfb_fs', 'ask', $this->page_url() ) ) . '">' . esc_html__('Opt In', 'softicon-flipbook') . '</a>';
         }
         return $links;
     }
@@ -415,11 +432,16 @@ class fs_lite {
     }
 
     public function plugins_page_assets( $hook ) {
+        if ( 'plugins.php' !== $hook && 'toplevel_page_' . $this->page !== $hook ) {
+            return;
+        }
+        list( $css, $css_ver ) = self::asset( 'fs-lite.css' );
+        wp_enqueue_style( 'alfb-fs-lite', $css, array(), $css_ver );
         if ( 'plugins.php' !== $hook ) {
             return;
         }
-        wp_enqueue_style( 'alfb-fs-lite', ALFB_PLUGIN_URL . 'assets/css/fs-lite.css', array(), dashboard::version( 'assets/css/fs-lite.css' ) );
-        wp_enqueue_script( 'alfb-fs-lite', ALFB_PLUGIN_URL . 'assets/js/fs-lite.js', array(), dashboard::version( 'assets/js/fs-lite.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
+        list( $js, $js_ver ) = self::asset( 'fs-lite.js' );
+        wp_enqueue_script( 'alfb-fs-lite', $js, array(), $js_ver, array( 'in_footer' => true, 'strategy' => 'defer' ) );
         wp_add_inline_script( 'alfb-fs-lite', 'window.alfbFsLite = ' . wp_json_encode( array(
             'ajax'     => admin_url( 'admin-ajax.php' ),
             'plugin'   => plugin_basename( $this->file ),
@@ -477,7 +499,7 @@ class fs_lite {
         );
         ?>
         <section class="alfb-optin">
-            <img src="<?php echo esc_url( ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png' ); ?>" alt="" width="56" height="56">
+            <?php if ( $this->icon ) : ?><img src="<?php echo esc_url( $this->icon ); ?>" alt="" width="56" height="56"><?php endif; ?>
             <div class="alfb-optin-body">
                 <h2><?php esc_html_e('Never miss an important update', 'softicon-flipbook'); ?></h2>
                 <p><?php
@@ -498,7 +520,7 @@ class fs_lite {
                     <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
                         <input type="hidden" name="action" value="alfb_fs_opt_in">
                         <?php wp_nonce_field( self::NONCE . '_opt_in' ); ?>
-                        <button type="submit" class="alfb-btn alfb-btn-teal"><?php esc_html_e('Allow & Continue', 'softicon-flipbook'); ?></button>
+                        <button type="submit" class="button button-primary button-hero alfb-optin-allow"><?php esc_html_e('Allow & Continue', 'softicon-flipbook'); ?></button>
                     </form>
                     <?php if ( '' === $data['state'] ) : ?>
                         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
@@ -515,7 +537,7 @@ class fs_lite {
 
     public function notices() {
         $screen = get_current_screen();
-        if ( ! $screen || 'toplevel_page_' . dashboard::PAGE !== $screen->id ) {
+        if ( ! $screen || 'toplevel_page_' . $this->page !== $screen->id ) {
             return;
         }
         $data   = $this->data();

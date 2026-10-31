@@ -20,7 +20,7 @@ if ( !defined('ABSPATH') ) { exit; }
 
 // the Freemius opt-in; also needed when WordPress deletes this copy while Pro is active
 if ( ! class_exists( 'ALFB_Flipbook\fs_lite' ) ) {
-    require_once __DIR__ . '/includes/fs-lite.php';
+    require_once __DIR__ . '/vendor/fs-lite/fs-lite.php';
 }
 
 if ( function_exists( 'alfb_fs' ) ) {
@@ -33,7 +33,7 @@ if ( function_exists( 'alfb_fs' ) ) {
         }
     } );
 } else {
-    // Freemius: optional usage opt-in only, through the small client in includes/fs-lite.php instead of the full SDK
+    // Freemius: optional usage opt-in only, through the small client in vendor/fs-lite instead of the full SDK
     function alfb_fs() {
         global $alfb_fs;
 
@@ -42,6 +42,10 @@ if ( function_exists( 'alfb_fs' ) ) {
                 'id'         => '43387',
                 'slug'       => 'softicon-flipbook',
                 'public_key' => 'pk_e1f96e9b8a918f0035345996895cd',
+                // the Flipbook dashboard, where the opt-in card shows
+                'page'       => 'softicon-flipbook',
+                'card_hook'  => 'alfb_dashboard_before',
+                'icon'       => plugins_url( 'assets/images/icon-128x128.png', __FILE__ ),
             ) );
         }
 

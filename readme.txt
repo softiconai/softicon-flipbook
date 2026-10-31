@@ -123,7 +123,7 @@ After activation, the Flipbook dashboard asks if you want to opt in to security 
 
 When you deactivate the plugin you can tell us why. That answer is sent only if you choose one and click "Submit & Deactivate", and only when the plugin is deleted.
 
-The opt-in is handled by a small client inside the plugin (includes/fs-lite.php) that talks only to wp.freemius.com and api.freemius.com. See the [Freemius privacy policy](https://freemius.com/privacy/).
+The opt-in is handled by a small client inside the plugin (vendor/fs-lite) that talks only to wp.freemius.com and api.freemius.com. See the [Freemius privacy policy](https://freemius.com/privacy/).
 
 = Where can I get help? =
 
