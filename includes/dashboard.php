@@ -160,7 +160,7 @@ class dashboard {
         wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'build/dashboard.js', $script['dependencies'], $script['version'], true );
         wp_set_script_translations( 'alfb-dashboard', 'softicon-flipbook', ALFB_PLUGIN_PATH . 'languages' );
         wp_add_inline_script( 'alfb-dashboard', 'window.alfbDashboard = ' . wp_json_encode( self::config() ) . ';', 'before' );
-        // the demos are real flipbooks
+        // the demos are real flipbooks, drawn by src/dashboard/Demos.js
         wp_enqueue_style( generate_block_asset_handle( 'softicon/flipbook', 'style' ) );
         wp_enqueue_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ) );
         // add-ons enqueue their tabs here; a script that adds tabs makes itself a dependency of alfb-dashboard
@@ -206,6 +206,8 @@ class dashboard {
             'optIn'   => method_exists( alfb_fs(), 'card' ) ? alfb_fs()->card() : null,
             'urls'    => array(
                 'newPage'  => admin_url( 'post-new.php?post_type=page' ),
+                // the sample PDFs the Demos tab shows
+                'demo'     => ALFB_PLUGIN_URL . 'assets/demo/',
                 'playlist' => self::PLAYLIST,
             ),
         );
@@ -222,11 +224,6 @@ class dashboard {
             'callback'            => array( __CLASS__, 'plans' ),
             'permission_callback' => $admin,
         ) );
-        register_rest_route( 'alfb/v1', '/dashboard/demos', array(
-            'methods'             => 'GET',
-            'callback'            => array( __CLASS__, 'demos' ),
-            'permission_callback' => $admin,
-        ) );
     }
 
     // the Pricing and Free vs Pro tabs: the plans from Freemius and what the checkout needs
@@ -240,22 +237,6 @@ class dashboard {
             'base'    => 'https://checkout.freemius.com/plugin/' . alfb_fs()->id() . '/',
         );
         return rest_ensure_response( $data );
-    }
-
-    // the Demos tab: each demo with its book markup, rendered by the block
-    public static function demos() {
-        $pdfs  = demos::preview_pdfs();
-        $items = array();
-        foreach ( demos::all() as $key => $demo ) {
-            $item = array( 'key' => $key, 'title' => $demo['title'], 'text' => $demo['text'], 'pro' => ! empty( $demo['pro'] ), 'row' => ! empty( $demo['row'] ) );
-            if ( isset( $demo['blocks'] ) ) {
-                // the block's render.php escapes everything in this markup
-                $item['html']   = do_blocks( demos::markup( $demo, $pdfs ) );
-                $item['create'] = demos::create_url( $key );
-            }
-            $items[] = $item;
-        }
-        return rest_ensure_response( $items );
     }
 
     // React draws the whole page into #alfb-dashboard

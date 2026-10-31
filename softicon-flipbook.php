@@ -82,13 +82,11 @@ if ( function_exists( 'alfb_fs' ) ) {
         public function load_classes() {
 
             require_once ALFB_PLUGIN_PATH . 'includes/block.php';
-            require_once ALFB_PLUGIN_PATH . 'includes/demos.php';
             require_once ALFB_PLUGIN_PATH . 'includes/dashboard.php';
 
             new ALFB_Flipbook\block();
             add_action( 'rest_api_init', array( 'ALFB_Flipbook\dashboard', 'routes' ) );
             if ( is_admin() ) {
-                new ALFB_Flipbook\demos();
                 new ALFB_Flipbook\dashboard();
             }
 
