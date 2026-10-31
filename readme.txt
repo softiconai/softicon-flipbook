@@ -117,13 +117,40 @@ On small screens the book shows one page at a time at the full width of the scre
 
 = Does the plugin collect any data? =
 
-Not from your visitors: the flipbook sets no cookies and sends nothing anywhere.
+**From your visitors: nothing.** The flipbook sets no cookies, tracks no one and sends nothing anywhere.
 
-After activation, the Flipbook dashboard asks if you want to opt in to security and feature update emails and share basic, non-sensitive data with us through [Freemius](https://freemius.com): your name and email, the site address, title and language, the WordPress, PHP and plugin versions, and when the plugin is activated, deactivated or deleted. Nothing about your posts, visitors, other plugins or themes. It is entirely optional: click "Skip" and nothing is sent. You can opt out later from the Plugins page.
+**From you, the site admin: only if you say yes.** After activation, the Flipbook dashboard asks if you would like to opt in. Click "Skip" and nothing is ever sent; the plugin works exactly the same either way.
 
-When you deactivate the plugin you can tell us why. That answer is sent only if you choose one and click "Submit & Deactivate", and only when the plugin is deleted.
+If you click "Allow & Continue", this is shared with us through [Freemius](https://freemius.com), the service we use to manage our users:
 
-The opt-in is handled by a small client inside the plugin (vendor/fs-lite) that talks only to wp.freemius.com and api.freemius.com. See the [Freemius privacy policy](https://freemius.com/privacy/).
+* **Your profile:** your first name, last name and email address.
+* **Your site:** the site address, title and language, and an anonymous site ID (a one-way code made on your site, so the same site is not counted twice).
+* **Versions:** your WordPress, PHP and Flipbook versions.
+* **Plugin events:** when Flipbook is activated, deactivated, updated or deleted.
+
+We never collect your posts, pages or PDFs, anything about your visitors, or the list of your other plugins and themes.
+
+**Why we ask:** to email you about security fixes and important new features, to know which WordPress and PHP versions we must keep supporting, and to learn what to improve.
+
+**Changed your mind?** Click "Opt Out" under Flipbook on the Plugins page and nothing more is sent. To have your data deleted, email us at softiconai@gmail.com.
+
+**When you deactivate the plugin**, a short form asks why. Answering is optional ("Skip & Deactivate" is always there). If you choose a reason, it is sent only when you delete the plugin. If you never opted in, only the reason and the anonymous site ID are sent, never your name or email.
+
+= Why a small built-in opt-in instead of the Freemius SDK? =
+
+Earlier versions included the full Freemius SDK. Since we only need the opt-in, Flipbook now uses its own small client in the vendor/fs-lite folder:
+
+* **A lighter plugin:** about 0.8 MB smaller to download and about 3.6 MB less on your server.
+* **Easy to check:** one plain PHP file (vendor/fs-lite/fs-lite.php) that shows exactly what is sent and when.
+* **Only Freemius:** it connects to wp.freemius.com and api.freemius.com and nowhere else, and only after you click "Allow & Continue".
+* **Nothing extra in your admin:** no added menus, and its scripts load only on the Plugins page and the Flipbook dashboard.
+
+If you opted in or skipped with an earlier version, your choice is kept and you are not asked again.
+
+= Which outside services does the plugin use? =
+
+* **Freemius** (wp.freemius.com, api.freemius.com) for the optional opt-in described above, only if you allow it. [Terms](https://freemius.com/terms/), [privacy policy](https://freemius.com/privacy/).
+* **Freemius Checkout** (checkout.freemius.com) opens in a window only when you click a "Get Pro" button on the Flipbook dashboard, so you can buy Pro. Nothing is sent before you click, and what you type in the checkout goes to Freemius, which handles the payment. Same terms and privacy policy.
 
 = Where can I get help? =
 
