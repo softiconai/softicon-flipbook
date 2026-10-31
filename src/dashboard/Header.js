@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 
-const Header = ({ config, active }) => <header className='alfb-dash-head'>
+const Header = ({ config, active, unlock }) => <header className='alfb-dash-head'>
 	<a className='alfb-dash-brand' href='#/welcome'>
 		<img src={config.icon} alt='' width='36' height='36' />
 		<strong>{config.pro ? __('Flipbook Pro', 'softicon-flipbook') : __('Flipbook', 'softicon-flipbook')}</strong>
@@ -8,10 +8,14 @@ const Header = ({ config, active }) => <header className='alfb-dash-head'>
 	</a>
 	<nav className='alfb-dash-tabs' aria-label={__('Flipbook dashboard', 'softicon-flipbook')}>
 		{config.tabs.map(tab => {
-			// a Pro tab without a license still opens; it shows a notice
+			// a locked Pro tab opens the popup and stays where it is
 			const locked = config.lockedTabs.includes(tab.key);
-			return <a key={tab.key} href={'#/' + tab.key} className={(tab.key === active ? 'is-active' : '') + (locked ? ' is-locked' : '') || undefined} aria-current={tab.key === active ? 'page' : undefined}>
-				{tab.label}{locked && <span className='dashicons dashicons-lock' aria-label={__('Pro', 'softicon-flipbook')} />}
+			return <a key={tab.key} href={'#/' + tab.key} className={(tab.key === active ? 'is-active' : '') + (locked ? ' is-locked' : '') || undefined} aria-current={tab.key === active ? 'page' : undefined}
+				onClick={locked ? event => {
+					event.preventDefault();
+					unlock();
+				} : undefined}>
+				{tab.label}{locked && <span className='dashicons dashicons-lock' aria-label={__('Locked', 'softicon-flipbook')} />}
 			</a>;
 		})}
 	</nav>

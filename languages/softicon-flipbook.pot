@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T15:03:39+00:00\n"
+"POT-Creation-Date: 2026-10-31T14:42:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -35,7 +35,7 @@ msgid "https://profiles.wordpress.org/softiconai/"
 msgstr ""
 
 #: build/render.php:24
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 #: build/index.js:2
 #: build/index.js:7
 msgid "Read the flipbook"
@@ -44,7 +44,6 @@ msgstr ""
 #: build/render.php:58
 #: includes/dashboard.php:154
 #: build/dashboard.js:1
-#: build/dashboard.js:2
 #: build/index.js:7
 #: build/view.js:6
 msgid "Flipbook"
@@ -93,8 +92,8 @@ msgid "Free vs Pro"
 msgstr ""
 
 #: includes/dashboard.php:173
+#: build/dashboard.js:1
 #: build/dashboard.js:2
-#: build/dashboard.js:3
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
@@ -108,7 +107,7 @@ msgid "Demos"
 msgstr ""
 
 #: includes/dashboard.php:207
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Pricing"
 msgstr ""
 
@@ -304,10 +303,7 @@ msgid "Flipbook dashboard"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:2
-#: build/dashboard.js:3
-#: build/index.js:2
-msgid "Pro"
+msgid "Locked"
 msgstr ""
 
 #: build/dashboard.js:1
@@ -332,306 +328,314 @@ msgid "Close"
 msgstr ""
 
 #: build/dashboard.js:1
-msgid "Pro feature"
+msgid "This is a Pro feature"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:2
-msgid "Unlock with Pro"
+msgid "Activate your SoftIcon Flipbook Pro license to use it, or get a license from the Pricing page."
 msgstr ""
 
 #: build/dashboard.js:1
-msgid "I have a license key"
+msgid "See pricing"
 msgstr ""
 
-#: build/dashboard.js:2
-#, js-format
-msgid "%s is a Pro feature"
+#: build/dashboard.js:1
+msgid "Activate license"
 msgstr ""
 
-#: build/dashboard.js:2
-msgid "It is part of SoftIcon Flipbook Pro. Activate your license to use it, or get Pro from the Pricing page."
+#: build/dashboard.js:1
+msgid "This is a Pro feature."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Turn any PDF into a book people enjoy reading"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Catalogs, magazines, menus and brochures that turn like real pages, on phones and big screens, right inside the block editor."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Create a flipbook"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "See the demos"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Watch the video tutorials"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Get started in three steps"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Add the block"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "In any page or post, click + and search for \"Flipbook\"."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Pick a PDF"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Upload one, choose it from the Media Library, or build the book from images."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Choose the look"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Classic or Hardcover, on the page or in a popup, then publish."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Something went wrong. Please try again."
 msgstr ""
 
+#: build/dashboard.js:1
 #: build/dashboard.js:2
+#: build/index.js:2
+msgid "Pro"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Available in Pro"
+msgstr ""
+
+#: build/dashboard.js:1
 msgid "Classic book"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "The default look: two pages side by side, one page on phones, and the full toolbar."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 #: build/index.js:2
 msgid "Hardcover"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Pages inside a cover, with the stack of page edges, a shadow at the spine and large arrows."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Chapters and links"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "A PDF with bookmarks gets a table of contents, and the links inside it can be clicked."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Covers that open a popup"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Only the covers show on the page. A click opens the book over the page, and it loads only then."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Spring Living 2026"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Room Guide 2026"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "A button that opens a popup"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "A theme-styled button, or a plain text link, opens the book in a popup."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Open the room guide"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "These are real flipbooks, try them. Add one to any page with the Flipbook block."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Loading…"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "one-time"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "per year"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "per month"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:1
 msgid "Unlimited websites"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 #, js-format
 msgid "%d website"
 msgid_plural "%d websites"
 msgstr[0] ""
 msgstr[1] ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Get Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "The Pro plans could not be loaded right now. Please try again later."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "SoftIcon Flipbook Pro is coming soon."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Pay once, use it for life"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Pick your plan"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Every plan has all Pro features; pick how many websites you need."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Every free feature"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 #, js-format
 msgid "%d-day money-back guarantee."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Secure checkout by Freemius. Pro replaces the free plugin and keeps every book you made."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Compare Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Included"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Not included"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "In Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Only in Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Compare"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Free vs Pro at a glance"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 #, js-format
 msgid "See what you get when you upgrade. %s features are only in Pro."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Free"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Free forever, everything you need to put books on your site."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "forever"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "You already have it"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Plans for more websites"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Feature breakdown"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Filter features"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Filter features…"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Feature"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "No features match."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Get help"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Support forum"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Tell us your WordPress version, the page with the flipbook and what you see."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Learn"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Frequently asked questions"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Source code on GitHub"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Like the plugin?"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "Leave a review"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:2
 msgid "More plugins from SoftIcon"
 msgstr ""
 
