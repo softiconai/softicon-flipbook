@@ -38,12 +38,18 @@ class dashboard {
         return $links;
     }
 
+    // a new file gets a new URL, so a browser never keeps an old copy after an update
+    public static function version( $file ) {
+        $time = file_exists( ALFB_PLUGIN_PATH . $file ) ? filemtime( ALFB_PLUGIN_PATH . $file ) : false;
+        return $time ? ALFB_PLUGIN_VERSION . '.' . $time : ALFB_PLUGIN_VERSION;
+    }
+
     public function enqueue_assets( $hook ) {
         if ( 'toplevel_page_' . self::PAGE !== $hook ) {
             return;
         }
-        wp_enqueue_style( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/css/dashboard.css', array(), ALFB_PLUGIN_VERSION );
-        wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/js/dashboard.js', array(), ALFB_PLUGIN_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+        wp_enqueue_style( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/css/dashboard.css', array(), self::version( 'assets/css/dashboard.css' ) );
+        wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/js/dashboard.js', array(), self::version( 'assets/js/dashboard.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
         // the demos are real flipbooks
         wp_enqueue_style( generate_block_asset_handle( 'softicon/flipbook', 'style' ) );
         wp_enqueue_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ) );
