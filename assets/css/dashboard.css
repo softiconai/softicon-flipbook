@@ -858,21 +858,17 @@
 	font-size: 16px;
 }
 
-.alfb-locked-popup {
-	position: relative;
-	width: min(440px, 92vw);
-	padding: 32px 28px 24px;
-	border: 0;
-	border-radius: 10px;
-	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-	text-align: center;
+.alfb-pro-notice {
+	display: flex;
+	gap: 18px;
+	max-width: 760px;
+	margin: 0 auto;
+	padding: 28px;
+	border-top: 4px solid #f59e0b;
 }
 
-.alfb-locked-popup::backdrop {
-	background: rgba(0, 0, 0, 0.55);
-}
-
-.alfb-locked-popup > .dashicons-lock {
+.alfb-pro-notice > .dashicons-lock {
+	flex: none;
 	width: 48px;
 	height: 48px;
 	border-radius: 50%;
@@ -880,38 +876,22 @@
 	color: #ea8a10;
 	font-size: 26px;
 	line-height: 48px;
+	text-align: center;
 }
 
-.alfb-locked-popup h2 {
-	margin: 14px 0 8px;
+.alfb-pro-notice h2 {
+	margin: 10px 0 6px;
 	font-size: 20px;
 }
 
-.alfb-locked-popup p {
-	margin: 0 0 18px;
+.alfb-pro-notice p {
+	margin: 0 0 16px;
 	color: #3c434a;
 }
 
-.alfb-locked-actions {
+.alfb-pro-notice-actions {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
-	gap: 10px;
-}
-
-.alfb-btn-light-outline {
-	border-color: var(--alfb-line);
-	background: #fff;
-	color: #1d2327;
-}
-
-.alfb-locked-close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	padding: 4px;
-	border: 0;
-	background: none;
-	color: #646970;
-	cursor: pointer;
+	align-items: center;
+	gap: 16px;
 }

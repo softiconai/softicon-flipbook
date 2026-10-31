@@ -23,7 +23,7 @@ const coreDemos = base => {
 };
 
 // the free plugin shows a locked card for each Pro feature marked "featured" in Freemius
-const Locked = ({ unlock }) => {
+const Locked = ({ href }) => {
 	// only the plans already kept from the Pricing tab; opening Demos sends nothing to Freemius
 	const { data } = useApi('/alfb/v1/dashboard/plans?cached=1');
 	return (data?.pro_only || []).filter(feature => feature.featured).map(feature => <article key={feature.title} className='alfb-card alfb-demo is-pro'>
@@ -32,15 +32,11 @@ const Locked = ({ unlock }) => {
 			<p>{feature.text}</p>
 		</header>
 		<div className='alfb-demo-locked'><span className='dashicons dashicons-lock' aria-hidden='true' /></div>
-		{/* Pro without a license opens the popup, the free plugin shows the comparison */}
-		<footer><a className='alfb-btn alfb-btn-amber' href='#/compare' onClick={unlock ? event => {
-			event.preventDefault();
-			unlock();
-		} : undefined}>{__('Available in Pro', 'softicon-flipbook')}</a></footer>
+		<footer><a className='alfb-btn alfb-btn-amber' href={href}>{__('Unlock with Pro', 'softicon-flipbook')}</a></footer>
 	</article>);
 };
 
-const Demos = ({ config, unlock }) => {
+const Demos = ({ config }) => {
 	// SoftIcon Flipbook Pro adds its own live demos here
 	const demos = useMemo(() => applyFilters('alfb.dashboard.demos', coreDemos(config.urls.demo), config), [config]);
 
@@ -61,7 +57,7 @@ const Demos = ({ config, unlock }) => {
 					{demo.books.map((book, i) => <DemoBook key={i} book={book} />)}
 				</div>
 			</article>)}
-			{(!config.pro || config.locked) && <Locked unlock={config.locked ? unlock : null} />}
+			{(!config.pro || config.locked) && <Locked href={config.locked ? '#/pricing' : '#/compare'} />}
 		</div>
 	</>;
 };

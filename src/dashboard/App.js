@@ -1,9 +1,9 @@
 import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import Header from './Header';
 import OptIn from './OptIn';
 import VideoPopup from './VideoPopup';
-import LockedPopup from './LockedPopup';
+import ProNotice from './ProNotice';
 import useRoute from './useRoute';
 
 const keys = config => config.tabs.map(tab => tab.key);
@@ -12,21 +12,14 @@ const App = ({ config, tabs }) => {
 	const [allKeys] = useState(() => keys(config));
 	const route = useRoute(allKeys);
 	const [video, setVideo] = useState(null);
-	const [lockedOpen, setLockedOpen] = useState(false);
-	const unlock = () => setLockedOpen(true);
 
 	// '#/videos' is the video list on the Welcome tab
 	const key = 'videos' === route ? 'welcome' : route;
 	const tab = allKeys.includes(key) && tabs[key] ? key : allKeys[0];
 	const Content = tabs[tab];
-	// a locked Pro tab reached by its address shows a short note and the popup
+	// a locked Pro tab shows a notice in place of its content
 	const isLocked = config.lockedTabs.includes(tab);
-
-	useEffect(() => {
-		if (isLocked) {
-			setLockedOpen(true);
-		}
-	}, [isLocked]);
+	const label = config.tabs.find(item => item.key === tab)?.label;
 
 	useEffect(() => {
 		if ('videos' === route) {
@@ -35,15 +28,18 @@ const App = ({ config, tabs }) => {
 	}, [route]);
 
 	return <>
-		<Header config={config} active={tab} unlock={unlock} />
+		<Header config={config} active={tab} />
 		<div className='alfb-dash-body'>
 			{config.notice && <div className={'notice inline alfb-notice notice-' + config.notice.type} role='status'><p>{config.notice.text}</p></div>}
 			{config.optIn && <OptIn card={config.optIn} />}
-			{isLocked ? <div className='alfb-card alfb-status'><span className='dashicons dashicons-lock' aria-hidden='true' />{__('This is a Pro feature.', 'softicon-flipbook')}</div>
-				: <Content config={config} play={setVideo} unlock={unlock} />}
+			{isLocked ? <ProNotice activate={config.activate}
+				/* translators: %s: a dashboard tab, such as Analytics */
+				title={sprintf(__('%s is a Pro feature', 'softicon-flipbook'), label)}
+				text={__('It is part of SoftIcon Flipbook Pro. Activate your license to use it, or get Pro from the Pricing page.', 'softicon-flipbook')} />
+				: <Content config={config} play={setVideo} />}
 		</div>
 		<VideoPopup video={video} onClose={() => setVideo(null)} />
-		{config.locked && <LockedPopup open={lockedOpen} activate={config.activate} onClose={() => setLockedOpen(false)} />}
+
 	</>;
 };
 
