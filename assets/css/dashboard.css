@@ -840,3 +840,8 @@
 .alfb-status .dashicons-warning {
 	color: #b32d2e;
 }
+
+.alfb-notice {
+	max-width: 1000px;
+	margin: 0 auto 20px;
+}

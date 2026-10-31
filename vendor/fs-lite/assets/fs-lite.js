@@ -1,83 +1,99 @@
-// Plugins page: the reason form when Flipbook is deactivated, and the Opt In / Opt Out link
-const lite = window.alfbFsLite;
-const modal = document.getElementById('alfb-fs-deactivate');
-const row = lite && document.querySelector(`tr[data-plugin="${CSS.escape(lite.plugin)}"]`);
-
-const post = data => fetch(lite.ajax, {
-	method: 'POST',
-	credentials: 'same-origin',
-	body: new URLSearchParams(data)
-}).then(response => response.json());
-
-const deactivateLink = row?.querySelector('.deactivate a');
-
-if (modal && deactivateLink) {
-	const form = modal.querySelector('form');
-	const submit = form.querySelector('[type="submit"]');
-	let opener = null;
-
-	const close = () => {
-		modal.hidden = true;
-		opener?.focus();
-	};
-	const leave = () => {
-		window.location.href = deactivateLink.href;
-	};
-
-	deactivateLink.addEventListener('click', event => {
-		event.preventDefault();
-		opener = deactivateLink;
-		modal.hidden = false;
-		form.querySelector('input[type="radio"]').focus();
-	});
-
-	// the text box of the chosen reason only
-	form.addEventListener('change', event => {
-		if ('radio' !== event.target.type) {
-			return;
-		}
-		form.querySelectorAll('input[type="text"]').forEach(input => {
-			const show = input.parentElement.contains(event.target);
-			input.hidden = !show;
-			input.disabled = !show;
-		});
-		event.target.closest('li').querySelector('input[type="text"]')?.focus();
-		submit.disabled = false;
-	});
-
-	form.addEventListener('submit', event => {
-		event.preventDefault();
-		const reason = form.querySelector('input[name="reason"]:checked');
-		if (!reason) {
-			return;
-		}
-		submit.disabled = true;
-		const info = reason.closest('li').querySelector('input[type="text"]');
-		post({ action: 'alfb_fs_reason', _ajax_nonce: lite.reason, reason: reason.value, info: info ? info.value : '' }).finally(leave);
-	});
-
-	modal.querySelector('.alfb-fs-skip').addEventListener('click', leave);
-	modal.querySelector('.alfb-fs-cancel').addEventListener('click', close);
-	modal.addEventListener('click', event => event.target === modal && close());
-	modal.addEventListener('keydown', event => 'Escape' === event.key && close());
-}
-
-row?.querySelector('.alfb-fs-tracking')?.addEventListener('click', event => {
-	event.preventDefault();
-	const link = event.currentTarget;
-	const enable = '1' === link.dataset.enable;
-	if (!enable && !window.confirm(lite.optOut)) {
+// Plugins page: the reason form when the plugin is deactivated (React, from wp.element), and the Opt In / Opt Out link.
+// Plain JavaScript without a build step, so the vendor folder works on its own; the words come from fs-lite.php.
+(function (wp, lite) {
+	if (!wp?.element || !lite) {
 		return;
 	}
-	link.setAttribute('aria-busy', 'true');
-	post({ action: 'alfb_fs_tracking', _ajax_nonce: lite.tracking, enable: enable ? '1' : '' }).then(result => {
-		if (result.success && result.data?.url) {
-			window.location.href = result.data.url;
-		} else if (result.success) {
-			window.location.reload();
-		} else {
-			window.alert(result.data?.message || 'Error');
-			link.removeAttribute('aria-busy');
+	const { createElement: h, createRoot, useEffect, useRef, useState } = wp.element;
+	const row = document.querySelector(`tr[data-plugin="${CSS.escape(lite.plugin)}"]`);
+
+	const post = data => fetch(lite.ajax, {
+		method: 'POST',
+		credentials: 'same-origin',
+		body: new URLSearchParams(data)
+	}).then(response => response.json());
+
+	const Reasons = ({ form, href, onClose }) => {
+		const [reason, setReason] = useState(null);
+		const [info, setInfo] = useState('');
+		const [busy, setBusy] = useState(false);
+		const first = useRef();
+		const leave = () => {
+			window.location.href = href;
+		};
+
+		useEffect(() => {
+			first.current?.focus();
+			const key = event => 'Escape' === event.key && onClose();
+			document.addEventListener('keydown', key);
+			return () => document.removeEventListener('keydown', key);
+		}, [onClose]);
+
+		const submit = event => {
+			event.preventDefault();
+			if (!reason) {
+				return;
+			}
+			setBusy(true);
+			post({ action: 'alfb_fs_reason', _ajax_nonce: lite.reason, reason: reason.id, info: reason.ask ? info : '' }).finally(leave);
+		};
+
+		return h('div', { className: 'alfb-fs-modal', onClick: event => event.target === event.currentTarget && onClose() },
+			h('form', { className: 'alfb-fs-dialog', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'alfb-fs-deactivate-title', onSubmit: submit },
+				h('h2', { id: 'alfb-fs-deactivate-title' }, form.title),
+				h('p', null, form.text),
+				h('ul', null, form.reasons.map((item, i) => h('li', { key: item.id },
+					h('label', null,
+						h('input', { type: 'radio', name: 'reason', value: item.id, ref: 0 === i ? first : undefined, checked: reason?.id === item.id, onChange: () => setReason(item) }),
+						' ', item.text
+					),
+					// the text box of the chosen reason only
+					item.ask && reason?.id === item.id && h('input', { type: 'text', maxLength: 128, placeholder: item.ask, 'aria-label': item.ask, value: info, autoFocus: true, onChange: event => setInfo(event.target.value) })
+				))),
+				h('p', { className: 'alfb-fs-small' }, form.note),
+				h('div', { className: 'alfb-fs-actions' },
+					h('button', { type: 'button', className: 'button-link alfb-fs-skip', onClick: leave }, form.skip),
+					h('span', null,
+						h('button', { type: 'button', className: 'button alfb-fs-cancel', onClick: onClose }, form.cancel),
+						h('button', { type: 'submit', className: 'button button-primary', disabled: !reason || busy }, form.submit)
+					)
+				)
+			)
+		);
+	};
+
+	const deactivate = row?.querySelector('.deactivate a');
+	if (lite.form && deactivate) {
+		const box = document.createElement('div');
+		document.body.append(box);
+		const root = createRoot(box);
+		const close = () => {
+			root.render(null);
+			deactivate.focus();
+		};
+		deactivate.addEventListener('click', event => {
+			event.preventDefault();
+			root.render(h(Reasons, { form: lite.form, href: deactivate.href, onClose: close }));
+		});
+	}
+
+	row?.querySelector('.alfb-fs-tracking')?.addEventListener('click', event => {
+		event.preventDefault();
+		const link = event.currentTarget;
+		const enable = '1' === link.dataset.enable;
+		if (!enable && !window.confirm(lite.optOut)) {
+			return;
 		}
+		link.setAttribute('aria-busy', 'true');
+		post({ action: 'alfb_fs_tracking', _ajax_nonce: lite.tracking, enable: enable ? '1' : '' }).then(result => {
+			if (result.success && result.data?.url) {
+				window.location.href = result.data.url;
+			} else if (result.success) {
+				window.location.reload();
+			} else {
+				window.alert(result.data?.message || 'Error');
+				link.removeAttribute('aria-busy');
+			}
+		});
 	});
-});
+}(window.wp, window.alfbFsLite));

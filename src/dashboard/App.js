@@ -25,6 +25,7 @@ const App = ({ config, tabs }) => {
 	return <>
 		<Header config={config} active={tab} />
 		<div className='alfb-dash-body'>
+			{config.notice && <div className={'notice inline alfb-notice notice-' + config.notice.type} role='status'><p>{config.notice.text}</p></div>}
 			{config.optIn && <OptIn card={config.optIn} />}
 			<Content config={config} play={setVideo} />
 		</div>

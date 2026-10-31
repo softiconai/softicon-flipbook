@@ -4,7 +4,9 @@ if ( !defined('ABSPATH') ) { exit;}
 
 // A small Freemius opt-in for the free plugin, in place of the full SDK.
 // It talks only to Freemius (wp.freemius.com and api.freemius.com), and only after the site admin agrees.
-// Everything it needs from the plugin comes in the config: the admin page, the icon and the hook for the opt-in card.
+// Everything it needs from the plugin comes in the config: the admin page and the icon.
+// It prints no HTML: the plugin's React page draws the card and the notice from card() and notice(),
+// and assets/fs-lite.js (React, wp.element) draws the Plugins page form.
 class fs_lite {
 
     const OPTION   = 'alfb_fs_lite';
@@ -46,12 +48,7 @@ class fs_lite {
             add_action('wp_ajax_alfb_fs_tracking', array( $this, 'tracking_ajax' ));
             add_action('wp_ajax_alfb_fs_reason', array( $this, 'reason_ajax' ));
             add_action('admin_enqueue_scripts', array( $this, 'plugins_page_assets' ));
-            add_action('admin_footer-plugins.php', array( $this, 'deactivate_form' ));
             add_filter('plugin_action_links_' . plugin_basename( $file ), array( $this, 'action_links' ));
-            if ( ! empty( $config['card_hook'] ) ) {
-                add_action( $config['card_hook'], array( $this, 'opt_in_card' ) );
-            }
-            add_action('admin_notices', array( $this, 'notices' ));
         }
     }
 
@@ -457,46 +454,28 @@ class fs_lite {
             return;
         }
         list( $js, $js_ver ) = self::asset( 'fs-lite.js' );
-        wp_enqueue_script( 'alfb-fs-lite', $js, array(), $js_ver, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+        wp_enqueue_script( 'alfb-fs-lite', $js, array( 'wp-element' ), $js_ver, true );
+        $reasons = array();
+        foreach ( self::reasons() as $id => $reason ) {
+            $reasons[] = array( 'id' => $id, 'text' => $reason[0], 'ask' => $reason[1] );
+        }
         wp_add_inline_script( 'alfb-fs-lite', 'window.alfbFsLite = ' . wp_json_encode( array(
             'ajax'     => admin_url( 'admin-ajax.php' ),
             'plugin'   => plugin_basename( $this->file ),
             'reason'   => wp_create_nonce( self::NONCE . '_reason' ),
             'tracking' => wp_create_nonce( self::NONCE . '_tracking' ),
             'optOut'   => __('Stop sending usage data to SoftIcon through Freemius? You can opt in again at any time.', 'softicon-flipbook'),
+            // the deactivation form, only for people who may deactivate plugins
+            'form'     => current_user_can( 'activate_plugins' ) ? array(
+                'title'   => __('Quick question before you go', 'softicon-flipbook'),
+                'text'    => __('Why are you deactivating SoftIcon Flipbook? Your answer helps us make it better.', 'softicon-flipbook'),
+                'reasons' => $reasons,
+                'note'    => __('Only your answer is sent, when the plugin is deleted. No name or email unless you opted in before.', 'softicon-flipbook'),
+                'skip'    => __('Skip & Deactivate', 'softicon-flipbook'),
+                'cancel'  => __('Cancel', 'softicon-flipbook'),
+                'submit'  => __('Submit & Deactivate', 'softicon-flipbook'),
+            ) : null,
         ) ) . ';', 'before' );
-    }
-
-    public function deactivate_form() {
-        if ( ! current_user_can( 'activate_plugins' ) ) {
-            return;
-        }
-        ?>
-        <div class="alfb-fs-modal" id="alfb-fs-deactivate" hidden>
-            <form class="alfb-fs-dialog" role="dialog" aria-modal="true" aria-labelledby="alfb-fs-deactivate-title">
-                <h2 id="alfb-fs-deactivate-title"><?php esc_html_e('Quick question before you go', 'softicon-flipbook'); ?></h2>
-                <p><?php esc_html_e('Why are you deactivating SoftIcon Flipbook? Your answer helps us make it better.', 'softicon-flipbook'); ?></p>
-                <ul>
-                    <?php foreach ( self::reasons() as $id => $reason ) : ?>
-                        <li>
-                            <label><input type="radio" name="reason" value="<?php echo esc_attr( $id ); ?>"> <?php echo esc_html( $reason[0] ); ?></label>
-                            <?php if ( $reason[1] ) : ?>
-                                <input type="text" name="info" maxlength="128" placeholder="<?php echo esc_attr( $reason[1] ); ?>" aria-label="<?php echo esc_attr( $reason[1] ); ?>" hidden disabled>
-                            <?php endif; ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-                <p class="alfb-fs-small"><?php esc_html_e('Only your answer is sent, when the plugin is deleted. No name or email unless you opted in before.', 'softicon-flipbook'); ?></p>
-                <div class="alfb-fs-actions">
-                    <button type="button" class="button-link alfb-fs-skip"><?php esc_html_e('Skip & Deactivate', 'softicon-flipbook'); ?></button>
-                    <span>
-                        <button type="button" class="button alfb-fs-cancel"><?php esc_html_e('Cancel', 'softicon-flipbook'); ?></button>
-                        <button type="submit" class="button button-primary" disabled><?php esc_html_e('Submit & Deactivate', 'softicon-flipbook'); ?></button>
-                    </span>
-                </div>
-            </form>
-        </div>
-        <?php
     }
 
     /* ----- the opt-in card on the dashboard ----- */
@@ -529,58 +508,24 @@ class fs_lite {
         );
     }
 
-    // the same card printed in PHP, on the page's card_hook
-    public function opt_in_card() {
-        $card = $this->card();
-        if ( ! $card ) {
-            return;
-        }
-        ?>
-        <section class="alfb-optin">
-            <?php if ( $card['icon'] ) : ?><img src="<?php echo esc_url( $card['icon'] ); ?>" alt="" width="56" height="56"><?php endif; ?>
-            <div class="alfb-optin-body">
-                <h2><?php echo esc_html( $card['title'] ); ?></h2>
-                <p><?php echo esc_html( $card['text'] ); ?></p>
-                <details>
-                    <summary><?php echo esc_html( $card['shared'] ); ?></summary>
-                    <ul>
-                        <?php foreach ( $card['permissions'] as $permission ) : ?>
-                            <li><span class="dashicons dashicons-<?php echo esc_attr( $permission['icon'] ); ?>" aria-hidden="true"></span><strong><?php echo esc_html( $permission['title'] ); ?></strong> <?php echo esc_html( $permission['text'] ); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <p><?php echo esc_html( $card['note'] ); ?> <a href="<?php echo esc_url( $card['privacy']['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $card['privacy']['label'] ); ?></a></p>
-                </details>
-                <div class="alfb-optin-actions">
-                    <?php foreach ( array( 'allow', 'skip' ) as $button ) : ?>
-                        <?php if ( $card[ $button ] ) : ?>
-                            <form method="post" action="<?php echo esc_url( $card['form'] ); ?>">
-                                <input type="hidden" name="action" value="<?php echo esc_attr( $card[ $button ]['action'] ); ?>">
-                                <input type="hidden" name="_wpnonce" value="<?php echo esc_attr( $card[ $button ]['nonce'] ); ?>">
-                                <button type="submit" class="<?php echo 'allow' === $button ? 'button button-primary button-hero alfb-optin-allow' : 'button-link'; ?>"><?php echo esc_html( $card[ $button ]['label'] ); ?></button>
-                            </form>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </section>
-        <?php
-    }
-
-    public function notices() {
-        $screen = get_current_screen();
-        if ( ! $screen || 'toplevel_page_' . $this->page !== $screen->id ) {
-            return;
+    // the message after an opt-in, for the plugin's page to show; null when there is none
+    public function notice() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return null;
         }
         $data   = $this->data();
         $notice = isset( $_GET['alfb_fs'] ) ? sanitize_key( wp_unslash( $_GET['alfb_fs'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only picks a message
         if ( 'connected' === $notice && $this->is_connected() ) {
-            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Thank you! You will now hear about important Flipbook updates.', 'softicon-flipbook') . '</p></div>';
-        } elseif ( 'pending' === $data['state'] ) {
-            /* translators: %s: email address */
-            echo '<div class="notice notice-info"><p>' . sprintf( esc_html__('Almost done: please open the email we sent to %s and click the link to confirm.', 'softicon-flipbook'), '<strong>' . esc_html( $data['email'] ) . '</strong>' ) . '</p></div>';
-        } elseif ( 'error' === $notice ) {
-            echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__('Could not reach Freemius right now. Please try again later.', 'softicon-flipbook') . '</p></div>';
+            return array( 'type' => 'success', 'text' => __('Thank you! You will now hear about important Flipbook updates.', 'softicon-flipbook') );
         }
+        if ( 'pending' === $data['state'] ) {
+            /* translators: %s: email address */
+            return array( 'type' => 'info', 'text' => sprintf( __('Almost done: please open the email we sent to %s and click the link to confirm.', 'softicon-flipbook'), $data['email'] ) );
+        }
+        if ( 'error' === $notice ) {
+            return array( 'type' => 'error', 'text' => __('Could not reach Freemius right now. Please try again later.', 'softicon-flipbook') );
+        }
+        return null;
     }
 
     private function is_localhost() {

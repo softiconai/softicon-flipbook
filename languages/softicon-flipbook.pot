@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T12:41:03+00:00\n"
+"POT-Creation-Date: 2026-10-31T13:28:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -35,14 +35,15 @@ msgid "https://profiles.wordpress.org/softiconai/"
 msgstr ""
 
 #: build/render.php:24
+#: build/dashboard.js:1
 #: build/index.js:2
 #: build/index.js:7
 msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:58
-#: includes/dashboard.php:123
-#: build/dashboard.js:2
+#: includes/dashboard.php:124
+#: build/dashboard.js:1
 #: build/index.js:7
 #: build/view.js:6
 msgid "Flipbook"
@@ -76,295 +77,361 @@ msgstr ""
 msgid "Every setting explained"
 msgstr ""
 
-#: includes/dashboard.php:122
-#: includes/dashboard.php:257
+#: includes/dashboard.php:123
+#: includes/dashboard.php:250
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:133
+#: includes/dashboard.php:134
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:135
-#: includes/dashboard.php:177
+#: includes/dashboard.php:136
+#: includes/dashboard.php:178
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:142
+#: includes/dashboard.php:143
+#: build/dashboard.js:1
 #: build/dashboard.js:2
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:171
+#: includes/dashboard.php:173
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:172
+#: includes/dashboard.php:174
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:175
+#: includes/dashboard.php:177
 #: build/dashboard.js:2
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:177
-msgid "Settings"
-msgstr ""
-
-#: includes/dashboard.php:178
+#: includes/dashboard.php:180
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:257
+#: includes/dashboard.php:250
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:262
+#: includes/dashboard.php:254
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
-#: includes/demos.php:19
-msgid "Lunora Spring Living 2026"
-msgstr ""
-
-#: includes/demos.php:20
-msgid "Lunora Room Guide 2026"
-msgstr ""
-
-#: includes/demos.php:28
-msgid "Classic book"
-msgstr ""
-
-#: includes/demos.php:29
-msgid "The default look: two pages side by side, one page on phones, and the full toolbar."
-msgstr ""
-
-#: includes/demos.php:33
-#: build/index.js:2
-msgid "Hardcover"
-msgstr ""
-
-#: includes/demos.php:34
-msgid "Pages inside a cover, with the stack of page edges, a shadow at the spine and large arrows."
-msgstr ""
-
-#: includes/demos.php:38
-msgid "Chapters and links"
-msgstr ""
-
-#: includes/demos.php:39
-msgid "A PDF with bookmarks gets a table of contents, and the links inside it can be clicked."
-msgstr ""
-
-#: includes/demos.php:43
-msgid "Covers that open a popup"
-msgstr ""
-
-#: includes/demos.php:44
-msgid "Only the covers show on the page. A click opens the book over the page, and it loads only then."
-msgstr ""
-
-#: includes/demos.php:47
-msgid "Spring Living 2026"
-msgstr ""
-
-#: includes/demos.php:48
-msgid "Room Guide 2026"
-msgstr ""
-
-#: includes/demos.php:52
-msgid "A button that opens a popup"
-msgstr ""
-
-#: includes/demos.php:53
-msgid "A theme-styled button, or a plain text link, opens the book in a popup."
-msgstr ""
-
-#: includes/demos.php:54
-msgid "Open the room guide"
-msgstr ""
-
-#: includes/demos.php:117
-msgid "The sample PDF could not be copied to the Media Library."
-msgstr ""
-
-#: includes/demos.php:135
-msgid "You are not allowed to create pages."
-msgstr ""
-
-#: includes/demos.php:141
-msgid "This demo is not available."
-msgstr ""
-
-#. translators: %s: demo name
-#: includes/demos.php:159
-#, php-format
-msgid "Flipbook demo: %s"
-msgstr ""
-
-#: vendor/fs-lite/fs-lite.php:253
-#: vendor/fs-lite/fs-lite.php:314
+#: vendor/fs-lite/fs-lite.php:250
+#: vendor/fs-lite/fs-lite.php:311
 msgid "You are not allowed to do this."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:400
+#: vendor/fs-lite/fs-lite.php:397
 msgid "Could not reach Freemius. Please try again."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:412
+#: vendor/fs-lite/fs-lite.php:409
 msgid "Opt Out"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:414
-#: vendor/fs-lite/fs-lite.php:416
+#: vendor/fs-lite/fs-lite.php:411
+#: vendor/fs-lite/fs-lite.php:413
 msgid "Opt In"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:425
+#: vendor/fs-lite/fs-lite.php:422
 msgid "I no longer need the plugin"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:426
+#: vendor/fs-lite/fs-lite.php:423
 msgid "I found a better plugin"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:426
+#: vendor/fs-lite/fs-lite.php:423
 msgid "Which plugin?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:427
+#: vendor/fs-lite/fs-lite.php:424
 msgid "I only needed it for a short time"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:428
+#: vendor/fs-lite/fs-lite.php:425
 msgid "It is not working"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:428
+#: vendor/fs-lite/fs-lite.php:425
 msgid "What did not work? We would like to fix it."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:429
+#: vendor/fs-lite/fs-lite.php:426
 msgid "I need a feature it does not have"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:429
+#: vendor/fs-lite/fs-lite.php:426
 msgid "Which feature?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:430
+#: vendor/fs-lite/fs-lite.php:427
 msgid "It broke my site"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:431
+#: vendor/fs-lite/fs-lite.php:428
 msgid "It is a temporary deactivation, I am fixing something"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:432
+#: vendor/fs-lite/fs-lite.php:429
 msgid "Other"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:432
+#: vendor/fs-lite/fs-lite.php:429
 msgid "Please tell us more"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:466
+#: vendor/fs-lite/fs-lite.php:467
 msgid "Stop sending usage data to SoftIcon through Freemius? You can opt in again at any time."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:477
+#: vendor/fs-lite/fs-lite.php:470
 msgid "Quick question before you go"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:478
+#: vendor/fs-lite/fs-lite.php:471
 msgid "Why are you deactivating SoftIcon Flipbook? Your answer helps us make it better."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:489
+#: vendor/fs-lite/fs-lite.php:473
 msgid "Only your answer is sent, when the plugin is deleted. No name or email unless you opted in before."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:491
+#: vendor/fs-lite/fs-lite.php:474
 msgid "Skip & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:493
+#: vendor/fs-lite/fs-lite.php:475
 msgid "Cancel"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:494
+#: vendor/fs-lite/fs-lite.php:476
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:512
-msgid "Your profile"
-msgstr ""
-
-#: vendor/fs-lite/fs-lite.php:512
-msgid "Name and email address"
-msgstr ""
-
-#: vendor/fs-lite/fs-lite.php:513
-msgid "Your site"
-msgstr ""
-
-#: vendor/fs-lite/fs-lite.php:513
-msgid "Site address, title and language, WordPress and PHP versions"
-msgstr ""
-
-#: vendor/fs-lite/fs-lite.php:514
-msgid "Plugin events"
-msgstr ""
-
-#: vendor/fs-lite/fs-lite.php:514
-msgid "Flipbook version, activation, deactivation and uninstall"
-msgstr ""
-
-#: vendor/fs-lite/fs-lite.php:520
+#: vendor/fs-lite/fs-lite.php:493
 msgid "Never miss an important update"
 msgstr ""
 
 #. translators: %s: the admin's first name or user name
-#: vendor/fs-lite/fs-lite.php:523
+#: vendor/fs-lite/fs-lite.php:495
 #, php-format
 msgid "Hi %s! Opt in to get emails about security fixes and new features, and to share some basic site data with SoftIcon through Freemius. It helps us make Flipbook better. If you skip, the plugin works just the same."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:526
+#: vendor/fs-lite/fs-lite.php:496
 msgid "What is shared"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:532
+#: vendor/fs-lite/fs-lite.php:498
+msgid "Your profile"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:498
+msgid "Name and email address"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:499
+msgid "Your site"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:499
+msgid "Site address, title and language, WordPress and PHP versions"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:500
+msgid "Plugin events"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:500
+msgid "Flipbook version, activation, deactivation and uninstall"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:502
 msgid "Nothing about your posts, visitors, other plugins or themes. You can opt out at any time from the Plugins page."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:533
+#: vendor/fs-lite/fs-lite.php:503
 msgid "Freemius privacy policy"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:539
+#: vendor/fs-lite/fs-lite.php:506
 msgid "Allow & Continue"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:545
+#: vendor/fs-lite/fs-lite.php:507
 msgid "Skip"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:562
+#: vendor/fs-lite/fs-lite.php:519
 msgid "Thank you! You will now hear about important Flipbook updates."
 msgstr ""
 
 #. translators: %s: email address
-#: vendor/fs-lite/fs-lite.php:565
+#: vendor/fs-lite/fs-lite.php:523
 #, php-format
 msgid "Almost done: please open the email we sent to %s and click the link to confirm."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:567
+#: vendor/fs-lite/fs-lite.php:526
 msgid "Could not reach Freemius right now. Please try again later."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Flipbook Pro"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Flipbook dashboard"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Our plugins"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Pro active"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Video tutorial"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/view.js:6
+msgid "Close"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Turn any PDF into a book people enjoy reading"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Catalogs, magazines, menus and brochures that turn like real pages, on phones and big screens, right inside the block editor."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Create a flipbook"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "See the demos"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Watch the video tutorials"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Get started in three steps"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Add the block"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "In any page or post, click + and search for \"Flipbook\"."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Pick a PDF"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Upload one, choose it from the Media Library, or build the book from images."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Choose the look"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Classic or Hardcover, on the page or in a popup, then publish."
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/dashboard.js:2
+#: build/index.js:2
+msgid "Pro"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Available in Pro"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Classic book"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "The default look: two pages side by side, one page on phones, and the full toolbar."
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Hardcover"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Pages inside a cover, with the stack of page edges, a shadow at the spine and large arrows."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Chapters and links"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "A PDF with bookmarks gets a table of contents, and the links inside it can be clicked."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Covers that open a popup"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Only the covers show on the page. A click opens the book over the page, and it loads only then."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Spring Living 2026"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Room Guide 2026"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "A button that opens a popup"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "A theme-styled button, or a plain text link, opens the book in a popup."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Open the room guide"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "These are real flipbooks, try them. Add one to any page with the Flipbook block."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Loading…"
 msgstr ""
 
 #: build/dashboard.js:1
@@ -403,88 +470,6 @@ msgid "SoftIcon Flipbook Pro is coming soon."
 msgstr ""
 
 #: build/dashboard.js:2
-msgid "Included"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Not included"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Video tutorial"
-msgstr ""
-
-#: build/dashboard.js:2
-#: build/view.js:6
-msgid "Close"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Turn any PDF into a book people enjoy reading"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Catalogs, magazines, menus and brochures that turn like real pages, on phones and big screens, right inside the block editor."
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Create a flipbook"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "See the demos"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Watch the video tutorials"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Get started in three steps"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Add the block"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "In any page or post, click + and search for \"Flipbook\"."
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Pick a PDF"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Upload one, choose it from the Media Library, or build the book from images."
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Choose the look"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Classic or Hardcover, on the page or in a popup, then publish."
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "These are real flipbooks, try them. \"Create a page\" copies one into a new draft page, with the sample PDF added to your Media Library."
-msgstr ""
-
-#: build/dashboard.js:2
-#: build/index.js:2
-msgid "Pro"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Create a page with this"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Available in Pro"
-msgstr ""
-
-#: build/dashboard.js:2
 msgid "Pay once, use it for life"
 msgstr ""
 
@@ -511,6 +496,14 @@ msgstr ""
 
 #: build/dashboard.js:2
 msgid "Compare Free and Pro"
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "Included"
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "Not included"
 msgstr ""
 
 #: build/dashboard.js:2
@@ -608,26 +601,6 @@ msgstr ""
 
 #: build/dashboard.js:2
 msgid "More plugins from SoftIcon"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Flipbook Pro"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Flipbook dashboard"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Our plugins"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Pro active"
-msgstr ""
-
-#: build/dashboard.js:2
-msgid "Upgrade to Pro"
 msgstr ""
 
 #: build/index.js:1
