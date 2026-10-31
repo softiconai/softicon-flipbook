@@ -126,6 +126,20 @@ class fs_lite {
         return $data;
     }
 
+    public function id() {
+        return $this->id;
+    }
+
+    public function public_key() {
+        return $this->public_key;
+    }
+
+    // the plans, features and prices set in Freemius; a read with the plugin's public key, nothing about the site is sent
+    public function pricing() {
+        $result = $this->api( 'pricing.json', 'GET' );
+        return is_object( $result ) && isset( $result->plans ) && is_array( $result->plans ) ? $result : null;
+    }
+
     public function is_connected() {
         $data = $this->data();
         return 'connected' === $data['state'] && $data['tracking'];
@@ -201,11 +215,13 @@ class fs_lite {
         }
 
         $response = wp_remote_request( self::API . $resource, array(
-            'method'   => $method,
-            'headers'  => $headers,
-            'body'     => $json,
-            'timeout'  => $blocking ? 15 : 3,
-            'blocking' => $blocking,
+            'method'     => $method,
+            'headers'    => $headers,
+            'body'       => $json,
+            'timeout'    => $blocking ? 15 : 3,
+            'blocking'   => $blocking,
+            // WordPress would put the site address in the user agent; a site that has not opted in sends none
+            'user-agent' => 'fs-lite',
         ) );
         if ( ! $blocking || is_wp_error( $response ) ) {
             return $response;

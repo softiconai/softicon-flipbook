@@ -55,10 +55,12 @@ class demos {
             ),
         );
 
-        // the Pro demos; SoftIcon Flipbook Pro replaces these with live ones
-        foreach ( pro_features::all() as $key => $feature ) {
-            if ( ! empty( $feature['demo'] ) ) {
-                $demos[ 'pro-' . $key ] = array( 'title' => $feature['title'], 'text' => $feature['text'], 'pro' => true, 'icon' => $feature['icon'] );
+        // locked cards for the Pro features marked "featured" in Freemius; SoftIcon Flipbook Pro shows live demos instead
+        if ( ! dashboard::is_pro() ) {
+            foreach ( dashboard::pro_only( dashboard::freemius() ) as $feature ) {
+                if ( $feature['featured'] ) {
+                    $demos[ 'pro-' . sanitize_title( $feature['title'] ) ] = array( 'title' => $feature['title'], 'text' => $feature['text'], 'pro' => true, 'icon' => 'dashicons-lock' );
+                }
             }
         }
 

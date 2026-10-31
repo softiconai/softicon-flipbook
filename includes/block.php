@@ -24,12 +24,14 @@ class block {
         // the real build url for the lazy chunks and pdf.js files, JS combine plugins move view.js elsewhere
         $build_url = 'window.alfbBuildUrl = ' . wp_json_encode( ALFB_PLUGIN_URL . 'build/' ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ), $build_url, 'before' );
-        // the editor also learns whether Pro is active, for the Pro features panel
+        // the editor also learns whether Pro is active, and the Pro features kept from Freemius (no request from the editor)
         $features = array();
-        foreach ( pro_features::all() as $feature ) {
-            $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
+        if ( is_admin() ) {
+            foreach ( dashboard::pro_only( dashboard::freemius( false ) ) as $feature ) {
+                $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
+            }
         }
-        $editor = $build_url . 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => pro_features::active(), 'dashboard' => dashboard::url( 'pro' ), 'features' => $features ) ) . ';';
+        $editor = $build_url . 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => dashboard::is_pro(), 'dashboard' => dashboard::url( 'pro' ), 'features' => $features ) ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $editor, 'before' );
     }
 

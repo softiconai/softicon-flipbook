@@ -150,7 +150,9 @@ If you opted in or skipped with an earlier version, your choice is kept and you 
 = Which outside services does the plugin use? =
 
 * **Freemius** (wp.freemius.com, api.freemius.com) for the optional opt-in described above, only if you allow it. [Terms](https://freemius.com/terms/), [privacy policy](https://freemius.com/privacy/).
+* **Freemius plans** (api.freemius.com): the Pricing, Free vs Pro and Demos tabs of the Flipbook dashboard read the Pro features and prices we set in Freemius, at most twice a day. Only the plugin's public ID is sent, nothing about you or your site.
 * **Freemius Checkout** (checkout.freemius.com) opens in a window only when you click a "Get Pro" button on the Flipbook dashboard, so you can buy Pro. Nothing is sent before you click, and what you type in the checkout goes to Freemius, which handles the payment. Same terms and privacy policy.
+* **YouTube** (youtube-nocookie.com): a video tutorial plays in a popup only when you click it on the Flipbook dashboard. [YouTube terms](https://www.youtube.com/t/terms), [Google privacy policy](https://policies.google.com/privacy).
 
 = Where can I get help? =
 

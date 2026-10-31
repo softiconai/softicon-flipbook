@@ -1,4 +1,4 @@
-// the Flipbook dashboard: the feature filter and the Freemius checkout (bundled, MIT)
+// the Flipbook dashboard: the feature filter, the video popup and the Freemius checkout (bundled, MIT)
 import { Checkout } from '@freemius/checkout';
 
 // the filter box above the Free vs Pro feature table
@@ -37,12 +37,51 @@ document.querySelectorAll('[data-alfb-checkout]').forEach(link => {
 		}
 		event.preventDefault();
 		try {
-			new Checkout({ product_id: config.product, public_key: config.key, image: config.image }).open({
+			new Checkout({ product_id: config.product, plan_id: link.dataset.alfbPlan, public_key: config.key, image: config.image }).open({
 				licenses: link.dataset.alfbCheckout,
-				billing_cycle: 'lifetime'
+				billing_cycle: link.dataset.alfbCycle
 			});
 		} catch (error) {
 			window.open(link.href, '_blank', 'noopener');
 		}
 	});
 });
+
+// a YouTube link plays in a popup; youtube-nocookie.com, and only after the click
+const popup = document.querySelector('.alfb-video-popup');
+
+const embedUrl = href => {
+	const url = new URL(href);
+	const id = url.searchParams.get('v') || ('youtu.be' === url.hostname ? url.pathname.slice(1) : '');
+	const list = url.searchParams.get('list');
+	if (id) {
+		return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+	}
+	return list ? `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(list)}&autoplay=1&rel=0` : '';
+};
+
+if (popup?.showModal) {
+	const frame = popup.querySelector('.alfb-video-frame');
+
+	document.querySelectorAll('[data-alfb-video]').forEach(link => {
+		link.addEventListener('click', event => {
+			const src = embedUrl(link.href);
+			if (!src || event.metaKey || event.ctrlKey || event.shiftKey || 0 !== event.button) {
+				return;
+			}
+			event.preventDefault();
+			const iframe = document.createElement('iframe');
+			iframe.src = src;
+			iframe.title = link.textContent.trim();
+			iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+			iframe.allowFullscreen = true;
+			frame.replaceChildren(iframe);
+			popup.showModal();
+		});
+	});
+
+	// closing stops the video
+	popup.addEventListener('close', () => frame.replaceChildren());
+	popup.querySelector('.alfb-video-close').addEventListener('click', () => popup.close());
+	popup.addEventListener('click', event => event.target === popup && popup.close());
+}

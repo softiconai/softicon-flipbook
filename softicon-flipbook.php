@@ -83,13 +83,10 @@ if ( function_exists( 'alfb_fs' ) ) {
         public function load_classes() {
 
             require_once ALFB_PLUGIN_PATH . 'includes/block.php';
-            require_once ALFB_PLUGIN_PATH . 'includes/videos.php';
-            require_once ALFB_PLUGIN_PATH . 'includes/pro-features.php';
             require_once ALFB_PLUGIN_PATH . 'includes/demos.php';
             require_once ALFB_PLUGIN_PATH . 'includes/dashboard.php';
 
             new ALFB_Flipbook\block();
-            new ALFB_Flipbook\videos();
             if ( is_admin() ) {
                 new ALFB_Flipbook\demos();
                 new ALFB_Flipbook\dashboard();
