@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T13:59:57+00:00\n"
+"POT-Creation-Date: 2026-10-31T14:42:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -42,7 +42,7 @@ msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:58
-#: includes/dashboard.php:124
+#: includes/dashboard.php:154
 #: build/dashboard.js:1
 #: build/index.js:7
 #: build/view.js:6
@@ -53,74 +53,74 @@ msgstr ""
 msgid "Open the PDF"
 msgstr ""
 
-#: includes/dashboard.php:27
+#: includes/dashboard.php:57
 msgid "Overview in one minute"
 msgstr ""
 
-#: includes/dashboard.php:28
+#: includes/dashboard.php:58
 msgid "Add a flipbook"
 msgstr ""
 
-#: includes/dashboard.php:29
+#: includes/dashboard.php:59
 msgid "Lightbox: covers that open a popup"
 msgstr ""
 
-#: includes/dashboard.php:30
+#: includes/dashboard.php:60
 msgid "Hardcover design"
 msgstr ""
 
-#: includes/dashboard.php:31
+#: includes/dashboard.php:61
 msgid "Reading features"
 msgstr ""
 
-#: includes/dashboard.php:32
+#: includes/dashboard.php:62
 msgid "Every setting explained"
 msgstr ""
 
-#: includes/dashboard.php:123
-#: includes/dashboard.php:251
+#: includes/dashboard.php:153
+#: includes/dashboard.php:286
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:134
+#: includes/dashboard.php:164
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:136
-#: includes/dashboard.php:178
+#: includes/dashboard.php:166
+#: includes/dashboard.php:208
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:143
+#: includes/dashboard.php:173
 #: build/dashboard.js:1
 #: build/dashboard.js:2
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:173
+#: includes/dashboard.php:203
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:174
+#: includes/dashboard.php:204
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:177
+#: includes/dashboard.php:207
 #: build/dashboard.js:2
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:180
+#: includes/dashboard.php:210
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:251
+#: includes/dashboard.php:286
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:255
+#: includes/dashboard.php:290
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -303,6 +303,10 @@ msgid "Flipbook dashboard"
 msgstr ""
 
 #: build/dashboard.js:1
+msgid "Locked"
+msgstr ""
+
+#: build/dashboard.js:1
 msgid "Our plugins"
 msgstr ""
 
@@ -321,6 +325,26 @@ msgstr ""
 #: build/dashboard.js:1
 #: build/view.js:6
 msgid "Close"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "This is a Pro feature"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Activate your SoftIcon Flipbook Pro license to use it, or get a license from the Pricing page."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "See pricing"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Activate license"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "This is a Pro feature."
 msgstr ""
 
 #: build/dashboard.js:1

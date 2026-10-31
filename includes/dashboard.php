@@ -21,6 +21,36 @@ class dashboard {
         return defined( 'ALFB_IS_PRO' ) && ALFB_IS_PRO;
     }
 
+    // SoftIcon Flipbook Pro installed without an active license: its features are locked and Pricing shows again
+    public static function locked() {
+        return self::is_pro() && (bool) apply_filters( 'alfb_pro_locked', false );
+    }
+
+    // the Freemius product id and public key, from fs lite (free) or the Freemius SDK (Pro)
+    private static function product() {
+        $fs = function_exists( 'alfb_fs' ) ? alfb_fs() : null;
+        if ( $fs && method_exists( $fs, 'public_key' ) ) {
+            return array( (string) $fs->id(), $fs->public_key() );
+        }
+        if ( $fs && method_exists( $fs, 'get_public_key' ) ) {
+            return array( (string) $fs->get_id(), $fs->get_public_key() );
+        }
+        return null;
+    }
+
+    // the public plans and prices; fs lite reads them in the free plugin, the Freemius SDK's plugin scope in Pro
+    private static function fetch_pricing() {
+        $fs = function_exists( 'alfb_fs' ) ? alfb_fs() : null;
+        if ( $fs && method_exists( $fs, 'pricing' ) ) {
+            return $fs->pricing();
+        }
+        if ( $fs && method_exists( $fs, 'get_api_plugin_scope' ) ) {
+            $result = $fs->get_api_plugin_scope()->get( 'pricing.json' );
+            return is_object( $result ) && isset( $result->plans ) && is_array( $result->plans ) ? $result : null;
+        }
+        return null;
+    }
+
     // the tutorials; a click plays one in a popup on the dashboard
     public static function videos() {
         return array(
@@ -38,8 +68,8 @@ class dashboard {
     // kept for 12 hours (1 hour after a failed read); $fetch false only reads what is kept, for the editor
     public static function freemius( $fetch = true ) {
         $data = get_transient( self::CACHE );
-        if ( false === $data && $fetch && ! self::is_pro() && function_exists( 'alfb_fs' ) && method_exists( alfb_fs(), 'pricing' ) ) {
-            $data = self::parse( alfb_fs()->pricing() );
+        if ( false === $data && $fetch && ( ! self::is_pro() || self::locked() ) ) {
+            $data = self::parse( self::fetch_pricing() );
             set_transient( self::CACHE, $data, $data['error'] ? HOUR_IN_SECONDS : 12 * HOUR_IN_SECONDS );
         }
         return is_array( $data ) ? $data : self::parse( false );
@@ -173,7 +203,7 @@ class dashboard {
             'welcome' => __('Welcome', 'softicon-flipbook'),
             'demos'   => __('Demos', 'softicon-flipbook'),
         );
-        if ( ! self::is_pro() ) {
+        if ( ! self::is_pro() || self::locked() ) {
             $tabs['pricing'] = __('Pricing', 'softicon-flipbook');
             $tabs['compare'] = __('Free vs Pro', 'softicon-flipbook');
         }
@@ -205,6 +235,10 @@ class dashboard {
             'videos'  => $videos,
             'optIn'   => method_exists( alfb_fs(), 'card' ) ? alfb_fs()->card() : null,
             'notice'  => method_exists( alfb_fs(), 'notice' ) ? alfb_fs()->notice() : null,
+            // Pro without a license: these tabs open the "this is a Pro feature" popup instead
+            'locked'     => self::locked(),
+            'lockedTabs' => self::locked() ? array_values( (array) apply_filters( 'alfb_dashboard_locked_tabs', array() ) ) : array(),
+            'activate'   => self::locked() ? esc_url_raw( (string) apply_filters( 'alfb_activate_url', '' ) ) : '',
             'urls'    => array(
                 'newPage'  => admin_url( 'post-new.php?post_type=page' ),
                 // the sample PDFs the Demos tab shows
@@ -232,11 +266,12 @@ class dashboard {
     public static function plans( $request = null ) {
         $data             = self::freemius( ! ( $request && $request->get_param( 'cached' ) ) );
         $data['pro_only'] = self::pro_only( $data );
-        $data['checkout'] = self::is_pro() || ! method_exists( alfb_fs(), 'public_key' ) ? null : array(
-            'product' => alfb_fs()->id(),
-            'key'     => alfb_fs()->public_key(),
+        $product          = ( self::is_pro() && ! self::locked() ) ? null : self::product();
+        $data['checkout'] = ! $product ? null : array(
+            'product' => $product[0],
+            'key'     => $product[1],
             'image'   => ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png',
-            'base'    => 'https://checkout.freemius.com/plugin/' . alfb_fs()->id() . '/',
+            'base'    => 'https://checkout.freemius.com/plugin/' . $product[0] . '/',
         );
         return rest_ensure_response( $data );
     }

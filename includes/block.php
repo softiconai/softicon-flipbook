@@ -34,7 +34,13 @@ class block {
         foreach ( dashboard::pro_only( dashboard::freemius( false ) ) as $feature ) {
             $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
         }
-        $editor = 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => dashboard::is_pro(), 'dashboard' => dashboard::url( 'compare' ), 'features' => $features ) ) . ';';
+        $editor = 'window.alfbEditor = ' . wp_json_encode( array(
+            'pro'      => dashboard::is_pro(),
+            'locked'   => dashboard::locked(),
+            'dashboard' => dashboard::url( 'compare' ),
+            'pricing'  => dashboard::url( 'pricing' ),
+            'features' => $features,
+        ) ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $editor, 'before' );
     }
 
