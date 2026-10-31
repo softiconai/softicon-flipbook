@@ -3,6 +3,7 @@ import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, ExternalLink, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
+import ProNotice from '../../ProNotice';
 
 // set by includes/block.php
 const editorInfo = window.alfbEditor || {};
@@ -75,16 +76,15 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			<ToggleRow label={__('Page turn sound', 'softicon-flipbook')} tip={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} />
 		</Panel>
 
-		{/* what SoftIcon Flipbook Pro adds, listed only: the code is in Pro */}
-		{!editorInfo.pro && !!editorInfo.features?.length && <Panel id='pro' title={__('Pro features', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-			<ul className='alfbProList'>
-				{editorInfo.features.map(feature => <li key={feature.title}>
-					<strong>{feature.title}</strong>
-					<span>{feature.text}</span>
-				</li>)}
-			</ul>
-			<p className='alfbHelp'><ExternalLink href={editorInfo.dashboard}>{__('See Free vs Pro', 'softicon-flipbook')}</ExternalLink></p>
-		</Panel>}
+		{/* the Pro settings of this block, shown as notices only: the code is in Pro, which replaces these panels */}
+		{!editorInfo.pro && <>
+			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')} />
+			</Panel>
+			<Panel id='protect' title={__('Protection', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+				<ProNotice href={editorInfo.pricing} text={__('Protecting the PDF (no download button, no right-click, the PDF address kept out of the page) is available in Pro.', 'softicon-flipbook')} />
+			</Panel>
+		</>}
 	</>;
 };
 

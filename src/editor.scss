@@ -69,29 +69,19 @@
 	cursor: default;
 }
 
-.alfbProList {
-	margin: 0;
-
-	li {
-		display: flex;
-		flex-direction: column;
-		gap: 2px;
-		margin: 0 0 10px;
-		padding-left: 22px;
-		position: relative;
+// the free plugin's Pro notices (src/Components/Backend/ProNotice.js)
+.alfbProNotice {
+	p {
+		margin: 0 0 8px;
+		color: #50575e;
 	}
 
-	li::before {
-		content: "\f160";
-		position: absolute;
-		left: 0;
-		top: 1px;
-		color: #b45309;
-		font: 16px/1 dashicons;
-	}
-
-	span {
-		color: #757575;
-		font-size: 12px;
+	.dashicons {
+		color: #ea8a10;
 	}
 }
+
+.alfbProNoticeLink {
+	font-weight: 600;
+}
+

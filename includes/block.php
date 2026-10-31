@@ -28,18 +28,13 @@ class block {
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $build_url, 'before' );
     }
 
-    // only in the block editor: whether Pro is active, and the Pro features kept from Freemius (no request from here)
+    // only in the block editor: whether Pro is active, and where its Pricing page is (for the Pro notices)
     public function editor_info() {
-        $features = array();
-        foreach ( dashboard::pro_only( dashboard::freemius( false ) ) as $feature ) {
-            $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
-        }
         $editor = 'window.alfbEditor = ' . wp_json_encode( array(
-            'pro'      => dashboard::is_pro(),
-            'locked'   => dashboard::locked(),
+            'pro'       => dashboard::is_pro(),
+            'locked'    => dashboard::locked(),
             'dashboard' => dashboard::url( 'compare' ),
-            'pricing'  => dashboard::url( 'pricing' ),
-            'features' => $features,
+            'pricing'   => dashboard::url( 'pricing' ),
         ) ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $editor, 'before' );
     }
