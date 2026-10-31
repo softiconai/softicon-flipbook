@@ -5,12 +5,16 @@ if ( !defined('ABSPATH') ) { exit;}
 // what SoftIcon Flipbook Pro adds; the free plugin only lists these, the code is in Pro
 class pro_features {
 
+    // the Freemius product, public values only
+    const PRODUCT    = '43387';
+    const PUBLIC_KEY = 'pk_e1f96e9b8a918f0035345996895cd';
+
     public static function active() {
         return defined( 'ALFB_IS_PRO' ) && ALFB_IS_PRO;
     }
 
     public static function checkout( $licenses = 1 ) {
-        return add_query_arg( array( 'billing_cycle' => 'lifetime', 'licenses' => $licenses ), 'https://checkout.freemius.com/plugin/43387/' );
+        return add_query_arg( array( 'billing_cycle' => 'lifetime', 'licenses' => $licenses ), 'https://checkout.freemius.com/plugin/' . self::PRODUCT . '/' );
     }
 
     // lifetime licenses, as set in Freemius

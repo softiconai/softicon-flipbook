@@ -50,6 +50,14 @@ class dashboard {
         }
         wp_enqueue_style( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/css/dashboard.css', array(), self::version( 'assets/css/dashboard.css' ) );
         wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/js/dashboard.js', array(), self::version( 'assets/js/dashboard.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
+        // the Freemius checkout popup, its script loads only when a Get Pro button is clicked
+        wp_add_inline_script( 'alfb-dashboard', 'window.alfbCheckout = ' . wp_json_encode( array(
+            'script'  => 'https://checkout.freemius.com/js/v1/',
+            'product' => pro_features::PRODUCT,
+            'key'     => pro_features::PUBLIC_KEY,
+            // the WordPress.org copy, an https address the checkout can always show
+            'image'   => 'https://ps.w.org/softicon-flipbook/assets/icon-128x128.png',
+        ) ) . ';', 'before' );
         // the demos are real flipbooks
         wp_enqueue_style( generate_block_asset_handle( 'softicon/flipbook', 'style' ) );
         wp_enqueue_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ) );
@@ -212,7 +220,7 @@ class dashboard {
                     <span class="alfb-tag"><?php echo esc_html( $plan['sites'] ); ?></span>
                     <h3><?php echo esc_html( $plan['title'] ); ?></h3>
                     <?php self::price( $plan ); ?>
-                    <a class="alfb-btn alfb-btn-teal alfb-btn-block" href="<?php echo esc_url( pro_features::checkout( $plan['licenses'] ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Get Pro', 'softicon-flipbook'); ?> &rarr;</a>
+                    <a class="alfb-btn alfb-btn-teal alfb-btn-block" href="<?php echo esc_url( pro_features::checkout( $plan['licenses'] ) ); ?>" data-alfb-checkout="<?php echo esc_attr( $plan['licenses'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Get Pro', 'softicon-flipbook'); ?> &rarr;</a>
                     <ul class="alfb-checks">
                         <li><?php echo esc_html( $plan['sites'] ); ?></li>
                         <?php foreach ( $includes as $item ) : ?>
@@ -258,7 +266,7 @@ class dashboard {
                 <h3><?php esc_html_e('Pro', 'softicon-flipbook'); ?></h3>
                 <p><?php esc_html_e('Everything in Free, plus shelves of books, leads, reading analytics and a protected PDF.', 'softicon-flipbook'); ?></p>
                 <?php self::price( $single ); ?>
-                <a class="alfb-btn alfb-btn-light alfb-btn-block" href="<?php echo esc_url( pro_features::checkout( $single['licenses'] ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Get Pro', 'softicon-flipbook'); ?> &rarr;</a>
+                <a class="alfb-btn alfb-btn-light alfb-btn-block" href="<?php echo esc_url( pro_features::checkout( $single['licenses'] ) ); ?>" data-alfb-checkout="<?php echo esc_attr( $single['licenses'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Get Pro', 'softicon-flipbook'); ?> &rarr;</a>
                 <a class="alfb-more-plans" href="<?php echo esc_url( self::url( 'pricing' ) ); ?>"><?php esc_html_e('Plans for 3 or unlimited sites', 'softicon-flipbook'); ?></a>
             </div>
         </div>
