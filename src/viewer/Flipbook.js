@@ -57,7 +57,7 @@ class JsonDataFactory {
 export const openDocument = async (url, doc) => {
 	const base = __webpack_public_path__ + 'pdfjs/';
 	const pdfjs = await import(/* webpackChunkName: "pdfjs" */ 'pdfjs-dist/legacy/build/pdf.mjs');
-	pdfjs.GlobalWorkerOptions.workerSrc = base + 'pdf.worker.min.js';
+	pdfjs.GlobalWorkerOptions.workerSrc = base + 'pdf.worker.min.js?ver=' + pdfjs.version;
 
 	return pdfjs.getDocument({
 		url,

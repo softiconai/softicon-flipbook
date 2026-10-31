@@ -22,6 +22,8 @@ const licenses = (folder, to, names) => names.map(name => ({
 
 module.exports = {
 	...defaultConfig,
+	// the lazy chunks get a version, so a browser never mixes a cached old chunk with a new view.js
+	output: { ...defaultConfig.output, chunkFilename: '[name].js?ver=[contenthash:8]' },
 	plugins: [
 		...plugins,
 		new CopyPlugin({
