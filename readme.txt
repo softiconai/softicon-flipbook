@@ -143,6 +143,7 @@ Earlier versions included the full Freemius SDK. Since we only need the opt-in, 
 * **A lighter plugin:** about 0.8 MB smaller to download and about 3.6 MB less on your server.
 * **Easy to check:** one plain PHP file (vendor/fs-lite/fs-lite.php) that shows exactly what is sent and when.
 * **Only Freemius:** it connects to wp.freemius.com and api.freemius.com and nowhere else, and only after you click "Allow & Continue".
+* **Works on strict hosts too:** if your server is not allowed to reach Freemius, your browser sends the same opt-in to wp.freemius.com instead, and Freemius sends you back to the Flipbook dashboard.
 * **Nothing extra in your admin:** no added menus, and its scripts load only on the Plugins page and the Flipbook dashboard.
 
 If you opted in or skipped with an earlier version, your choice is kept and you are not asked again.

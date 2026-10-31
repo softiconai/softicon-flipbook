@@ -150,3 +150,8 @@
 	border-color: #115e59;
 	background: #115e59;
 }
+
+.alfb-optin .alfb-optin-error {
+	color: #b32d2e;
+	font-weight: 600;
+}

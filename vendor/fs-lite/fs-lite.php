@@ -43,7 +43,7 @@ class fs_lite {
 
         if ( is_admin() ) {
             add_action('admin_init', array( $this, 'admin_init' ));
-            add_action('admin_post_alfb_fs_opt_in', array( $this, 'opt_in_action' ));
+            add_action('wp_ajax_alfb_fs_opt_in', array( $this, 'opt_in_ajax' ));
             add_action('admin_post_alfb_fs_skip', array( $this, 'skip_action' ));
             add_action('wp_ajax_alfb_fs_tracking', array( $this, 'tracking_ajax' ));
             add_action('wp_ajax_alfb_fs_reason', array( $this, 'reason_ajax' ));
@@ -76,7 +76,8 @@ class fs_lite {
 
     /* ----- stored state ----- */
 
-    // state: '' not asked yet, 'skipped', 'pending' (waiting for the email link), 'connected'; 'tracking' is false after an opt-out
+    // state: '' not asked yet, 'skipped', 'pending' (waiting for the email link), 'browser' (sent from the browser,
+    // waiting for Freemius to send it back), 'connected'; 'tracking' is false after an opt-out
     private function data() {
         $data = get_option( self::OPTION, null );
         if ( ! is_array( $data ) ) {
@@ -244,55 +245,57 @@ class fs_lite {
         ), $this->page_url() );
     }
 
-    public function opt_in_action() {
-        check_admin_referer( self::NONCE . '_opt_in' );
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__('You are not allowed to do this.', 'softicon-flipbook'), '', array( 'response' => 403 ) );
-        }
+    // what Freemius gets at opt-in, the same from the server and from the browser
+    private function opt_in_fields() {
         $user = wp_get_current_user();
+        return array(
+            'sdk_version'                    => self::SDK,
+            'platform_version'               => get_bloginfo( 'version' ),
+            'programming_language_version'   => phpversion(),
+            'plugin_slug'                    => $this->slug,
+            'plugin_id'                      => $this->id,
+            'plugin_public_key'              => $this->public_key,
+            'plugin_version'                 => $this->version(),
+            'return_url'                     => $this->return_url(),
+            'account_url'                    => $this->page_url(),
+            'is_premium'                     => false,
+            'is_active'                      => true,
+            'is_uninstalled'                 => false,
+            'is_localhost'                   => $this->is_localhost(),
+            'user_firstname'                 => $user->user_firstname,
+            'user_lastname'                  => $user->user_lastname,
+            'user_email'                     => $user->user_email,
+            'site_uid'                       => $this->uid(),
+            'site_url'                       => $this->site_url(),
+            'site_name'                      => get_bloginfo( 'name' ),
+            'language'                       => substr( get_bloginfo( 'language' ), 0, 8 ),
+            'is_disconnected'                => false,
+            'is_extensions_tracking_allowed' => false,
+            'is_diagnostic_tracking_allowed' => true,
+        );
+    }
 
-        $response = wp_remote_post( self::OPT_IN, array(
-            'timeout' => 30,
-            'body'    => array(
-                'sdk_version'                    => self::SDK,
-                'platform_version'               => get_bloginfo( 'version' ),
-                'programming_language_version'   => phpversion(),
-                'plugin_slug'                    => $this->slug,
-                'plugin_id'                      => $this->id,
-                'plugin_public_key'              => $this->public_key,
-                'plugin_version'                 => $this->version(),
-                'return_url'                     => $this->return_url(),
-                'account_url'                    => $this->page_url(),
-                'is_premium'                     => false,
-                'is_active'                      => true,
-                'is_uninstalled'                 => false,
-                'is_localhost'                   => $this->is_localhost(),
-                'user_firstname'                 => $user->user_firstname,
-                'user_lastname'                  => $user->user_lastname,
-                'user_email'                     => $user->user_email,
-                'site_uid'                       => $this->uid(),
-                'site_url'                       => $this->site_url(),
-                'site_name'                      => get_bloginfo( 'name' ),
-                'language'                       => substr( get_bloginfo( 'language' ), 0, 8 ),
-                'is_disconnected'                => false,
-                'is_extensions_tracking_allowed' => false,
-                'is_diagnostic_tracking_allowed' => true,
-                'format'                         => 'json',
-            ),
-        ) );
+    // Allow & Continue: the server sends the opt-in to Freemius; when the host blocks that, the page posts the
+    // same fields to Freemius from the browser and Freemius sends the keys back to return_url
+    public function opt_in_ajax() {
+        check_ajax_referer( self::NONCE . '_opt_in' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( null, 403 );
+        }
+        $fields   = $this->opt_in_fields();
+        $response = wp_remote_post( self::OPT_IN, array( 'timeout' => 30, 'body' => array_merge( $fields, array( 'format' => 'json' ) ) ) );
+        $result   = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ) );
 
-        $result = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ) );
-        $notice = 'error';
         if ( is_object( $result ) && ! empty( $result->install_secret_key ) ) {
             $this->connect( $result->install_id, $result->install_public_key, $result->install_secret_key );
-            $notice = 'connected';
-        } elseif ( is_object( $result ) && ! empty( $result->pending_activation ) ) {
-            $this->save( array( 'state' => 'pending', 'email' => isset( $result->email ) ? sanitize_email( $result->email ) : $user->user_email ) );
-            $notice = 'pending';
+            wp_send_json_success( array( 'next' => add_query_arg( 'alfb_fs', 'connected', $this->page_url() ) ) );
         }
-
-        wp_safe_redirect( add_query_arg( 'alfb_fs', $notice, $this->page_url() ) );
-        exit;
+        if ( is_object( $result ) && ! empty( $result->pending_activation ) ) {
+            $this->save( array( 'state' => 'pending', 'email' => isset( $result->email ) ? sanitize_email( $result->email ) : $fields['user_email'] ) );
+            wp_send_json_success( array( 'next' => $this->page_url() ) );
+        }
+        $this->save( array( 'state' => 'browser' ) );
+        wp_send_json_success( array( 'browser' => array( 'action' => self::OPT_IN, 'fields' => $fields ) ) );
     }
 
     private function connect( $id, $public_key, $secret_key ) {
@@ -318,11 +321,19 @@ class fs_lite {
     public function admin_init() {
         // the link in the Freemius confirmation email comes back here with the install's keys
         // phpcs:disable WordPress.Security.NonceVerification.Recommended -- checked by check_admin_referer below
-        if ( isset( $_GET['fs_action'], $_GET['install_secret_key'] ) && $this->slug . '_activate_new' === $_GET['fs_action'] ) {
+        // (and after an opt-in sent from the browser, with the keys or with "check your email")
+        if ( isset( $_GET['fs_action'] ) && $this->slug . '_activate_new' === $_GET['fs_action'] && ( isset( $_GET['install_secret_key'] ) || isset( $_GET['pending_activation'] ) ) ) {
             check_admin_referer( self::NONCE . '_return' );
-            if ( current_user_can( 'manage_options' ) && 'pending' === $this->data()['state'] && isset( $_GET['install_id'], $_GET['install_public_key'] ) ) {
+            $waiting = in_array( $this->data()['state'], array( 'pending', 'browser' ), true );
+            if ( current_user_can( 'manage_options' ) && $waiting && isset( $_GET['install_id'], $_GET['install_public_key'], $_GET['install_secret_key'] ) ) {
                 $this->connect( absint( $_GET['install_id'] ), sanitize_text_field( wp_unslash( $_GET['install_public_key'] ) ), sanitize_text_field( wp_unslash( $_GET['install_secret_key'] ) ) );
                 wp_safe_redirect( add_query_arg( 'alfb_fs', 'connected', $this->page_url() ) );
+                exit;
+            }
+            if ( current_user_can( 'manage_options' ) && $waiting && isset( $_GET['pending_activation'] ) ) {
+                $email = isset( $_GET['user_email'] ) ? sanitize_email( wp_unslash( $_GET['user_email'] ) ) : '';
+                $this->save( array( 'state' => 'pending', 'email' => $email ? $email : wp_get_current_user()->user_email ) );
+                wp_safe_redirect( $this->page_url() );
                 exit;
             }
         }
@@ -484,7 +495,8 @@ class fs_lite {
     public function card() {
         $data = $this->data();
         $ask  = isset( $_GET['alfb_fs'] ) && 'ask' === $_GET['alfb_fs']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only shows the card
-        if ( ! current_user_can( 'manage_options' ) || ( '' !== $data['state'] && ! ( $ask && 'connected' !== $data['state'] ) ) ) {
+        $open = in_array( $data['state'], array( '', 'browser' ), true );
+        if ( ! current_user_can( 'manage_options' ) || ( ! $open && ! ( $ask && 'connected' !== $data['state'] ) ) ) {
             return null;
         }
         $user = wp_get_current_user();
@@ -501,10 +513,11 @@ class fs_lite {
             ),
             'note'        => __('Nothing about your posts, visitors, other plugins or themes. You can opt out at any time from the Plugins page.', 'softicon-flipbook'),
             'privacy'     => array( 'url' => 'https://freemius.com/privacy/', 'label' => __('Freemius privacy policy', 'softicon-flipbook') ),
-            // the two buttons post to admin-post.php
+            // Allow goes to admin-ajax.php (see opt_in_ajax()), Skip is a form to admin-post.php
+            'ajax'        => admin_url( 'admin-ajax.php' ),
             'form'        => admin_url( 'admin-post.php' ),
-            'allow'       => array( 'action' => 'alfb_fs_opt_in', 'nonce' => wp_create_nonce( self::NONCE . '_opt_in' ), 'label' => __('Allow & Continue', 'softicon-flipbook') ),
-            'skip'        => '' === $data['state'] ? array( 'action' => 'alfb_fs_skip', 'nonce' => wp_create_nonce( self::NONCE . '_skip' ), 'label' => __('Skip', 'softicon-flipbook') ) : null,
+            'allow'       => array( 'action' => 'alfb_fs_opt_in', 'nonce' => wp_create_nonce( self::NONCE . '_opt_in' ), 'label' => __('Allow & Continue', 'softicon-flipbook'), 'busy' => __('Connecting…', 'softicon-flipbook'), 'error' => __('Could not reach Freemius right now. Please try again later.', 'softicon-flipbook') ),
+            'skip'        => $open ? array( 'action' => 'alfb_fs_skip', 'nonce' => wp_create_nonce( self::NONCE . '_skip' ), 'label' => __('Skip', 'softicon-flipbook') ) : null,
         );
     }
 
