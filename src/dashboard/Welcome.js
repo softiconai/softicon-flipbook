@@ -14,7 +14,7 @@ const Welcome = ({ config, play }) => <>
 			<p>{__('Catalogs, magazines, menus and brochures that turn like real pages, on phones and big screens, right inside the block editor.', 'softicon-flipbook')}</p>
 			<p className='alfb-actions'>
 				<a className='alfb-btn alfb-btn-amber' href={config.urls.newPage}>{__('Create a flipbook', 'softicon-flipbook')}</a>
-				<a className='alfb-btn alfb-btn-ghost' href={config.urls.demos}>{__('See the demos', 'softicon-flipbook')}</a>
+				<a className='alfb-btn alfb-btn-ghost' href='#/demos'>{__('See the demos', 'softicon-flipbook')}</a>
 			</p>
 		</div>
 		<VideoLink className='alfb-hero-video' url={config.urls.playlist} title={__('Video tutorials', 'softicon-flipbook')} play={play}>

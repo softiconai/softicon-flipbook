@@ -812,3 +812,31 @@
 	color: #1d2327;
 	cursor: pointer;
 }
+
+/* WordPress places admin notices in this box, above the dashboard */
+.alfb-dash-notices {
+	margin: 0 20px 0 2px;
+}
+
+.alfb-dash-notices .notice {
+	margin: 12px 0;
+}
+
+.alfb-status {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	max-width: 1000px;
+	margin: 0 auto;
+	color: #50575e;
+}
+
+.alfb-status .spinner {
+	float: none;
+	margin: 0;
+}
+
+.alfb-status .dashicons-warning {
+	color: #b32d2e;
+}

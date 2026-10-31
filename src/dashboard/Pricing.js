@@ -2,6 +2,8 @@
 import { createInterpolateElement, useState } from '@wordpress/element';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { Checkout } from '@freemius/checkout';
+import { useApi } from './api';
+import Status from './Status';
 
 const symbols = { usd: '$', eur: '€', gbp: '£', aud: 'A$', cad: 'C$' };
 
@@ -54,8 +56,13 @@ const Intro = ({ eyebrow, title, children }) => <div className='alfb-intro'>
 	{children}
 </div>;
 
-export const Pricing = ({ config }) => {
-	const data = config.freemius;
+const usePlans = () => useApi('/alfb/v1/dashboard/plans');
+
+export const Pricing = () => {
+	const { data, error, loading } = usePlans();
+	if (loading || error) {
+		return <Status error={error} />;
+	}
 	const plan = data.pro;
 	const once = plan && 'lifetime' === plan.prices[0].cycle;
 
@@ -69,7 +76,7 @@ export const Pricing = ({ config }) => {
 				<span className='alfb-tag'>{sites(price.licenses)}</span>
 				<h3>{plan.title}</h3>
 				<Price price={price} />
-				<ProButton checkout={config.checkout} plan={plan} price={price} className='alfb-btn-teal' />
+				<ProButton checkout={data.checkout} plan={plan} price={price} className='alfb-btn-teal' />
 				<ul className='alfb-checks'>
 					<li>{sites(price.licenses)}</li>
 					<li>{__('Every free feature', 'softicon-flipbook')}</li>
@@ -82,7 +89,7 @@ export const Pricing = ({ config }) => {
 			{/* translators: %d: number of days */}
 			{data.money_back > 0 && sprintf(__('%d-day money-back guarantee.', 'softicon-flipbook'), data.money_back) + ' '}
 			{__('Secure checkout by Freemius. Pro replaces the free plugin and keeps every book you made.', 'softicon-flipbook')}{' '}
-			<a href={config.urls.compare}>{__('Compare Free and Pro', 'softicon-flipbook')}</a>
+			<a href='#/compare'>{__('Compare Free and Pro', 'softicon-flipbook')}</a>
 		</p>
 	</>;
 };
@@ -92,10 +99,13 @@ const Mark = ({ yes }) => <span className={'alfb-mark ' + (yes ? 'is-yes' : 'is-
 	<span className='screen-reader-text'>{yes ? __('Included', 'softicon-flipbook') : __('Not included', 'softicon-flipbook')}</span>
 </span>;
 
-export const Compare = ({ config }) => {
-	const data = config.freemius;
-	const plan = data.pro;
+export const Compare = () => {
+	const { data, error, loading } = usePlans();
 	const [filter, setFilter] = useState('');
+	if (loading || error) {
+		return <Status error={error} />;
+	}
+	const plan = data.pro;
 
 	// a section whose name matches keeps all its rows
 	const words = filter.trim().toLowerCase();
@@ -127,8 +137,8 @@ export const Compare = ({ config }) => {
 				<h3>{plan.title}</h3>
 				{plan.text && <p>{plan.text}</p>}
 				<Price price={plan.prices[0]} />
-				<ProButton checkout={config.checkout} plan={plan} price={plan.prices[0]} className='alfb-btn-light' />
-				{plan.prices.length > 1 && <a className='alfb-more-plans' href={config.urls.pricing}>{__('Plans for more websites', 'softicon-flipbook')}</a>}
+				<ProButton checkout={data.checkout} plan={plan} price={plan.prices[0]} className='alfb-btn-light' />
+				{plan.prices.length > 1 && <a className='alfb-more-plans' href='#/pricing'>{__('Plans for more websites', 'softicon-flipbook')}</a>}
 			</div>}
 		</div>
 

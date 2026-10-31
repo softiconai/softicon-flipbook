@@ -501,50 +501,65 @@ class fs_lite {
 
     /* ----- the opt-in card on the dashboard ----- */
 
-    public function opt_in_card() {
+    // the opt-in card as data, for a page that draws it itself (a React dashboard); null when it should not show
+    public function card() {
         $data = $this->data();
         $ask  = isset( $_GET['alfb_fs'] ) && 'ask' === $_GET['alfb_fs']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only shows the card
         if ( ! current_user_can( 'manage_options' ) || ( '' !== $data['state'] && ! ( $ask && 'connected' !== $data['state'] ) ) ) {
-            return;
+            return null;
         }
         $user = wp_get_current_user();
-        $permissions = array(
-            array( 'admin-users', __('Your profile', 'softicon-flipbook'), __('Name and email address', 'softicon-flipbook') ),
-            array( 'admin-site-alt3', __('Your site', 'softicon-flipbook'), __('Site address, title and language, WordPress and PHP versions', 'softicon-flipbook') ),
-            array( 'admin-plugins', __('Plugin events', 'softicon-flipbook'), __('Flipbook version, activation, deactivation and uninstall', 'softicon-flipbook') ),
+        return array(
+            'icon'        => $this->icon,
+            'title'       => __('Never miss an important update', 'softicon-flipbook'),
+            /* translators: %s: the admin's first name or user name */
+            'text'        => sprintf( __('Hi %s! Opt in to get emails about security fixes and new features, and to share some basic site data with SoftIcon through Freemius. It helps us make Flipbook better. If you skip, the plugin works just the same.', 'softicon-flipbook'), $user->user_firstname ? $user->user_firstname : $user->display_name ),
+            'shared'      => __('What is shared', 'softicon-flipbook'),
+            'permissions' => array(
+                array( 'icon' => 'admin-users', 'title' => __('Your profile', 'softicon-flipbook'), 'text' => __('Name and email address', 'softicon-flipbook') ),
+                array( 'icon' => 'admin-site-alt3', 'title' => __('Your site', 'softicon-flipbook'), 'text' => __('Site address, title and language, WordPress and PHP versions', 'softicon-flipbook') ),
+                array( 'icon' => 'admin-plugins', 'title' => __('Plugin events', 'softicon-flipbook'), 'text' => __('Flipbook version, activation, deactivation and uninstall', 'softicon-flipbook') ),
+            ),
+            'note'        => __('Nothing about your posts, visitors, other plugins or themes. You can opt out at any time from the Plugins page.', 'softicon-flipbook'),
+            'privacy'     => array( 'url' => 'https://freemius.com/privacy/', 'label' => __('Freemius privacy policy', 'softicon-flipbook') ),
+            // the two buttons post to admin-post.php
+            'form'        => admin_url( 'admin-post.php' ),
+            'allow'       => array( 'action' => 'alfb_fs_opt_in', 'nonce' => wp_create_nonce( self::NONCE . '_opt_in' ), 'label' => __('Allow & Continue', 'softicon-flipbook') ),
+            'skip'        => '' === $data['state'] ? array( 'action' => 'alfb_fs_skip', 'nonce' => wp_create_nonce( self::NONCE . '_skip' ), 'label' => __('Skip', 'softicon-flipbook') ) : null,
         );
+    }
+
+    // the same card printed in PHP, on the page's card_hook
+    public function opt_in_card() {
+        $card = $this->card();
+        if ( ! $card ) {
+            return;
+        }
         ?>
         <section class="alfb-optin">
-            <?php if ( $this->icon ) : ?><img src="<?php echo esc_url( $this->icon ); ?>" alt="" width="56" height="56"><?php endif; ?>
+            <?php if ( $card['icon'] ) : ?><img src="<?php echo esc_url( $card['icon'] ); ?>" alt="" width="56" height="56"><?php endif; ?>
             <div class="alfb-optin-body">
-                <h2><?php esc_html_e('Never miss an important update', 'softicon-flipbook'); ?></h2>
-                <p><?php
-                    /* translators: %s: the admin's first name or user name */
-                    printf( esc_html__('Hi %s! Opt in to get emails about security fixes and new features, and to share some basic site data with SoftIcon through Freemius. It helps us make Flipbook better. If you skip, the plugin works just the same.', 'softicon-flipbook'), esc_html( $user->user_firstname ? $user->user_firstname : $user->display_name ) );
-                ?></p>
+                <h2><?php echo esc_html( $card['title'] ); ?></h2>
+                <p><?php echo esc_html( $card['text'] ); ?></p>
                 <details>
-                    <summary><?php esc_html_e('What is shared', 'softicon-flipbook'); ?></summary>
+                    <summary><?php echo esc_html( $card['shared'] ); ?></summary>
                     <ul>
-                        <?php foreach ( $permissions as $permission ) : ?>
-                            <li><span class="dashicons dashicons-<?php echo esc_attr( $permission[0] ); ?>" aria-hidden="true"></span><strong><?php echo esc_html( $permission[1] ); ?></strong> <?php echo esc_html( $permission[2] ); ?></li>
+                        <?php foreach ( $card['permissions'] as $permission ) : ?>
+                            <li><span class="dashicons dashicons-<?php echo esc_attr( $permission['icon'] ); ?>" aria-hidden="true"></span><strong><?php echo esc_html( $permission['title'] ); ?></strong> <?php echo esc_html( $permission['text'] ); ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <p><?php esc_html_e('Nothing about your posts, visitors, other plugins or themes. You can opt out at any time from the Plugins page.', 'softicon-flipbook'); ?>
-                        <a href="https://freemius.com/privacy/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Freemius privacy policy', 'softicon-flipbook'); ?></a></p>
+                    <p><?php echo esc_html( $card['note'] ); ?> <a href="<?php echo esc_url( $card['privacy']['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $card['privacy']['label'] ); ?></a></p>
                 </details>
                 <div class="alfb-optin-actions">
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-                        <input type="hidden" name="action" value="alfb_fs_opt_in">
-                        <?php wp_nonce_field( self::NONCE . '_opt_in' ); ?>
-                        <button type="submit" class="button button-primary button-hero alfb-optin-allow"><?php esc_html_e('Allow & Continue', 'softicon-flipbook'); ?></button>
-                    </form>
-                    <?php if ( '' === $data['state'] ) : ?>
-                        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-                            <input type="hidden" name="action" value="alfb_fs_skip">
-                            <?php wp_nonce_field( self::NONCE . '_skip' ); ?>
-                            <button type="submit" class="button-link"><?php esc_html_e('Skip', 'softicon-flipbook'); ?></button>
-                        </form>
-                    <?php endif; ?>
+                    <?php foreach ( array( 'allow', 'skip' ) as $button ) : ?>
+                        <?php if ( $card[ $button ] ) : ?>
+                            <form method="post" action="<?php echo esc_url( $card['form'] ); ?>">
+                                <input type="hidden" name="action" value="<?php echo esc_attr( $card[ $button ]['action'] ); ?>">
+                                <input type="hidden" name="_wpnonce" value="<?php echo esc_attr( $card[ $button ]['nonce'] ); ?>">
+                                <button type="submit" class="<?php echo 'allow' === $button ? 'button button-primary button-hero alfb-optin-allow' : 'button-link'; ?>"><?php echo esc_html( $card[ $button ]['label'] ); ?></button>
+                            </form>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>

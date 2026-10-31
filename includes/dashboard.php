@@ -113,8 +113,9 @@ class dashboard {
     }
 
 
+    // the dashboard is one page; each tab is a #/route in it
     public static function url( $tab = '' ) {
-        return admin_url( 'admin.php?page=' . self::PAGE . ( $tab ? '&tab=' . $tab : '' ) );
+        return admin_url( 'admin.php?page=' . self::PAGE ) . ( $tab ? '#/' . $tab : '' );
     }
 
     public function menu() {
@@ -132,14 +133,14 @@ class dashboard {
     public function action_links( $links ) {
         array_unshift( $links, '<a href="' . esc_url( self::url() ) . '">' . esc_html__('Dashboard', 'softicon-flipbook') . '</a>' );
         if ( ! self::is_pro() ) {
-            $links[] = '<a href="' . esc_url( self::url( 'pro' ) ) . '" style="color:#b45309;font-weight:600">' . esc_html__('Free vs Pro', 'softicon-flipbook') . '</a>';
+            $links[] = '<a href="' . esc_url( self::url( 'compare' ) ) . '" style="color:#b45309;font-weight:600">' . esc_html__('Free vs Pro', 'softicon-flipbook') . '</a>';
         }
         return $links;
     }
 
     public function row_meta( $links, $file ) {
         if ( plugin_basename( ALFB_PLUGIN_PATH . 'softicon-flipbook.php' ) === $file ) {
-            $links[] = '<a href="' . esc_url( self::url() . '#alfb-videos' ) . '">' . esc_html__('Video tutorials', 'softicon-flipbook') . '</a>';
+            $links[] = '<a href="' . esc_url( self::url( 'videos' ) ) . '">' . esc_html__('Video tutorials', 'softicon-flipbook') . '</a>';
         }
         return $links;
     }
@@ -156,111 +157,119 @@ class dashboard {
         }
         wp_enqueue_style( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/css/dashboard.css', array(), self::version( 'assets/css/dashboard.css' ) );
         $script = file_exists( ALFB_PLUGIN_PATH . 'build/dashboard.asset.php' ) ? require ALFB_PLUGIN_PATH . 'build/dashboard.asset.php' : array( 'dependencies' => array(), 'version' => ALFB_PLUGIN_VERSION );
-        wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'build/dashboard.js', $script['dependencies'], $script['version'], array( 'in_footer' => true, 'strategy' => 'defer' ) );
+        wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'build/dashboard.js', $script['dependencies'], $script['version'], true );
         wp_set_script_translations( 'alfb-dashboard', 'softicon-flipbook', ALFB_PLUGIN_PATH . 'languages' );
         wp_add_inline_script( 'alfb-dashboard', 'window.alfbDashboard = ' . wp_json_encode( self::config() ) . ';', 'before' );
         // the demos are real flipbooks
         wp_enqueue_style( generate_block_asset_handle( 'softicon/flipbook', 'style' ) );
         wp_enqueue_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ) );
+        // add-ons enqueue their tabs here; a script that adds tabs makes itself a dependency of alfb-dashboard
         do_action( 'alfb_dashboard_assets' );
     }
 
+    // the tab names; their content is React (src/dashboard), Pro adds its own through the alfb.dashboard.tabs JS filter
     public static function tabs() {
-        $pro  = self::is_pro();
         $tabs = array(
             'welcome' => __('Welcome', 'softicon-flipbook'),
             'demos'   => __('Demos', 'softicon-flipbook'),
         );
-        if ( ! $pro ) {
+        if ( ! self::is_pro() ) {
             $tabs['pricing'] = __('Pricing', 'softicon-flipbook');
+            $tabs['compare'] = __('Free vs Pro', 'softicon-flipbook');
         }
-        $tabs['pro']  = $pro ? __('Settings', 'softicon-flipbook') : __('Free vs Pro', 'softicon-flipbook');
         $tabs['help'] = __('Help', 'softicon-flipbook');
         return apply_filters( 'alfb_dashboard_tabs', $tabs );
     }
 
-    private static function tab() {
-        $tabs = self::tabs();
-        $tab  = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'welcome'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only picks the tab to show
-        return isset( $tabs[ $tab ] ) ? $tab : 'welcome';
+    // a tab placed just before Help
+    public static function before_help( $tabs, $key, $label ) {
+        $at = array_search( 'help', array_keys( $tabs ), true );
+        $at = false === $at ? count( $tabs ) : $at;
+        return array_slice( $tabs, 0, $at, true ) + array( $key => $label ) + array_slice( $tabs, $at, null, true );
     }
 
-    // everything the React dashboard shows; the Freemius plans and the demo books only on the tabs that use them
     private static function config() {
-        $tab    = self::tab();
-        $tabs   = array();
+        $tabs = array();
         foreach ( self::tabs() as $key => $label ) {
-            $tabs[] = array( 'key' => $key, 'label' => $label, 'url' => self::url( 'welcome' === $key ? '' : $key ) );
+            $tabs[] = array( 'key' => $key, 'label' => $label );
         }
         $videos = array();
         foreach ( self::videos() as $url => $title ) {
             $videos[] = array( 'url' => $url, 'title' => $title );
         }
-
         $config = array(
-            'tab'     => $tab,
             'tabs'    => $tabs,
             'pro'     => self::is_pro(),
             'version' => ALFB_PLUGIN_VERSION,
             'icon'    => ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png',
             'videos'  => $videos,
+            'optIn'   => method_exists( alfb_fs(), 'card' ) ? alfb_fs()->card() : null,
             'urls'    => array(
-                'dashboard' => self::url(),
-                'demos'     => self::url( 'demos' ),
-                'pricing'   => self::url( 'pricing' ),
-                'compare'   => self::url( 'pro' ),
-                'newPage'   => admin_url( 'post-new.php?post_type=page' ),
-                'playlist'  => self::PLAYLIST,
+                'newPage'  => admin_url( 'post-new.php?post_type=page' ),
+                'playlist' => self::PLAYLIST,
             ),
         );
-
-        if ( ! self::is_pro() && in_array( $tab, array( 'pricing', 'pro' ), true ) ) {
-            $data                 = self::freemius();
-            $data['pro_only']     = self::pro_only( $data );
-            $config['freemius']   = $data;
-            $config['checkout']   = array(
-                'product' => alfb_fs()->id(),
-                'key'     => alfb_fs()->public_key(),
-                'image'   => ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png',
-                'base'    => 'https://checkout.freemius.com/plugin/' . alfb_fs()->id() . '/',
-            );
-        }
-
-        if ( 'demos' === $tab ) {
-            $pdfs  = demos::preview_pdfs();
-            $items = array();
-            foreach ( demos::all() as $key => $demo ) {
-                $item = array( 'key' => $key, 'title' => $demo['title'], 'text' => $demo['text'], 'pro' => ! empty( $demo['pro'] ), 'row' => ! empty( $demo['row'] ) );
-                if ( isset( $demo['blocks'] ) ) {
-                    // the block's render.php escapes everything in this markup
-                    $item['html']   = do_blocks( demos::markup( $demo, $pdfs ) );
-                    $item['create'] = demos::create_url( $key );
-                }
-                $items[] = $item;
-            }
-            $config['demos'] = $items;
-        }
-
-        return $config;
+        return apply_filters( 'alfb_dashboard_config', $config );
     }
 
-    // React fills the two empty boxes; the opt-in card and the Pro tabs print their own HTML around the tab
+    // registered on every request (REST calls are not admin pages), see softicon-flipbook.php
+    public static function routes() {
+        $admin = function () {
+            return current_user_can( 'manage_options' );
+        };
+        register_rest_route( 'alfb/v1', '/dashboard/plans', array(
+            'methods'             => 'GET',
+            'callback'            => array( __CLASS__, 'plans' ),
+            'permission_callback' => $admin,
+        ) );
+        register_rest_route( 'alfb/v1', '/dashboard/demos', array(
+            'methods'             => 'GET',
+            'callback'            => array( __CLASS__, 'demos' ),
+            'permission_callback' => $admin,
+        ) );
+    }
+
+    // the Pricing and Free vs Pro tabs: the plans from Freemius and what the checkout needs
+    public static function plans() {
+        $data             = self::freemius();
+        $data['pro_only'] = self::pro_only( $data );
+        $data['checkout'] = self::is_pro() || ! method_exists( alfb_fs(), 'public_key' ) ? null : array(
+            'product' => alfb_fs()->id(),
+            'key'     => alfb_fs()->public_key(),
+            'image'   => ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png',
+            'base'    => 'https://checkout.freemius.com/plugin/' . alfb_fs()->id() . '/',
+        );
+        return rest_ensure_response( $data );
+    }
+
+    // the Demos tab: each demo with its book markup, rendered by the block
+    public static function demos() {
+        $pdfs  = demos::preview_pdfs();
+        $items = array();
+        foreach ( demos::all() as $key => $demo ) {
+            $item = array( 'key' => $key, 'title' => $demo['title'], 'text' => $demo['text'], 'pro' => ! empty( $demo['pro'] ), 'row' => ! empty( $demo['row'] ) );
+            if ( isset( $demo['blocks'] ) ) {
+                // the block's render.php escapes everything in this markup
+                $item['html']   = do_blocks( demos::markup( $demo, $pdfs ) );
+                $item['create'] = demos::create_url( $key );
+            }
+            $items[] = $item;
+        }
+        return rest_ensure_response( $items );
+    }
+
+    // React draws the whole page into #alfb-dashboard
     public function render() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return;
         }
-        $tab = self::tab();
         ?>
-        <div class="alfb-dash">
-            <div id="alfb-dashboard-head"></div>
-            <div class="wrap alfb-dash-body">
-                <h1 class="screen-reader-text"><?php echo esc_html( self::is_pro() ? __('SoftIcon Flipbook Pro', 'softicon-flipbook') : __('SoftIcon Flipbook', 'softicon-flipbook') ); ?></h1>
-                <hr class="wp-header-end">
-                <?php do_action( 'alfb_dashboard_before', $tab ); ?>
-                <div id="alfb-dashboard-tab"></div>
-                <?php do_action( 'alfb_dashboard_' . $tab ); ?>
-                <noscript><p><?php esc_html_e('The Flipbook dashboard needs JavaScript.', 'softicon-flipbook'); ?></p></noscript>
-            </div>
+        <div class="wrap alfb-dash-notices">
+            <h1 class="screen-reader-text"><?php echo esc_html( self::is_pro() ? __('SoftIcon Flipbook Pro', 'softicon-flipbook') : __('SoftIcon Flipbook', 'softicon-flipbook') ); ?></h1>
+            <hr class="wp-header-end">
+        </div>
+        <div id="alfb-dashboard" class="alfb-dash">
+            <noscript><p><?php esc_html_e('The Flipbook dashboard needs JavaScript.', 'softicon-flipbook'); ?></p></noscript>
         </div>
         <?php
     }

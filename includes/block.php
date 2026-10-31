@@ -31,7 +31,7 @@ class block {
                 $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
             }
         }
-        $editor = $build_url . 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => dashboard::is_pro(), 'dashboard' => dashboard::url( 'pro' ), 'features' => $features ) ) . ';';
+        $editor = $build_url . 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => dashboard::is_pro(), 'dashboard' => dashboard::url( 'compare' ), 'features' => $features ) ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $editor, 'before' );
     }
 

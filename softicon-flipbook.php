@@ -42,9 +42,8 @@ if ( function_exists( 'alfb_fs' ) ) {
                 'id'         => '43387',
                 'slug'       => 'softicon-flipbook',
                 'public_key' => 'pk_e1f96e9b8a918f0035345996895cd',
-                // the Flipbook dashboard, where the opt-in card shows
+                // the Flipbook dashboard, where the opt-in card shows (the React dashboard draws it from card())
                 'page'       => 'softicon-flipbook',
-                'card_hook'  => 'alfb_dashboard_before',
                 'icon'       => plugins_url( 'assets/images/icon-128x128.png', __FILE__ ),
             ) );
         }
@@ -87,6 +86,7 @@ if ( function_exists( 'alfb_fs' ) ) {
             require_once ALFB_PLUGIN_PATH . 'includes/dashboard.php';
 
             new ALFB_Flipbook\block();
+            add_action( 'rest_api_init', array( 'ALFB_Flipbook\dashboard', 'routes' ) );
             if ( is_admin() ) {
                 new ALFB_Flipbook\demos();
                 new ALFB_Flipbook\dashboard();

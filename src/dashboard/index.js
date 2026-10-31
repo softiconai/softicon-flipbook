@@ -1,32 +1,26 @@
-// the Flipbook dashboard, drawn from window.alfbDashboard (includes/dashboard.php)
-import { createRoot, useState } from '@wordpress/element';
-import Header from './Header';
+// the Flipbook dashboard: one React page, each tab a #/route (includes/dashboard.php prints only the box and the config)
+import { createRoot } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
+import App from './App';
 import Welcome from './Welcome';
 import Demos from './Demos';
 import { Pricing, Compare } from './Pricing';
 import Help from './Help';
-import VideoPopup from './VideoPopup';
 
-const config = window.alfbDashboard;
-
-const tabs = { welcome: Welcome, demos: Demos, pricing: Pricing, pro: Compare, help: Help };
-
-const Tab = () => {
-	const [video, setVideo] = useState(null);
-	// Pro's own tabs (Analytics, Leads, Settings) are printed by PHP next to this box
-	const Content = tabs[config.tab];
-	if (!Content || (config.pro && 'pro' === config.tab)) {
-		return null;
+const start = () => {
+	const root = document.getElementById('alfb-dashboard');
+	const config = window.alfbDashboard;
+	if (!root || !config) {
+		return;
 	}
-	return <>
-		<Content config={config} play={setVideo} />
-		<VideoPopup video={video} onClose={() => setVideo(null)} />
-	</>;
+	// SoftIcon Flipbook Pro adds Analytics, Leads and Settings here
+	const tabs = applyFilters('alfb.dashboard.tabs', { welcome: Welcome, demos: Demos, pricing: Pricing, compare: Compare, help: Help }, config);
+	createRoot(root).render(<App config={config} tabs={tabs} />);
 };
 
-const head = document.getElementById('alfb-dashboard-head');
-const tab = document.getElementById('alfb-dashboard-tab');
-if (config && head && tab) {
-	createRoot(head).render(<Header config={config} />);
-	createRoot(tab).render(<Tab />);
+// after every script on the page has run, so add-ons have added their tabs
+if ('loading' === document.readyState) {
+	document.addEventListener('DOMContentLoaded', start);
+} else {
+	start();
 }
