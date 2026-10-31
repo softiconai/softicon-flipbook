@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.4.2
+Stable tag: 1.5.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -119,7 +119,7 @@ On small screens the book shows one page at a time at the full width of the scre
 
 **From your visitors: nothing.** The flipbook sets no cookies, tracks no one and sends nothing anywhere.
 
-**From you, the site admin: only if you say yes.** After activation, the Flipbook dashboard asks if you would like to opt in. Click "Skip" and nothing is ever sent; the plugin works exactly the same either way.
+**From you, the site admin: only if you say yes.** After activation, the Flipbook dashboard asks if you would like to opt in. Click "Skip" and nothing about you or your site is ever sent; the plugin works exactly the same either way.
 
 If you click "Allow & Continue", this is shared with us through [Freemius](https://freemius.com), the service we use to manage our users:
 
@@ -142,7 +142,7 @@ Earlier versions included the full Freemius SDK. Since we only need the opt-in, 
 
 * **A lighter plugin:** about 0.8 MB smaller to download and about 3.6 MB less on your server.
 * **Easy to check:** one plain PHP file (vendor/fs-lite/fs-lite.php) that shows exactly what is sent and when.
-* **Only Freemius:** it connects to wp.freemius.com and api.freemius.com and nowhere else, and only after you click "Allow & Continue".
+* **Only Freemius:** it connects to wp.freemius.com and api.freemius.com and nowhere else. Anything about you or your site is sent only after you click "Allow & Continue".
 * **Works on strict hosts too:** if your server is not allowed to reach Freemius, your browser sends the same opt-in to wp.freemius.com instead, and Freemius sends you back to the Flipbook dashboard.
 * **Nothing extra in your admin:** no added menus, and its scripts load only on the Plugins page and the Flipbook dashboard.
 
@@ -151,7 +151,7 @@ If you opted in or skipped with an earlier version, your choice is kept and you 
 = Which outside services does the plugin use? =
 
 * **Freemius** (wp.freemius.com, api.freemius.com) for the optional opt-in described above, only if you allow it. [Terms](https://freemius.com/terms/), [privacy policy](https://freemius.com/privacy/).
-* **Freemius plans** (api.freemius.com): the Pricing, Free vs Pro and Demos tabs of the Flipbook dashboard read the Pro features and prices we set in Freemius, at most twice a day. Only the plugin's public ID is sent, nothing about you or your site.
+* **Freemius plans** (api.freemius.com): when you open the Pricing or Free vs Pro tab of the Flipbook dashboard, it reads the Pro features and prices we set in Freemius, at most twice a day. Only the plugin's public ID is sent, nothing about you or your site, and this happens even if you skipped the opt-in.
 * **Freemius Checkout** (checkout.freemius.com) opens in a window only when you click a "Get Pro" button on the Flipbook dashboard, so you can buy Pro. Nothing is sent before you click, and what you type in the checkout goes to Freemius, which handles the payment. Same terms and privacy policy.
 * **YouTube** (youtube-nocookie.com): a video tutorial plays in a popup only when you click it on the Flipbook dashboard. [YouTube terms](https://www.youtube.com/t/terms), [Google privacy policy](https://policies.google.com/privacy).
 
@@ -169,6 +169,16 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 6. Set the maximum height and the colors of the background and toolbar.
 
 == Changelog ==
+
+= 1.5.0 =
+* New: Flipbook dashboard (Flipbook in the admin menu) with live demos, video tutorials that play in a popup, help, and a Free vs Pro comparison.
+* New: SoftIcon Flipbook Pro, a separate plugin with a Bookshelf block, lead capture, reading analytics and PDF protection. The free plugin only lists those features.
+* Changed: the optional opt-in now uses a small built-in client instead of the Freemius SDK: about 0.8 MB smaller to download and 3.6 MB less on your server. It talks only to Freemius, and only after you click "Allow & Continue"; your earlier choice, including an opt-out, is kept.
+* New: when you deactivate the plugin, an optional short form asks why. The answer is sent only when the plugin is deleted.
+* New: the Pricing and Free vs Pro tabs read the Pro features and prices from Freemius (only the plugin's public ID is sent). See "Which outside services does the plugin use?" in the FAQ.
+* Security: a media id in a block now resolves to its file only when the file is not attached, sits on a public post, or the post's author may edit it.
+* Security: pdf.js no longer uses eval for fonts.
+* Fix: the lazy pdf.js and page-flip files carry a version, so a browser never mixes an old cached copy with a new viewer.
 
 = 1.4.2 =
 * New: Optional opt-in for security and feature update emails (powered by Freemius, you can skip it). Nothing is sent unless you allow it.

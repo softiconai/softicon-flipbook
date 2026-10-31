@@ -227,9 +227,10 @@ class dashboard {
         ) );
     }
 
-    // the Pricing and Free vs Pro tabs: the plans from Freemius and what the checkout needs
-    public static function plans() {
-        $data             = self::freemius();
+    // the Pricing and Free vs Pro tabs: the plans from Freemius and what the checkout needs;
+    // ?cached=1 (the Demos tab) only reads what is kept and never asks Freemius
+    public static function plans( $request = null ) {
+        $data             = self::freemius( ! ( $request && $request->get_param( 'cached' ) ) );
         $data['pro_only'] = self::pro_only( $data );
         $data['checkout'] = self::is_pro() || ! method_exists( alfb_fs(), 'public_key' ) ? null : array(
             'product' => alfb_fs()->id(),

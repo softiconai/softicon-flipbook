@@ -91,7 +91,7 @@
 			} else if (result.success) {
 				window.location.reload();
 			} else {
-				window.alert(result.data?.message || 'Error');
+				window.alert(result.data?.message || lite.error);
 				link.removeAttribute('aria-busy');
 			}
 		});

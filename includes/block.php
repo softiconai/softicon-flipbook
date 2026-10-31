@@ -7,6 +7,7 @@ class block {
     public function __construct()
     {
         add_action('init', array( $this, 'register' ));
+        add_action('enqueue_block_editor_assets', array( $this, 'editor_info' ));
         add_filter('block_editor_settings_all', array( $this, 'no_inspector_tabs' ));
     }
 
@@ -24,21 +25,35 @@ class block {
         // the real build url for the lazy chunks and pdf.js files, JS combine plugins move view.js elsewhere
         $build_url = 'window.alfbBuildUrl = ' . wp_json_encode( ALFB_PLUGIN_URL . 'build/' ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ), $build_url, 'before' );
-        // the editor also learns whether Pro is active, and the Pro features kept from Freemius (no request from the editor)
+        wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $build_url, 'before' );
+    }
+
+    // only in the block editor: whether Pro is active, and the Pro features kept from Freemius (no request from here)
+    public function editor_info() {
         $features = array();
-        if ( is_admin() ) {
-            foreach ( dashboard::pro_only( dashboard::freemius( false ) ) as $feature ) {
-                $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
-            }
+        foreach ( dashboard::pro_only( dashboard::freemius( false ) ) as $feature ) {
+            $features[] = array( 'title' => $feature['title'], 'text' => $feature['text'] );
         }
-        $editor = $build_url . 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => dashboard::is_pro(), 'dashboard' => dashboard::url( 'compare' ), 'features' => $features ) ) . ';';
+        $editor = 'window.alfbEditor = ' . wp_json_encode( array( 'pro' => dashboard::is_pro(), 'dashboard' => dashboard::url( 'compare' ), 'features' => $features ) ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $editor, 'before' );
+    }
+
+    // a media id from the block is turned into its file only when that file is not attached, sits on a public post,
+    // or this post's author may edit it; otherwise a contributor could step through ids to find files of private drafts
+    public static function may_use( $id ) {
+        $parent = (int) wp_get_post_parent_id( $id );
+        if ( ! $parent || is_post_publicly_viewable( $parent ) ) {
+            return true;
+        }
+        $post   = (int) get_the_ID();
+        $author = $post ? (int) get_post_field( 'post_author', $post ) : 0;
+        return $author && user_can( $author, 'edit_post', $id );
     }
 
     // the PDF url, preferring the media library file so a changed site url still works
     public static function pdf_url( $attributes ) {
         $id = isset( $attributes['pdfId'] ) ? absint( $attributes['pdfId'] ) : 0;
-        if ( $id && 'application/pdf' === get_post_mime_type( $id ) ) {
+        if ( $id && 'application/pdf' === get_post_mime_type( $id ) && self::may_use( $id ) ) {
             $url = wp_get_attachment_url( $id );
             if ( $url ) {
                 return $url;
@@ -60,7 +75,7 @@ class block {
 
         foreach ( $items as $item ) {
             $id = isset( $item['id'] ) ? absint( $item['id'] ) : 0;
-            if ( $id && wp_attachment_is_image( $id ) ) {
+            if ( $id && wp_attachment_is_image( $id ) && self::may_use( $id ) ) {
                 $src = wp_get_attachment_image_src( $id, 'full' );
                 if ( $src ) {
                     // smaller copy for the thumbnail panel
@@ -162,13 +177,14 @@ class block {
         if ( 'cover' === $trigger ) {
             $chosen = isset( $attributes['lightboxImage'] ) && is_array( $attributes['lightboxImage'] ) ? $attributes['lightboxImage'] : array();
             $id     = isset( $chosen['id'] ) ? absint( $chosen['id'] ) : 0;
-            if ( $id && wp_attachment_is_image( $id ) ) {
+            if ( $id && wp_attachment_is_image( $id ) && self::may_use( $id ) ) {
                 $src   = wp_get_attachment_image_src( $id, 'large' );
                 $image = $src ? $src[0] : '';
                 $alt   = (string) get_post_meta( $id, '_wp_attachment_image_alt', true );
             } elseif ( ! empty( $chosen['url'] ) ) {
                 $image = esc_url_raw( $chosen['url'] );
-            } elseif ( 'pdf' === $config['source'] && ! empty( $attributes['pdfId'] ) ) {
+            } elseif ( 'pdf' === $config['source'] && empty( $config['protect'] ) && ! empty( $attributes['pdfId'] ) && self::may_use( absint( $attributes['pdfId'] ) ) ) {
+                // not for a protected book: the preview image sits next to the PDF and gives its address away
                 $src   = wp_get_attachment_image_src( absint( $attributes['pdfId'] ), 'large' );
                 $image = $src ? $src[0] : '';
             } elseif ( 'images' === $config['source'] ) {

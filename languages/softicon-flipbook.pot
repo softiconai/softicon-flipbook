@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.4.2\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T13:37:45+00:00\n"
+"POT-Creation-Date: 2026-10-31T13:59:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -78,7 +78,7 @@ msgid "Every setting explained"
 msgstr ""
 
 #: includes/dashboard.php:123
-#: includes/dashboard.php:250
+#: includes/dashboard.php:251
 msgid "SoftIcon Flipbook"
 msgstr ""
 
@@ -116,176 +116,180 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:250
+#: includes/dashboard.php:251
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:254
+#: includes/dashboard.php:255
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:314
+#: vendor/fs-lite/fs-lite.php:340
 msgid "You are not allowed to do this."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:408
+#: vendor/fs-lite/fs-lite.php:356
+msgid "This link has expired. Please opt in again from the Flipbook dashboard."
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:447
+#: vendor/fs-lite/fs-lite.php:516
 msgid "Could not reach Freemius. Please try again."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:420
+#: vendor/fs-lite/fs-lite.php:459
 msgid "Opt Out"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:422
-#: vendor/fs-lite/fs-lite.php:424
+#: vendor/fs-lite/fs-lite.php:461
 msgid "Opt In"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:433
+#: vendor/fs-lite/fs-lite.php:470
 msgid "I no longer need the plugin"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:434
+#: vendor/fs-lite/fs-lite.php:471
 msgid "I found a better plugin"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:434
+#: vendor/fs-lite/fs-lite.php:471
 msgid "Which plugin?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:435
+#: vendor/fs-lite/fs-lite.php:472
 msgid "I only needed it for a short time"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:436
+#: vendor/fs-lite/fs-lite.php:473
 msgid "It is not working"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:436
+#: vendor/fs-lite/fs-lite.php:473
 msgid "What did not work? We would like to fix it."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:437
+#: vendor/fs-lite/fs-lite.php:474
 msgid "I need a feature it does not have"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:437
+#: vendor/fs-lite/fs-lite.php:474
 msgid "Which feature?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:438
+#: vendor/fs-lite/fs-lite.php:475
 msgid "It broke my site"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:439
+#: vendor/fs-lite/fs-lite.php:476
 msgid "It is a temporary deactivation, I am fixing something"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:440
+#: vendor/fs-lite/fs-lite.php:477
 msgid "Other"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:440
+#: vendor/fs-lite/fs-lite.php:477
 msgid "Please tell us more"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:478
+#: vendor/fs-lite/fs-lite.php:515
 msgid "Stop sending usage data to SoftIcon through Freemius? You can opt in again at any time."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:481
+#: vendor/fs-lite/fs-lite.php:519
 msgid "Quick question before you go"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:482
+#: vendor/fs-lite/fs-lite.php:520
 msgid "Why are you deactivating SoftIcon Flipbook? Your answer helps us make it better."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:484
-msgid "Only your answer is sent, when the plugin is deleted. No name or email unless you opted in before."
+#: vendor/fs-lite/fs-lite.php:522
+msgid "Only your answer and an anonymous site ID are sent, when the plugin is deleted. No name or email unless you opted in before."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:485
+#: vendor/fs-lite/fs-lite.php:523
 msgid "Skip & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:486
+#: vendor/fs-lite/fs-lite.php:524
 msgid "Cancel"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:487
+#: vendor/fs-lite/fs-lite.php:525
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:505
+#: vendor/fs-lite/fs-lite.php:543
 msgid "Never miss an important update"
 msgstr ""
 
 #. translators: %s: the admin's first name or user name
-#: vendor/fs-lite/fs-lite.php:507
+#: vendor/fs-lite/fs-lite.php:545
 #, php-format
 msgid "Hi %s! Opt in to get emails about security fixes and new features, and to share some basic site data with SoftIcon through Freemius. It helps us make Flipbook better. If you skip, the plugin works just the same."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:508
+#: vendor/fs-lite/fs-lite.php:546
 msgid "What is shared"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:510
+#: vendor/fs-lite/fs-lite.php:548
 msgid "Your profile"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:510
+#: vendor/fs-lite/fs-lite.php:548
 msgid "Name and email address"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:511
+#: vendor/fs-lite/fs-lite.php:549
 msgid "Your site"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:511
+#: vendor/fs-lite/fs-lite.php:549
 msgid "Site address, title and language, WordPress and PHP versions"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:512
+#: vendor/fs-lite/fs-lite.php:550
 msgid "Plugin events"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:512
+#: vendor/fs-lite/fs-lite.php:550
 msgid "Flipbook version, activation, deactivation and uninstall"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:514
+#: vendor/fs-lite/fs-lite.php:552
 msgid "Nothing about your posts, visitors, other plugins or themes. You can opt out at any time from the Plugins page."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:515
+#: vendor/fs-lite/fs-lite.php:553
 msgid "Freemius privacy policy"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:519
+#: vendor/fs-lite/fs-lite.php:557
 msgid "Allow & Continue"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:519
+#: vendor/fs-lite/fs-lite.php:557
 msgid "Connecting…"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:519
-#: vendor/fs-lite/fs-lite.php:539
+#: vendor/fs-lite/fs-lite.php:557
+#: vendor/fs-lite/fs-lite.php:577
 msgid "Could not reach Freemius right now. Please try again later."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:520
+#: vendor/fs-lite/fs-lite.php:558
 msgid "Skip"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:532
+#: vendor/fs-lite/fs-lite.php:570
 msgid "Thank you! You will now hear about important Flipbook updates."
 msgstr ""
 
 #. translators: %s: email address
-#: vendor/fs-lite/fs-lite.php:536
+#: vendor/fs-lite/fs-lite.php:574
 #, php-format
 msgid "Almost done: please open the email we sent to %s and click the link to confirm."
 msgstr ""
@@ -365,6 +369,10 @@ msgstr ""
 
 #: build/dashboard.js:1
 msgid "Classic or Hardcover, on the page or in a popup, then publish."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Something went wrong. Please try again."
 msgstr ""
 
 #: build/dashboard.js:1

@@ -72,6 +72,8 @@ export const openDocument = async (url, doc) => {
 		ownerDocument: doc,
 		// big files stream in, only the pages being shown are fetched
 		disableAutoFetch: true,
+		// fonts are drawn without eval() / new Function(), so a PDF can never run code here
+		isEvalSupported: false,
 		// pdf.js warnings (missing system fonts, JS fallbacks) are not useful to site visitors
 		verbosity: pdfjs.VerbosityLevel.ERRORS
 	});

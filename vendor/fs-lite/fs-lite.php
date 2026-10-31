@@ -3,7 +3,9 @@ namespace ALFB_Flipbook;
 if ( !defined('ABSPATH') ) { exit;}
 
 // A small Freemius opt-in for the free plugin, in place of the full SDK.
-// It talks only to Freemius (wp.freemius.com and api.freemius.com), and only after the site admin agrees.
+// It talks only to Freemius (wp.freemius.com and api.freemius.com). Anything about the site or the admin is sent
+// only after "Allow & Continue"; the one call before that, pricing(), reads the public plans with the plugin's
+// public key and sends nothing about the site.
 // Everything it needs from the plugin comes in the config: the admin page and the icon.
 // It prints no HTML: the plugin's React page draws the card and the notice from card() and notice(),
 // and assets/fs-lite.js (React, wp.element) draws the Plugins page form.
@@ -91,7 +93,7 @@ class fs_lite {
             'email'    => '',
             'version'  => '',
             'reason'   => null,
-            'redirect' => false,
+            'token'    => '',
         ), $data );
     }
 
@@ -108,10 +110,19 @@ class fs_lite {
         if ( ! is_array( $accounts ) ) {
             return $data;
         }
-        $site = isset( $accounts['sites'][ $this->slug ] ) ? (array) $accounts['sites'][ $this->slug ] : array();
+        $site  = isset( $accounts['sites'][ $this->slug ] ) ? (array) $accounts['sites'][ $this->slug ] : array();
+        $flags = isset( $accounts['plugin_data'][ $this->slug ] ) ? (array) $accounts['plugin_data'][ $this->slug ] : array();
         if ( ! empty( $site['id'] ) && ! empty( $site['public_key'] ) && ! empty( $site['secret_key'] ) ) {
             $data['state']   = 'connected';
             $data['install'] = array( 'id' => (string) $site['id'], 'public_key' => (string) $site['public_key'], 'secret_key' => (string) $site['secret_key'] );
+            // the SDK keeps the keys after an opt-out and only turns these off; an opt-out stays an opt-out
+            $off = ! empty( $site['is_disconnected'] );
+            foreach ( array( 'site', 'user', 'events', 'diagnostic' ) as $permission ) {
+                if ( isset( $flags[ 'is_' . $permission . '_tracking_allowed' ] ) && false === $flags[ 'is_' . $permission . '_tracking_allowed' ] ) {
+                    $off = true;
+                }
+            }
+            $data['tracking'] = ! $off;
         } elseif ( ! empty( $accounts['plugin_data'][ $this->slug ]['is_anonymous']['is'] ) ) {
             $data['state'] = 'skipped';
         }
@@ -237,11 +248,15 @@ class fs_lite {
 
     /* ----- opt-in ----- */
 
+    // where Freemius sends the keys back; its token is kept until the opt-in finishes, so the link in a
+    // confirmation email still works days later or after logging in again (a nonce would not)
     private function return_url() {
-        // a plain URL, wp_nonce_url() would HTML-escape the &
+        $data  = $this->data();
+        $token = ! empty( $data['token'] ) ? $data['token'] : wp_generate_password( 32, false );
+        $this->save( array( 'token' => $token ) );
         return add_query_arg( array(
             'fs_action' => $this->slug . '_activate_new',
-            '_wpnonce'  => wp_create_nonce( self::NONCE . '_return' ),
+            'fs_token'  => $token,
         ), $this->page_url() );
     }
 
@@ -282,6 +297,16 @@ class fs_lite {
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json_error( null, 403 );
         }
+        // opted out before: the install exists, its permissions go back on
+        $data = $this->data();
+        if ( 'connected' === $data['state'] ) {
+            $result = $this->api( 'permissions.json', 'PUT', array( 'permissions' => 'user,site,events,diagnostic', 'is_enabled' => true ), $data['install'] );
+            if ( ! is_object( $result ) || ! isset( $result->install_id ) ) {
+                wp_send_json_error();
+            }
+            $this->save( array( 'tracking' => true ) );
+            wp_send_json_success( array( 'next' => add_query_arg( 'alfb_fs', 'connected', $this->page_url() ) ) );
+        }
         $fields   = $this->opt_in_fields();
         $response = wp_remote_post( self::OPT_IN, array( 'timeout' => 30, 'body' => array_merge( $fields, array( 'format' => 'json' ) ) ) );
         $result   = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ) );
@@ -303,6 +328,7 @@ class fs_lite {
             'state'    => 'connected',
             'tracking' => true,
             'email'    => '',
+            'token'    => '',
             'version'  => $this->version(),
             'install'  => array( 'id' => (string) absint( $id ), 'public_key' => sanitize_text_field( $public_key ), 'secret_key' => sanitize_text_field( $secret_key ) ),
         ) );
@@ -320,10 +346,15 @@ class fs_lite {
 
     public function admin_init() {
         // the link in the Freemius confirmation email comes back here with the install's keys
-        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- checked by check_admin_referer below
         // (and after an opt-in sent from the browser, with the keys or with "check your email")
-        if ( isset( $_GET['fs_action'] ) && $this->slug . '_activate_new' === $_GET['fs_action'] && ( isset( $_GET['install_secret_key'] ) || isset( $_GET['pending_activation'] ) ) ) {
-            check_admin_referer( self::NONCE . '_return' );
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- the stored single-use token below stands in for a nonce
+        $action = isset( $_GET['fs_action'] ) ? sanitize_key( wp_unslash( $_GET['fs_action'] ) ) : '';
+        if ( $this->slug . '_activate_new' === $action && ( isset( $_GET['install_secret_key'] ) || isset( $_GET['pending_activation'] ) ) ) {
+            $token = isset( $_GET['fs_token'] ) ? sanitize_text_field( wp_unslash( $_GET['fs_token'] ) ) : '';
+            $saved = $this->data()['token'];
+            if ( ! is_string( $saved ) || '' === $saved || ! hash_equals( $saved, $token ) ) {
+                wp_die( esc_html__('This link has expired. Please opt in again from the Flipbook dashboard.', 'softicon-flipbook'), '', array( 'response' => 403 ) );
+            }
             $waiting = in_array( $this->data()['state'], array( 'pending', 'browser' ), true );
             if ( current_user_can( 'manage_options' ) && $waiting && isset( $_GET['install_id'], $_GET['install_public_key'], $_GET['install_secret_key'] ) ) {
                 $this->connect( absint( $_GET['install_id'] ), sanitize_text_field( wp_unslash( $_GET['install_public_key'] ) ), sanitize_text_field( wp_unslash( $_GET['install_secret_key'] ) ) );
@@ -341,9 +372,13 @@ class fs_lite {
 
         $data = $this->data();
 
-        // once after activation, the dashboard where the opt-in is
-        if ( $data['redirect'] ) {
-            $this->save( array( 'redirect' => false ) );
+        // once after activation on the Plugins screen, the dashboard where the opt-in is; only for the person who
+        // activated it, within a minute, and not after a bulk, network, AJAX or WP-CLI activation
+        global $pagenow;
+        $redirect = 'alfb_fs_redirect_' . $this->slug;
+        // a transient comes back as a string, hence the (int)
+        if ( 'plugins.php' === $pagenow && get_current_user_id() && (int) get_transient( $redirect ) === get_current_user_id() ) {
+            delete_transient( $redirect );
             if ( '' === $data['state'] && current_user_can( 'manage_options' ) && ! isset( $_GET['activate-multi'] ) && ! wp_doing_ajax() && ! is_network_admin() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only reads where WordPress came from
                 wp_safe_redirect( $this->page_url() );
                 exit;
@@ -361,7 +396,11 @@ class fs_lite {
 
     public function activated() {
         register_uninstall_hook( $this->file, array( __CLASS__, 'uninstall' ) );
-        $data = $this->save( array( 'redirect' => '' === $this->data()['state'] ) );
+        // an old answer from an earlier deactivation is not sent later
+        $data = $this->save( array( 'reason' => null ) );
+        if ( '' === $data['state'] && get_current_user_id() && ! wp_doing_ajax() && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+            set_transient( 'alfb_fs_redirect_' . $this->slug, get_current_user_id(), MINUTE_IN_SECONDS );
+        }
         if ( 'connected' === $data['state'] && $data['tracking'] ) {
             $this->update_install( array( 'is_active' => true ) );
         }
@@ -418,8 +457,6 @@ class fs_lite {
         $data = $this->data();
         if ( $this->is_connected() ) {
             $links['alfb-opt'] = '<a href="#" class="alfb-fs-tracking" data-enable="0">' . esc_html__('Opt Out', 'softicon-flipbook') . '</a>';
-        } elseif ( 'connected' === $data['state'] ) {
-            $links['alfb-opt'] = '<a href="#" class="alfb-fs-tracking" data-enable="1">' . esc_html__('Opt In', 'softicon-flipbook') . '</a>';
         } else {
             $links['alfb-opt'] = '<a href="' . esc_url( add_query_arg( 'alfb_fs', 'ask', $this->page_url() ) ) . '">' . esc_html__('Opt In', 'softicon-flipbook') . '</a>';
         }
@@ -476,12 +513,13 @@ class fs_lite {
             'reason'   => wp_create_nonce( self::NONCE . '_reason' ),
             'tracking' => wp_create_nonce( self::NONCE . '_tracking' ),
             'optOut'   => __('Stop sending usage data to SoftIcon through Freemius? You can opt in again at any time.', 'softicon-flipbook'),
+            'error'    => __('Could not reach Freemius. Please try again.', 'softicon-flipbook'),
             // the deactivation form, only for people who may deactivate plugins
             'form'     => current_user_can( 'activate_plugins' ) ? array(
                 'title'   => __('Quick question before you go', 'softicon-flipbook'),
                 'text'    => __('Why are you deactivating SoftIcon Flipbook? Your answer helps us make it better.', 'softicon-flipbook'),
                 'reasons' => $reasons,
-                'note'    => __('Only your answer is sent, when the plugin is deleted. No name or email unless you opted in before.', 'softicon-flipbook'),
+                'note'    => __('Only your answer and an anonymous site ID are sent, when the plugin is deleted. No name or email unless you opted in before.', 'softicon-flipbook'),
                 'skip'    => __('Skip & Deactivate', 'softicon-flipbook'),
                 'cancel'  => __('Cancel', 'softicon-flipbook'),
                 'submit'  => __('Submit & Deactivate', 'softicon-flipbook'),
@@ -494,9 +532,9 @@ class fs_lite {
     // the opt-in card as data, for a page that draws it itself (a React dashboard); null when it should not show
     public function card() {
         $data = $this->data();
-        $ask  = isset( $_GET['alfb_fs'] ) && 'ask' === $_GET['alfb_fs']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only shows the card
+        $ask  = isset( $_GET['alfb_fs'] ) && 'ask' === sanitize_key( wp_unslash( $_GET['alfb_fs'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only shows the card
         $open = in_array( $data['state'], array( '', 'browser' ), true );
-        if ( ! current_user_can( 'manage_options' ) || ( ! $open && ! ( $ask && 'connected' !== $data['state'] ) ) ) {
+        if ( ! current_user_can( 'manage_options' ) || ( ! $open && ! ( $ask && ! $this->is_connected() ) ) ) {
             return null;
         }
         $user = wp_get_current_user();
