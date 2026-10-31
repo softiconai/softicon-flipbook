@@ -18,6 +18,11 @@
 
 if ( !defined('ABSPATH') ) { exit; }
 
+// the Freemius opt-in; also needed when WordPress deletes this copy while Pro is active
+if ( ! class_exists( 'ALFB_Flipbook\fs_lite' ) ) {
+    require_once __DIR__ . '/includes/fs-lite.php';
+}
+
 if ( function_exists( 'alfb_fs' ) ) {
     // SoftIcon Flipbook Pro (or another copy) is already loaded; activating this one switches the other off
     register_activation_hook( __FILE__, function () {
@@ -28,35 +33,16 @@ if ( function_exists( 'alfb_fs' ) ) {
         }
     } );
 } else {
-    // Freemius SDK: optional usage opt-in only. No plans, no license or purchase screens.
+    // Freemius: optional usage opt-in only, through the small client in includes/fs-lite.php instead of the full SDK
     function alfb_fs() {
         global $alfb_fs;
 
         if ( ! isset( $alfb_fs ) ) {
-            require_once dirname( __FILE__ ) . '/vendor/freemius/start.php';
-
-            $alfb_fs = fs_dynamic_init( array(
-                'id'               => '43387',
-                'slug'             => 'softicon-flipbook',
-                'type'             => 'plugin',
-                'public_key'       => 'pk_e1f96e9b8a918f0035345996895cd',
-                'is_premium'       => false,
-                'has_addons'       => false,
-                'has_paid_plans'   => false,
-                'is_org_compliant' => true,
-                'menu'             => array(
-                    'slug'       => 'softicon-flipbook',
-                    'first-path' => 'admin.php?page=softicon-flipbook',
-                    'account'    => false,
-                    'addons'     => false,
-                    'contact'    => false,
-                    'support'    => false,
-                ),
+            $alfb_fs = new ALFB_Flipbook\fs_lite( __FILE__, array(
+                'id'         => '43387',
+                'slug'       => 'softicon-flipbook',
+                'public_key' => 'pk_e1f96e9b8a918f0035345996895cd',
             ) );
-            // the opt-in screen shows the plugin's own icon instead of downloading one
-            $alfb_fs->add_filter( 'plugin_icon', function () {
-                return dirname( __FILE__ ) . '/assets/images/icon-128x128.png';
-            } );
         }
 
         return $alfb_fs;

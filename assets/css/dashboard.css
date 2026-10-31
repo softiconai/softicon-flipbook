@@ -750,3 +750,73 @@
 		padding: 24px 20px;
 	}
 }
+
+/* the Freemius opt-in card (includes/fs-lite.php) */
+.alfb-optin {
+	display: flex;
+	gap: 20px;
+	max-width: 760px;
+	margin: 0 auto 28px;
+	padding: 24px 28px;
+	background: #fff;
+	border: 1px solid var(--alfb-line);
+	border-top: 4px solid var(--alfb-teal);
+	border-radius: 4px;
+}
+
+.alfb-optin img {
+	flex: none;
+	border-radius: 12px;
+}
+
+.alfb-optin h2 {
+	margin: 0 0 8px;
+	font-size: 20px;
+}
+
+.alfb-optin p {
+	margin: 0 0 12px;
+	color: #3c434a;
+	font-size: 14px;
+}
+
+.alfb-optin details {
+	margin: 0 0 18px;
+}
+
+.alfb-optin summary {
+	color: var(--alfb-teal);
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.alfb-optin details ul {
+	margin: 12px 0;
+}
+
+.alfb-optin details li {
+	display: flex;
+	gap: 8px;
+	align-items: baseline;
+}
+
+.alfb-optin details .dashicons {
+	color: var(--alfb-teal);
+}
+
+.alfb-optin-actions {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+}
+
+.alfb-optin-actions form {
+	margin: 0;
+}
+
+@media (max-width: 600px) {
+	.alfb-optin {
+		flex-direction: column;
+		padding: 20px;
+	}
+}

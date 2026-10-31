@@ -49,14 +49,13 @@ class dashboard {
             return;
         }
         wp_enqueue_style( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/css/dashboard.css', array(), self::version( 'assets/css/dashboard.css' ) );
-        wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'assets/js/dashboard.js', array(), self::version( 'assets/js/dashboard.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
-        // the Freemius checkout popup, its script loads only when a Get Pro button is clicked
+        $script = file_exists( ALFB_PLUGIN_PATH . 'build/dashboard.asset.php' ) ? require ALFB_PLUGIN_PATH . 'build/dashboard.asset.php' : array( 'dependencies' => array(), 'version' => ALFB_PLUGIN_VERSION );
+        wp_enqueue_script( 'alfb-dashboard', ALFB_PLUGIN_URL . 'build/dashboard.js', $script['dependencies'], $script['version'], array( 'in_footer' => true, 'strategy' => 'defer' ) );
+        // the Freemius checkout popup (its script is bundled in build/dashboard.js)
         wp_add_inline_script( 'alfb-dashboard', 'window.alfbCheckout = ' . wp_json_encode( array(
-            'script'  => 'https://checkout.freemius.com/js/v1/',
             'product' => pro_features::PRODUCT,
             'key'     => pro_features::PUBLIC_KEY,
-            // the WordPress.org copy, an https address the checkout can always show
-            'image'   => 'https://ps.w.org/softicon-flipbook/assets/icon-128x128.png',
+            'image'   => ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png',
         ) ) . ';', 'before' );
         // the demos are real flipbooks
         wp_enqueue_style( generate_block_asset_handle( 'softicon/flipbook', 'style' ) );
@@ -112,6 +111,7 @@ class dashboard {
             <div class="wrap alfb-dash-body">
                 <h1 class="screen-reader-text"><?php echo esc_html( $pro ? __('SoftIcon Flipbook Pro', 'softicon-flipbook') : __('SoftIcon Flipbook', 'softicon-flipbook') ); ?></h1>
                 <hr class="wp-header-end">
+                <?php do_action( 'alfb_dashboard_before', $tab ); ?>
                 <?php
                 if ( method_exists( $this, 'tab_' . $tab ) ) {
                     call_user_func( array( $this, 'tab_' . $tab ) );

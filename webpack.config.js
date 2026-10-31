@@ -22,6 +22,11 @@ const licenses = (folder, to, names) => names.map(name => ({
 
 module.exports = {
 	...defaultConfig,
+	// the dashboard script, includes/dashboard.php loads it
+	entry: () => ({
+		...defaultConfig.entry(),
+		dashboard: './src/dashboard/index.js'
+	}),
 	// the lazy chunks get a version, so a browser never mixes a cached old chunk with a new view.js
 	output: { ...defaultConfig.output, chunkFilename: '[name].js?ver=[contenthash:8]' },
 	plugins: [
@@ -38,7 +43,8 @@ module.exports = {
 				{ from: pdfjs + 'wasm/*_nowasm_fallback.js', to: 'pdfjs/decoders/[name][ext]' },
 				...licenses('wasm', 'decoders', ['LICENSE_OPENJPEG', 'LICENSE_PDFJS_OPENJPEG', 'LICENSE_JBIG2', 'LICENSE_PDFJS_JBIG2']),
 				{ from: pdfjs + 'LICENSE', to: 'pdfjs/LICENSE.txt' },
-				{ from: 'node_modules/page-flip/LICENSE', to: 'page-flip-LICENSE.txt' }
+				{ from: 'node_modules/page-flip/LICENSE', to: 'page-flip-LICENSE.txt' },
+				{ from: 'node_modules/@freemius/checkout/LICENSE', to: 'freemius-checkout-LICENSE.txt' }
 			]
 		})
 	]
