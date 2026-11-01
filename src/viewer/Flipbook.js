@@ -4,6 +4,7 @@ import { playFlip } from './sound';
 import Zoom from './Zoom';
 import Thumbnails from './Thumbnails';
 import Contents from './Contents';
+import Search from './Search';
 import Hardcover from './Hardcover';
 
 const svg = path => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="${path}"/></svg>`;
@@ -19,6 +20,8 @@ const icons = {
 	zoomIn: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9m2.5-4h-2v2H9v-2H7V9h2V7h1v2h2z'),
 	zoomOut: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9M7 9h5v1H7z'),
 	soundOn: svg('M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4M14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6'),
+	search: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9'),
+	share: svg('M18 16.1c-.8 0-1.4.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8a3 3 0 1 0-3-3c0 .2 0 .5.1.7L8 9.8A3 3 0 1 0 8 14.2l7.1 4.2c-.1.2-.1.4-.1.6a2.9 2.9 0 1 0 3-2.9'),
 	soundOff: svg('M16.5 12A4.5 4.5 0 0 0 14 8v2.2l2.5 2.5zm2.5 0a7 7 0 0 1-.6 2.8l1.5 1.5A9 9 0 0 0 14 3.2v2.1a7 7 0 0 1 5 6.7M4.3 3 3 4.3 7.7 9H3v6h4l5 5v-6.7l4.3 4.3a7 7 0 0 1-2.3 1.2v2.1a9 9 0 0 0 3.7-1.8l2 2 1.3-1.3-9-9zM12 4 9.9 6.1 12 8.2z')
 };
 
@@ -212,6 +215,9 @@ export default class Flipbook {
 		if (this.outline) {
 			this.contents = new Contents(this, this.outline);
 		}
+		if (this.config.showSearch && 'pdf' === this.config.source && !this.editor) {
+			this.search = new Search(this);
+		}
 		this.toolbar();
 		if (this.config.sideArrows) {
 			this.sideArrows();
@@ -312,6 +318,11 @@ export default class Flipbook {
 	onContents() {
 		this.contentsBtn.setAttribute('aria-expanded', this.contents.open ? 'true' : 'false');
 		this.root.classList.toggle('alfb_contents_open', this.contents.open);
+	}
+
+	onSearch() {
+		this.searchBtn.setAttribute('aria-expanded', this.search.open ? 'true' : 'false');
+		this.root.classList.toggle('alfb_search_open', this.search.open);
 	}
 
 	onThumbs() {
@@ -538,6 +549,12 @@ export default class Flipbook {
 		const tools = this.doc.createElement('div');
 		tools.className = 'alfb_tools';
 
+		if (this.search) {
+			this.searchBtn = this.button('search', __('Search', 'softicon-flipbook'), () => this.search.toggle());
+			this.searchBtn.setAttribute('aria-expanded', 'false');
+			tools.append(this.searchBtn);
+		}
+
 		if (this.contents) {
 			this.contentsBtn = this.button('contents', __('Table of contents', 'softicon-flipbook'), () => this.contents.toggle());
 			this.contentsBtn.setAttribute('aria-expanded', 'false');
@@ -554,6 +571,7 @@ export default class Flipbook {
 			const zoom = direction => {
 				this.thumbs?.close(false);
 				this.contents?.close(false);
+				this.search?.close(false);
 				this.zoom.step(direction);
 			};
 			this.zoomOutBtn = this.button('zoomOut', __('Zoom out', 'softicon-flipbook'), () => zoom(-1));
@@ -584,6 +602,11 @@ export default class Flipbook {
 			tools.append(link);
 		}
 
+		if (this.config.showShare && !this.editor) {
+			this.shareBtn = this.button('share', __('Share this page', 'softicon-flipbook'), () => this.share());
+			tools.append(this.shareBtn);
+		}
+
 		if (this.config.showFullscreen && !this.editor) {
 			this.fsBtn = this.button('fullscreen', __('Fullscreen', 'softicon-flipbook'), () => this.toggleFullscreen());
 			tools.append(this.fsBtn);
@@ -595,6 +618,36 @@ export default class Flipbook {
 		if (this.zoom) {
 			this.onZoom();
 		}
+	}
+
+	// a link to the page that is open (#page=5): the phone's share sheet, or copied on a computer
+	async share() {
+		const url = new URL(this.win.location.href);
+		url.hash = 'page=' + (Math.min(...this.visible()) + 1);
+		const nav = this.win.navigator;
+		try {
+			if (nav.share) {
+				await nav.share({ title: this.doc.title, url: url.toString() });
+				return;
+			}
+			await nav.clipboard.writeText(url.toString());
+			this.toast(__('Link copied', 'softicon-flipbook'));
+		} catch (e) {
+			// the share sheet was closed, or the clipboard is not allowed: show the link to copy by hand
+			if ('AbortError' !== e?.name) {
+				this.win.prompt(__('Copy this link', 'softicon-flipbook'), url.toString());
+			}
+		}
+	}
+
+	// a short message over the toolbar, read out by screen readers
+	toast(text) {
+		const note = this.doc.createElement('span');
+		note.className = 'alfb_toast';
+		note.setAttribute('role', 'status');
+		note.textContent = text;
+		this.root.append(note);
+		setTimeout(() => note.remove(), 2000);
 	}
 
 	// the counter turns into a page number field, Enter jumps, Escape cancels
@@ -728,7 +781,7 @@ export default class Flipbook {
 			}, true);
 			this.on(this.root, 'keydown', event => {
 				// the thumbnail or contents panel covers the book, only Escape acts on it
-				const panel = this.thumbs?.open ? this.thumbs : this.contents?.open && this.contents;
+				const panel = this.thumbs?.open ? this.thumbs : this.contents?.open ? this.contents : this.search?.open && this.search;
 				if (panel) {
 					if ('Escape' === event.key) {
 						// preventDefault keeps a lightbox around the book open
@@ -794,6 +847,7 @@ export default class Flipbook {
 		this.zoom?.close();
 		this.thumbs?.destroy();
 		this.contents?.destroy();
+		this.search?.destroy();
 		this.cover?.destroy();
 		this.sidePrev?.remove();
 		this.sideNext?.remove();
@@ -807,6 +861,6 @@ export default class Flipbook {
 		this.task?.destroy();
 		this.bar?.remove();
 		this.book?.remove();
-		this.root.classList.remove('alfb_ready', 'alfb_error', 'alfb_overlay', 'alfb_is_fullscreen', 'alfb_zoomed', 'alfb_thumbs_open', 'alfb_contents_open', 'alfb_side_over');
+		this.root.classList.remove('alfb_ready', 'alfb_error', 'alfb_overlay', 'alfb_is_fullscreen', 'alfb_zoomed', 'alfb_thumbs_open', 'alfb_contents_open', 'alfb_search_open', 'alfb_side_over');
 	}
 }

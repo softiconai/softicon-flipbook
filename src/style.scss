@@ -399,6 +399,74 @@
 		}
 	}
 
+	// search box over the book (src/viewer/Search.js), the results use .alfb_entry like the contents
+	.alfb_search {
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		padding: 12px;
+		overflow: auto;
+		overscroll-behavior: contain;
+		background: var(--alfb-bg, #f0f0f1);
+
+		> * {
+			max-width: 560px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+
+		ul {
+			padding: 0;
+			list-style: none;
+		}
+
+		li {
+			margin: 0;
+			padding: 0;
+		}
+
+		mark {
+			padding: 0 1px;
+			border-radius: 2px;
+			color: inherit;
+			background: rgba(250, 204, 21, 0.55);
+		}
+	}
+
+	.alfb_search_input {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		min-height: 44px;
+		padding: 8px 12px;
+		border: 1px solid rgba(127, 127, 127, 0.45);
+		border-radius: 6px;
+		color: inherit;
+		background: rgba(255, 255, 255, 0.85);
+		font: inherit;
+		font-size: 16px;
+	}
+
+	.alfb_search_status {
+		margin-top: 8px;
+		margin-bottom: 4px;
+		font-size: 13px;
+		opacity: 0.75;
+	}
+
+	// "Link copied" over the toolbar
+	.alfb_toast {
+		position: absolute;
+		right: 12px;
+		bottom: 56px;
+		z-index: 4;
+		padding: 6px 12px;
+		border-radius: 6px;
+		color: #fff;
+		background: rgba(0, 0, 0, 0.8);
+		font-size: 13px;
+	}
+
 	.alfb_entry {
 		display: flex;
 		align-items: baseline;

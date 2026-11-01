@@ -29,6 +29,7 @@ export default class Thumbnails {
 		const { book } = this;
 		book.zoom?.close();
 		book.contents?.close(false);
+		book.search?.close(false);
 		const current = book.visible();
 
 		this.panel = this.doc.createElement('div');

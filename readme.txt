@@ -39,6 +39,8 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 * Thumbnails of all pages: a click opens that page
 * Links inside the PDF work: web and email links, and page links that turn the book
 * Table of contents from the PDF's bookmarks
+* Search: type a word, see the pages that have it with a short excerpt, and open one with a click
+* Share: a button that shares or copies a link to the page that is open (optional)
 * Zoom with the toolbar buttons, a pinch on phones or Ctrl + scroll on computers; drag to move around a zoomed page
 * Toolbar with page counter, previous/next, thumbnails, zoom, download, fullscreen and a page-turn sound visitors can mute
 * Keyboard arrows turn the pages, the toolbar works with screen readers
@@ -171,6 +173,8 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 == Changelog ==
 
 = 1.5.0 =
+* New: Search in the book. A search button lists the pages that contain the words, with an excerpt; a click opens that page. On by default for PDFs.
+* New: Share button (off by default). It opens the phone's share sheet, or copies a link to the open page on a computer.
 * New: Flipbook dashboard (Flipbook in the admin menu) with live demos, video tutorials that play in a popup, help, and a Free vs Pro comparison.
 * New: SoftIcon Flipbook Pro, a separate plugin with a Bookshelf block, lead capture, reading analytics and PDF protection. The free plugin only lists those features.
 * Changed: the optional opt-in now uses a small built-in client instead of the Freemius SDK: about 0.8 MB smaller to download and 3.6 MB less on your server. It talks only to Freemius, and only after you click "Allow & Continue"; your earlier choice, including an opt-out, is kept.

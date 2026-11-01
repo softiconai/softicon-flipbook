@@ -160,6 +160,8 @@ class block {
             'showThumbnails' => ! isset( $attributes['showThumbnails'] ) || (bool) $attributes['showThumbnails'],
             'showContents'   => ! isset( $attributes['showContents'] ) || (bool) $attributes['showContents'],
             'showLinks'      => ! isset( $attributes['showLinks'] ) || (bool) $attributes['showLinks'],
+            'showSearch'     => ! isset( $attributes['showSearch'] ) || (bool) $attributes['showSearch'],
+            'showShare'      => ! empty( $attributes['showShare'] ),
             'flipSound'      => ! isset( $attributes['flipSound'] ) || (bool) $attributes['flipSound'],
         );
 

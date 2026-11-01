@@ -23,6 +23,8 @@
 		"showThumbnails": { "type": "boolean", "default": true },
 		"showContents": { "type": "boolean", "default": true },
 		"showLinks": { "type": "boolean", "default": true },
+		"showSearch": { "type": "boolean", "default": true },
+		"showShare": { "type": "boolean", "default": false },
 		"bookStyle": { "type": "string", "default": "flat" },
 		"sideArrows": { "type": "boolean", "default": false },
 		"coverColor": { "type": "string", "default": "" },

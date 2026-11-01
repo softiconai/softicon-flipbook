@@ -9,7 +9,7 @@ import ProNotice from '../../ProNotice';
 const editorInfo = window.alfbEditor || {};
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	const fileName = (() => {
 		const name = pdfUrl ? pdfUrl.split('/').pop().split('?')[0] : '';
@@ -72,6 +72,10 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />
 
 			<ToggleRow label={__('Zoom', 'softicon-flipbook')} tip={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} />
+
+			<ToggleRow label={__('Search', 'softicon-flipbook')} tip={__('A search box that lists the pages with the words, a click opens the page. PDFs only.', 'softicon-flipbook')} checked={showSearch} onChange={set('showSearch')} />
+
+			<ToggleRow label={__('Share', 'softicon-flipbook')} tip={__('Shares or copies a link to the page that is open.', 'softicon-flipbook')} checked={showShare} onChange={set('showShare')} />
 
 			<ToggleRow label={__('Page turn sound', 'softicon-flipbook')} tip={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} />
 		</Panel>

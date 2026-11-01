@@ -28,6 +28,7 @@ export default class Contents {
 		const { book } = this;
 		book.zoom?.close();
 		book.thumbs?.close(false);
+		book.search?.close(false);
 
 		this.panel = this.doc.createElement('nav');
 		this.panel.className = 'alfb_contents';
