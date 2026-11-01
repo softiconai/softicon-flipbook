@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T15:09:24+00:00\n"
+"POT-Creation-Date: 2026-11-01T01:08:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -870,6 +870,14 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Asking readers for their email after a few pages is available in Pro. The leads are saved on your site."
+msgstr ""
+
+#: build/index.js:2
+msgid "Shelf"
+msgstr ""
+
+#: build/index.js:2
+msgid "Showing many books on one shelf, each opening in a popup, is available in Pro."
 msgstr ""
 
 #: build/index.js:2

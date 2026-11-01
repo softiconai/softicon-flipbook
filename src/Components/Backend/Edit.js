@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { BlockControls, MediaPlaceholder, MediaReplaceFlow, MediaUpload, MediaUploadCheck, useBlockProps } from '@wordpress/block-editor';
 import { Button, ExternalLink, ToolbarButton } from '@wordpress/components';
+import { applyFilters } from '@wordpress/hooks';
 // copied from the shared softicon-tools folder by `npm run tools` (prebuild), edit it there
 import useIframeAssets from '../../vendor/softicon-tools/hooks/useIframeAssets';
 import Settings from './Settings/Settings';
@@ -105,7 +106,8 @@ const Edit = (props) => {
 		</BlockControls>
 
 		<div {...useBlockProps({ ref: assetsRef })}>
-			{lightbox ? <LightboxPreview attributes={attributes} /> : <div ref={host} />}
+			{/* an add-on can show the block its own way (SoftIcon Flipbook Pro's shelf) */}
+			{applyFilters('alfb.block.preview', null, { attributes }) || (lightbox ? <LightboxPreview attributes={attributes} /> : <div ref={host} />)}
 		</div>
 	</>;
 };
