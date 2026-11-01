@@ -82,6 +82,9 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 		{/* the Pro settings of this block, shown as notices only: the code is in Pro, which replaces these panels */}
 		{!editorInfo.pro && <>
+			<Panel id='buttons' title={__('Page buttons', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+				<ProNotice href={editorInfo.pricing} text={__('A button on a chosen page, such as a link or a WooCommerce product with its price, is available in Pro.', 'softicon-flipbook')} />
+			</Panel>
 			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')} />
 			</Panel>
@@ -89,7 +92,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 				<ProNotice href={editorInfo.pricing} text={__('Showing many books on one shelf, each opening in a popup, is available in Pro.', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='protect' title={__('Protection', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Protecting the PDF (no download button, no right-click, the PDF address kept out of the page) is available in Pro.', 'softicon-flipbook')} />
+				<ProNotice href={editorInfo.pricing} text={__('Protecting the PDF (a password, no download button, no right-click, the PDF address kept out of the page) is available in Pro.', 'softicon-flipbook')} />
 			</Panel>
 		</>}
 	</>;
