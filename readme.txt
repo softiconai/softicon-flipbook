@@ -176,13 +176,17 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: Search in the book. A search button lists the pages that contain the words, with an excerpt; a click opens that page. On by default for PDFs.
 * New: Share button (off by default). It opens the phone's share sheet, or copies a link to the open page on a computer.
 * New: Flipbook dashboard (Flipbook in the admin menu) with live demos, video tutorials that play in a popup, help, and a Free vs Pro comparison.
-* New: SoftIcon Flipbook Pro, a separate plugin with a Bookshelf block, lead capture, reading analytics and PDF protection. The free plugin only lists those features.
+* New: SoftIcon Flipbook Pro, a separate plugin with a shelf of books, lead capture, reading analytics, page buttons (links or WooCommerce products) and PDF protection with an optional password. The free plugin only lists those features.
 * Changed: the optional opt-in now uses a small built-in client instead of the Freemius SDK: about 0.8 MB smaller to download and 3.6 MB less on your server. It talks only to Freemius, and only after you click "Allow & Continue"; your earlier choice, including an opt-out, is kept.
 * New: when you deactivate the plugin, an optional short form asks why. The answer is sent only when the plugin is deleted.
 * New: the Pricing and Free vs Pro tabs read the Pro features and prices from Freemius (only the plugin's public ID is sent). See "Which outside services does the plugin use?" in the FAQ.
 * Security: a media id in a block now resolves to its file only when the file is not attached, sits on a public post, or the post's author may edit it.
 * Security: pdf.js no longer uses eval for fonts.
 * Fix: the lazy pdf.js and page-flip files carry a version, so a browser never mixes an old cached copy with a new viewer.
+* Fix: a one page book with an even "Open at page" opened one page early when there was room for two pages (wide or full width, the popup, a small maximum height).
+* Fix: a #page= link now names its book (#page=4&book=2) when a page has more than one flipbook; old #page= links still open the first one.
+* Fix: an opt-out takes effect at once, even when Freemius cannot be reached.
+* Editor: the "Open at page" field can be cleared while typing, the Search switch shows only for PDFs, and the toolbar switches no longer reload the preview.
 
 = 1.4.2 =
 * New: Optional opt-in for security and feature update emails (powered by Freemius, you can skip it). Nothing is sent unless you allow it.

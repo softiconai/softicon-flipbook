@@ -140,6 +140,7 @@ export default class Lightbox {
 		this.dialog = dialog;
 
 		this.book = new Flipbook(wrapper, { ...this.config, maxHeight: this.room(), startPage: page || this.page || this.config.startPage });
+		this.book.owner = this.root;
 		this.book.init();
 
 		let timer;

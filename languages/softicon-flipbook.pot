@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-01T01:36:35+00:00\n"
+"POT-Creation-Date: 2026-11-02T14:33:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -132,164 +132,164 @@ msgstr ""
 msgid "This link has expired. Please opt in again from the Flipbook dashboard."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:447
-#: vendor/fs-lite/fs-lite.php:516
+#: vendor/fs-lite/fs-lite.php:453
+#: vendor/fs-lite/fs-lite.php:522
 msgid "Could not reach Freemius. Please try again."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:459
+#: vendor/fs-lite/fs-lite.php:465
 msgid "Opt Out"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:461
+#: vendor/fs-lite/fs-lite.php:467
 msgid "Opt In"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:470
+#: vendor/fs-lite/fs-lite.php:476
 msgid "I no longer need the plugin"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:471
+#: vendor/fs-lite/fs-lite.php:477
 msgid "I found a better plugin"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:471
+#: vendor/fs-lite/fs-lite.php:477
 msgid "Which plugin?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:472
+#: vendor/fs-lite/fs-lite.php:478
 msgid "I only needed it for a short time"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:473
+#: vendor/fs-lite/fs-lite.php:479
 msgid "It is not working"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:473
+#: vendor/fs-lite/fs-lite.php:479
 msgid "What did not work? We would like to fix it."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:474
+#: vendor/fs-lite/fs-lite.php:480
 msgid "I need a feature it does not have"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:474
+#: vendor/fs-lite/fs-lite.php:480
 msgid "Which feature?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:475
+#: vendor/fs-lite/fs-lite.php:481
 msgid "It broke my site"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:476
+#: vendor/fs-lite/fs-lite.php:482
 msgid "It is a temporary deactivation, I am fixing something"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:477
+#: vendor/fs-lite/fs-lite.php:483
 msgid "Other"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:477
+#: vendor/fs-lite/fs-lite.php:483
 msgid "Please tell us more"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:515
+#: vendor/fs-lite/fs-lite.php:521
 msgid "Stop sending usage data to SoftIcon through Freemius? You can opt in again at any time."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:519
+#: vendor/fs-lite/fs-lite.php:525
 msgid "Quick question before you go"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:520
+#: vendor/fs-lite/fs-lite.php:526
 msgid "Why are you deactivating SoftIcon Flipbook? Your answer helps us make it better."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:522
+#: vendor/fs-lite/fs-lite.php:528
 msgid "Only your answer and an anonymous site ID are sent, when the plugin is deleted. No name or email unless you opted in before."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:523
+#: vendor/fs-lite/fs-lite.php:529
 msgid "Skip & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:524
+#: vendor/fs-lite/fs-lite.php:530
 msgid "Cancel"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:525
+#: vendor/fs-lite/fs-lite.php:531
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:543
+#: vendor/fs-lite/fs-lite.php:549
 msgid "Never miss an important update"
 msgstr ""
 
 #. translators: %s: the admin's first name or user name
-#: vendor/fs-lite/fs-lite.php:545
+#: vendor/fs-lite/fs-lite.php:551
 #, php-format
 msgid "Hi %s! Opt in to get emails about security fixes and new features, and to share some basic site data with SoftIcon through Freemius. It helps us make Flipbook better. If you skip, the plugin works just the same."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:546
+#: vendor/fs-lite/fs-lite.php:552
 msgid "What is shared"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:548
+#: vendor/fs-lite/fs-lite.php:554
 msgid "Your profile"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:548
+#: vendor/fs-lite/fs-lite.php:554
 msgid "Name and email address"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:549
+#: vendor/fs-lite/fs-lite.php:555
 msgid "Your site"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:549
+#: vendor/fs-lite/fs-lite.php:555
 msgid "Site address, title and language, WordPress and PHP versions"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:550
+#: vendor/fs-lite/fs-lite.php:556
 msgid "Plugin events"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:550
+#: vendor/fs-lite/fs-lite.php:556
 msgid "Flipbook version, activation, deactivation and uninstall"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:552
+#: vendor/fs-lite/fs-lite.php:558
 msgid "Nothing about your posts, visitors, other plugins or themes. You can opt out at any time from the Plugins page."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:553
+#: vendor/fs-lite/fs-lite.php:559
 msgid "Freemius privacy policy"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:557
+#: vendor/fs-lite/fs-lite.php:563
 msgid "Allow & Continue"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:557
+#: vendor/fs-lite/fs-lite.php:563
 msgid "Connecting…"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:557
-#: vendor/fs-lite/fs-lite.php:577
+#: vendor/fs-lite/fs-lite.php:563
+#: vendor/fs-lite/fs-lite.php:583
 msgid "Could not reach Freemius right now. Please try again later."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:558
+#: vendor/fs-lite/fs-lite.php:564
 msgid "Skip"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:570
+#: vendor/fs-lite/fs-lite.php:576
 msgid "Thank you! You will now hear about important Flipbook updates."
 msgstr ""
 
 #. translators: %s: email address
-#: vendor/fs-lite/fs-lite.php:574
+#: vendor/fs-lite/fs-lite.php:580
 #, php-format
 msgid "Almost done: please open the email we sent to %s and click the link to confirm."
 msgstr ""
@@ -725,6 +725,10 @@ msgid "Unlock with Pro"
 msgstr ""
 
 #: build/index.js:2
+msgid "Open at page"
+msgstr ""
+
+#: build/index.js:2
 msgid "Every setting explained, in 2 minutes"
 msgstr ""
 
@@ -799,15 +803,15 @@ msgid "The first and last pages turn on their own, like a printed book."
 msgstr ""
 
 #: build/index.js:2
-msgid "Open at page"
-msgstr ""
-
-#: build/index.js:2
 msgid "The book opens at this page. A link ending in #page=5 opens it at page 5."
 msgstr ""
 
 #: build/index.js:2
 msgid "Toolbar"
+msgstr ""
+
+#: build/index.js:2
+msgid "The preview here shows only the book; the buttons work on the published page."
 msgstr ""
 
 #: build/index.js:2
@@ -883,6 +887,14 @@ msgid "Visitors can mute it from the toolbar."
 msgstr ""
 
 #: build/index.js:2
+msgid "Page buttons"
+msgstr ""
+
+#: build/index.js:2
+msgid "A button on a chosen page, such as a link or a WooCommerce product with its price, is available in Pro."
+msgstr ""
+
+#: build/index.js:2
 msgid "Lead capture"
 msgstr ""
 
@@ -903,7 +915,7 @@ msgid "Protection"
 msgstr ""
 
 #: build/index.js:2
-msgid "Protecting the PDF (no download button, no right-click, the PDF address kept out of the page) is available in Pro."
+msgid "Protecting the PDF (a password, no download button, no right-click, the PDF address kept out of the page) is available in Pro."
 msgstr ""
 
 #: build/index.js:2

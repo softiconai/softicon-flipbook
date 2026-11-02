@@ -442,11 +442,17 @@ class fs_lite {
         if ( 'connected' !== $data['state'] ) {
             wp_send_json_success( array( 'url' => $this->page_url() ) );
         }
-        $result = $this->api( 'permissions.json', 'PUT', array( 'permissions' => 'user,site,events,diagnostic', 'is_enabled' => $enable ), $data['install'] );
+        // an opt-out counts on this site at once, even if Freemius cannot be told; opting back in waits for Freemius
+        if ( ! $enable ) {
+            $this->save( array( 'tracking' => false ) );
+            $this->api( 'permissions.json', 'PUT', array( 'permissions' => 'user,site,events,diagnostic', 'is_enabled' => false ), $data['install'], false );
+            wp_send_json_success();
+        }
+        $result = $this->api( 'permissions.json', 'PUT', array( 'permissions' => 'user,site,events,diagnostic', 'is_enabled' => true ), $data['install'] );
         if ( ! is_object( $result ) || ! isset( $result->install_id ) ) {
             wp_send_json_error( array( 'message' => __('Could not reach Freemius. Please try again.', 'softicon-flipbook') ) );
         }
-        $this->save( array( 'tracking' => $enable ) );
+        $this->save( array( 'tracking' => true ) );
         wp_send_json_success();
     }
 

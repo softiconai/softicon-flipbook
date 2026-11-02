@@ -1,5 +1,5 @@
 import './public-path';
-import Flipbook, { linkedPage } from './viewer/Flipbook';
+import Flipbook, { BOOKS, linkedBook, linkedPage } from './viewer/Flipbook';
 import Lightbox from './viewer/Lightbox';
 
 const start = el => {
@@ -36,7 +36,7 @@ let linked = false;
 
 const boot = () => {
 	// each element once, a later boot only picks up the new ones
-	const all = [...document.querySelectorAll('.alfb_wrapper[data-alfb], .alfb_lb[data-alfb]')].filter(el => !el.alfbSeen);
+	const all = [...document.querySelectorAll(BOOKS)].filter(el => !el.alfbSeen);
 	if (!all.length) {
 		return;
 	}
@@ -54,34 +54,34 @@ const boot = () => {
 
 	whenNear(books, start);
 
-	// a #page=5 link: bring the first flipbook into view, it opens at that page when it starts,
-	// later links on the same page turn it there; a lightbox opens at that page
+	// a #page=5 link (#page=5&book=2 for the second book): bring that flipbook into view, it opens at that page
+	// when it starts, later links on the same page turn it there; a lightbox opens at that page
 	if (linked) {
 		return;
 	}
 	linked = true;
-	const first = all[0];
-	const toPage = page => {
-		if (first.alfb instanceof Lightbox) {
-			first.alfb.open(page);
+	const target = () => document.querySelectorAll(BOOKS)[linkedBook(window) - 1];
+	const toPage = (page, smooth) => {
+		const el = target();
+		if (!el) {
 			return;
 		}
-		first.scrollIntoView({ block: 'center', behavior: 'smooth' });
-		if (first.alfb?.flip) {
-			first.alfb.go(page - 1);
+		if (el.alfb instanceof Lightbox) {
+			el.alfb.open(page);
+			return;
+		}
+		el.scrollIntoView({ block: 'center', behavior: smooth ? 'smooth' : 'auto' });
+		if (el.alfb?.flip) {
+			el.alfb.go(page - 1);
 		}
 	};
 	if (linkedPage(window)) {
-		if (first.alfb instanceof Lightbox) {
-			first.alfb.open(linkedPage(window));
-		} else {
-			first.scrollIntoView({ block: 'center' });
-		}
+		toPage(linkedPage(window), false);
 	}
 	window.addEventListener('hashchange', () => {
 		const page = linkedPage(window);
 		if (page) {
-			toPage(page);
+			toPage(page, true);
 		}
 	});
 };

@@ -1,9 +1,24 @@
 import { __ } from '@wordpress/i18n';
+import { useEffect, useState } from '@wordpress/element';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, ExternalLink, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
+
+// the number can be emptied while typing; it becomes a page (1 or more) when the field loses focus
+const StartPage = ({ value, onChange }) => {
+	const [text, setText] = useState(String(value));
+	useEffect(() => setText(String(value)), [value]);
+	return <TextControl type='number' min={1} label={__('Open at page', 'softicon-flipbook')} hideLabelFromVision value={text}
+		onChange={val => {
+			setText(val);
+			if (parseInt(val, 10) >= 1) {
+				onChange(parseInt(val, 10));
+			}
+		}}
+		onBlur={() => setText(String(value))} __nextHasNoMarginBottom />;
+};
 
 // set by includes/block.php
 const editorInfo = window.alfbEditor || {};
@@ -58,11 +73,13 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 			<div>
 				<FieldHead label={__('Open at page', 'softicon-flipbook')} tip={__('The book opens at this page. A link ending in #page=5 opens it at page 5.', 'softicon-flipbook')} />
-				<TextControl type='number' min={1} label={__('Open at page', 'softicon-flipbook')} hideLabelFromVision value={startPage} onChange={val => setAttributes({ startPage: Math.max(1, parseInt(val, 10) || 1) })} __nextHasNoMarginBottom />
+				<StartPage value={startPage} onChange={val => setAttributes({ startPage: val })} />
 			</div>
 		</Panel>
 
 		<Panel id='toolbar' title={__('Toolbar', 'softicon-flipbook')}>
+			<p className='alfbHelp'>{__('The preview here shows only the book; the buttons work on the published page.', 'softicon-flipbook')}</p>
+
 			{'pdf' === source && <ToggleRow label={__('Download button', 'softicon-flipbook')} tip={__('Lets visitors save the PDF.', 'softicon-flipbook')} checked={showDownload} onChange={set('showDownload')} />}
 
 			<ToggleRow label={__('Fullscreen button', 'softicon-flipbook')} tip={__('Fits the book to the screen and redraws the pages sharper.', 'softicon-flipbook')} checked={showFullscreen} onChange={set('showFullscreen')} />
@@ -73,7 +90,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 			<ToggleRow label={__('Zoom', 'softicon-flipbook')} tip={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} />
 
-			<ToggleRow label={__('Search', 'softicon-flipbook')} tip={__('A search box that lists the pages with the words, a click opens the page. PDFs only.', 'softicon-flipbook')} checked={showSearch} onChange={set('showSearch')} />
+			{'pdf' === source && <ToggleRow label={__('Search', 'softicon-flipbook')} tip={__('A search box that lists the pages with the words, a click opens the page. PDFs only.', 'softicon-flipbook')} checked={showSearch} onChange={set('showSearch')} />}
 
 			<ToggleRow label={__('Share', 'softicon-flipbook')} tip={__('Shares or copies a link to the page that is open.', 'softicon-flipbook')} checked={showShare} onChange={set('showShare')} />
 

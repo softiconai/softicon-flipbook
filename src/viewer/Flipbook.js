@@ -35,6 +35,14 @@ export const linkedPage = win => {
 	return match ? parseInt(match[1], 10) : 0;
 };
 
+// #page=5 is for the first book on the page, #page=5&book=2 for the second (flipbooks and lightboxes, in page order)
+export const BOOKS = '.alfb_wrapper[data-alfb], .alfb_lb[data-alfb]';
+export const linkedBook = win => {
+	const match = /(?:^#|&)book=(\d+)/.exec(win.location.hash);
+	return match ? parseInt(match[1], 10) : 1;
+};
+export const bookNumber = el => [...el.ownerDocument.querySelectorAll(BOOKS)].indexOf(el) + 1;
+
 // pdf.js CMaps and standard fonts, stored as base64 JSON by webpack.config.js
 class JsonDataFactory {
 	constructor(urls) {
@@ -139,9 +147,9 @@ export default class Flipbook {
 
 	build(PageFlip, size) {
 		const { pageMode, showCover, maxHeight } = this.config;
-		// a #page=5 link opens the first flipbook on the page there (a lightbox passes the page as startPage)
-		const first = this.doc.querySelector('.alfb_wrapper[data-alfb], .alfb_lb[data-alfb]') === this.root;
-		const startPage = (!this.editor && first && linkedPage(this.win)) || this.config.startPage;
+		// a #page=5 link opens its book there (a lightbox passes the page as startPage)
+		const linked = !this.editor && bookNumber(this.root) === linkedBook(this.win);
+		const startPage = (linked && linkedPage(this.win)) || this.config.startPage;
 		const ratio = size.width / size.height;
 		const maxWidth = Math.max(100, Math.floor(maxHeight * ratio));
 		this.ratio = ratio;
@@ -191,6 +199,8 @@ export default class Flipbook {
 			useMouseEvents: !this.editor,
 			showPageCorners: !this.editor
 		});
+		// the book's width before page-flip lays it out: a one page book that starts as a two page spread would open a page early
+		this.fit();
 		this.flip.loadFromHTML(this.pages);
 
 		// page-flip sets a min-width that overflows small phones
@@ -623,7 +633,9 @@ export default class Flipbook {
 	// a link to the page that is open (#page=5): the phone's share sheet, or copied on a computer
 	async share() {
 		const url = new URL(this.win.location.href);
-		url.hash = 'page=' + (Math.min(...this.visible()) + 1);
+		// the book inside a lightbox popup is linked through its lightbox (owner)
+		const number = bookNumber(this.owner || this.root);
+		url.hash = 'page=' + (Math.min(...this.visible()) + 1) + (number > 1 ? '&book=' + number : '');
 		const nav = this.win.navigator;
 		try {
 			if (nav.share) {

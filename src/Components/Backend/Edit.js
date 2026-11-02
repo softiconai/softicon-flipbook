@@ -36,7 +36,10 @@ const Edit = (props) => {
 	const onSelectImages = items => setAttributes({ images: items.map(toImage) });
 
 	const ready = hasContent(attributes);
-	const configKey = useDebounced(JSON.stringify(toConfig(attributes)), 400);
+	// the toolbar buttons the preview leaves out (Flipbook.js, editor mode) do not reload it
+	const preview = toConfig(attributes);
+	['showFullscreen', 'showZoom', 'showThumbnails', 'showContents', 'showLinks', 'showSearch', 'showShare', 'flipSound'].forEach(key => delete preview[key]);
+	const configKey = useDebounced(JSON.stringify(preview), 400);
 
 	useEffect(() => {
 		const el = host.current;
