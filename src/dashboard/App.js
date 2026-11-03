@@ -1,9 +1,9 @@
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { applyFilters } from '@wordpress/hooks';
 import Header from './Header';
 import OptIn from './OptIn';
 import VideoPopup from './VideoPopup';
-import LockedPopup from './LockedPopup';
 import useRoute from './useRoute';
 
 const keys = config => config.tabs.map(tab => tab.key);
@@ -43,7 +43,8 @@ const App = ({ config, tabs }) => {
 				: <Content config={config} play={setVideo} unlock={unlock} />}
 		</div>
 		<VideoPopup video={video} onClose={() => setVideo(null)} />
-		{config.locked && <LockedPopup open={lockedOpen} activate={config.activate} onClose={() => setLockedOpen(false)} />}
+		{/* SoftIcon Flipbook Pro without a license adds its popup here */}
+		{applyFilters('alfb.dashboard.popup', null, { open: lockedOpen, onClose: () => setLockedOpen(false), config })}
 	</>;
 };
 

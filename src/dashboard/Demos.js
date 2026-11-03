@@ -24,8 +24,8 @@ const coreDemos = base => {
 
 // the free plugin shows a locked card for each Pro feature marked "featured" in Freemius
 const Locked = ({ unlock }) => {
-	// only the plans already kept from the Pricing tab; opening Demos sends nothing to Freemius
-	const { data } = useApi('/alfb/v1/dashboard/plans?cached=1');
+	// the Pro features set in Freemius (kept for 12 hours); only the plugin's public ID is sent
+	const { data } = useApi('/alfb/v1/dashboard/plans');
 	return (data?.pro_only || []).filter(feature => feature.featured).map(feature => <article key={feature.title} className='alfb-card alfb-demo is-pro'>
 		<header>
 			<h3>{feature.title} <span className='alfb-badge'>{__('Pro', 'softicon-flipbook')}</span></h3>

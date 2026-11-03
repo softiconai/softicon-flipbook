@@ -33,8 +33,9 @@ class block {
         $editor = 'window.alfbEditor = ' . wp_json_encode( array(
             'pro'       => dashboard::is_pro(),
             'locked'    => dashboard::locked(),
-            'dashboard' => dashboard::url( 'compare' ),
-            'pricing'   => dashboard::url( 'pricing' ),
+            // the dashboard is for admins; other editors see the notices without a link
+            'dashboard' => current_user_can( 'manage_options' ) ? dashboard::url( 'compare' ) : '',
+            'pricing'   => current_user_can( 'manage_options' ) ? dashboard::url( 'pricing' ) : '',
         ) ) . ';';
         wp_add_inline_script( generate_block_asset_handle( 'softicon/flipbook', 'editorScript' ), $editor, 'before' );
     }

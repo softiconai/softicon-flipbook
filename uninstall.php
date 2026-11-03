@@ -8,5 +8,15 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 require_once __DIR__ . '/softicon-flipbook.php';
 
 // the deactivation reason goes to Freemius if one was given, then the opt-in data is removed
-ALFB_Flipbook\fs_lite::uninstall();
-delete_transient( 'alfb_freemius' );
+// each site of a network keeps its own opt-in and cache
+$alfb_sites = is_multisite() ? get_sites( array( 'fields' => 'ids', 'number' => 0 ) ) : array( 0 );
+foreach ( $alfb_sites as $alfb_site ) {
+    if ( $alfb_site ) {
+        switch_to_blog( $alfb_site );
+    }
+    ALFB_Flipbook\fs_lite::uninstall();
+    delete_transient( 'alfb_freemius' );
+    if ( $alfb_site ) {
+        restore_current_blog();
+    }
+}

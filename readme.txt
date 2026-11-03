@@ -48,6 +48,19 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 * Maximum height and colors for background, toolbar and icons
 * Wide and full width alignment
 
+= SoftIcon Flipbook Pro =
+
+Everything above stays free, with no limits on books or pages. SoftIcon Flipbook Pro is a separate plugin for sites that want more from their books:
+
+* **Shelf of books** – show many books on a wooden shelf; a click on a cover opens that book in a popup.
+* **Lead capture** – ask readers for their name and email after the pages you choose. Leads are saved on your site, with CSV download and an email for each new lead.
+* **Reading analytics** – opens per book, the most read pages and a daily chart, with no cookies.
+* **PDF protection** – no download button, no right-click saving, and the PDF address kept out of the page.
+* **Password for a book** – readers type a password to open it; the password is checked on your site and never put in the page.
+* **Page buttons** – a button under the book while a chosen page is open, linking anywhere or to a WooCommerce product with its name and price.
+
+Pro replaces the free plugin when you activate it, and every book you made keeps working. Prices and a full comparison are in Flipbook → Pricing in your dashboard.
+
 = Third-party libraries =
 
 * PDF.js 6.4.299 (npm package pdfjs-dist) by Mozilla – [github.com/mozilla/pdf.js](https://github.com/mozilla/pdf.js) – Apache License 2.0. Bundled as build/pdfjs.js and build/pdfjs/pdf.worker.min.js (minified upstream build); license in build/pdfjs/LICENSE.txt.
@@ -153,7 +166,7 @@ If you opted in or skipped with an earlier version, your choice is kept and you 
 = Which outside services does the plugin use? =
 
 * **Freemius** (wp.freemius.com, api.freemius.com) for the optional opt-in described above, only if you allow it. [Terms](https://freemius.com/terms/), [privacy policy](https://freemius.com/privacy/).
-* **Freemius plans** (api.freemius.com): when you open the Pricing or Free vs Pro tab of the Flipbook dashboard, it reads the Pro features and prices we set in Freemius, at most twice a day. Only the plugin's public ID is sent, nothing about you or your site, and this happens even if you skipped the opt-in.
+* **Freemius plans** (api.freemius.com): when you open the Demos, Pricing or Free vs Pro tab of the Flipbook dashboard, it reads the Pro features and prices we set in Freemius. The answer is kept for 12 hours (1 hour if Freemius could not be reached or has no Pro plan yet). Only the plugin's public ID is sent, nothing about you or your site, and this happens even if you skipped the opt-in.
 * **Freemius Checkout** (checkout.freemius.com) opens in a window only when you click a "Get Pro" button on the Flipbook dashboard, so you can buy Pro. Nothing is sent before you click, and what you type in the checkout goes to Freemius, which handles the payment. Same terms and privacy policy.
 * **YouTube** (youtube-nocookie.com): a video tutorial plays in a popup only when you click it on the Flipbook dashboard. [YouTube terms](https://www.youtube.com/t/terms), [Google privacy policy](https://policies.google.com/privacy).
 
@@ -179,7 +192,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: SoftIcon Flipbook Pro, a separate plugin with a shelf of books, lead capture, reading analytics, page buttons (links or WooCommerce products) and PDF protection with an optional password. The free plugin only lists those features.
 * Changed: the optional opt-in now uses a small built-in client instead of the Freemius SDK: about 0.8 MB smaller to download and 3.6 MB less on your server. It talks only to Freemius, and only after you click "Allow & Continue"; your earlier choice, including an opt-out, is kept.
 * New: when you deactivate the plugin, an optional short form asks why. The answer is sent only when the plugin is deleted.
-* New: the Pricing and Free vs Pro tabs read the Pro features and prices from Freemius (only the plugin's public ID is sent). See "Which outside services does the plugin use?" in the FAQ.
+* New: the Demos, Pricing and Free vs Pro tabs read the Pro features and prices from Freemius (only the plugin's public ID is sent). See "Which outside services does the plugin use?" in the FAQ.
 * Security: a media id in a block now resolves to its file only when the file is not attached, sits on a public post, or the post's author may edit it.
 * Security: pdf.js no longer uses eval for fonts.
 * Fix: the lazy pdf.js and page-flip files carry a version, so a browser never mixes an old cached copy with a new viewer.

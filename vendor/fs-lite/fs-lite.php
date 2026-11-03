@@ -162,7 +162,7 @@ class fs_lite {
         }
         $auth = defined( 'SECURE_AUTH_KEY' ) ? SECURE_AUTH_KEY : '';
         if ( '' === $auth || false !== strpos( $auth, ' ' ) || 'put your unique phrase here' === $auth ) {
-            $auth = md5( microtime() );
+            $auth = wp_generate_password( 64, true, true );
         }
         $uid = md5( preg_replace( '#^https?://#', '', $this->site_url() ) . $auth );
         $this->save( array( 'uid' => $uid ) );

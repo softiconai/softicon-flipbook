@@ -70,7 +70,8 @@ class dashboard {
         $data = get_transient( self::CACHE );
         if ( false === $data && $fetch && ( ! self::is_pro() || self::locked() ) ) {
             $data = self::parse( self::fetch_pricing() );
-            set_transient( self::CACHE, $data, $data['error'] ? HOUR_IN_SECONDS : 12 * HOUR_IN_SECONDS );
+            // no paid plan yet (plans not released in Freemius): ask again within the hour
+            set_transient( self::CACHE, $data, $data['error'] || ! $data['pro'] ? HOUR_IN_SECONDS : 12 * HOUR_IN_SECONDS );
         }
         return is_array( $data ) ? $data : self::parse( false );
     }
@@ -262,7 +263,7 @@ class dashboard {
     }
 
     // the Pricing and Free vs Pro tabs: the plans from Freemius and what the checkout needs;
-    // ?cached=1 (the Demos tab) only reads what is kept and never asks Freemius
+    // ?cached=1 only reads what is kept and never asks Freemius
     public static function plans( $request = null ) {
         $data             = self::freemius( ! ( $request && $request->get_param( 'cached' ) ) );
         $data['pro_only'] = self::pro_only( $data );

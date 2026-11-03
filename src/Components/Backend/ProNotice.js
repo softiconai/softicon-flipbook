@@ -4,8 +4,8 @@ import { ExternalLink } from '@wordpress/components';
 
 const ProNotice = ({ text, href }) => <div className='alfbProNotice'>
 	<p><span className='dashicons dashicons-lock' aria-hidden='true' /> {text}</p>
-	{/* a new tab, so nothing in the editor is lost */}
-	<ExternalLink href={href} className='alfbProNoticeLink'>{__('Unlock with Pro', 'softicon-flipbook')}</ExternalLink>
+	{/* a new tab, so nothing in the editor is lost; editors who cannot open the dashboard get no link */}
+	{href && <ExternalLink href={href} className='alfbProNoticeLink'>{__('Unlock with Pro', 'softicon-flipbook')}</ExternalLink>}
 </div>;
 
 export default ProNotice;
