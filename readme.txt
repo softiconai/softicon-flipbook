@@ -176,12 +176,15 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 
 == Screenshots ==
 
-1. A realistic page turn – drag a corner or use the toolbar.
-2. Two-page spreads on desktop, with download, sound and fullscreen in the toolbar.
-3. One page at a time on phones.
-4. Live flipbook preview in the block editor, with the layout settings.
-5. Add a PDF straight from the block: upload, Media Library or a link.
-6. Set the maximum height and the colors of the background and toolbar.
+1. Two-page spreads with a realistic page turn and the full toolbar: search, thumbnails, zoom, sound, download, share and fullscreen.
+2. The Hardcover design: pages inside a colored cover, with the page edges, a shadow at the spine and large side arrows.
+3. Lightbox: only the covers show on the page, a click opens the book.
+4. The book opens in a popup over the page.
+5. Search the PDF: the pages that have your words, with a short excerpt. A click opens the page.
+6. Thumbnails of every page, a click jumps to it.
+7. One page at a time on phones.
+8. A live flipbook preview in the block editor, with simple settings.
+9. The Flipbook dashboard with live demos, video tutorials and help.
 
 == Changelog ==
 
@@ -199,6 +202,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * Fix: a one page book with an even "Open at page" opened one page early when there was room for two pages (wide or full width, the popup, a small maximum height).
 * Fix: a #page= link now names its book (#page=4&book=2) when a page has more than one flipbook; old #page= links still open the first one.
 * Fix: an opt-out takes effect at once, even when Freemius cannot be reached.
+* Fix: search excerpts read letter-spaced headings and ligatures (fi, fl) as whole words.
 * Editor: the "Open at page" field can be cleared while typing, the Search switch shows only for PDFs, and the toolbar switches no longer reload the preview.
 
 = 1.4.2 =

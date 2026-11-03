@@ -4,6 +4,28 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 const MAX_RESULTS = 50;
 
 // search box over the book: the pages that contain the words, with a short excerpt; a click turns there
+// pdf.js gives a page's text in pieces; pieces that touch on the same line are one word (ligatures
+// like "fi"), a new line or a wider gap is a space
+const joinText = items => {
+	let text = '';
+	let prev = null;
+	items.forEach(item => {
+		if ('string' !== typeof item.str) {
+			return;
+		}
+		if (prev) {
+			const size = Math.max(item.height, prev.height) || 1;
+			const sameLine = Math.abs(item.transform[5] - prev.transform[5]) < size * 0.5;
+			const gap = item.transform[4] - (prev.transform[4] + prev.width);
+			text += prev.hasEOL || !sameLine || gap > size * 0.3 || gap < -size ? ' ' : '';
+		}
+		// a letter-spaced heading comes as "L I G H T"; the spaces between its words are separate pieces
+		text += /^[\p{L}\p{N}]( [\p{L}\p{N}]){2,}$/u.test(item.str) ? item.str.replace(/ /g, '') : item.str;
+		prev = item;
+	});
+	return text.replace(/\s+/g, ' ').trim();
+};
+
 export default class Search {
 	constructor(book) {
 		this.book = book;
@@ -30,7 +52,7 @@ export default class Search {
 		if (!this.texts[index]) {
 			this.texts[index] = this.book.pdf.getPage(index + 1)
 				.then(page => page.getTextContent())
-				.then(content => content.items.map(item => item.str).join(' ').replace(/\s+/g, ' '))
+				.then(content => joinText(content.items))
 				.catch(() => '');
 		}
 		return this.texts[index];
