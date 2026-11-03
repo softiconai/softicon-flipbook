@@ -2,7 +2,6 @@ import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import Header from './Header';
-import OptIn from './OptIn';
 import VideoPopup from './VideoPopup';
 import useRoute from './useRoute';
 
@@ -38,7 +37,6 @@ const App = ({ config, tabs }) => {
 		<Header config={config} active={tab} unlock={unlock} />
 		<div className='alfb-dash-body'>
 			{config.notice && <div className={'notice inline alfb-notice notice-' + config.notice.type} role='status'><p>{config.notice.text}</p></div>}
-			{config.optIn && <OptIn card={config.optIn} />}
 			{isLocked ? <div className='alfb-card alfb-status'><span className='dashicons dashicons-lock' aria-hidden='true' />{__('This is a Pro feature.', 'softicon-flipbook')}</div>
 				: <Content config={config} play={setVideo} unlock={unlock} />}
 		</div>

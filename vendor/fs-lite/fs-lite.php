@@ -29,6 +29,7 @@ class fs_lite {
     private $public_key;
     private $page;
     private $icon;
+    private $optin_hook = '';
 
     public function __construct( $file, array $config )
     {
@@ -45,6 +46,7 @@ class fs_lite {
 
         if ( is_admin() ) {
             add_action('admin_init', array( $this, 'admin_init' ));
+            add_action('admin_menu', array( $this, 'optin_menu' ));
             add_action('wp_ajax_alfb_fs_opt_in', array( $this, 'opt_in_ajax' ));
             add_action('admin_post_alfb_fs_skip', array( $this, 'skip_action' ));
             add_action('wp_ajax_alfb_fs_tracking', array( $this, 'tracking_ajax' ));
@@ -58,9 +60,41 @@ class fs_lite {
         return self::$instance;
     }
 
-    // the plugin's admin page, where the opt-in card shows
+    // the plugin's admin page
     private function page_url() {
         return admin_url( 'admin.php?page=' . $this->page );
+    }
+
+    // the opt-in screen, a page of its own without a menu item (like the Freemius SDK's)
+    private function optin_url() {
+        return admin_url( 'admin.php?page=' . $this->page . '-opt-in' );
+    }
+
+    public function optin_menu() {
+        $this->optin_hook = (string) add_submenu_page( '', __('Opt in', 'softicon-flipbook'), '', 'manage_options', $this->page . '-opt-in', array( $this, 'optin_render' ) );
+        if ( $this->optin_hook ) {
+            add_action( 'load-' . $this->optin_hook, array( $this, 'optin_load' ) );
+        }
+    }
+
+    // nothing to ask (already decided): the plugin's page instead
+    public function optin_load() {
+        if ( ! $this->card() ) {
+            wp_safe_redirect( $this->page_url() );
+            exit;
+        }
+        add_filter( 'admin_body_class', function ( $classes ) {
+            return $classes . ' alfb-fs-optin-page';
+        } );
+        // a page without a menu item has no title of its own; the browser tab needs one
+        global $title;
+        $title = __('Opt in', 'softicon-flipbook'); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- the admin header reads it
+    }
+
+    // fs-lite-optin.js draws the screen in here
+    public function optin_render() {
+        // other plugins' notices go before wp-header-end, outside the card
+        echo '<div class="wrap"><hr class="wp-header-end" hidden><div id="alfb-fs-optin" class="alfb-fs-screen"></div></div>';
     }
 
     private static function asset( $name ) {
@@ -317,7 +351,7 @@ class fs_lite {
         }
         if ( is_object( $result ) && ! empty( $result->pending_activation ) ) {
             $this->save( array( 'state' => 'pending', 'email' => isset( $result->email ) ? sanitize_email( $result->email ) : $fields['user_email'] ) );
-            wp_send_json_success( array( 'next' => $this->page_url() ) );
+            wp_send_json_success( array( 'next' => $this->optin_url() ) );
         }
         $this->save( array( 'state' => 'browser' ) );
         wp_send_json_success( array( 'browser' => array( 'action' => self::OPT_IN, 'fields' => $fields ) ) );
@@ -364,7 +398,7 @@ class fs_lite {
             if ( current_user_can( 'manage_options' ) && $waiting && isset( $_GET['pending_activation'] ) ) {
                 $email = isset( $_GET['user_email'] ) ? sanitize_email( wp_unslash( $_GET['user_email'] ) ) : '';
                 $this->save( array( 'state' => 'pending', 'email' => $email ? $email : wp_get_current_user()->user_email ) );
-                wp_safe_redirect( $this->page_url() );
+                wp_safe_redirect( $this->optin_url() );
                 exit;
             }
         }
@@ -380,9 +414,16 @@ class fs_lite {
         if ( 'plugins.php' === $pagenow && get_current_user_id() && (int) get_transient( $redirect ) === get_current_user_id() ) {
             delete_transient( $redirect );
             if ( '' === $data['state'] && current_user_can( 'manage_options' ) && ! isset( $_GET['activate-multi'] ) && ! wp_doing_ajax() && ! is_network_admin() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only reads where WordPress came from
-                wp_safe_redirect( $this->page_url() );
+                wp_safe_redirect( $this->optin_url() );
                 exit;
             }
+        }
+
+        // the plugin's page, opened before the opt-in was answered: the opt-in screen first (Skip goes on to the page)
+        $page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only picks the page
+        if ( $this->page === $page && '' === $data['state'] && 'admin.php' === $pagenow && current_user_can( 'manage_options' ) && ! wp_doing_ajax() ) {
+            wp_safe_redirect( $this->optin_url() );
+            exit;
         }
 
         // a new plugin version is reported once
@@ -464,7 +505,7 @@ class fs_lite {
         if ( $this->is_connected() ) {
             $links['alfb-opt'] = '<a href="#" class="alfb-fs-tracking" data-enable="0">' . esc_html__('Opt Out', 'softicon-flipbook') . '</a>';
         } else {
-            $links['alfb-opt'] = '<a href="' . esc_url( add_query_arg( 'alfb_fs', 'ask', $this->page_url() ) ) . '">' . esc_html__('Opt In', 'softicon-flipbook') . '</a>';
+            $links['alfb-opt'] = '<a href="' . esc_url( add_query_arg( 'alfb_fs', 'ask', $this->optin_url() ) ) . '">' . esc_html__('Opt In', 'softicon-flipbook') . '</a>';
         }
         return $links;
     }
@@ -499,12 +540,15 @@ class fs_lite {
     }
 
     public function plugins_page_assets( $hook ) {
-        if ( 'plugins.php' !== $hook && 'toplevel_page_' . $this->page !== $hook ) {
+        if ( 'plugins.php' !== $hook && ( '' === $this->optin_hook || $this->optin_hook !== $hook ) ) {
             return;
         }
         list( $css, $css_ver ) = self::asset( 'fs-lite.css' );
-        wp_enqueue_style( 'alfb-fs-lite', $css, array(), $css_ver );
+        wp_enqueue_style( 'alfb-fs-lite', $css, array( 'dashicons' ), $css_ver );
         if ( 'plugins.php' !== $hook ) {
+            list( $js, $js_ver ) = self::asset( 'fs-lite-optin.js' );
+            wp_enqueue_script( 'alfb-fs-lite-optin', $js, array( 'wp-element' ), $js_ver, true );
+            wp_add_inline_script( 'alfb-fs-lite-optin', 'window.alfbFsOptIn = ' . wp_json_encode( $this->card() ) . ';', 'before' );
             return;
         }
         list( $js, $js_ver ) = self::asset( 'fs-lite.js' );
@@ -533,14 +577,15 @@ class fs_lite {
         ) ) . ';', 'before' );
     }
 
-    /* ----- the opt-in card on the dashboard ----- */
+    /* ----- the opt-in screen ----- */
 
-    // the opt-in card as data, for a page that draws it itself (a React dashboard); null when it should not show
+    // the opt-in screen's words and actions, drawn by assets/fs-lite-optin.js; null when there is nothing to ask
     public function card() {
         $data = $this->data();
         $ask  = isset( $_GET['alfb_fs'] ) && 'ask' === sanitize_key( wp_unslash( $_GET['alfb_fs'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only shows the card
-        $open = in_array( $data['state'], array( '', 'browser' ), true );
-        if ( ! current_user_can( 'manage_options' ) || ( ! $open && ! ( $ask && ! $this->is_connected() ) ) ) {
+        $open    = in_array( $data['state'], array( '', 'browser' ), true );
+        $pending = 'pending' === $data['state'];
+        if ( ! current_user_can( 'manage_options' ) || ( ! $open && ! $pending && ! ( $ask && ! $this->is_connected() ) ) ) {
             return null;
         }
         $user = wp_get_current_user();
@@ -561,7 +606,25 @@ class fs_lite {
             'ajax'        => admin_url( 'admin-ajax.php' ),
             'form'        => admin_url( 'admin-post.php' ),
             'allow'       => array( 'action' => 'alfb_fs_opt_in', 'nonce' => wp_create_nonce( self::NONCE . '_opt_in' ), 'label' => __('Allow & Continue', 'softicon-flipbook'), 'busy' => __('Connecting…', 'softicon-flipbook'), 'error' => __('Could not reach Freemius right now. Please try again later.', 'softicon-flipbook') ),
-            'skip'        => $open ? array( 'action' => 'alfb_fs_skip', 'nonce' => wp_create_nonce( self::NONCE . '_skip' ), 'label' => __('Skip', 'softicon-flipbook') ) : null,
+            // also after an earlier Skip (the Plugins page's Opt In link), so there is always a way back
+            'skip'        => ! $pending ? array( 'action' => 'alfb_fs_skip', 'nonce' => wp_create_nonce( self::NONCE . '_skip' ), 'label' => __('Skip', 'softicon-flipbook') ) : null,
+            'dashboard'   => $this->page_url(),
+            // waiting for the click in the Freemius confirmation email, which often lands in spam
+            'pending'     => ! $pending ? null : array(
+                'title'     => __('Check your email', 'softicon-flipbook'),
+                'sent'      => __('We sent a confirmation email to', 'softicon-flipbook'),
+                'email'     => $data['email'],
+                'click'     => __('Click the button in that email to finish. Until then, nothing is sent.', 'softicon-flipbook'),
+                'spamTitle' => __('Not in your inbox?', 'softicon-flipbook'),
+                'spam'      => __('Look in your Spam or Junk folder (and Promotions in Gmail). Mark the email as "Not spam", then click the button in it.', 'softicon-flipbook'),
+                'dashboard' => __('Go to the Flipbook dashboard', 'softicon-flipbook'),
+                'resend'    => __('Send the email again', 'softicon-flipbook'),
+            ),
+            'footer'      => array(
+                'powered' => __('Powered by Freemius', 'softicon-flipbook'),
+                'privacy' => array( 'url' => 'https://freemius.com/privacy/', 'label' => __('Privacy Policy', 'softicon-flipbook') ),
+                'terms'   => array( 'url' => 'https://freemius.com/terms/', 'label' => __('Terms of Service', 'softicon-flipbook') ),
+            ),
         );
     }
 
@@ -577,7 +640,7 @@ class fs_lite {
         }
         if ( 'pending' === $data['state'] ) {
             /* translators: %s: email address */
-            return array( 'type' => 'info', 'text' => sprintf( __('Almost done: please open the email we sent to %s and click the link to confirm.', 'softicon-flipbook'), $data['email'] ) );
+            return array( 'type' => 'warning', 'text' => sprintf( __('Almost done: open the email we sent to %s and click the button in it. Not in your inbox? Look in your Spam or Junk folder and mark it as "Not spam".', 'softicon-flipbook'), $data['email'] ) );
         }
         if ( 'error' === $notice ) {
             return array( 'type' => 'error', 'text' => __('Could not reach Freemius right now. Please try again later.', 'softicon-flipbook') );

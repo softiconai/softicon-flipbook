@@ -69,89 +69,181 @@
 	gap: 8px;
 }
 
-/* the opt-in card on the plugin's admin page */
-.alfb-optin {
+/* the opt-in screen, its own admin page (fs-lite-optin.js) */
+/* other plugins' notices would sit around the card; this screen is only about the opt-in */
+.alfb-fs-optin-page #wpbody-content .notice,
+.alfb-fs-optin-page #wpbody-content .fs-notice,
+.alfb-fs-optin-page #wpbody-content div.updated,
+.alfb-fs-optin-page #wpbody-content div.error {
+	display: none !important;
+}
+
+.alfb-fs-screen {
 	display: flex;
-	gap: 20px;
-	max-width: 760px;
-	margin: 0 auto 28px;
-	padding: 24px 28px;
+	justify-content: center;
+	padding: 56px 16px 32px;
+}
+
+.alfb-fs-card {
+	position: relative;
+	width: 100%;
+	max-width: 480px;
+	margin-top: 40px;
 	background: #fff;
 	border: 1px solid #dcdcde;
-	border-top: 4px solid #0f766e;
 	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.alfb-optin img {
-	flex: none;
-	border-radius: 12px;
-}
-
-.alfb-optin h2 {
-	margin: 0 0 8px;
-	font-size: 20px;
-}
-
-.alfb-optin p {
-	margin: 0 0 12px;
-	color: #3c434a;
-	font-size: 14px;
-}
-
-.alfb-optin details {
-	margin: 0 0 18px;
-}
-
-.alfb-optin summary {
-	color: #0f766e;
-	font-weight: 600;
-	cursor: pointer;
-}
-
-.alfb-optin details ul {
-	margin: 12px 0;
-}
-
-.alfb-optin details li {
-	display: flex;
-	gap: 8px;
-	align-items: baseline;
-}
-
-.alfb-optin details .dashicons {
-	color: #0f766e;
-}
-
-.alfb-optin-actions {
+.alfb-fs-logos {
 	display: flex;
 	align-items: center;
-	gap: 18px;
+	justify-content: center;
+	gap: 6px;
+	height: 40px;
+	background: #f0f0f1;
+	border-bottom: 1px solid #f0f0f1;
+	border-radius: 4px 4px 0 0;
 }
 
-.alfb-optin-actions form {
+.alfb-fs-logos > * {
+	position: relative;
+	top: -26px;
+}
+
+.alfb-fs-logo {
+	width: 56px;
+	height: 56px;
+	font-size: 56px;
+	color: #21759b;
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 0 4px #fff, 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.alfb-fs-logo-mail {
+	width: 72px;
+	height: 72px;
+	font-size: 40px;
+	line-height: 72px;
+	color: #0f766e;
+	text-align: center;
+}
+
+.alfb-fs-logo-plugin {
+	border-radius: 50%;
+	box-shadow: 0 0 0 4px #fff, 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.alfb-fs-dots {
+	display: flex;
+	gap: 5px;
+}
+
+.alfb-fs-dots i {
+	width: 6px;
+	height: 6px;
+	background: #8c8f94;
+	border-radius: 50%;
+}
+
+.alfb-fs-body {
+	padding: 24px 24px 8px;
+}
+
+.alfb-fs-body h1 {
+	margin: 0 0 14px;
+	font-size: 18px;
+	font-weight: 600;
+	text-align: center;
+}
+
+.alfb-fs-body p {
+	margin: 0 0 12px;
+	font-size: 14px;
+	line-height: 1.6;
+	color: #3c434a;
+}
+
+.alfb-fs-body details {
+	margin: 4px 0 12px;
+}
+
+.alfb-fs-body summary {
+	cursor: pointer;
+	font-weight: 600;
+	color: #0f766e;
+}
+
+.alfb-fs-body details ul {
+	margin: 12px 0 8px;
+}
+
+.alfb-fs-body details li {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 10px;
+	line-height: 1.5;
+}
+
+.alfb-fs-body details .dashicons {
+	flex: none;
+	color: #646970;
+}
+
+.alfb-fs-body .alfb-fs-note {
+	font-size: 12px;
+	color: #646970;
+}
+
+/* the confirmation email may land in spam */
+.alfb-fs-spam {
+	display: flex;
+	gap: 10px;
+	margin: 4px 0 12px;
+	padding: 12px 14px;
+	background: #fcf9e8;
+	border-left: 4px solid #dba617;
+}
+
+.alfb-fs-spam .dashicons {
+	flex: none;
+	color: #996800;
+}
+
+.alfb-fs-spam p {
+	margin: 0;
+	font-size: 13px;
+}
+
+.alfb-fs-error {
+	color: #b32d2e;
+	font-weight: 600;
+}
+
+.alfb-fs-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 14px 24px;
+	border-top: 1px solid #f0f0f1;
+}
+
+.alfb-fs-buttons form {
 	margin: 0;
 }
 
-@media (max-width: 600px) {
-	.alfb-optin {
-		flex-direction: column;
-		padding: 20px;
-	}
+.alfb-fs-footer {
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin: 12px 0 0;
+	font-size: 12px;
+	color: #8c8f94;
+	text-align: center;
 }
 
-.alfb-optin .alfb-optin-allow {
-	border-color: #0f766e;
-	background: #0f766e;
-	font-weight: 600;
-}
-
-.alfb-optin .alfb-optin-allow:hover,
-.alfb-optin .alfb-optin-allow:focus {
-	border-color: #115e59;
-	background: #115e59;
-}
-
-.alfb-optin .alfb-optin-error {
-	color: #b32d2e;
-	font-weight: 600;
+.alfb-fs-footer a {
+	color: #8c8f94;
 }

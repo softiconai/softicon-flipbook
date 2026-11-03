@@ -234,7 +234,6 @@ class dashboard {
             'version' => ALFB_PLUGIN_VERSION,
             'icon'    => ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png',
             'videos'  => $videos,
-            'optIn'   => method_exists( alfb_fs(), 'card' ) ? alfb_fs()->card() : null,
             'notice'  => method_exists( alfb_fs(), 'notice' ) ? alfb_fs()->notice() : null,
             // Pro without a license: these tabs open the "this is a Pro feature" popup instead
             'locked'     => self::locked(),

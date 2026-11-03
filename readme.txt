@@ -134,7 +134,7 @@ On small screens the book shows one page at a time at the full width of the scre
 
 **From your visitors: nothing.** The flipbook sets no cookies, tracks no one and sends nothing anywhere.
 
-**From you, the site admin: only if you say yes.** After activation, the Flipbook dashboard asks if you would like to opt in. Click "Skip" and nothing about you or your site is ever sent; the plugin works exactly the same either way.
+**From you, the site admin: only if you say yes.** After activation, a short screen asks if you would like to opt in. Click "Skip" and nothing about you or your site is ever sent; the plugin works exactly the same either way. If you allow it, Freemius may email you a confirmation link (it can land in your spam folder); nothing is sent until you click it.
 
 If you click "Allow & Continue", this is shared with us through [Freemius](https://freemius.com), the service we use to manage our users:
 
@@ -158,7 +158,7 @@ Earlier versions included the full Freemius SDK. Since we only need the opt-in, 
 * **A lighter plugin:** about 0.8 MB smaller to download and about 3.6 MB less on your server.
 * **Easy to check:** one plain PHP file (vendor/fs-lite/fs-lite.php) that shows exactly what is sent and when.
 * **Only Freemius:** it connects to wp.freemius.com and api.freemius.com and nowhere else. Anything about you or your site is sent only after you click "Allow & Continue".
-* **Works on strict hosts too:** if your server is not allowed to reach Freemius, your browser sends the same opt-in to wp.freemius.com instead, and Freemius sends you back to the Flipbook dashboard.
+* **Works on strict hosts too:** if your server is not allowed to reach Freemius, your browser sends the same opt-in to wp.freemius.com instead, and Freemius sends you back to your site.
 * **Nothing extra in your admin:** no added menus, and its scripts load only on the Plugins page and the Flipbook dashboard.
 
 If you opted in or skipped with an earlier version, your choice is kept and you are not asked again.
@@ -194,6 +194,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: Flipbook dashboard (Flipbook in the admin menu) with live demos, video tutorials that play in a popup, help, and a Free vs Pro comparison.
 * New: SoftIcon Flipbook Pro, a separate plugin with a shelf of books, lead capture, reading analytics, page buttons (links or WooCommerce products) and PDF protection with an optional password. The free plugin only lists those features.
 * Changed: the optional opt-in now uses a small built-in client instead of the Freemius SDK: about 0.8 MB smaller to download and 3.6 MB less on your server. It talks only to Freemius, and only after you click "Allow & Continue"; your earlier choice, including an opt-out, is kept.
+* Changed: the opt-in is a short screen of its own after activation, no longer a card on the dashboard. If Freemius emails a confirmation link, the screen says where it went and to check the spam folder.
 * New: when you deactivate the plugin, an optional short form asks why. The answer is sent only when the plugin is deleted.
 * New: the Demos, Pricing and Free vs Pro tabs read the Pro features and prices from Freemius (only the plugin's public ID is sent). See "Which outside services does the plugin use?" in the FAQ.
 * Security: a media id in a block now resolves to its file only when the file is not attached, sits on a public post, or the post's author may edit it.
