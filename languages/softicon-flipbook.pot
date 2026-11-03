@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-02T14:33:10+00:00\n"
+"POT-Creation-Date: 2026-11-03T02:27:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -42,7 +42,7 @@ msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:58
-#: includes/dashboard.php:154
+#: includes/dashboard.php:155
 #: build/dashboard.js:1
 #: build/index.js:8
 #: build/view.js:7
@@ -77,50 +77,50 @@ msgstr ""
 msgid "Every setting explained"
 msgstr ""
 
-#: includes/dashboard.php:153
-#: includes/dashboard.php:286
+#: includes/dashboard.php:154
+#: includes/dashboard.php:287
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:164
+#: includes/dashboard.php:165
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:166
-#: includes/dashboard.php:208
+#: includes/dashboard.php:167
+#: includes/dashboard.php:209
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:173
+#: includes/dashboard.php:174
 #: build/dashboard.js:1
 #: build/dashboard.js:2
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:203
+#: includes/dashboard.php:204
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:204
+#: includes/dashboard.php:205
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:207
+#: includes/dashboard.php:208
 #: build/dashboard.js:2
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:210
+#: includes/dashboard.php:211
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:286
+#: includes/dashboard.php:287
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:290
+#: includes/dashboard.php:291
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -325,22 +325,6 @@ msgstr ""
 #: build/dashboard.js:1
 #: build/view.js:7
 msgid "Close"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "This is a Pro feature"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Activate your SoftIcon Flipbook Pro license to use it, or get a license from the Pricing page."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "See pricing"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Activate license"
 msgstr ""
 
 #: build/dashboard.js:1
