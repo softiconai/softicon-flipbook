@@ -7,6 +7,35 @@ import useRoute from './useRoute';
 
 const keys = config => config.tabs.map(tab => tab.key);
 
+// the message after an opt-in shows once: ?alfb_fs=… leaves the address so a reload does not bring it back,
+// another tab or ✕ closes it; the "check your email" one stays until the email is confirmed
+const Notice = ({ notice, tab }) => {
+	const [open, setOpen] = useState(true);
+	const [firstTab] = useState(tab);
+	const once = 'warning' !== notice.type;
+	useEffect(() => {
+		if (once && tab !== firstTab) {
+			setOpen(false);
+		}
+	}, [once, tab, firstTab]);
+	useEffect(() => {
+		const url = new URL(window.location.href);
+		if (url.searchParams.has('alfb_fs')) {
+			url.searchParams.delete('alfb_fs');
+			window.history.replaceState(window.history.state, '', url.toString());
+		}
+	}, []);
+	if (!open) {
+		return null;
+	}
+	return <div className={'notice inline alfb-notice notice-' + notice.type + (once ? ' is-dismissible' : '')} role='status'>
+		<p>{notice.text}</p>
+		{once && <button type='button' className='notice-dismiss' onClick={() => setOpen(false)}>
+			<span className='screen-reader-text'>{__('Dismiss this notice.', 'softicon-flipbook')}</span>
+		</button>}
+	</div>;
+};
+
 const App = ({ config, tabs }) => {
 	const [allKeys] = useState(() => keys(config));
 	const route = useRoute(allKeys);
@@ -36,7 +65,7 @@ const App = ({ config, tabs }) => {
 	return <>
 		<Header config={config} active={tab} unlock={unlock} />
 		<div className='alfb-dash-body'>
-			{config.notice && <div className={'notice inline alfb-notice notice-' + config.notice.type} role='status'><p>{config.notice.text}</p></div>}
+			{config.notice && <Notice notice={config.notice} tab={tab} />}
 			{isLocked ? <div className='alfb-card alfb-status'><span className='dashicons dashicons-lock' aria-hidden='true' />{__('This is a Pro feature.', 'softicon-flipbook')}</div>
 				: <Content config={config} play={setVideo} unlock={unlock} />}
 		</div>
