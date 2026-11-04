@@ -61,7 +61,7 @@ const ProButton = ({ checkout, plan, price, className }) => {
 		}
 		event.preventDefault();
 		try {
-			new Checkout({ product_id: checkout.product, plan_id: plan.id, public_key: checkout.key, image: checkout.image })
+			new Checkout({ product_id: checkout.product, plan_id: plan.id, public_key: checkout.key })
 				.open({ licenses: price.licenses, billing_cycle: price.cycle });
 		} catch (error) {
 			window.open(href, '_blank', 'noopener');

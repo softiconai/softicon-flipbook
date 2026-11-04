@@ -324,9 +324,8 @@ class dashboard {
         $data['checkout'] = ! $product ? null : array(
             'product' => $product[0],
             'key'     => $product[1],
-            // the icon on WordPress.org: always https, so it shows in the checkout on any site (a local http
-            // address would not), and the site's own address is not sent to Freemius
-            'image'   => 'https://ps.w.org/softicon-flipbook/assets/icon-256x256.png',
+            // no image: the checkout shows the product icon set in Freemius (a remote image address is not
+            // allowed in a WordPress.org plugin, and the site's own address is not sent)
             'base'    => 'https://checkout.freemius.com/plugin/' . $product[0] . '/',
         );
         return rest_ensure_response( $data );

@@ -201,7 +201,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: Pricing and Free vs Pro show our 14-day money-back guarantee and the email to write to; the Help tab and the FAQ say the same.
 * New: a short review request on the Flipbook dashboard, only after you have published a flipbook. "Maybe later" hides it for 30 days, the other answers for good.
 * Changed: the demo PDFs use the open Inter font, and the room guide has a bookmark for each chapter.
-* Changed: the checkout shows the plugin icon from WordPress.org, so it loads on any site and your site address is not sent.
+* Changed: the checkout shows the product icon kept by Freemius, so it loads on any site and your site address is not sent.
 * Fix: dashboard tabs no longer keep a focus ring after a mouse click (the keyboard still gets one), and nine tabs fit on one line.
 
 = 1.5.0 =
