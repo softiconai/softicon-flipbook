@@ -853,9 +853,11 @@
 	color: #b32d2e;
 }
 
-.alfb-notice {
-	max-width: 1000px;
-	margin: 0 auto 20px;
+/* notices on the dashboard line up with the cards below them */
+.alfb-dash .alfb-notice {
+	max-width: none;
+	margin: 0 0 20px;
+	box-sizing: border-box;
 }
 
 /* SoftIcon Flipbook Pro without a license */
