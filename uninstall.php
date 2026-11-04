@@ -16,6 +16,7 @@ foreach ( $alfb_sites as $alfb_site ) {
     }
     ALFB_Flipbook\fs_lite::uninstall();
     delete_transient( 'alfb_freemius' );
+    delete_option( 'alfb_review' );
     if ( $alfb_site ) {
         restore_current_blog();
     }

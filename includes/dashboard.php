@@ -8,6 +8,8 @@ class dashboard {
     const PAGE     = 'softicon-flipbook';
     const PLAYLIST = 'https://www.youtube.com/playlist?list=PLJEAefIarF4g';
     const CACHE    = 'alfb_freemius';
+    // the review request: when a published flipbook was first seen, and the person's answer
+    const REVIEW   = 'alfb_review';
 
     public function __construct()
     {
@@ -235,6 +237,7 @@ class dashboard {
             'icon'    => ALFB_PLUGIN_URL . 'assets/images/icon-128x128.png',
             'videos'  => $videos,
             'notice'  => method_exists( alfb_fs(), 'notice' ) ? alfb_fs()->notice() : null,
+            'review'  => self::review(),
             // Pro without a license: these tabs open the "this is a Pro feature" popup instead
             'locked'     => self::locked(),
             'lockedTabs' => self::locked() ? array_values( (array) apply_filters( 'alfb_dashboard_locked_tabs', array() ) ) : array(),
@@ -260,6 +263,56 @@ class dashboard {
             'callback'            => array( __CLASS__, 'plans' ),
             'permission_callback' => $admin,
         ) );
+        register_rest_route( 'alfb/v1', '/dashboard/review', array(
+            'methods'             => 'POST',
+            'callback'            => array( __CLASS__, 'review_answer' ),
+            'permission_callback' => $admin,
+            'args'                => array(
+                'answer' => array( 'required' => true, 'enum' => array( 'later', 'done' ) ),
+            ),
+        ) );
+    }
+
+    // a short review request on this dashboard only: 3 days after a published flipbook is first seen, until
+    // the person reviews, says they did, or asks again later (30 days)
+    public static function review() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return null;
+        }
+        $review = wp_parse_args( get_option( self::REVIEW, array() ), array( 'since' => 0, 'checked' => 0, 'later' => 0, 'done' => false ) );
+        if ( $review['done'] || $review['later'] > time() ) {
+            return null;
+        }
+        // a published page or post with the block, looked for at most once a day until one is found
+        if ( ! $review['since'] && $review['checked'] < time() - DAY_IN_SECONDS ) {
+            $found = new \WP_Query( array(
+                'post_type'      => 'any',
+                'post_status'    => 'publish',
+                's'              => 'wp:softicon/flipbook',
+                'sentence'       => true,
+                'posts_per_page' => 1,
+                'fields'         => 'ids',
+                'no_found_rows'  => true,
+            ) );
+            $review['checked'] = time();
+            $review['since']   = $found->posts ? time() : 0;
+            update_option( self::REVIEW, $review, false );
+        }
+        if ( ! $review['since'] || $review['since'] > time() - 3 * DAY_IN_SECONDS ) {
+            return null;
+        }
+        return array( 'url' => 'https://wordpress.org/support/plugin/softicon-flipbook/reviews/#new-post' );
+    }
+
+    public static function review_answer( $request ) {
+        $review = wp_parse_args( get_option( self::REVIEW, array() ), array( 'since' => 0, 'checked' => 0, 'later' => 0, 'done' => false ) );
+        if ( 'done' === $request->get_param( 'answer' ) ) {
+            $review['done'] = true;
+        } else {
+            $review['later'] = time() + 30 * DAY_IN_SECONDS;
+        }
+        update_option( self::REVIEW, $review, false );
+        return rest_ensure_response( array( 'ok' => true ) );
     }
 
     // the Pricing and Free vs Pro tabs: the plans from Freemius and what the checkout needs;

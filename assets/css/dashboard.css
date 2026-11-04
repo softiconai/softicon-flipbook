@@ -976,3 +976,11 @@
 .alfb-promise .dashicons {
 	color: var(--alfb-teal);
 }
+
+/* the review request (src/dashboard/App.js) */
+.alfb-review-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
