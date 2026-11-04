@@ -108,6 +108,13 @@
 	font-weight: 600;
 }
 
+/* no WordPress focus ring after a mouse click; the keyboard still gets the ring below */
+.alfb-dash a:focus:not(:focus-visible),
+.alfb-dash button:focus:not(:focus-visible) {
+	outline: none;
+	box-shadow: none;
+}
+
 .alfb-dash-tabs a:focus-visible,
 .alfb-btn:focus-visible {
 	outline: 2px solid var(--alfb-amber);
