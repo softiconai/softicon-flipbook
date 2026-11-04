@@ -7,6 +7,34 @@ import Status from './Status';
 
 const symbols = { usd: '$', eur: '€', gbp: '£', aud: 'A$', cad: 'C$' };
 
+// where people write for help, a refund or anything else
+const SUPPORT = 'softiconai@gmail.com';
+const mail = <a href={'mailto:' + SUPPORT} />;
+
+// buying without risk: the money-back days set in Freemius, a person to write to, and why we care
+const Guarantee = ({ days }) => <div className='alfb-card alfb-guarantee'>
+	<span className='dashicons dashicons-shield' aria-hidden='true' />
+	<div>
+		<h3>{__('Try Pro without risk', 'softicon-flipbook')}</h3>
+		<p>{days > 0
+			/* translators: %d: number of days */
+			? sprintf(__('If Pro is not right for you, tell us within %d days and you get all your money back, no questions asked.', 'softicon-flipbook'), days)
+			: __('If Pro is not right for you, tell us and we will make it right.', 'softicon-flipbook')}</p>
+		{/* translators: %s: email address */}
+		<p>{createInterpolateElement(sprintf(__('Any problem or question? Email us at %s, a real person from our team will help you.', 'softicon-flipbook'), '<a>' + SUPPORT + '</a>'), { a: mail })}</p>
+		<p className='alfb-guarantee-why'>{__('We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first.', 'softicon-flipbook')}</p>
+	</div>
+</div>;
+
+// the short version under a Get Pro button
+const MoneyBack = ({ days }) => <p className='alfb-note alfb-promise'>
+	<span className='dashicons dashicons-shield' aria-hidden='true' />
+	{/* translators: %d: number of days */}
+	{days > 0 && sprintf(__('%d-day money-back guarantee', 'softicon-flipbook'), days) + ' · '}
+	{/* translators: %s: email address */}
+	{createInterpolateElement(sprintf(__('Questions? %s', 'softicon-flipbook'), '<a>' + SUPPORT + '</a>'), { a: mail })}
+</p>;
+
 const cycles = () => ({
 	lifetime: __('one-time', 'softicon-flipbook'),
 	annual: __('per year', 'softicon-flipbook'),
@@ -85,9 +113,9 @@ export const Pricing = () => {
 			</div>)}
 		</div> : <NoPlans data={data} />}
 
+		{plan && <Guarantee days={data.money_back} />}
+
 		<p className='alfb-note'>
-			{/* translators: %d: number of days */}
-			{data.money_back > 0 && sprintf(__('%d-day money-back guarantee.', 'softicon-flipbook'), data.money_back) + ' '}
 			{__('Secure checkout by Freemius. Pro replaces the free plugin and keeps every book you made.', 'softicon-flipbook')}{' '}
 			<a href='#/compare'>{__('Compare Free and Pro', 'softicon-flipbook')}</a>
 		</p>
@@ -141,6 +169,8 @@ export const Compare = () => {
 				{plan.prices.length > 1 && <a className='alfb-more-plans' href='#/pricing'>{__('Plans for more websites', 'softicon-flipbook')}</a>}
 			</div>}
 		</div>
+
+		{plan && <MoneyBack days={data.money_back} />}
 
 		{!plan && <NoPlans data={data} />}
 

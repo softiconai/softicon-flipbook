@@ -61,6 +61,8 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 
 Pro replaces the free plugin when you activate it, and every book you made keeps working. Prices and a full comparison are in Flipbook → Pricing in your dashboard.
 
+**Try Pro without risk:** every Pro plan comes with a 14-day money-back guarantee. Any problem or question, before or after you buy, email us at softiconai@gmail.com. We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first.
+
 = Third-party libraries =
 
 * PDF.js 6.4.299 (npm package pdfjs-dist) by Mozilla – [github.com/mozilla/pdf.js](https://github.com/mozilla/pdf.js) – Apache License 2.0. Bundled as build/pdfjs.js and build/pdfjs/pdf.worker.min.js (minified upstream build); license in build/pdfjs/LICENSE.txt.
@@ -169,6 +171,10 @@ If you opted in or skipped with an earlier version, your choice is kept and you 
 * **Freemius plans** (api.freemius.com): when you open the Demos, Pricing or Free vs Pro tab of the Flipbook dashboard, it reads the Pro features and prices we set in Freemius. The answer is kept for 12 hours (1 hour if Freemius could not be reached or has no Pro plan yet). Only the plugin's public ID is sent, nothing about you or your site, and this happens even if you skipped the opt-in.
 * **Freemius Checkout** (checkout.freemius.com) opens in a window only when you click a "Get Pro" button on the Flipbook dashboard, so you can buy Pro. Nothing is sent before you click, and what you type in the checkout goes to Freemius, which handles the payment. Same terms and privacy policy.
 * **YouTube** (youtube-nocookie.com): a video tutorial plays in a popup only when you click it on the Flipbook dashboard. [YouTube terms](https://www.youtube.com/t/terms), [Google privacy policy](https://policies.google.com/privacy).
+
+= What if Pro is not right for me? =
+
+Every Pro plan comes with a 14-day money-back guarantee. Email softiconai@gmail.com within 14 days of your purchase and we refund you in full, no questions asked. The same address works for any question or problem with Pro.
 
 = Where can I get help? =
 

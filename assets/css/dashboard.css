@@ -922,3 +922,52 @@
 	color: #646970;
 	cursor: pointer;
 }
+
+/* buying without risk (src/dashboard/Pricing.js) */
+.alfb-guarantee {
+	display: flex;
+	gap: 18px;
+	max-width: 760px;
+	margin: 28px auto 18px;
+	padding: 22px 26px;
+	border-left: 4px solid var(--alfb-teal);
+}
+
+.alfb-guarantee > .dashicons {
+	flex: none;
+	width: 40px;
+	height: 40px;
+	color: var(--alfb-teal);
+	font-size: 40px;
+}
+
+.alfb-guarantee h3 {
+	margin: 2px 0 8px;
+	font-size: 17px;
+}
+
+.alfb-guarantee p {
+	margin: 0 0 6px;
+	color: #3c434a;
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.alfb-guarantee .alfb-guarantee-why {
+	margin: 10px 0 0;
+	color: #50575e;
+	font-style: italic;
+}
+
+.alfb-promise {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	margin-top: 18px;
+}
+
+.alfb-promise .dashicons {
+	color: var(--alfb-teal);
+}

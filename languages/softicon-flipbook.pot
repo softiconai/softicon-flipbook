@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-03T03:16:59+00:00\n"
+"POT-Creation-Date: 2026-11-04T01:47:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -78,7 +78,7 @@ msgid "Every setting explained"
 msgstr ""
 
 #: includes/dashboard.php:154
-#: includes/dashboard.php:286
+#: includes/dashboard.php:288
 msgid "SoftIcon Flipbook"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgstr ""
 
 #: includes/dashboard.php:174
 #: build/dashboard.js:1
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
@@ -107,7 +107,7 @@ msgid "Demos"
 msgstr ""
 
 #: includes/dashboard.php:208
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Pricing"
 msgstr ""
 
@@ -116,11 +116,11 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:286
+#: includes/dashboard.php:288
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:290
+#: includes/dashboard.php:292
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -433,7 +433,7 @@ msgid "Something went wrong. Please try again."
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 #: build/index.js:2
 msgid "Pro"
 msgstr ""
@@ -504,171 +504,198 @@ msgid "Loading…"
 msgstr ""
 
 #: build/dashboard.js:1
-msgid "one-time"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "per year"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "per month"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Unlimited websites"
+msgid "Try Pro without risk"
 msgstr ""
 
 #: build/dashboard.js:2
+#, js-format
+msgid "If Pro is not right for you, tell us within %d days and you get all your money back, no questions asked."
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "If Pro is not right for you, tell us and we will make it right."
+msgstr ""
+
+#: build/dashboard.js:2
+#, js-format
+msgid "Any problem or question? Email us at %s, a real person from our team will help you."
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first."
+msgstr ""
+
+#: build/dashboard.js:2
+#, js-format
+msgid "%d-day money-back guarantee"
+msgstr ""
+
+#: build/dashboard.js:2
+#, js-format
+msgid "Questions? %s"
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "one-time"
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "per year"
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "per month"
+msgstr ""
+
+#: build/dashboard.js:2
+msgid "Unlimited websites"
+msgstr ""
+
+#: build/dashboard.js:3
 #, js-format
 msgid "%d website"
 msgid_plural "%d websites"
 msgstr[0] ""
 msgstr[1] ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Get Pro"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "The Pro plans could not be loaded right now. Please try again later."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "SoftIcon Flipbook Pro is coming soon."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Pay once, use it for life"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Pick your plan"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Every plan has all Pro features; pick how many websites you need."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Every free feature"
 msgstr ""
 
-#: build/dashboard.js:2
-#, js-format
-msgid "%d-day money-back guarantee."
-msgstr ""
-
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Secure checkout by Freemius. Pro replaces the free plugin and keeps every book you made."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Compare Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Included"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Not included"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "In Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Only in Pro"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Compare"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Free vs Pro at a glance"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 #, js-format
 msgid "See what you get when you upgrade. %s features are only in Pro."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Free"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Free forever, everything you need to put books on your site."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "forever"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "You already have it"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Plans for more websites"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Feature breakdown"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Filter features"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Filter features…"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Feature"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "No features match."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Get help"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Support forum"
 msgstr ""
 
-#: build/dashboard.js:2
-msgid "Tell us your WordPress version, the page with the flipbook and what you see."
+#: build/dashboard.js:3
+msgid "Free or Pro, we are glad to help with any problem, and a real person reads every email. Tell us your WordPress version, the page with the flipbook and what you see."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Learn"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Frequently asked questions"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Source code on GitHub"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Like the plugin?"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "Leave a review"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:3
 msgid "More plugins from SoftIcon"
 msgstr ""
 

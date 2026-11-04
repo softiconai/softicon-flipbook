@@ -8,7 +8,7 @@ const Help = ({ config, play }) => <div className='alfb-grid'>
 		<h3>{__('Get help', 'softicon-flipbook')}</h3>
 		<a href='https://wordpress.org/support/plugin/softicon-flipbook/' {...external}>{__('Support forum', 'softicon-flipbook')}</a>
 		<a href='mailto:softiconai@gmail.com'>softiconai@gmail.com</a>
-		<p>{__('Tell us your WordPress version, the page with the flipbook and what you see.', 'softicon-flipbook')}</p>
+		<p>{__('Free or Pro, we are glad to help with any problem, and a real person reads every email. Tell us your WordPress version, the page with the flipbook and what you see.', 'softicon-flipbook')}</p>
 	</div>
 	<div className='alfb-card alfb-links'>
 		<h3>{__('Learn', 'softicon-flipbook')}</h3>
