@@ -56,8 +56,13 @@
 	display: flex;
 	flex: 1;
 	flex-wrap: wrap;
-	gap: 4px 20px;
+	gap: 4px 16px;
 	align-self: stretch;
+}
+
+/* nine tabs (Pro without a license) need the room of "Our plugins"; the Help tab links there too */
+.alfb-dash-head:has(.alfb-dash-tabs > a:nth-child(9)) .alfb-dash-more {
+	display: none;
 }
 
 .alfb-dash-tabs a {
