@@ -277,6 +277,8 @@ export default class Flipbook {
 
 	onChange() {
 		const shown = this.visible();
+		// one page at a time: page-flip keeps the page before it one page width to the left, see style.scss
+		this.root.classList.toggle('alfb_portrait', 'portrait' === this.flip.getOrientation());
 		this.counter.textContent = sprintf(
 			/* translators: 1: visible page or pages, 2: total pages */
 			__('%1$s / %2$s', 'softicon-flipbook'),
@@ -873,6 +875,6 @@ export default class Flipbook {
 		this.task?.destroy();
 		this.bar?.remove();
 		this.book?.remove();
-		this.root.classList.remove('alfb_ready', 'alfb_error', 'alfb_overlay', 'alfb_is_fullscreen', 'alfb_zoomed', 'alfb_thumbs_open', 'alfb_contents_open', 'alfb_search_open', 'alfb_side_over');
+		this.root.classList.remove('alfb_ready', 'alfb_error', 'alfb_overlay', 'alfb_is_fullscreen', 'alfb_zoomed', 'alfb_thumbs_open', 'alfb_contents_open', 'alfb_search_open', 'alfb_side_over', 'alfb_portrait');
 	}
 }
