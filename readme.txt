@@ -47,7 +47,7 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 * Fullscreen that fits the book to the screen, with an iPhone fallback
 * Maximum height and colors for background, toolbar and icons
 * Wide and full width alignment
-* Shortcode `[softicon_flipbook]` for the Classic Editor, Elementor and other page builders; the block shows the shortcode for your settings
+* Books with a shortcode, such as `[softicon_flipbook id="123"]`, for the Classic Editor, Elementor and other page builders
 
 = SoftIcon Flipbook Pro =
 
@@ -117,13 +117,7 @@ Yes. The block tells its script where the plugin's files are, so combining or mo
 
 = Does it work with the Classic Editor or page builders? =
 
-Yes. In the block editor add the Flipbook block. Anywhere else, such as the Classic Editor, Elementor, Divi or a widget, use the shortcode:
-
-`[softicon_flipbook pdf="https://example.com/catalog.pdf"]`
-
-Use `id="123"` for a PDF from your Media Library, or `images="12,13,14"` for a book of images. The easiest way to get a shortcode with all your settings: set up the book once in the block editor, then copy the shortcode from the block's Help panel.
-
-Options (all optional): `layout="auto|double|single"`, `design="classic|hardcover"`, `arrows="yes"`, `cover="no"`, `start="5"`, `height="700"`, `download`, `fullscreen`, `zoom`, `thumbnails`, `contents`, `links`, `search`, `share`, `sound` (each `yes` or `no`), `background`, `cover_color`, `toolbar_background`, `toolbar_color` (colors), `align="wide|full"`. For a popup: `popup="yes"` with `popup_style="cover|button|link"`, `popup_text`, `popup_image` (media id), `popup_width` and `popup_align="left|center|right"`.
+Yes. In the block editor add the Flipbook block. For the Classic Editor, Elementor, Divi or a widget, go to Flipbook → Books, add a book and set it up in the block editor, then publish it. The Books list shows its shortcode, such as `[softicon_flipbook id="123"]`; paste it where the book should be. Change the book there later and every page with its shortcode shows the change.
 
 = How do I link to a specific page? =
 

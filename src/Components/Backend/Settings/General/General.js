@@ -1,12 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
 import { Button, ExternalLink, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
-import { toShortcode } from '../../../../utils/shortcode';
-import { hasContent } from '../../../../utils/functions';
 
 // the number can be emptied while typing; it becomes a page (1 or more) when the field loses focus
 const StartPage = ({ value, onChange }) => {
@@ -25,10 +24,17 @@ const StartPage = ({ value, onChange }) => {
 // set by includes/block.php
 const editorInfo = window.alfbEditor || {};
 
-// this book as a shortcode, for the Classic Editor, Elementor and other builders
-const Shortcode = ({ attributes }) => {
+// a book under Flipbook → Books (includes/shortcode.php): its shortcode, for the Classic Editor and page builders
+const Shortcode = () => {
 	const [copied, setCopied] = useState(false);
-	const code = toShortcode(attributes);
+	const { type, id, published } = useSelect(select => {
+		const editor = select('core/editor');
+		return { type: editor?.getCurrentPostType(), id: editor?.getCurrentPostId(), published: 'publish' === editor?.getEditedPostAttribute('status') };
+	}, []);
+	if ('alfb_book' !== type || !id) {
+		return null;
+	}
+	const code = `[softicon_flipbook id="${id}"]`;
 	const copy = event => {
 		const input = event.currentTarget.previousElementSibling;
 		const done = () => {
@@ -46,11 +52,12 @@ const Shortcode = ({ attributes }) => {
 		}
 	};
 	return <div className='alfbShortcode'>
-		<FieldHead label={__('Shortcode', 'softicon-flipbook')} tip={__('For the Classic Editor, Elementor and other page builders: paste it where the book should be. It keeps the settings you chose here.', 'softicon-flipbook')} />
+		<FieldHead label={__('Shortcode', 'softicon-flipbook')} tip={__('Paste it in the Classic Editor, Elementor or any page builder to show this book there.', 'softicon-flipbook')} />
 		<div className='alfbShortcodeRow'>
 			<input type='text' readOnly value={code} onFocus={event => event.target.select()} aria-label={__('Shortcode', 'softicon-flipbook')} />
 			<Button variant='secondary' onClick={copy}>{copied ? __('Copied', 'softicon-flipbook') : __('Copy', 'softicon-flipbook')}</Button>
 		</div>
+		{!published && <p className='alfbHelp'>{__('It shows the book once the book is published.', 'softicon-flipbook')}</p>}
 	</div>;
 };
 
@@ -72,7 +79,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			<HelpCards cards={helpCards} />
 			<p className='alfbHelp'><ExternalLink href={videos.settings}>{__('Every setting explained, in 2 minutes', 'softicon-flipbook')}</ExternalLink></p>
 			<p className='alfbHelp'>{__('Email:', 'softicon-flipbook')} <a href='mailto:softiconai@gmail.com'>softiconai@gmail.com</a></p>
-			{hasContent(attributes) && <Shortcode attributes={attributes} />}
+			<Shortcode />
 		</Panel>
 
 		<Panel id='source' title={__('Source', 'softicon-flipbook')}>

@@ -13,7 +13,7 @@ class dashboard {
 
     public function __construct()
     {
-        add_action('admin_menu', array( $this, 'menu' ));
+        add_action('admin_menu', array( $this, 'menu' ), 9); // before WordPress adds Books under it
         add_action('admin_enqueue_scripts', array( $this, 'enqueue_assets' ));
         add_filter('plugin_action_links_' . plugin_basename( ALFB_PLUGIN_PATH . 'softicon-flipbook.php' ), array( $this, 'action_links' ));
         add_filter('plugin_row_meta', array( $this, 'row_meta' ), 10, 2);
@@ -161,6 +161,8 @@ class dashboard {
             'dashicons-book-alt',
             58
         );
+        // with Books under it (includes/shortcode.php) the menu needs its own first item
+        add_submenu_page( self::PAGE, __('SoftIcon Flipbook', 'softicon-flipbook'), __('Dashboard', 'softicon-flipbook'), 'manage_options', self::PAGE, array( $this, 'render' ) );
     }
 
     public function action_links( $links ) {
