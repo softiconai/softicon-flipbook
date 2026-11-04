@@ -2,6 +2,8 @@
 namespace ALFB_Flipbook;
 if ( !defined('ABSPATH') ) { exit;}
 
+require_once __DIR__ . '/shortcode.php';
+
 class block {
 
     public function __construct()
@@ -9,6 +11,8 @@ class block {
         add_action('init', array( $this, 'register' ));
         add_action('enqueue_block_editor_assets', array( $this, 'editor_info' ));
         add_filter('block_editor_settings_all', array( $this, 'no_inspector_tabs' ));
+        // [softicon_flipbook] for the Classic Editor and page builders
+        shortcode::register();
     }
 
     // the block has its own General and Style tabs; without this WordPress adds its Settings/Styles tabs above them for the margin control

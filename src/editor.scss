@@ -85,3 +85,21 @@
 	font-weight: 600;
 }
 
+
+// the shortcode of this book (Settings/General/General.js)
+.alfbShortcode {
+	margin-top: 16px;
+}
+
+.alfbShortcodeRow {
+	display: flex;
+	gap: 6px;
+	margin-top: 8px;
+
+	input {
+		flex: 1;
+		min-width: 0;
+		font-family: Menlo, Consolas, monospace;
+		font-size: 12px;
+	}
+}

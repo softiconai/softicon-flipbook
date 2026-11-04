@@ -5,6 +5,8 @@ import { Button, ExternalLink, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
+import { toShortcode } from '../../../../utils/shortcode';
+import { hasContent } from '../../../../utils/functions';
 
 // the number can be emptied while typing; it becomes a page (1 or more) when the field loses focus
 const StartPage = ({ value, onChange }) => {
@@ -22,6 +24,35 @@ const StartPage = ({ value, onChange }) => {
 
 // set by includes/block.php
 const editorInfo = window.alfbEditor || {};
+
+// this book as a shortcode, for the Classic Editor, Elementor and other builders
+const Shortcode = ({ attributes }) => {
+	const [copied, setCopied] = useState(false);
+	const code = toShortcode(attributes);
+	const copy = event => {
+		const input = event.currentTarget.previousElementSibling;
+		const done = () => {
+			setCopied(true);
+			setTimeout(() => setCopied(false), 1600);
+		};
+		if (window.navigator.clipboard && window.isSecureContext) {
+			window.navigator.clipboard.writeText(code).then(done);
+			return;
+		}
+		// http sites have no clipboard API
+		input.select();
+		if (input.ownerDocument.execCommand('copy')) {
+			done();
+		}
+	};
+	return <div className='alfbShortcode'>
+		<FieldHead label={__('Shortcode', 'softicon-flipbook')} tip={__('For the Classic Editor, Elementor and other page builders: paste it where the book should be. It keeps the settings you chose here.', 'softicon-flipbook')} />
+		<div className='alfbShortcodeRow'>
+			<input type='text' readOnly value={code} onFocus={event => event.target.select()} aria-label={__('Shortcode', 'softicon-flipbook')} />
+			<Button variant='secondary' onClick={copy}>{copied ? __('Copied', 'softicon-flipbook') : __('Copy', 'softicon-flipbook')}</Button>
+		</div>
+	</div>;
+};
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
 	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
@@ -41,6 +72,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			<HelpCards cards={helpCards} />
 			<p className='alfbHelp'><ExternalLink href={videos.settings}>{__('Every setting explained, in 2 minutes', 'softicon-flipbook')}</ExternalLink></p>
 			<p className='alfbHelp'>{__('Email:', 'softicon-flipbook')} <a href='mailto:softiconai@gmail.com'>softiconai@gmail.com</a></p>
+			{hasContent(attributes) && <Shortcode attributes={attributes} />}
 		</Panel>
 
 		<Panel id='source' title={__('Source', 'softicon-flipbook')}>
