@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -69,6 +69,8 @@ Pro replaces the free plugin when you activate it, and every book you made keeps
   Also from the pdfjs-dist package: the JavaScript builds of the OpenJPEG (BSD-2) and JBIG2 (BSD-3) image decoders in build/pdfjs/decoders, the Foxit (BSD-3) and Liberation (GPLv2 with font exception) standard fonts in build/pdfjs/standard_fonts, and the Adobe CMaps (BSD-3) in build/pdfjs/cmaps, each with its license file. The fonts and CMaps are binary data files; the build stores each one unchanged as a base64 string in a .json file, which the plugin decodes back to the original bytes for pdf.js.
 * StPageFlip 2.0.7 (npm package page-flip) by Nodlik – [github.com/Nodlik/StPageFlip](https://github.com/Nodlik/StPageFlip) – MIT License. License in build/page-flip-LICENSE.txt.
 * Freemius Checkout 1.5.1 (npm package @freemius/checkout) by Freemius – [github.com/Freemius/freemius-checkout-js](https://github.com/Freemius/freemius-checkout-js) – MIT License. Bundled in build/dashboard.js, it opens the Pro checkout window on the Flipbook dashboard when you click Get Pro. License in build/freemius-checkout-LICENSE.txt.
+
+The demo PDFs in assets/demo use the Inter font by Rasmus Andersson – [rsms.me/inter](https://rsms.me/inter/) – SIL Open Font License 1.1, embedded as subsets. Their HTML source is in the plugin's GitHub repository (tools/demo-pdf).
 
 The unminified source of this plugin is in the src folder, with package.json and webpack.config.js. Build it with `npm install` and `npm run build`; the build copies the pdf.js files from node_modules/pdfjs-dist.
 
@@ -193,6 +195,14 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 9. The Flipbook dashboard with live demos, video tutorials and help.
 
 == Changelog ==
+
+= 1.5.1 =
+* New: "Create a flipbook" on the dashboard opens a new page that already has a flipbook of a demo PDF. Replace it with your own PDF and publish.
+* New: Pricing and Free vs Pro show our 14-day money-back guarantee and the email to write to; the Help tab and the FAQ say the same.
+* New: a short review request on the Flipbook dashboard, only after you have published a flipbook. "Maybe later" hides it for 30 days, the other answers for good.
+* Changed: the demo PDFs use the open Inter font, and the room guide has a bookmark for each chapter.
+* Changed: the checkout shows the plugin icon from WordPress.org, so it loads on any site and your site address is not sent.
+* Fix: dashboard tabs no longer keep a focus ring after a mouse click (the keyboard still gets one), and nine tabs fit on one line.
 
 = 1.5.0 =
 * New: Search in the book. A search button lists the pages that contain the words, with an excerpt; a click opens that page. On by default for PDFs.

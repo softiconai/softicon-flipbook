@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.5.0\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-04T01:47:37+00:00\n"
+"POT-Creation-Date: 2026-11-04T12:44:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -42,7 +42,7 @@ msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:58
-#: includes/dashboard.php:155
+#: includes/dashboard.php:157
 #: build/dashboard.js:1
 #: build/index.js:8
 #: build/view.js:7
@@ -53,74 +53,74 @@ msgstr ""
 msgid "Open the PDF"
 msgstr ""
 
-#: includes/dashboard.php:57
+#: includes/dashboard.php:59
 msgid "Overview in one minute"
 msgstr ""
 
-#: includes/dashboard.php:58
+#: includes/dashboard.php:60
 msgid "Add a flipbook"
 msgstr ""
 
-#: includes/dashboard.php:59
+#: includes/dashboard.php:61
 msgid "Lightbox: covers that open a popup"
 msgstr ""
 
-#: includes/dashboard.php:60
+#: includes/dashboard.php:62
 msgid "Hardcover design"
 msgstr ""
 
-#: includes/dashboard.php:61
+#: includes/dashboard.php:63
 msgid "Reading features"
 msgstr ""
 
-#: includes/dashboard.php:62
+#: includes/dashboard.php:64
 msgid "Every setting explained"
 msgstr ""
 
-#: includes/dashboard.php:154
-#: includes/dashboard.php:288
+#: includes/dashboard.php:156
+#: includes/dashboard.php:342
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:165
+#: includes/dashboard.php:167
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:167
-#: includes/dashboard.php:209
+#: includes/dashboard.php:169
+#: includes/dashboard.php:211
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:174
+#: includes/dashboard.php:176
 #: build/dashboard.js:1
 #: build/dashboard.js:3
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:204
+#: includes/dashboard.php:206
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:205
+#: includes/dashboard.php:207
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:208
+#: includes/dashboard.php:210
 #: build/dashboard.js:3
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:211
+#: includes/dashboard.php:213
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:288
+#: includes/dashboard.php:342
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:292
+#: includes/dashboard.php:346
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -374,6 +374,27 @@ msgstr ""
 
 #: build/dashboard.js:1
 msgid "Dismiss this notice."
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Enjoying SoftIcon Flipbook?"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "A quick review on WordPress.org helps other people find it, and it means a lot to our small team."
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/dashboard.js:3
+msgid "Leave a review"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Maybe later"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "I already did"
 msgstr ""
 
 #: build/dashboard.js:1
@@ -689,10 +710,6 @@ msgstr ""
 
 #: build/dashboard.js:3
 msgid "Like the plugin?"
-msgstr ""
-
-#: build/dashboard.js:3
-msgid "Leave a review"
 msgstr ""
 
 #: build/dashboard.js:3
