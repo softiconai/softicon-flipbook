@@ -240,7 +240,8 @@ class dashboard {
             'lockedTabs' => self::locked() ? array_values( (array) apply_filters( 'alfb_dashboard_locked_tabs', array() ) ) : array(),
             'activate'   => self::locked() ? esc_url_raw( (string) apply_filters( 'alfb_activate_url', '' ) ) : '',
             'urls'    => array(
-                'newPage'  => admin_url( 'post-new.php?post_type=page' ),
+                // a new page that starts with a flipbook of the demo PDF (src/index.js)
+                'newPage'  => admin_url( 'post-new.php?post_type=page&alfb_start=1' ),
                 // the sample PDFs the Demos tab shows
                 'demo'     => ALFB_PLUGIN_URL . 'assets/demo/',
                 'playlist' => self::PLAYLIST,
