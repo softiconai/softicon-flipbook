@@ -3,8 +3,8 @@ namespace ALFB_Flipbook;
 
 if ( !defined('ABSPATH') ) { exit; }
 
-// Books for the Classic Editor and page builders: Flipbook → Books holds one Flipbook block per book (set up in the
-// block editor), and [softicon_flipbook id="123"] shows that book anywhere a shortcode works
+// Flipbooks for the Classic Editor and page builders: Flipbook → All Flipbooks holds one Flipbook block per flipbook (set up
+// in the block editor), and [softicon_flipbook id="123"] shows it anywhere a shortcode works. The post type stays alfb_book
 class shortcode {
 
     const TYPE = 'alfb_book';
@@ -21,15 +21,15 @@ class shortcode {
     public static function post_type() {
         register_post_type( self::TYPE, array(
             'labels'          => array(
-                'name'          => __('Books', 'softicon-flipbook'),
-                'singular_name' => __('Book', 'softicon-flipbook'),
-                'add_new'       => __('Add a book', 'softicon-flipbook'),
-                'add_new_item'  => __('Add a book', 'softicon-flipbook'),
-                'edit_item'     => __('Edit book', 'softicon-flipbook'),
-                'all_items'     => __('Books', 'softicon-flipbook'),
-                'not_found'     => __('No books yet.', 'softicon-flipbook'),
-                'not_found_in_trash' => __('No books in the trash.', 'softicon-flipbook'),
-                'search_items'  => __('Search books', 'softicon-flipbook'),
+                'name'          => __('Flipbooks', 'softicon-flipbook'),
+                'singular_name' => __('Flipbook', 'softicon-flipbook'),
+                'add_new'       => __('Add a flipbook', 'softicon-flipbook'),
+                'add_new_item'  => __('Add a flipbook', 'softicon-flipbook'),
+                'edit_item'     => __('Edit flipbook', 'softicon-flipbook'),
+                'all_items'     => __('All Flipbooks', 'softicon-flipbook'),
+                'not_found'     => __('No flipbooks yet.', 'softicon-flipbook'),
+                'not_found_in_trash' => __('No flipbooks in the trash.', 'softicon-flipbook'),
+                'search_items'  => __('Search flipbooks', 'softicon-flipbook'),
             ),
             'public'          => false,
             'show_ui'         => true,
@@ -65,7 +65,7 @@ class shortcode {
         return $html;
     }
 
-    // the Books list shows each book's shortcode; a click copies it
+    // the All Flipbooks list shows each flipbook's shortcode; a click copies it
     public static function columns( $columns ) {
         $date = isset( $columns['date'] ) ? array( 'date' => $columns['date'] ) : array();
         unset( $columns['date'] );

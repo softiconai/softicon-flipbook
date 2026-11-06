@@ -13,7 +13,7 @@ class dashboard {
 
     public function __construct()
     {
-        add_action('admin_menu', array( $this, 'menu' ), 9); // before WordPress adds Books under it
+        add_action('admin_menu', array( $this, 'menu' ), 9); // before WordPress adds All Flipbooks under it
         add_action('admin_enqueue_scripts', array( $this, 'enqueue_assets' ));
         add_filter('plugin_action_links_' . plugin_basename( ALFB_PLUGIN_PATH . 'softicon-flipbook.php' ), array( $this, 'action_links' ));
         add_filter('plugin_row_meta', array( $this, 'row_meta' ), 10, 2);
@@ -53,16 +53,26 @@ class dashboard {
         return null;
     }
 
-    // the tutorials; a click plays one in a popup on the dashboard
+    // the tutorials; a click plays one in a popup on the dashboard. Free shows what Pro adds in one video, Pro each Pro feature
     public static function videos() {
-        return array(
+        $videos = array(
             'https://www.youtube.com/watch?v=5geq69DXoN8' => __('Overview in one minute', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=KGP_xpi8NGo' => __('Add a flipbook', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=XBJuUV9HpkA' => __('Lightbox: covers that open a popup', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=qqQeZQkX5ms' => __('Hardcover design', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=1J7wCaUvugc' => __('Reading features', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=H9IxgIocY68' => __('Every setting explained', 'softicon-flipbook'),
+            'https://www.youtube.com/watch?v=LtCj7-J2qXI' => __('Pro: every Pro feature in one minute', 'softicon-flipbook'),
         );
+        if ( self::is_pro() ) {
+            $videos += array(
+                'https://www.youtube.com/watch?v=9UY2KNYzkGk' => __('Pro: a shelf of books', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=fS5RMGkPQXk' => __('Pro: page buttons', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=GxbrW_pyAdA' => __('Pro: lead capture', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=5UNgRO22s_Q' => __('Pro: protection and password', 'softicon-flipbook'),
+            );
+        }
+        return $videos;
     }
 
     /* ----- plans, features and prices, all set in Freemius ----- */
@@ -161,7 +171,7 @@ class dashboard {
             'dashicons-book-alt',
             58
         );
-        // with Books under it (includes/shortcode.php) the menu needs its own first item
+        // with All Flipbooks under it (includes/shortcode.php) the menu needs its own first item
         add_submenu_page( self::PAGE, __('SoftIcon Flipbook', 'softicon-flipbook'), __('Dashboard', 'softicon-flipbook'), 'manage_options', self::PAGE, array( $this, 'render' ) );
     }
 

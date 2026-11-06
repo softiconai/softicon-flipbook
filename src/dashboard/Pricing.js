@@ -4,6 +4,8 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { Checkout } from '@freemius/checkout';
 import { useApi } from './api';
 import Status from './Status';
+import VideoLink from './VideoLink';
+import { videos } from '../utils/options';
 
 const symbols = { usd: '$', eur: '€', gbp: '£', aud: 'A$', cad: 'C$' };
 
@@ -86,7 +88,12 @@ const Intro = ({ eyebrow, title, children }) => <div className='alfb-intro'>
 
 const usePlans = () => useApi('/alfb/v1/dashboard/plans');
 
-export const Pricing = () => {
+// every Pro feature in one minute, played in the dashboard's popup
+const ProVideo = ({ play }) => <p><VideoLink url={videos.pro} title={__('Every Pro feature in one minute', 'softicon-flipbook')} play={play}>
+	<span className='dashicons dashicons-video-alt3' aria-hidden='true' /> {__('Watch every Pro feature in one minute', 'softicon-flipbook')}
+</VideoLink></p>;
+
+export const Pricing = ({ play }) => {
 	const { data, error, loading } = usePlans();
 	if (loading || error) {
 		return <Status error={error} />;
@@ -97,6 +104,7 @@ export const Pricing = () => {
 	return <>
 		<Intro eyebrow={__('Pricing', 'softicon-flipbook')} title={once ? __('Pay once, use it for life', 'softicon-flipbook') : __('Pick your plan', 'softicon-flipbook')}>
 			<p>{__('Every plan has all Pro features; pick how many websites you need.', 'softicon-flipbook')}</p>
+			<ProVideo play={play} />
 		</Intro>
 
 		{plan ? <div className='alfb-plans alfb-plans-3'>
@@ -127,7 +135,7 @@ const Mark = ({ yes }) => <span className={'alfb-mark ' + (yes ? 'is-yes' : 'is-
 	<span className='screen-reader-text'>{yes ? __('Included', 'softicon-flipbook') : __('Not included', 'softicon-flipbook')}</span>
 </span>;
 
-export const Compare = () => {
+export const Compare = ({ play }) => {
 	const { data, error, loading } = usePlans();
 	const [filter, setFilter] = useState('');
 	if (loading || error) {
@@ -150,6 +158,7 @@ export const Compare = () => {
 				{/* translators: %s: number of features */}
 				{createInterpolateElement(sprintf(__('See what you get when you upgrade. %s features are only in Pro.', 'softicon-flipbook'), '<strong>' + data.pro_only.length.toLocaleString() + '</strong>'), { strong: <strong /> })}
 			</p>}
+			<ProVideo play={play} />
 		</Intro>
 
 		<div className='alfb-plans'>

@@ -27,7 +27,13 @@ export const videos = {
 	reading: 'https://www.youtube.com/watch?v=1J7wCaUvugc' + LIST,
 	lightbox: 'https://www.youtube.com/watch?v=XBJuUV9HpkA' + LIST,
 	settings: 'https://www.youtube.com/watch?v=H9IxgIocY68' + LIST,
-	promo: 'https://www.youtube.com/watch?v=Oj9sHOZbb3A' + LIST
+	promo: 'https://www.youtube.com/watch?v=Oj9sHOZbb3A' + LIST,
+	// Pro features
+	shelf: 'https://www.youtube.com/watch?v=9UY2KNYzkGk' + LIST,
+	buttons: 'https://www.youtube.com/watch?v=fS5RMGkPQXk' + LIST,
+	leads: 'https://www.youtube.com/watch?v=GxbrW_pyAdA' + LIST,
+	protect: 'https://www.youtube.com/watch?v=5UNgRO22s_Q' + LIST,
+	pro: 'https://www.youtube.com/watch?v=LtCj7-J2qXI' + LIST
 };
 
 export const designs = [

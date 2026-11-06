@@ -24,7 +24,7 @@ const StartPage = ({ value, onChange }) => {
 // set by includes/block.php
 const editorInfo = window.alfbEditor || {};
 
-// a book under Flipbook → Books (includes/shortcode.php): its shortcode, for the Classic Editor and page builders
+// a flipbook under Flipbook → All Flipbooks (includes/shortcode.php): its shortcode, for the Classic Editor and page builders
 const Shortcode = () => {
 	const [copied, setCopied] = useState(false);
 	const { type, id, published } = useSelect(select => {
@@ -52,12 +52,12 @@ const Shortcode = () => {
 		}
 	};
 	return <div className='alfbShortcode'>
-		<FieldHead label={__('Shortcode', 'softicon-flipbook')} tip={__('Paste it in the Classic Editor, Elementor or any page builder to show this book there.', 'softicon-flipbook')} />
+		<FieldHead label={__('Shortcode', 'softicon-flipbook')} tip={__('Paste it in the Classic Editor, Elementor or any page builder to show this flipbook there.', 'softicon-flipbook')} />
 		<div className='alfbShortcodeRow'>
 			<input type='text' readOnly value={code} onFocus={event => event.target.select()} aria-label={__('Shortcode', 'softicon-flipbook')} />
 			<Button variant='secondary' onClick={copy}>{copied ? __('Copied', 'softicon-flipbook') : __('Copy', 'softicon-flipbook')}</Button>
 		</div>
-		{!published && <p className='alfbHelp'>{__('It shows the book once the book is published.', 'softicon-flipbook')}</p>}
+		{!published && <p className='alfbHelp'>{__('It shows the flipbook once it is published.', 'softicon-flipbook')}</p>}
 	</div>;
 };
 
@@ -140,15 +140,19 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 		{!editorInfo.pro && <>
 			<Panel id='buttons' title={__('Page buttons', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('A button on a chosen page, such as a link or a WooCommerce product with its price, is available in Pro.', 'softicon-flipbook')} />
+				<p className='alfbHelp'><ExternalLink href={videos.buttons}>{__('Watch page buttons in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
 			</Panel>
 			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')} />
+				<p className='alfbHelp'><ExternalLink href={videos.leads}>{__('Watch lead capture in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
 			</Panel>
 			<Panel id='shelf' title={__('Shelf', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Showing many books on one shelf, each opening in a popup, is available in Pro.', 'softicon-flipbook')} />
+				<p className='alfbHelp'><ExternalLink href={videos.shelf}>{__('Watch the shelf in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
 			</Panel>
 			<Panel id='protect' title={__('Protection', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Protecting the PDF (a password, no download button, no right-click, the PDF address kept out of the page) is available in Pro.', 'softicon-flipbook')} />
+				<p className='alfbHelp'><ExternalLink href={videos.protect}>{__('Watch protection in 40 seconds', 'softicon-flipbook')}</ExternalLink></p>
 			</Panel>
 		</>}
 	</>;

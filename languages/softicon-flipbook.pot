@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-04T14:39:33+00:00\n"
+"POT-Creation-Date: 2026-11-06T04:38:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -42,7 +42,8 @@ msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:58
-#: includes/dashboard.php:157
+#: includes/dashboard.php:167
+#: includes/shortcode.php:25
 #: build/dashboard.js:1
 #: build/index.js:8
 #: build/view.js:7
@@ -58,6 +59,8 @@ msgid "Overview in one minute"
 msgstr ""
 
 #: includes/dashboard.php:60
+#: includes/shortcode.php:26
+#: includes/shortcode.php:27
 msgid "Add a flipbook"
 msgstr ""
 
@@ -77,83 +80,97 @@ msgstr ""
 msgid "Every setting explained"
 msgstr ""
 
-#: includes/dashboard.php:156
-#: includes/dashboard.php:165
-#: includes/dashboard.php:343
+#: includes/dashboard.php:65
+msgid "Pro: every Pro feature in one minute"
+msgstr ""
+
+#: includes/dashboard.php:69
+msgid "Pro: a shelf of books"
+msgstr ""
+
+#: includes/dashboard.php:70
+msgid "Pro: page buttons"
+msgstr ""
+
+#: includes/dashboard.php:71
+msgid "Pro: lead capture"
+msgstr ""
+
+#: includes/dashboard.php:72
+msgid "Pro: protection and password"
+msgstr ""
+
+#: includes/dashboard.php:166
+#: includes/dashboard.php:175
+#: includes/dashboard.php:353
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:165
-#: includes/dashboard.php:169
+#: includes/dashboard.php:175
+#: includes/dashboard.php:179
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:171
-#: includes/dashboard.php:213
+#: includes/dashboard.php:181
+#: includes/dashboard.php:223
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:178
+#: includes/dashboard.php:188
 #: build/dashboard.js:1
 #: build/dashboard.js:3
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:208
+#: includes/dashboard.php:218
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:209
+#: includes/dashboard.php:219
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:212
+#: includes/dashboard.php:222
 #: build/dashboard.js:3
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:215
+#: includes/dashboard.php:225
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:343
+#: includes/dashboard.php:353
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:347
+#: includes/dashboard.php:357
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
 #: includes/shortcode.php:24
-#: includes/shortcode.php:29
-msgid "Books"
-msgstr ""
-
-#: includes/shortcode.php:25
-msgid "Book"
-msgstr ""
-
-#: includes/shortcode.php:26
-#: includes/shortcode.php:27
-msgid "Add a book"
+msgid "Flipbooks"
 msgstr ""
 
 #: includes/shortcode.php:28
-msgid "Edit book"
+msgid "Edit flipbook"
+msgstr ""
+
+#: includes/shortcode.php:29
+msgid "All Flipbooks"
 msgstr ""
 
 #: includes/shortcode.php:30
-msgid "No books yet."
+msgid "No flipbooks yet."
 msgstr ""
 
 #: includes/shortcode.php:31
-msgid "No books in the trash."
+msgid "No flipbooks in the trash."
 msgstr ""
 
 #: includes/shortcode.php:32
-msgid "Search books"
+msgid "Search flipbooks"
 msgstr ""
 
 #: includes/shortcode.php:72
@@ -572,6 +589,91 @@ msgid "Loading…"
 msgstr ""
 
 #: build/dashboard.js:1
+#: build/index.js:2
+msgid "General"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Style"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Auto"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Two pages"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "One page"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "PDF file"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Images"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Classic"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Cover"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Button"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Text link"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Left"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Center"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Right"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Get support"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "Rate Flipbook"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
+msgid "More plugins"
+msgstr ""
+
+#: build/dashboard.js:1
 msgid "Try Pro without risk"
 msgstr ""
 
@@ -636,6 +738,14 @@ msgstr ""
 
 #: build/dashboard.js:3
 msgid "SoftIcon Flipbook Pro is coming soon."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Every Pro feature in one minute"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Watch every Pro feature in one minute"
 msgstr ""
 
 #: build/dashboard.js:3
@@ -777,74 +887,6 @@ msgid "(opens in a new tab)"
 msgstr ""
 
 #: build/index.js:2
-msgid "General"
-msgstr ""
-
-#: build/index.js:2
-msgid "Style"
-msgstr ""
-
-#: build/index.js:2
-msgid "Auto"
-msgstr ""
-
-#: build/index.js:2
-msgid "Two pages"
-msgstr ""
-
-#: build/index.js:2
-msgid "One page"
-msgstr ""
-
-#: build/index.js:2
-msgid "PDF file"
-msgstr ""
-
-#: build/index.js:2
-msgid "Images"
-msgstr ""
-
-#: build/index.js:2
-msgid "Classic"
-msgstr ""
-
-#: build/index.js:2
-msgid "Cover"
-msgstr ""
-
-#: build/index.js:2
-msgid "Button"
-msgstr ""
-
-#: build/index.js:2
-msgid "Text link"
-msgstr ""
-
-#: build/index.js:2
-msgid "Left"
-msgstr ""
-
-#: build/index.js:2
-msgid "Center"
-msgstr ""
-
-#: build/index.js:2
-msgid "Right"
-msgstr ""
-
-#: build/index.js:2
-msgid "Get support"
-msgstr ""
-
-#: build/index.js:2
-msgid "Rate Flipbook"
-msgstr ""
-
-#: build/index.js:2
-msgid "More plugins"
-msgstr ""
-
-#: build/index.js:2
 msgid "Unlock with Pro"
 msgstr ""
 
@@ -853,7 +895,7 @@ msgid "Open at page"
 msgstr ""
 
 #: build/index.js:2
-msgid "Paste it in the Classic Editor, Elementor or any page builder to show this book there."
+msgid "Paste it in the Classic Editor, Elementor or any page builder to show this flipbook there."
 msgstr ""
 
 #: build/index.js:2
@@ -861,7 +903,7 @@ msgid "Copy"
 msgstr ""
 
 #: build/index.js:2
-msgid "It shows the book once the book is published."
+msgid "It shows the flipbook once it is published."
 msgstr ""
 
 #: build/index.js:2
@@ -1031,11 +1073,19 @@ msgid "A button on a chosen page, such as a link or a WooCommerce product with i
 msgstr ""
 
 #: build/index.js:2
+msgid "Watch page buttons in 45 seconds"
+msgstr ""
+
+#: build/index.js:2
 msgid "Lead capture"
 msgstr ""
 
 #: build/index.js:2
 msgid "Asking readers for their email after a few pages is available in Pro. The leads are saved on your site."
+msgstr ""
+
+#: build/index.js:2
+msgid "Watch lead capture in 45 seconds"
 msgstr ""
 
 #: build/index.js:2
@@ -1047,11 +1097,19 @@ msgid "Showing many books on one shelf, each opening in a popup, is available in
 msgstr ""
 
 #: build/index.js:2
+msgid "Watch the shelf in 45 seconds"
+msgstr ""
+
+#: build/index.js:2
 msgid "Protection"
 msgstr ""
 
 #: build/index.js:2
 msgid "Protecting the PDF (a password, no download button, no right-click, the PDF address kept out of the page) is available in Pro."
+msgstr ""
+
+#: build/index.js:2
+msgid "Watch protection in 40 seconds"
 msgstr ""
 
 #: build/index.js:2

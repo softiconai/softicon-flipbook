@@ -12,7 +12,7 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 == Description ==
 
-**SoftIcon Flipbook** turns your brochures, magazines, catalogs, menus and ebooks into a realistic page-turning book, right inside the block editor. Add the **Flipbook** block, pick a PDF and you see the finished book in the editor – no shortcodes, no separate "flipbook" screens.
+**SoftIcon Flipbook** turns your brochures, magazines, catalogs, menus and ebooks into a realistic page-turning book, right inside the block editor. Add the **Flipbook** block, pick a PDF and you see the finished book in the editor. For the Classic Editor and page builders, every flipbook also has a shortcode.
 
 https://www.youtube.com/watch?v=5geq69DXoN8
 
@@ -47,18 +47,20 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 * Fullscreen that fits the book to the screen, with an iPhone fallback
 * Maximum height and colors for background, toolbar and icons
 * Wide and full width alignment
-* Books with a shortcode, such as `[softicon_flipbook id="123"]`, for the Classic Editor, Elementor and other page builders
+* Flipbooks with a shortcode, such as `[softicon_flipbook id="123"]`, for the Classic Editor, Elementor and other page builders
 
 = SoftIcon Flipbook Pro =
 
 Everything above stays free, with no limits on books or pages. SoftIcon Flipbook Pro is a separate plugin for sites that want more from their books:
 
-* **Shelf of books** – show many books on a wooden shelf; a click on a cover opens that book in a popup.
-* **Lead capture** – ask readers for their name and email after the pages you choose. Leads are saved on your site, with CSV download and an email for each new lead.
+* **Shelf of books** – show many books on a wooden shelf; a click on a cover opens that book in a popup. [Watch the shelf](https://www.youtube.com/watch?v=9UY2KNYzkGk&list=PLJEAefIarF4g).
+* **Lead capture** – ask readers for their name and email after the pages you choose. Leads are saved on your site, with CSV download and an email for each new lead. [Watch lead capture](https://www.youtube.com/watch?v=GxbrW_pyAdA&list=PLJEAefIarF4g).
 * **Reading analytics** – opens per book, the most read pages and a daily chart, with no cookies.
 * **PDF protection** – no download button, no right-click saving, and the PDF address kept out of the page.
-* **Password for a book** – readers type a password to open it; the password is checked on your site and never put in the page.
-* **Page buttons** – a button under the book while a chosen page is open, linking anywhere or to a WooCommerce product with its name and price.
+* **Password for a book** – readers type a password to open it; the password is checked on your site and never put in the page. [Watch protection and the password](https://www.youtube.com/watch?v=5UNgRO22s_Q&list=PLJEAefIarF4g).
+* **Page buttons** – a button under the book while a chosen page is open, linking anywhere or to a WooCommerce product with its name and price. [Watch page buttons](https://www.youtube.com/watch?v=fS5RMGkPQXk&list=PLJEAefIarF4g).
+
+See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qXI&list=PLJEAefIarF4g).
 
 Pro replaces the free plugin when you activate it, and every book you made keeps working. Prices and a full comparison are in Flipbook → Pricing in your dashboard.
 
@@ -117,7 +119,7 @@ Yes. The block tells its script where the plugin's files are, so combining or mo
 
 = Does it work with the Classic Editor or page builders? =
 
-Yes. In the block editor add the Flipbook block. For the Classic Editor, Elementor, Divi or a widget, go to Flipbook → Books, add a book and set it up in the block editor, then publish it. The Books list shows its shortcode, such as `[softicon_flipbook id="123"]`; paste it where the book should be. Change the book there later and every page with its shortcode shows the change.
+Yes. In the block editor add the Flipbook block. For the Classic Editor, Elementor, Divi or a widget, go to Flipbook → All Flipbooks, click Add a flipbook and set it up in the block editor, then publish it. The list shows its shortcode, such as `[softicon_flipbook id="123"]`; paste it where the flipbook should be. Change the flipbook there later and every page with its shortcode shows the change.
 
 = How do I link to a specific page? =
 
@@ -198,12 +200,15 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 == Changelog ==
 
 = 1.5.1 =
+* New: a shortcode for the Classic Editor, Elementor and other page builders. Make a flipbook under Flipbook → All Flipbooks, publish it and paste its shortcode, such as `[softicon_flipbook id="123"]`.
 * New: "Create a flipbook" on the dashboard opens a new page that already has a flipbook of a demo PDF. Replace it with your own PDF and publish.
 * New: Pricing and Free vs Pro show our 14-day money-back guarantee and the email to write to; the Help tab and the FAQ say the same.
 * New: a short review request on the Flipbook dashboard, only after you have published a flipbook. "Maybe later" hides it for 30 days, the other answers for good.
+* New: short videos of the Pro features: under each Pro panel of the block, on Pricing and Free vs Pro, and in the dashboard's video tutorials.
 * Changed: the demo PDFs use the open Inter font, and the room guide has a bookmark for each chapter.
 * Changed: the checkout shows the product icon kept by Freemius, so it loads on any site and your site address is not sent.
 * Fix: dashboard tabs no longer keep a focus ring after a mouse click (the keyboard still gets one), and nine tabs fit on one line.
+* Fix: with one page at a time, a page turned back no longer swings in from outside the book.
 
 = 1.5.0 =
 * New: Search in the book. A search button lists the pages that contain the words, with an excerpt; a click opens that page. On by default for PDFs.
