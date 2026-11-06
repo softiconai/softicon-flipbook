@@ -62,6 +62,7 @@ class dashboard {
             'https://www.youtube.com/watch?v=qqQeZQkX5ms' => __('Hardcover design', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=1J7wCaUvugc' => __('Reading features', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=H9IxgIocY68' => __('Every setting explained', 'softicon-flipbook'),
+            'https://www.youtube.com/watch?v=slQlR4GTghg' => __('Shortcode: the Classic Editor and Elementor', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=LtCj7-J2qXI' => __('Pro: every Pro feature in one minute', 'softicon-flipbook'),
         );
         if ( self::is_pro() ) {

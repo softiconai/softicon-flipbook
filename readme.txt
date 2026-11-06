@@ -16,7 +16,7 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 https://www.youtube.com/watch?v=5geq69DXoN8
 
-Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
+Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g) and [the shortcode for the Classic Editor and Elementor](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
 
 = Why choose SoftIcon Flipbook? =
 
@@ -119,7 +119,7 @@ Yes. The block tells its script where the plugin's files are, so combining or mo
 
 = Does it work with the Classic Editor or page builders? =
 
-Yes. In the block editor add the Flipbook block. For the Classic Editor, Elementor, Divi or a widget, go to Flipbook → All Flipbooks, click Add a flipbook and set it up in the block editor, then publish it. The list shows its shortcode, such as `[softicon_flipbook id="123"]`; paste it where the flipbook should be. Change the flipbook there later and every page with its shortcode shows the change.
+Yes. In the block editor add the Flipbook block. For the Classic Editor, Elementor, Divi or a widget, go to Flipbook → All Flipbooks, click Add a flipbook and set it up in the block editor, then publish it. The list shows its shortcode, such as `[softicon_flipbook id="123"]`; paste it where the flipbook should be. Change the flipbook there later and every page with its shortcode shows the change. Watch the [shortcode video](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g).
 
 = How do I link to a specific page? =
 

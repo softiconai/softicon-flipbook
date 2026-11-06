@@ -28,6 +28,7 @@ export const videos = {
 	lightbox: 'https://www.youtube.com/watch?v=XBJuUV9HpkA' + LIST,
 	settings: 'https://www.youtube.com/watch?v=H9IxgIocY68' + LIST,
 	promo: 'https://www.youtube.com/watch?v=Oj9sHOZbb3A' + LIST,
+	shortcode: 'https://www.youtube.com/watch?v=slQlR4GTghg' + LIST,
 	// Pro features
 	shelf: 'https://www.youtube.com/watch?v=9UY2KNYzkGk' + LIST,
 	buttons: 'https://www.youtube.com/watch?v=fS5RMGkPQXk' + LIST,

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-06T04:51:37+00:00\n"
+"POT-Creation-Date: 2026-11-06T05:58:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -42,8 +42,8 @@ msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:58
-#: includes/dashboard.php:167
-#: includes/shortcode.php:25
+#: includes/dashboard.php:168
+#: includes/shortcode.php:32
 #: build/dashboard.js:1
 #: build/index.js:8
 #: build/view.js:7
@@ -59,8 +59,8 @@ msgid "Overview in one minute"
 msgstr ""
 
 #: includes/dashboard.php:60
-#: includes/shortcode.php:26
-#: includes/shortcode.php:27
+#: includes/shortcode.php:33
+#: includes/shortcode.php:34
 msgid "Add a flipbook"
 msgstr ""
 
@@ -81,109 +81,113 @@ msgid "Every setting explained"
 msgstr ""
 
 #: includes/dashboard.php:65
+msgid "Shortcode: the Classic Editor and Elementor"
+msgstr ""
+
+#: includes/dashboard.php:66
 msgid "Pro: every Pro feature in one minute"
 msgstr ""
 
-#: includes/dashboard.php:69
+#: includes/dashboard.php:70
 msgid "Pro: a shelf of books"
 msgstr ""
 
-#: includes/dashboard.php:70
+#: includes/dashboard.php:71
 msgid "Pro: page buttons"
 msgstr ""
 
-#: includes/dashboard.php:71
+#: includes/dashboard.php:72
 msgid "Pro: lead capture"
 msgstr ""
 
-#: includes/dashboard.php:72
+#: includes/dashboard.php:73
 msgid "Pro: protection and password"
 msgstr ""
 
-#: includes/dashboard.php:166
-#: includes/dashboard.php:175
-#: includes/dashboard.php:353
+#: includes/dashboard.php:167
+#: includes/dashboard.php:176
+#: includes/dashboard.php:354
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:175
-#: includes/dashboard.php:179
+#: includes/dashboard.php:176
+#: includes/dashboard.php:180
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:181
-#: includes/dashboard.php:223
+#: includes/dashboard.php:182
+#: includes/dashboard.php:224
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:188
+#: includes/dashboard.php:189
 #: build/dashboard.js:1
 #: build/dashboard.js:3
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:218
+#: includes/dashboard.php:219
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:219
+#: includes/dashboard.php:220
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:222
+#: includes/dashboard.php:223
 #: build/dashboard.js:3
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:225
+#: includes/dashboard.php:226
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:353
+#: includes/dashboard.php:354
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:357
+#: includes/dashboard.php:358
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
-#: includes/shortcode.php:24
+#: includes/shortcode.php:31
 msgid "Flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:28
+#: includes/shortcode.php:35
 msgid "Edit flipbook"
 msgstr ""
 
-#: includes/shortcode.php:29
+#: includes/shortcode.php:36
 msgid "All Flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:30
+#: includes/shortcode.php:37
 msgid "No flipbooks yet."
 msgstr ""
 
-#: includes/shortcode.php:31
+#: includes/shortcode.php:38
 msgid "No flipbooks in the trash."
 msgstr ""
 
-#: includes/shortcode.php:32
+#: includes/shortcode.php:39
 msgid "Search flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:72
-#: includes/shortcode.php:77
+#: includes/shortcode.php:79
+#: includes/shortcode.php:84
 #: build/index.js:2
 msgid "Shortcode"
 msgstr ""
 
-#: includes/shortcode.php:77
+#: includes/shortcode.php:84
 msgid "Click to copy"
 msgstr ""
 
-#: includes/shortcode.php:87
+#: includes/shortcode.php:94
 #: build/index.js:2
 msgid "Copied"
 msgstr ""
@@ -904,6 +908,10 @@ msgstr ""
 
 #: build/index.js:2
 msgid "It shows the flipbook once it is published."
+msgstr ""
+
+#: build/index.js:2
+msgid "Where to paste it: the Classic Editor, Elementor and more"
 msgstr ""
 
 #: build/index.js:2

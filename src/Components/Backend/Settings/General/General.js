@@ -58,6 +58,7 @@ const Shortcode = () => {
 			<Button variant='secondary' onClick={copy}>{copied ? __('Copied', 'softicon-flipbook') : __('Copy', 'softicon-flipbook')}</Button>
 		</div>
 		{!published && <p className='alfbHelp'>{__('It shows the flipbook once it is published.', 'softicon-flipbook')}</p>}
+		<p className='alfbHelp'><ExternalLink href={videos.shortcode}>{__('Where to paste it: the Classic Editor, Elementor and more', 'softicon-flipbook')}</ExternalLink></p>
 	</div>;
 };
 
