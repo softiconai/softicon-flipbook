@@ -15,6 +15,13 @@ class shortcode {
         add_filter( 'manage_' . self::TYPE . '_posts_columns', array( __CLASS__, 'columns' ) );
         add_action( 'manage_' . self::TYPE . '_posts_custom_column', array( __CLASS__, 'column' ), 10, 2 );
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'copy_script' ) );
+        // Elementor's editor preview: the flipbook script and styles from the start, so a Shortcode widget draws its book at once
+        add_action( 'elementor/preview/enqueue_styles', array( __CLASS__, 'builder_preview' ) );
+    }
+
+    public static function builder_preview() {
+        wp_enqueue_script( generate_block_asset_handle( 'softicon/flipbook', 'viewScript' ) );
+        wp_enqueue_style( generate_block_asset_handle( 'softicon/flipbook', 'style' ) );
     }
 
     // not a page of its own on the site: a book shows only where its shortcode is

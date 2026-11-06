@@ -89,6 +89,14 @@ const boot = () => {
 // books added to the page later (the dashboard demos) start on this event
 window.addEventListener('alfb:boot', boot);
 
+// Elementor's editor preview draws a widget again after each change, such as a Shortcode widget with a flipbook
+const elementor = () => window.elementorFrontend?.hooks?.addAction('frontend/element_ready/global', boot);
+if (window.elementorFrontend?.hooks) {
+	elementor();
+} else {
+	window.jQuery?.(window).on('elementor/frontend/init', elementor);
+}
+
 if ('loading' === document.readyState) {
 	document.addEventListener('DOMContentLoaded', boot);
 } else {

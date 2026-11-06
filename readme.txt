@@ -200,7 +200,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 == Changelog ==
 
 = 1.5.1 =
-* New: a shortcode for the Classic Editor, Elementor and other page builders. Make a flipbook under Flipbook → All Flipbooks, publish it and paste its shortcode, such as `[softicon_flipbook id="123"]`.
+* New: a shortcode for the Classic Editor, Elementor and other page builders. Make a flipbook under Flipbook → All Flipbooks, publish it and paste its shortcode, such as `[softicon_flipbook id="123"]`. In Elementor's Shortcode widget the book shows right away in the editor.
 * New: "Create a flipbook" on the dashboard opens a new page that already has a flipbook of a demo PDF. Replace it with your own PDF and publish.
 * New: Pricing and Free vs Pro show our 14-day money-back guarantee and the email to write to; the Help tab and the FAQ say the same.
 * New: a short review request on the Flipbook dashboard, only after you have published a flipbook. "Maybe later" hides it for 30 days, the other answers for good.
