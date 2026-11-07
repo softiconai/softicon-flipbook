@@ -59,6 +59,8 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 * **PDF protection** – no download button, no right-click saving, and the PDF address kept out of the page.
 * **Password for a book** – readers type a password to open it; the password is checked on your site and never put in the page. [Watch protection and the password](https://www.youtube.com/watch?v=5UNgRO22s_Q&list=PLJEAefIarF4g).
 * **Page buttons** – a button under the book while a chosen page is open, linking anywhere or to a WooCommerce product with its name and price. [Watch page buttons](https://www.youtube.com/watch?v=fS5RMGkPQXk&list=PLJEAefIarF4g).
+* **Hotspots** – draw clickable areas on any page: a link, or a WooCommerce product that opens a card with its picture, name and price.
+* **Branding** – your logo in the book's toolbar, with a link, and your own picture behind the book.
 
 See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qXI&list=PLJEAefIarF4g).
 
@@ -198,6 +200,11 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 9. The Flipbook dashboard with live demos, video tutorials and help.
 
 == Changelog ==
+
+= 1.6.0 =
+* New: Autoplay. The book turns its pages by itself while it is on screen, every few seconds you choose, and can start again at the end. It holds under the mouse, stops when a reader takes over, and the toolbar gets a play / pause button. Readers who ask for reduced motion start it themselves.
+* New: Right to left, for Arabic, Hebrew, Urdu or Persian books. The book opens from the right, the next page is on the left, and the arrows and arrow keys follow.
+* New: Fullscreen on phones. The book shows "Tap to read"; one tap opens it full screen.
 
 = 1.5.1 =
 * New: a shortcode for the Classic Editor, Elementor and other page builders. Make a flipbook under Flipbook → All Flipbooks, publish it and paste its shortcode, such as `[softicon_flipbook id="123"]`. In Elementor's Shortcode widget the book shows right away in the editor.

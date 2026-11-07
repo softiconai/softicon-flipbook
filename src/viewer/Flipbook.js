@@ -6,6 +6,7 @@ import Thumbnails from './Thumbnails';
 import Contents from './Contents';
 import Search from './Search';
 import Hardcover from './Hardcover';
+import Autoplay from './Autoplay';
 
 const svg = path => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="${path}"/></svg>`;
 
@@ -21,6 +22,8 @@ const icons = {
 	zoomOut: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9M7 9h5v1H7z'),
 	soundOn: svg('M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4M14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6'),
 	search: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9'),
+	play: svg('M8 5v14l11-7z'),
+	pause: svg('M6 19h4V5H6zm8-14v14h4V5z'),
 	share: svg('M18 16.1c-.8 0-1.4.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8a3 3 0 1 0-3-3c0 .2 0 .5.1.7L8 9.8A3 3 0 1 0 8 14.2l7.1 4.2c-.1.2-.1.4-.1.6a2.9 2.9 0 1 0 3-2.9'),
 	soundOff: svg('M16.5 12A4.5 4.5 0 0 0 14 8v2.2l2.5 2.5zm2.5 0a7 7 0 0 1-.6 2.8l1.5 1.5A9 9 0 0 0 14 3.2v2.1a7 7 0 0 1 5 6.7M4.3 3 3 4.3 7.7 9H3v6h4l5 5v-6.7l4.3 4.3a7 7 0 0 1-2.3 1.2v2.1a9 9 0 0 0 3.7-1.8l2 2 1.3-1.3-9-9zM12 4 9.9 6.1 12 8.2z')
 };
@@ -152,6 +155,9 @@ export default class Flipbook {
 		const startPage = (linked && linkedPage(this.win)) || this.config.startPage;
 		const ratio = size.width / size.height;
 		const maxWidth = Math.max(100, Math.floor(maxHeight * ratio));
+		// right to left: page-flip gets the pages in reverse order; this.pages and every index outside page-flip stay
+		// in reading order (toFlip turns one into page-flip's)
+		this.rtl = !!this.config.rtl;
 		this.ratio = ratio;
 		this.maxWidth = maxWidth;
 
@@ -191,7 +197,7 @@ export default class Flipbook {
 			maxHeight,
 			usePortrait: 'double' !== pageMode,
 			showCover: !!showCover,
-			startPage: Math.min(this.count, Math.max(1, startPage || 1)) - 1,
+			startPage: this.toFlip(Math.min(this.count, Math.max(1, startPage || 1)) - 1),
 			flippingTime: 700,
 			maxShadowOpacity: 0.5,
 			mobileScrollSupport: true,
@@ -201,7 +207,7 @@ export default class Flipbook {
 		});
 		// the book's width before page-flip lays it out: a one page book that starts as a two page spread would open a page early
 		this.fit();
-		this.flip.loadFromHTML(this.pages);
+		this.flip.loadFromHTML(this.rtl ? [...this.pages].reverse() : this.pages);
 
 		// page-flip sets a min-width that overflows small phones
 		this.book.style.minWidth = '0px';
@@ -228,7 +234,15 @@ export default class Flipbook {
 		if (this.config.showSearch && 'pdf' === this.config.source && !this.editor) {
 			this.search = new Search(this);
 		}
+		if (this.config.autoplay && !this.editor && this.count > 1) {
+			this.autoplay = new Autoplay(this);
+		}
 		this.toolbar();
+		this.autoplay?.start();
+		// on a phone the book can open full screen with one tap
+		if (this.config.phoneFullscreen && !this.editor && this.win.matchMedia?.('(max-width: 600px)').matches) {
+			this.tapToRead();
+		}
 		if (this.config.sideArrows) {
 			this.sideArrows();
 		}
@@ -265,14 +279,27 @@ export default class Flipbook {
 	// indexes of the pages currently visible, spreads paired the way page-flip pairs them
 	visible() {
 		const index = this.flip.getCurrentPageIndex();
+		let shown;
 		if ('portrait' === this.flip.getOrientation()) {
-			return [index];
+			shown = [index];
+		} else if (this.config.showCover && 0 === index) {
+			shown = [0];
+		} else {
+			const start = this.config.showCover ? index - ((index + 1) % 2) : index - (index % 2);
+			shown = [start, start + 1].filter(i => i < this.count);
 		}
-		if (this.config.showCover && 0 === index) {
-			return [0];
-		}
-		const start = this.config.showCover ? index - ((index + 1) % 2) : index - (index % 2);
-		return [start, start + 1].filter(i => i < this.count);
+		return this.rtl ? shown.map(i => this.toFlip(i)).sort((a, b) => a - b) : shown;
+	}
+
+	// a page index in reading order to page-flip's order and back (the same sum both ways)
+	toFlip(index) {
+		return this.rtl ? this.count - 1 - index : index;
+	}
+
+	// to a page without the page-turn animation
+	turnTo(index) {
+		this.flip.turnToPage(this.toFlip(Math.min(this.count - 1, Math.max(0, index))));
+		this.onChange();
 	}
 
 	onChange() {
@@ -306,16 +333,25 @@ export default class Flipbook {
 			this.config.startPage = index + 1;
 			return;
 		}
-		index = Math.min(this.count - 1, Math.max(0, index));
+		index = this.toFlip(Math.min(this.count - 1, Math.max(0, index)));
 		return this.zoom?.active ? this.flip.turnToPage(index) : this.flip.flip(index);
 	}
 
 	// no page-turn animation under the zoom view
 	next() {
-		return this.zoom?.active ? this.flip.turnToNextPage() : this.flip.flipNext();
+		return this.rtl ? this.back() : this.forward();
 	}
 
 	prev() {
+		return this.rtl ? this.forward() : this.back();
+	}
+
+	// page-flip's own directions
+	forward() {
+		return this.zoom?.active ? this.flip.turnToNextPage() : this.flip.flipNext();
+	}
+
+	back() {
 		return this.zoom?.active ? this.flip.turnToPrevPage() : this.flip.flipPrev();
 	}
 
@@ -381,6 +417,7 @@ export default class Flipbook {
 				img.decoding = 'async';
 				this.pages[index].replaceChildren(img);
 				this.rendered[index] = 1;
+				this.emit('drawn', { index, page: this.pages[index] });
 			}
 			return;
 		}
@@ -414,6 +451,8 @@ export default class Flipbook {
 			if (this.config.showLinks && !this.editor) {
 				this.addLinks(index);
 			}
+			// add-ons put their own layers on the page again after each draw (alfb:drawn, detail.index and detail.page)
+			this.emit('drawn', { index, page: this.pages[index] });
 		}
 	}
 
@@ -527,6 +566,11 @@ export default class Flipbook {
 		return canvas;
 	}
 
+	// a toolbar icon's markup, for buttons that change their icon (Autoplay)
+	icon(name) {
+		return icons[name];
+	}
+
 	button(name, label, onClick) {
 		const button = this.doc.createElement('button');
 		button.type = 'button';
@@ -542,8 +586,9 @@ export default class Flipbook {
 		const bar = this.doc.createElement('div');
 		bar.className = 'alfb_toolbar';
 
-		this.prevBtn = this.button('prev', __('Previous page', 'softicon-flipbook'), () => this.prev());
-		this.nextBtn = this.button('next', __('Next page', 'softicon-flipbook'), () => this.next());
+		// right to left: the next page is on the left, its arrow points left
+		this.prevBtn = this.button(this.rtl ? 'next' : 'prev', __('Previous page', 'softicon-flipbook'), () => this.prev());
+		this.nextBtn = this.button(this.rtl ? 'prev' : 'next', __('Next page', 'softicon-flipbook'), () => this.next());
 
 		this.counter = this.doc.createElement(this.editor ? 'span' : 'button');
 		this.counter.className = 'alfb_counter';
@@ -556,10 +601,15 @@ export default class Flipbook {
 
 		const nav = this.doc.createElement('div');
 		nav.className = 'alfb_nav';
-		nav.append(this.prevBtn, this.counter, this.nextBtn);
+		nav.append(...(this.rtl ? [this.nextBtn, this.counter, this.prevBtn] : [this.prevBtn, this.counter, this.nextBtn]));
 
 		const tools = this.doc.createElement('div');
 		tools.className = 'alfb_tools';
+
+		if (this.autoplay) {
+			this.autoplay.button = this.button('play', __('Play', 'softicon-flipbook'), () => this.autoplay.toggle());
+			tools.append(this.autoplay.button);
+		}
 
 		if (this.search) {
 			this.searchBtn = this.button('search', __('Search', 'softicon-flipbook'), () => this.search.toggle());
@@ -716,8 +766,20 @@ export default class Flipbook {
 			this.stage.append(button);
 			return button;
 		};
-		this.sidePrev = side('prev', __('Previous page', 'softicon-flipbook'), () => this.prev());
-		this.sideNext = side('next', __('Next page', 'softicon-flipbook'), () => this.next());
+		this.sidePrev = side(this.rtl ? 'next' : 'prev', __('Previous page', 'softicon-flipbook'), () => this.prev());
+		this.sideNext = side(this.rtl ? 'prev' : 'next', __('Next page', 'softicon-flipbook'), () => this.next());
+	}
+
+	// "Tap to read" over the book; a tap opens it full screen, the toolbar's button closes it again
+	tapToRead() {
+		const tap = this.doc.createElement('button');
+		tap.type = 'button';
+		tap.className = 'alfb_tap';
+		tap.innerHTML = `<span>${icons.fullscreen}</span>`;
+		tap.querySelector('span').append(this.doc.createTextNode(__('Tap to read', 'softicon-flipbook')));
+		tap.addEventListener('click', () => this.toggleFullscreen());
+		this.stage.append(tap);
+		this.tap = tap;
 	}
 
 	toggleFullscreen() {
@@ -805,10 +867,11 @@ export default class Flipbook {
 					return;
 				}
 				const zoomKey = this.zoom && !event.ctrlKey && !event.metaKey;
+				// the arrow keys follow the page on screen: right to left, ← is the next page
 				if ('ArrowLeft' === event.key) {
-					this.prev();
+					this.back();
 				} else if ('ArrowRight' === event.key) {
-					this.next();
+					this.forward();
 				} else if (zoomKey && ('+' === event.key || '=' === event.key)) {
 					this.zoom.step(1);
 				} else if (zoomKey && '-' === event.key) {
@@ -861,10 +924,12 @@ export default class Flipbook {
 		this.zoom?.close();
 		this.thumbs?.destroy();
 		this.contents?.destroy();
+		this.autoplay?.destroy();
 		this.search?.destroy();
 		this.cover?.destroy();
 		this.sidePrev?.remove();
 		this.sideNext?.remove();
+		this.tap?.remove();
 		this.listeners.forEach(off => off());
 		this.observer?.disconnect();
 		try {

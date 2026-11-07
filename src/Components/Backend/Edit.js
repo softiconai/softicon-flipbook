@@ -38,7 +38,7 @@ const Edit = (props) => {
 	const ready = hasContent(attributes);
 	// the toolbar buttons the preview leaves out (Flipbook.js, editor mode) do not reload it
 	const preview = toConfig(attributes);
-	['showFullscreen', 'showZoom', 'showThumbnails', 'showContents', 'showLinks', 'showSearch', 'showShare', 'flipSound'].forEach(key => delete preview[key]);
+	['showFullscreen', 'showZoom', 'showThumbnails', 'showContents', 'showLinks', 'showSearch', 'showShare', 'flipSound', 'autoplay', 'autoplaySeconds', 'autoplayLoop', 'phoneFullscreen'].forEach(key => delete preview[key]);
 	const configKey = useDebounced(JSON.stringify(preview), 400);
 
 	useEffect(() => {

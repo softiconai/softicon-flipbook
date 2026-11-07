@@ -63,7 +63,7 @@ const Shortcode = () => {
 };
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	const fileName = (() => {
 		const name = pdfUrl ? pdfUrl.split('/').pop().split('?')[0] : '';
@@ -115,6 +115,18 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 				<FieldHead label={__('Open at page', 'softicon-flipbook')} tip={__('The book opens at this page. A link ending in #page=5 opens it at page 5.', 'softicon-flipbook')} />
 				<StartPage value={startPage} onChange={val => setAttributes({ startPage: val })} />
 			</div>
+
+			<ToggleRow label={__('Right to left', 'softicon-flipbook')} tip={__('For books read from right to left, such as Arabic, Hebrew or Urdu: the next page is on the left, and the arrows and arrow keys follow.', 'softicon-flipbook')} checked={rtl} onChange={set('rtl')} />
+
+			<ToggleRow label={__('Autoplay', 'softicon-flipbook')} tip={__('Turns the pages by itself while the book is on screen, on the published page. It holds while the mouse is over the book, stops when a reader takes over, and the toolbar gets a pause button.', 'softicon-flipbook')} checked={autoplay} onChange={set('autoplay')} />
+			{autoplay && <>
+				<div>
+					<FieldHead label={__('Seconds per page', 'softicon-flipbook')} />
+					<TextControl type='number' min={2} max={60} label={__('Seconds per page', 'softicon-flipbook')} hideLabelFromVision value={autoplaySeconds}
+						onChange={val => setAttributes({ autoplaySeconds: Math.min(60, Math.max(2, parseInt(val, 10) || 4)) })} __next40pxDefaultSize __nextHasNoMarginBottom />
+				</div>
+				<ToggleRow label={__('Start again at the end', 'softicon-flipbook')} tip={__('After the last page the book goes back to the first one and keeps playing.', 'softicon-flipbook')} checked={autoplayLoop} onChange={set('autoplayLoop')} />
+			</>}
 		</Panel>
 
 		<Panel id='toolbar' title={__('Toolbar', 'softicon-flipbook')}>
@@ -123,6 +135,8 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			{'pdf' === source && <ToggleRow label={__('Download button', 'softicon-flipbook')} tip={__('Lets visitors save the PDF.', 'softicon-flipbook')} checked={showDownload} onChange={set('showDownload')} />}
 
 			<ToggleRow label={__('Fullscreen button', 'softicon-flipbook')} tip={__('Fits the book to the screen and redraws the pages sharper.', 'softicon-flipbook')} checked={showFullscreen} onChange={set('showFullscreen')} />
+
+			<ToggleRow label={__('Fullscreen on phones', 'softicon-flipbook')} tip={__('On a phone the book shows "Tap to read"; one tap opens it full screen, where the pages are easier to read.', 'softicon-flipbook')} checked={phoneFullscreen} onChange={set('phoneFullscreen')} />
 
 			{'pdf' === source && <ToggleRow label={__('Table of contents', 'softicon-flipbook')} tip={__("A button with the PDF's chapters (its bookmarks), a click opens one. It shows only when the PDF has bookmarks.", 'softicon-flipbook')} checked={showContents} onChange={set('showContents')} />}
 
@@ -142,6 +156,9 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			<Panel id='buttons' title={__('Page buttons', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('A button on a chosen page, such as a link or a WooCommerce product with its price, is available in Pro.', 'softicon-flipbook')} />
 				<p className='alfbHelp'><ExternalLink href={videos.buttons}>{__('Watch page buttons in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
+			</Panel>
+			<Panel id='hotspots' title={__('Hotspots', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')} />
