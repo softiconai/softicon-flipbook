@@ -14,6 +14,8 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 **SoftIcon Flipbook** turns your brochures, magazines, catalogs, menus and ebooks into a realistic page-turning book, right inside the block editor. Add the **Flipbook** block, pick a PDF and you see the finished book in the editor. For the Classic Editor and page builders, every flipbook also has a shortcode.
 
+[Documentation](https://softiconai.com/docs/flipbook/) | [Demo](https://softiconai.com/products/flipbook/) | [Pricing](https://softiconai.com/products/flipbook/pricing/) | [Support](https://wordpress.org/support/plugin/softicon-flipbook/)
+
 https://www.youtube.com/watch?v=5geq69DXoN8
 
 Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g) and [the shortcode for the Classic Editor and Elementor](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
