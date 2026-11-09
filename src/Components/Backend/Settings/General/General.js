@@ -182,6 +182,9 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 				<ProNotice href={editorInfo.pricing} text={__('Protecting the PDF (a password, no download button, no right-click, the PDF address kept out of the page) is available in Pro.', 'softicon-flipbook')} />
 				<p className='alfbHelp'><ExternalLink href={videos.protect}>{__('Watch protection in 40 seconds', 'softicon-flipbook')}</ExternalLink></p>
 			</Panel>
+			<Panel id='watermark' title={__('Watermark', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+				<ProNotice href={editorInfo.pricing} text={__('Your words or logo drawn into every page, with the reader\'s name or email if you like, is available in Pro.', 'softicon-flipbook')} />
+			</Panel>
 		</>}
 	</>;
 };

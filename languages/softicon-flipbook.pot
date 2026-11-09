@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-09T12:04:09+00:00\n"
+"POT-Creation-Date: 2026-11-09T12:18:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -1193,6 +1193,14 @@ msgid "Watch protection in 40 seconds"
 msgstr ""
 
 #: build/index.js:2
+msgid "Watermark"
+msgstr ""
+
+#: build/index.js:2
+msgid "Your words or logo drawn into every page, with the reader's name or email if you like, is available in Pro."
+msgstr ""
+
+#: build/index.js:2
 msgid "Display"
 msgstr ""
 
@@ -1350,6 +1358,14 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Toolbar icons and text"
+msgstr ""
+
+#: build/index.js:2
+msgid "Branding"
+msgstr ""
+
+#: build/index.js:2
+msgid "Your logo in the toolbar, linked to your site, and your own picture behind the book are available in Pro."
 msgstr ""
 
 #: build/index.js:2

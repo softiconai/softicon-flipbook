@@ -3,7 +3,10 @@ import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, ExternalLink, RangeControl, TextControl } from '@wordpress/components';
 import { aligns, designs, lightboxTriggers, videos } from '../../../../utils/options';
 import { toImage } from '../../../../utils/functions';
+import ProNotice from '../../ProNotice';
 import { ColorRow, FieldHead, Panel, Reset, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
+
+const editorInfo = window.alfbEditor || {};
 
 const Style = ({ attributes, setAttributes }) => {
 	const { bookTitle, theme, maxHeight, maxHeightTablet, maxHeightPhone, bookStyle, sideArrows, displayMode, lightboxTrigger, lightboxText, lightboxImage, lightboxWidth, lightboxAlign } = attributes;
@@ -98,6 +101,11 @@ const Style = ({ attributes, setAttributes }) => {
 				<ColorRow label={__('Toolbar icons and text', 'softicon-flipbook')} {...color('toolbarColor')} />
 			</div>
 		</Panel>
+
+		{/* the Pro settings of this tab, shown as a notice only: the code is in Pro, which replaces this panel */}
+		{!editorInfo.pro && <Panel id='branding' title={__('Branding', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+			<ProNotice href={editorInfo.pricing} text={__('Your logo in the toolbar, linked to your site, and your own picture behind the book are available in Pro.', 'softicon-flipbook')} />
+		</Panel>}
 	</>;
 };
 
