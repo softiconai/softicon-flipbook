@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.5.1\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-06T05:58:50+00:00\n"
+"POT-Creation-Date: 2026-11-09T12:04:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -37,20 +37,20 @@ msgstr ""
 #: build/render.php:24
 #: build/dashboard.js:1
 #: build/index.js:2
-#: build/index.js:8
+#: build/index.js:10
 msgid "Read the flipbook"
 msgstr ""
 
-#: build/render.php:58
+#: build/render.php:63
 #: includes/dashboard.php:168
-#: includes/shortcode.php:32
+#: includes/shortcode.php:39
 #: build/dashboard.js:1
-#: build/index.js:8
-#: build/view.js:7
+#: build/index.js:10
+#: build/view.js:9
 msgid "Flipbook"
 msgstr ""
 
-#: build/render.php:66
+#: build/render.php:71
 msgid "Open the PDF"
 msgstr ""
 
@@ -59,8 +59,8 @@ msgid "Overview in one minute"
 msgstr ""
 
 #: includes/dashboard.php:60
-#: includes/shortcode.php:33
-#: includes/shortcode.php:34
+#: includes/shortcode.php:40
+#: includes/shortcode.php:41
 msgid "Add a flipbook"
 msgstr ""
 
@@ -153,41 +153,41 @@ msgstr ""
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
-#: includes/shortcode.php:31
+#: includes/shortcode.php:38
 msgid "Flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:35
+#: includes/shortcode.php:42
 msgid "Edit flipbook"
 msgstr ""
 
-#: includes/shortcode.php:36
+#: includes/shortcode.php:43
 msgid "All Flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:37
+#: includes/shortcode.php:44
 msgid "No flipbooks yet."
 msgstr ""
 
-#: includes/shortcode.php:38
+#: includes/shortcode.php:45
 msgid "No flipbooks in the trash."
 msgstr ""
 
-#: includes/shortcode.php:39
+#: includes/shortcode.php:46
 msgid "Search flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:79
-#: includes/shortcode.php:84
+#: includes/shortcode.php:86
+#: includes/shortcode.php:91
 #: build/index.js:2
 msgid "Shortcode"
 msgstr ""
 
-#: includes/shortcode.php:84
+#: includes/shortcode.php:91
 msgid "Click to copy"
 msgstr ""
 
-#: includes/shortcode.php:94
+#: includes/shortcode.php:101
 #: build/index.js:2
 msgid "Copied"
 msgstr ""
@@ -436,7 +436,7 @@ msgid "Video tutorial"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/view.js:7
+#: build/view.js:9
 msgid "Close"
 msgstr ""
 
@@ -939,7 +939,7 @@ msgid "PDFs from your Media Library always work. A link to a PDF on another webs
 msgstr ""
 
 #: build/index.js:2
-#: build/index.js:8
+#: build/index.js:10
 msgid "Replace PDF"
 msgstr ""
 
@@ -964,7 +964,7 @@ msgid "Each image is one page. Drag them in the media window to change the order
 msgstr ""
 
 #: build/index.js:2
-#: build/index.js:8
+#: build/index.js:10
 msgid "Edit pages"
 msgstr ""
 
@@ -993,6 +993,54 @@ msgid "The book opens at this page. A link ending in #page=5 opens it at page 5.
 msgstr ""
 
 #: build/index.js:2
+msgid "Start with"
+msgstr ""
+
+#: build/index.js:2
+msgid "Readers can first pick a page from the thumbnails or the table of contents (from the PDF's bookmarks). On the published page."
+msgstr ""
+
+#: build/index.js:2
+msgid "The book"
+msgstr ""
+
+#: build/index.js:2
+msgid "The thumbnails"
+msgstr ""
+
+#: build/index.js:2
+msgid "The table of contents"
+msgstr ""
+
+#: build/index.js:2
+msgid "Right to left"
+msgstr ""
+
+#: build/index.js:2
+msgid "For books read from right to left, such as Arabic, Hebrew or Urdu: the next page is on the left, and the arrows and arrow keys follow."
+msgstr ""
+
+#: build/index.js:2
+msgid "Autoplay"
+msgstr ""
+
+#: build/index.js:2
+msgid "Turns the pages by itself while the book is on screen, on the published page. It holds while the mouse is over the book, stops when a reader takes over, and the toolbar gets a pause button."
+msgstr ""
+
+#: build/index.js:2
+msgid "Seconds per page"
+msgstr ""
+
+#: build/index.js:2
+msgid "Start again at the end"
+msgstr ""
+
+#: build/index.js:2
+msgid "After the last page the book goes back to the first one and keeps playing."
+msgstr ""
+
+#: build/index.js:2
 msgid "Toolbar"
 msgstr ""
 
@@ -1009,11 +1057,27 @@ msgid "Lets visitors save the PDF."
 msgstr ""
 
 #: build/index.js:2
+msgid "Print button"
+msgstr ""
+
+#: build/index.js:2
+msgid "Readers print the whole book. The pages are prepared in the browser first, so a long book takes a moment."
+msgstr ""
+
+#: build/index.js:2
 msgid "Fullscreen button"
 msgstr ""
 
 #: build/index.js:2
 msgid "Fits the book to the screen and redraws the pages sharper."
+msgstr ""
+
+#: build/index.js:2
+msgid "Fullscreen on phones"
+msgstr ""
+
+#: build/index.js:2
+msgid "On a phone the book shows \"Tap to read\"; one tap opens it full screen, where the pages are easier to read."
 msgstr ""
 
 #: build/index.js:2
@@ -1059,7 +1123,7 @@ msgid "Share"
 msgstr ""
 
 #: build/index.js:2
-msgid "Shares or copies a link to the page that is open."
+msgid "A link to the page that is open: on Facebook, X, LinkedIn, Pinterest, by email or copied. Phones use their own share sheet."
 msgstr ""
 
 #: build/index.js:2
@@ -1082,6 +1146,14 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Watch page buttons in 45 seconds"
+msgstr ""
+
+#: build/index.js:2
+msgid "Hotspots"
+msgstr ""
+
+#: build/index.js:2
+msgid "Clickable areas on your pages, with a link or a WooCommerce product and its price, are available in Pro."
 msgstr ""
 
 #: build/index.js:2
@@ -1134,6 +1206,14 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Off: the book shows on the page. On: only a cover, button or link shows on the page, and a click opens the book in a popup over the page; the book loads only then."
+msgstr ""
+
+#: build/index.js:2
+msgid "Title above the book"
+msgstr ""
+
+#: build/index.js:2
+msgid "Shown above the book, also in full screen. Leave it empty for no title."
 msgstr ""
 
 #: build/index.js:2
@@ -1225,7 +1305,39 @@ msgid "The book keeps the page shape and shrinks to fit smaller screens."
 msgstr ""
 
 #: build/index.js:2
+msgid "On tablets and phones"
+msgstr ""
+
+#: build/index.js:2
+msgid "A different maximum height on tablets (under 1025 px wide) and phones (under 600 px). Leave a field empty to keep the height above. The editor's Tablet and Mobile previews show them."
+msgstr ""
+
+#: build/index.js:2
+msgid "Tablet (px)"
+msgstr ""
+
+#: build/index.js:2
+msgid "Phone (px)"
+msgstr ""
+
+#: build/index.js:2
 msgid "Colors"
+msgstr ""
+
+#: build/index.js:2
+msgid "Theme"
+msgstr ""
+
+#: build/index.js:2
+msgid "Dark puts the book on a dark background with light controls. Auto follows the reader's device. A color you set below still wins."
+msgstr ""
+
+#: build/index.js:2
+msgid "Light"
+msgstr ""
+
+#: build/index.js:2
+msgid "Dark"
 msgstr ""
 
 #: build/index.js:2
@@ -1268,6 +1380,45 @@ msgstr[1] ""
 msgid "No pages found."
 msgstr ""
 
+#: build/index.js:3
+#: build/index.js:8
+#: build/view.js:2
+#: build/view.js:7
+msgid "Play"
+msgstr ""
+
+#: build/index.js:3
+#: build/view.js:2
+msgid "Pause"
+msgstr ""
+
+#: build/index.js:3
+#: build/index.js:10
+#: build/view.js:2
+#: build/view.js:9
+msgid "Share this page"
+msgstr ""
+
+#: build/index.js:3
+#: build/view.js:2
+msgid "Email"
+msgstr ""
+
+#: build/index.js:3
+#: build/view.js:2
+msgid "Copy link"
+msgstr ""
+
+#: build/index.js:3
+#: build/view.js:2
+msgid "Link copied"
+msgstr ""
+
+#: build/index.js:3
+#: build/view.js:2
+msgid "Copy this link"
+msgstr ""
+
 #. translators: %d: page number
 #: build/index.js:5
 #: build/view.js:4
@@ -1290,12 +1441,16 @@ msgid "Go to page %d"
 msgstr ""
 
 #: build/index.js:8
+#: build/index.js:10
 #: build/view.js:7
+#: build/view.js:9
 msgid "Previous page"
 msgstr ""
 
 #: build/index.js:8
+#: build/index.js:10
 #: build/view.js:7
+#: build/view.js:9
 msgid "Next page"
 msgstr ""
 
@@ -1316,61 +1471,68 @@ msgstr ""
 
 #: build/index.js:8
 #: build/view.js:7
+msgid "Print"
+msgstr ""
+
+#. translators: 1: page being prepared, 2: number of pages
+#: build/index.js:10
+#: build/view.js:9
+#, js-format
+msgid "Preparing pages %1$d / %2$d"
+msgstr ""
+
+#: build/index.js:10
+#: build/view.js:9
+msgid "The book could not be printed."
+msgstr ""
+
+#: build/index.js:10
+#: build/view.js:9
 msgid "Download PDF"
 msgstr ""
 
-#: build/index.js:8
-#: build/view.js:7
-msgid "Share this page"
-msgstr ""
-
-#: build/index.js:8
-#: build/view.js:7
+#: build/index.js:10
+#: build/view.js:9
 msgid "Fullscreen"
 msgstr ""
 
-#: build/index.js:8
-#: build/view.js:7
-msgid "Link copied"
-msgstr ""
-
-#: build/index.js:8
-#: build/view.js:7
-msgid "Copy this link"
-msgstr ""
-
-#: build/index.js:8
-#: build/view.js:7
+#: build/index.js:10
+#: build/view.js:9
 msgid "Page number"
 msgstr ""
 
-#: build/index.js:8
-#: build/view.js:7
+#: build/index.js:10
+#: build/view.js:9
+msgid "Tap to read"
+msgstr ""
+
+#: build/index.js:10
+#: build/view.js:9
 msgid "This PDF is on another website that does not allow it to be shown here. Upload the PDF to your Media Library instead."
 msgstr ""
 
-#: build/index.js:8
-#: build/view.js:7
+#: build/index.js:10
+#: build/view.js:9
 msgid "This flipbook could not be loaded."
 msgstr ""
 
-#: build/index.js:8
+#: build/index.js:10
 msgid "Use images instead"
 msgstr ""
 
-#: build/index.js:8
+#: build/index.js:10
 msgid "Use a PDF instead"
 msgstr ""
 
-#: build/index.js:8
+#: build/index.js:10
 msgid "New here? Watch the 36-second tutorial"
 msgstr ""
 
-#: build/index.js:8
+#: build/index.js:10
 msgid "Upload or pick the page images, in reading order."
 msgstr ""
 
-#: build/index.js:8
+#: build/index.js:10
 msgid "Upload a PDF, pick one from the Media Library or paste a link."
 msgstr ""
 

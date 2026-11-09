@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.5.1
+Stable tag: 1.6.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -213,6 +213,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: Start with the thumbnails or the table of contents, so readers pick a page first.
 * New: Theme: Light, Dark, or Auto (dark when the reader's device is).
 * Fix: a flipbook under Flipbook → All Flipbooks always opens in the block editor, also where the Classic Editor plugin is set for every post type.
+* Security: only flipbooks the plugin made start on a page, so HTML that looks like a flipbook, written into a post, never runs; the download link must be a web address.
 
 = 1.5.1 =
 * New: a shortcode for the Classic Editor, Elementor and other page builders. Make a flipbook under Flipbook → All Flipbooks, publish it and paste its shortcode, such as `[softicon_flipbook id="123"]`. In Elementor's Shortcode widget the book shows right away in the editor.
