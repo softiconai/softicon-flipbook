@@ -17,6 +17,13 @@ class shortcode {
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'copy_script' ) );
         // Elementor's editor preview: the flipbook script and styles from the start, so a Shortcode widget draws its book at once
         add_action( 'elementor/preview/enqueue_styles', array( __CLASS__, 'builder_preview' ) );
+        // a flipbook is set up in its block, so it always opens in the block editor, even where the Classic Editor
+        // plugin (priority 100) switches every other post type to the classic one
+        add_filter( 'use_block_editor_for_post_type', array( __CLASS__, 'block_editor' ), 200, 2 );
+    }
+
+    public static function block_editor( $use, $type ) {
+        return self::TYPE === $type ? true : $use;
     }
 
     public static function builder_preview() {

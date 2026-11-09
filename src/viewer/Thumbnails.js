@@ -25,7 +25,8 @@ export default class Thumbnails {
 		}
 	}
 
-	show() {
+	// focus: false when the book opens with the thumbnails, so the page keeps its focus
+	show(focus = true) {
 		const { book } = this;
 		book.zoom?.close();
 		book.contents?.close(false);
@@ -78,7 +79,9 @@ export default class Thumbnails {
 		// the open page in the middle of the panel, without scrolling the window
 		const active = this.items[current[0]] || this.items[0];
 		this.panel.scrollTop = active.offsetTop - (this.panel.clientHeight - active.offsetHeight) / 2;
-		active.focus({ preventScroll: true });
+		if (focus) {
+			active.focus({ preventScroll: true });
+		}
 		book.onThumbs();
 	}
 

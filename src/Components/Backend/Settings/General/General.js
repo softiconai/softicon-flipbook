@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { Button, ExternalLink, TextControl } from '@wordpress/components';
+import { Button, ExternalLink, SelectControl, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
@@ -63,7 +63,7 @@ const Shortcode = () => {
 };
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	const fileName = (() => {
 		const name = pdfUrl ? pdfUrl.split('/').pop().split('?')[0] : '';
@@ -116,6 +116,14 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 				<StartPage value={startPage} onChange={val => setAttributes({ startPage: val })} />
 			</div>
 
+			<SelectControl label={__('Start with', 'softicon-flipbook')} help={__('Readers can first pick a page from the thumbnails or the table of contents (from the PDF\'s bookmarks). On the published page.', 'softicon-flipbook')}
+				value={startWith} onChange={set('startWith')} __next40pxDefaultSize __nextHasNoMarginBottom
+				options={[
+					{ label: __('The book', 'softicon-flipbook'), value: 'book' },
+					{ label: __('The thumbnails', 'softicon-flipbook'), value: 'thumbnails' },
+					{ label: __('The table of contents', 'softicon-flipbook'), value: 'contents' }
+				]} />
+
 			<ToggleRow label={__('Right to left', 'softicon-flipbook')} tip={__('For books read from right to left, such as Arabic, Hebrew or Urdu: the next page is on the left, and the arrows and arrow keys follow.', 'softicon-flipbook')} checked={rtl} onChange={set('rtl')} />
 
 			<ToggleRow label={__('Autoplay', 'softicon-flipbook')} tip={__('Turns the pages by itself while the book is on screen, on the published page. It holds while the mouse is over the book, stops when a reader takes over, and the toolbar gets a pause button.', 'softicon-flipbook')} checked={autoplay} onChange={set('autoplay')} />
@@ -134,6 +142,8 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 			{'pdf' === source && <ToggleRow label={__('Download button', 'softicon-flipbook')} tip={__('Lets visitors save the PDF.', 'softicon-flipbook')} checked={showDownload} onChange={set('showDownload')} />}
 
+			<ToggleRow label={__('Print button', 'softicon-flipbook')} tip={__('Readers print the whole book. The pages are prepared in the browser first, so a long book takes a moment.', 'softicon-flipbook')} checked={showPrint} onChange={set('showPrint')} />
+
 			<ToggleRow label={__('Fullscreen button', 'softicon-flipbook')} tip={__('Fits the book to the screen and redraws the pages sharper.', 'softicon-flipbook')} checked={showFullscreen} onChange={set('showFullscreen')} />
 
 			<ToggleRow label={__('Fullscreen on phones', 'softicon-flipbook')} tip={__('On a phone the book shows "Tap to read"; one tap opens it full screen, where the pages are easier to read.', 'softicon-flipbook')} checked={phoneFullscreen} onChange={set('phoneFullscreen')} />
@@ -146,7 +156,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 			{'pdf' === source && <ToggleRow label={__('Search', 'softicon-flipbook')} tip={__('A search box that lists the pages with the words, a click opens the page. PDFs only.', 'softicon-flipbook')} checked={showSearch} onChange={set('showSearch')} />}
 
-			<ToggleRow label={__('Share', 'softicon-flipbook')} tip={__('Shares or copies a link to the page that is open.', 'softicon-flipbook')} checked={showShare} onChange={set('showShare')} />
+			<ToggleRow label={__('Share', 'softicon-flipbook')} tip={__('A link to the page that is open: on Facebook, X, LinkedIn, Pinterest, by email or copied. Phones use their own share sheet.', 'softicon-flipbook')} checked={showShare} onChange={set('showShare')} />
 
 			<ToggleRow label={__('Page turn sound', 'softicon-flipbook')} tip={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} />
 		</Panel>

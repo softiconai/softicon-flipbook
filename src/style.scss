@@ -1,3 +1,15 @@
+// the dark theme's colors (Theme: Dark, or Auto on a dark device)
+@mixin alfb-dark {
+	--alfb-bg: #1f2125;
+	--alfb-bar-color: #f0f0f1;
+	color: #f0f0f1;
+
+	.alfb_spinner {
+		border-color: rgba(255, 255, 255, 0.2);
+		border-top-color: rgba(255, 255, 255, 0.8);
+	}
+}
+
 .alfb_wrapper {
 	position: relative;
 	box-sizing: border-box;
@@ -16,6 +28,27 @@
 		align-items: center;
 		justify-content: center;
 		min-height: 240px;
+	}
+
+	// Theme: dark, or dark on a dark device (auto); colors set on the block are inline variables, so they win
+	&.alfb_theme_dark {
+		@include alfb-dark;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		&.alfb_theme_auto {
+			@include alfb-dark;
+		}
+	}
+
+	// the book's title above it
+	.alfb_title {
+		margin: 0 0 10px;
+		color: var(--alfb-bar-color, inherit);
+		font-size: 1.15em;
+		font-weight: 600;
+		line-height: 1.3;
+		text-align: center;
 	}
 
 	// Fullscreen on phones: one tap on the book opens it full screen
@@ -495,6 +528,59 @@
 	}
 
 	// "Link copied" over the toolbar
+	// the share menu: social networks, email and Copy link, above the toolbar's right end
+	.alfb_share_menu {
+		position: absolute;
+		right: 12px;
+		bottom: 56px;
+		z-index: 8;
+		display: flex;
+		flex-direction: column;
+		min-width: 180px;
+		padding: 6px;
+		border-radius: 10px;
+		background: #fff;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+
+		a,
+		button {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin: 0;
+			padding: 9px 12px;
+			border: 0;
+			border-radius: 6px;
+			background: none;
+			color: #1e1e1e;
+			font: inherit;
+			font-size: 14px;
+			text-align: left;
+			text-decoration: none;
+			cursor: pointer;
+
+			&::before {
+				content: "";
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: currentColor;
+				opacity: 0.35;
+			}
+
+			&:hover,
+			&:focus-visible {
+				background: #f0f0f1;
+				outline: none;
+			}
+		}
+
+		.alfb_share_facebook::before { background: #1877f2; opacity: 1; }
+		.alfb_share_x::before { background: #000; opacity: 1; }
+		.alfb_share_linkedin::before { background: #0a66c2; opacity: 1; }
+		.alfb_share_pinterest::before { background: #e60023; opacity: 1; }
+	}
+
 	.alfb_toast {
 		position: absolute;
 		right: 12px;

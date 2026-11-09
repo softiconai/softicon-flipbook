@@ -1,6 +1,6 @@
 // The same config shape render.php builds, so the editor preview matches the front end.
 export const toConfig = attributes => {
-	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, startPage, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, showDownload, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	return {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
@@ -10,13 +10,19 @@ export const toConfig = attributes => {
 		sideArrows: !!sideArrows,
 		showCover,
 		startPage: Math.max(1, parseInt(startPage, 10) || 1),
+		title: (bookTitle || '').trim(),
+		startWith: ['thumbnails', 'contents'].includes(startWith) ? startWith : 'book',
+		theme: ['dark', 'auto'].includes(theme) ? theme : 'light',
 		autoplay: !!autoplay,
 		autoplaySeconds: Math.min(60, Math.max(2, parseInt(autoplaySeconds, 10) || 4)),
 		autoplayLoop: false !== autoplayLoop,
 		rtl: !!rtl,
 		phoneFullscreen: !!phoneFullscreen,
 		maxHeight: Math.min(2000, Math.max(200, parseInt(maxHeight, 10) || 700)),
+		maxHeightTablet: parseInt(maxHeightTablet, 10) > 0 ? Math.min(2000, Math.max(200, parseInt(maxHeightTablet, 10))) : 0,
+		maxHeightPhone: parseInt(maxHeightPhone, 10) > 0 ? Math.min(2000, Math.max(200, parseInt(maxHeightPhone, 10))) : 0,
 		showDownload,
+		showPrint: !!showPrint,
 		showFullscreen,
 		showZoom,
 		showThumbnails,

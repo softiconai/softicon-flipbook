@@ -61,7 +61,8 @@ export default class Lightbox {
 
 	// the book fills the window height, less the room around it
 	room() {
-		const chrome = CHROME + ('hardcover' === this.config.bookStyle ? HARDCOVER : 0);
+		// a title above the book takes a line too
+		const chrome = CHROME + ('hardcover' === this.config.bookStyle ? HARDCOVER : 0) + (this.config.title ? 40 : 0);
 		return Math.max(200, this.win.innerHeight - chrome);
 	}
 
@@ -139,7 +140,8 @@ export default class Lightbox {
 		wrapper.focus();
 		this.dialog = dialog;
 
-		this.book = new Flipbook(wrapper, { ...this.config, maxHeight: this.room(), startPage: page || this.page || this.config.startPage });
+		// the popup sizes the book to the screen, whatever the block's tablet and phone heights
+		this.book = new Flipbook(wrapper, { ...this.config, maxHeight: this.room(), maxHeightTablet: 0, maxHeightPhone: 0, startPage: page || this.page || this.config.startPage });
 		this.book.owner = this.root;
 		this.book.init();
 

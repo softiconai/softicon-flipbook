@@ -7,6 +7,8 @@ import Contents from './Contents';
 import Search from './Search';
 import Hardcover from './Hardcover';
 import Autoplay from './Autoplay';
+import print from './Print';
+import Share from './Share';
 
 const svg = path => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="${path}"/></svg>`;
 
@@ -15,6 +17,7 @@ const icons = {
 	next: svg('M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z'),
 	fullscreen: svg('M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z'),
 	exitFullscreen: svg('M5 16h3v3h2v-5H5zm3-8H5v2h5V5H8zm6 11h2v-3h3v-2h-5zm2-11V5h-2v5h5V8z'),
+	print: svg('M19 8H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3m-3 11H8v-5h8zm3-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2m-1-9H6v4h12z'),
 	download: svg('M19 9h-4V3H9v6H5l7 7zM5 18v2h14v-2z'),
 	contents: svg('M3 5h2v2H3zm4 0h14v2H7zm-4 6h2v2H3zm4 0h14v2H7zm-4 6h2v2H3zm4 0h14v2H7z'),
 	thumbnails: svg('M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm8-2h8v8h-8zm2 2v4h4v-4z'),
@@ -111,6 +114,17 @@ export default class Flipbook {
 	async init() {
 		this.stage = this.root.querySelector('.alfb_stage');
 		this.root.classList.add('alfb_js');
+		// dark, or dark when the reader's device is (auto); the block's own colors still win
+		if (['dark', 'auto'].includes(this.config.theme)) {
+			this.root.classList.add('alfb_theme_' + this.config.theme);
+		}
+		// the book's title above it (also in the popup and full screen)
+		if (this.config.title && !this.root.querySelector(':scope > .alfb_title')) {
+			const title = this.doc.createElement('div');
+			title.className = 'alfb_title';
+			title.textContent = this.config.title;
+			this.root.prepend(title);
+		}
 
 		try {
 			const { PageFlip } = await import(/* webpackChunkName: "page-flip" */ 'page-flip/dist/js/page-flip.module.js');
@@ -149,6 +163,13 @@ export default class Flipbook {
 	}
 
 	build(PageFlip, size) {
+		// a tablet or phone height, when the block sets one; the window is the editor canvas's own in the editor,
+		// so its Tablet and Mobile previews show them too
+		const screen = this.win.innerWidth;
+		const device = screen < 600 ? this.config.maxHeightPhone : (screen < 1025 ? this.config.maxHeightTablet : 0);
+		if (device > 0) {
+			this.config.maxHeight = device;
+		}
 		const { pageMode, showCover, maxHeight } = this.config;
 		// a #page=5 link opens its book there (a lightbox passes the page as startPage)
 		const linked = !this.editor && bookNumber(this.root) === linkedBook(this.win);
@@ -254,6 +275,12 @@ export default class Flipbook {
 		this.emit('ready');
 		// measure again now the spinner is gone, so the first pages render at the real size
 		this.refresh();
+		// the reader can start from the thumbnails or the table of contents, to pick a page first
+		if ('thumbnails' === this.config.startWith) {
+			this.thumbs?.show(false);
+		} else if ('contents' === this.config.startWith) {
+			this.contents?.show(false);
+		}
 	}
 
 	// alfb:ready and alfb:page on the block, for add-ons; detail.book is this book
@@ -563,6 +590,8 @@ export default class Flipbook {
 		canvas.height = Math.floor(viewport.height);
 		await page.render({ canvas, viewport }).promise;
 		page.cleanup();
+		// add-ons draw on the page itself (alfb:paint, detail.index and detail.canvas): on screen, zoomed and printed
+		this.emit('paint', { index, canvas });
 		return canvas;
 	}
 
@@ -651,6 +680,10 @@ export default class Flipbook {
 			tools.append(toggle);
 		}
 
+		if (this.config.showPrint && !this.editor) {
+			tools.append(this.button('print', __('Print', 'softicon-flipbook'), () => print(this)));
+		}
+
 		if (this.config.showDownload && 'pdf' === this.config.source) {
 			const link = this.doc.createElement('a');
 			link.className = 'alfb_btn alfb_btn_download';
@@ -666,6 +699,7 @@ export default class Flipbook {
 
 		if (this.config.showShare && !this.editor) {
 			this.shareBtn = this.button('share', __('Share this page', 'softicon-flipbook'), () => this.share());
+			this.shareBtn.setAttribute('aria-haspopup', 'dialog');
 			tools.append(this.shareBtn);
 		}
 
@@ -688,20 +722,8 @@ export default class Flipbook {
 		// the book inside a lightbox popup is linked through its lightbox (owner)
 		const number = bookNumber(this.owner || this.root);
 		url.hash = 'page=' + (Math.min(...this.visible()) + 1) + (number > 1 ? '&book=' + number : '');
-		const nav = this.win.navigator;
-		try {
-			if (nav.share) {
-				await nav.share({ title: this.doc.title, url: url.toString() });
-				return;
-			}
-			await nav.clipboard.writeText(url.toString());
-			this.toast(__('Link copied', 'softicon-flipbook'));
-		} catch (e) {
-			// the share sheet was closed, or the clipboard is not allowed: show the link to copy by hand
-			if ('AbortError' !== e?.name) {
-				this.win.prompt(__('Copy this link', 'softicon-flipbook'), url.toString());
-			}
-		}
+		this.sharing = this.sharing || new Share(this);
+		await this.sharing.toggle(url.toString());
 	}
 
 	// a short message over the toolbar, read out by screen readers
@@ -811,7 +833,8 @@ export default class Flipbook {
 		// fit the book to the screen height, then back to the block setting
 		const settings = this.flip.getSettings();
 		if (on) {
-			const room = this.win.innerHeight - (this.bar ? this.bar.offsetHeight : 0) - 32;
+			const title = this.root.querySelector(':scope > .alfb_title');
+			const room = this.win.innerHeight - (this.bar ? this.bar.offsetHeight : 0) - (title ? title.offsetHeight + 10 : 0) - 32;
 			settings.maxWidth = Math.max(100, Math.floor(room * this.ratio));
 			settings.maxHeight = room;
 		} else {
@@ -925,6 +948,7 @@ export default class Flipbook {
 		this.thumbs?.destroy();
 		this.contents?.destroy();
 		this.autoplay?.destroy();
+		this.sharing?.close();
 		this.search?.destroy();
 		this.cover?.destroy();
 		this.sidePrev?.remove();
@@ -940,6 +964,8 @@ export default class Flipbook {
 		this.task?.destroy();
 		this.bar?.remove();
 		this.book?.remove();
+		this.root.querySelector(':scope > .alfb_title')?.remove();
+		this.root.classList.remove('alfb_theme_dark', 'alfb_theme_auto');
 		this.root.classList.remove('alfb_ready', 'alfb_error', 'alfb_overlay', 'alfb_is_fullscreen', 'alfb_zoomed', 'alfb_thumbs_open', 'alfb_contents_open', 'alfb_search_open', 'alfb_side_over', 'alfb_portrait');
 	}
 }

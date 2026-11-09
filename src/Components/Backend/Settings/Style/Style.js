@@ -6,7 +6,7 @@ import { toImage } from '../../../../utils/functions';
 import { ColorRow, FieldHead, Panel, Reset, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 
 const Style = ({ attributes, setAttributes }) => {
-	const { maxHeight, bookStyle, sideArrows, displayMode, lightboxTrigger, lightboxText, lightboxImage, lightboxWidth, lightboxAlign } = attributes;
+	const { bookTitle, theme, maxHeight, maxHeightTablet, maxHeightPhone, bookStyle, sideArrows, displayMode, lightboxTrigger, lightboxText, lightboxImage, lightboxWidth, lightboxAlign } = attributes;
 	const hardcover = 'hardcover' === bookStyle;
 	const lightbox = 'lightbox' === displayMode;
 	const cover = 'cover' === lightboxTrigger;
@@ -20,6 +20,11 @@ const Style = ({ attributes, setAttributes }) => {
 		<Panel id='display' title={__('Display', 'softicon-flipbook')} badge={__('New', 'softicon-flipbook')}>
 			<ToggleRow label={__('Open in a lightbox', 'softicon-flipbook')} tip={__('Off: the book shows on the page. On: only a cover, button or link shows on the page, and a click opens the book in a popup over the page; the book loads only then.', 'softicon-flipbook')}
 				checked={lightbox} onChange={val => setAttributes({ displayMode: val ? 'lightbox' : 'inline' })} />
+
+			{!lightbox && <div>
+				<FieldHead label={__('Title above the book', 'softicon-flipbook')} tip={__('Shown above the book, also in full screen. Leave it empty for no title.', 'softicon-flipbook')} />
+				<TextControl label={__('Title above the book', 'softicon-flipbook')} hideLabelFromVision value={bookTitle} onChange={set('bookTitle')} __next40pxDefaultSize __nextHasNoMarginBottom />
+			</div>}
 
 			{lightbox && <>
 				<Tiles label={__('Open with', 'softicon-flipbook')} value={lightboxTrigger} options={lightboxTriggers} onChange={set('lightboxTrigger')} />
@@ -70,9 +75,22 @@ const Style = ({ attributes, setAttributes }) => {
 					action={<Reset onClick={() => setAttributes({ maxHeight: 700 })} disabled={700 === maxHeight} />} />
 				<RangeControl label={__('Maximum height (px)', 'softicon-flipbook')} hideLabelFromVision value={maxHeight} onChange={val => setAttributes({ maxHeight: val || 700 })} min={300} max={1400} step={10} __nextHasNoMarginBottom />
 			</div>
+			<div className='alfbDeviceHeights'>
+				<FieldHead label={__('On tablets and phones', 'softicon-flipbook')} tip={__('A different maximum height on tablets (under 1025 px wide) and phones (under 600 px). Leave a field empty to keep the height above. The editor\'s Tablet and Mobile previews show them.', 'softicon-flipbook')} />
+				<TextControl type='number' min={200} max={2000} label={__('Tablet (px)', 'softicon-flipbook')} value={maxHeightTablet || ''} placeholder={String(maxHeight)}
+					onChange={val => setAttributes({ maxHeightTablet: parseInt(val, 10) > 0 ? parseInt(val, 10) : 0 })} __next40pxDefaultSize __nextHasNoMarginBottom />
+				<TextControl type='number' min={200} max={2000} label={__('Phone (px)', 'softicon-flipbook')} value={maxHeightPhone || ''} placeholder={String(maxHeight)}
+					onChange={val => setAttributes({ maxHeightPhone: parseInt(val, 10) > 0 ? parseInt(val, 10) : 0 })} __next40pxDefaultSize __nextHasNoMarginBottom />
+			</div>
 		</Panel>}
 
 		<Panel id='colors' title={__('Colors', 'softicon-flipbook')}>
+			<Tiles label={__('Theme', 'softicon-flipbook')} tip={__('Dark puts the book on a dark background with light controls. Auto follows the reader\'s device. A color you set below still wins.', 'softicon-flipbook')}
+				value={theme || 'light'} onChange={set('theme')} options={[
+					{ label: __('Light', 'softicon-flipbook'), value: 'light' },
+					{ label: __('Dark', 'softicon-flipbook'), value: 'dark' },
+					{ label: __('Auto', 'softicon-flipbook'), value: 'auto' }
+				]} />
 			<div className='siColors'>
 				{hardcover && <ColorRow label={__('Cover', 'softicon-flipbook')} {...color('coverColor')} />}
 				<ColorRow label={__('Background', 'softicon-flipbook')} {...color('bgColor')} />

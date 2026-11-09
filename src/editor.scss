@@ -103,3 +103,14 @@
 		font-size: 12px;
 	}
 }
+
+// Size: the tablet and phone heights side by side
+.alfbDeviceHeights {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px 12px;
+
+	> :first-child {
+		grid-column: 1 / -1;
+	}
+}

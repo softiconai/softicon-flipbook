@@ -61,6 +61,7 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 * **Page buttons** – a button under the book while a chosen page is open, linking anywhere or to a WooCommerce product with its name and price. [Watch page buttons](https://www.youtube.com/watch?v=fS5RMGkPQXk&list=PLJEAefIarF4g).
 * **Hotspots** – draw clickable areas on any page: a link, or a WooCommerce product that opens a card with its picture, name and price.
 * **Branding** – your logo in the book's toolbar, with a link, and your own picture behind the book.
+* **Watermark** – your words or logo drawn into every page, also when printed, with the reader's name or email if you like.
 
 See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qXI&list=PLJEAefIarF4g).
 
@@ -205,6 +206,13 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: Autoplay. The book turns its pages by itself while it is on screen, every few seconds you choose, and can start again at the end. It holds under the mouse, stops when a reader takes over, and the toolbar gets a play / pause button. Readers who ask for reduced motion start it themselves.
 * New: Right to left, for Arabic, Hebrew, Urdu or Persian books. The book opens from the right, the next page is on the left, and the arrows and arrow keys follow.
 * New: Fullscreen on phones. The book shows "Tap to read"; one tap opens it full screen.
+* New: Print button. Readers print the whole book, one book page on each sheet of paper (off by default).
+* New: Share menu with Facebook, X, LinkedIn, Pinterest, email and Copy link for the page that is open; phones keep their own share sheet.
+* New: a maximum height for tablets and phones, shown in the editor's Tablet and Mobile previews too.
+* New: a title above the book.
+* New: Start with the thumbnails or the table of contents, so readers pick a page first.
+* New: Theme: Light, Dark, or Auto (dark when the reader's device is).
+* Fix: a flipbook under Flipbook → All Flipbooks always opens in the block editor, also where the Classic Editor plugin is set for every post type.
 
 = 1.5.1 =
 * New: a shortcode for the Classic Editor, Elementor and other page builders. Make a flipbook under Flipbook → All Flipbooks, publish it and paste its shortcode, such as `[softicon_flipbook id="123"]`. In Elementor's Shortcode widget the book shows right away in the editor.

@@ -24,7 +24,8 @@ export default class Contents {
 		}
 	}
 
-	show() {
+	// focus: false when the book opens with the contents, so the page keeps its focus
+	show(focus = true) {
 		const { book } = this;
 		book.zoom?.close();
 		book.thumbs?.close(false);
@@ -38,7 +39,9 @@ export default class Contents {
 		this.panel.append(list);
 		book.stage.append(this.panel);
 
-		list.querySelector('a, button')?.focus({ preventScroll: true });
+		if (focus) {
+			list.querySelector('a, button')?.focus({ preventScroll: true });
+		}
 		book.onContents();
 	}
 
