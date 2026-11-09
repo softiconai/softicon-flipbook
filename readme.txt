@@ -40,12 +40,19 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 * Links inside the PDF work: web and email links, and page links that turn the book
 * Table of contents from the PDF's bookmarks
 * Search: type a word, see the pages that have it with a short excerpt, and open one with a click
-* Share: a button that shares or copies a link to the page that is open (optional)
+* Share menu: Facebook, X, LinkedIn, Pinterest, email and Copy link for the page that is open; phones use their own share sheet (optional)
+* Print: readers print the whole book, one book page on each sheet of paper (optional)
 * Zoom with the toolbar buttons, a pinch on phones or Ctrl + scroll on computers; drag to move around a zoomed page
-* Toolbar with page counter, previous/next, thumbnails, zoom, download, fullscreen and a page-turn sound visitors can mute
+* Toolbar with page counter, previous/next, play / pause, thumbnails, zoom, print, download, share, fullscreen and a page-turn sound visitors can mute
 * Keyboard arrows turn the pages, the toolbar works with screen readers
 * Fullscreen that fits the book to the screen, with an iPhone fallback
-* Maximum height and colors for background, toolbar and icons
+* Fullscreen on phones: the book shows "Tap to read" and one tap opens it full screen
+* Autoplay: the book turns its own pages every few seconds, holds under the mouse, stops when a reader takes over, and can start again at the end
+* Right to left, for Arabic, Hebrew, Urdu or Persian books: the book opens from the right and the arrows and arrow keys follow
+* Start with the thumbnails or the table of contents, so readers pick a page first
+* A title above the book
+* Maximum height, with its own height for tablets and phones
+* Light, Dark or Auto theme (dark when the reader's device is), and colors for background, toolbar and icons
 * Wide and full width alignment
 * Flipbooks with a shortcode, such as `[softicon_flipbook id="123"]`, for the Classic Editor, Elementor and other page builders
 
@@ -55,7 +62,7 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 
 * **Shelf of books** – show many books on a wooden shelf; a click on a cover opens that book in a popup. [Watch the shelf](https://www.youtube.com/watch?v=9UY2KNYzkGk&list=PLJEAefIarF4g).
 * **Lead capture** – ask readers for their name and email after the pages you choose. Leads are saved on your site, with CSV download and an email for each new lead. [Watch lead capture](https://www.youtube.com/watch?v=GxbrW_pyAdA&list=PLJEAefIarF4g).
-* **Reading analytics** – opens per book, the most read pages and a daily chart, with no cookies.
+* **Reading analytics** – opens and downloads per book, the most read pages and a daily chart, with a CSV export and no cookies.
 * **PDF protection** – no download button, no right-click saving, and the PDF address kept out of the page.
 * **Password for a book** – readers type a password to open it; the password is checked on your site and never put in the page. [Watch protection and the password](https://www.youtube.com/watch?v=5UNgRO22s_Q&list=PLJEAefIarF4g).
 * **Page buttons** – a button under the book while a chosen page is open, linking anywhere or to a WooCommerce product with its name and price. [Watch page buttons](https://www.youtube.com/watch?v=fS5RMGkPQXk&list=PLJEAefIarF4g).
@@ -212,6 +219,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * New: a title above the book.
 * New: Start with the thumbnails or the table of contents, so readers pick a page first.
 * New: Theme: Light, Dark, or Auto (dark when the reader's device is).
+* Changed: the block shows Hotspots, Watermark and Branding with its other Pro panels, each with a short note.
 * Fix: a flipbook under Flipbook → All Flipbooks always opens in the block editor, also where the Classic Editor plugin is set for every post type.
 * Security: only flipbooks the plugin made start on a page, so HTML that looks like a flipbook, written into a post, never runs; the download link must be a web address.
 
@@ -299,3 +307,8 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 
 = 1.0.0 =
 * First release.
+
+== Upgrade Notice ==
+
+= 1.6.0 =
+Autoplay, right to left, fullscreen on phones, print, a share menu, a title, a dark theme and a security fix. Your flipbooks keep all their settings.
