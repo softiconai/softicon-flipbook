@@ -25,8 +25,11 @@ if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayM
     $alfb_class = 'alfb_lb alfb_lb_' . $alfb_lb['align'] . ( 'cover' === $alfb_lb['trigger'] && ! $alfb_lb['image'] ? ' alfb_lb_draw' : '' );
 
     $alfb_wrapper = ALFB_Flipbook\block::wrapper_attributes( array(
-        'class'     => $alfb_class,
-        'data-alfb' => wp_json_encode( $alfb_config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ),
+        'class'      => $alfb_class,
+        'data-alfb'  => wp_json_encode( $alfb_config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ),
+        // the mark of a book made here: post content can't carry it (kses keeps data-* but drops this), so view.js
+        // never starts a look-alike written into a post
+        'alfb-block' => '',
     ), $alfb_style . ( 'cover' === $alfb_lb['trigger'] ? '--alfb-lb-width:' . $alfb_lb['width'] . 'px;' : '' ) );
     ?>
     <div <?php echo $alfb_wrapper; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() escapes ?>>
@@ -53,6 +56,8 @@ $alfb_wrapper = ALFB_Flipbook\block::wrapper_attributes( array(
     'class'      => 'alfb_wrapper',
     // hex flags keep quotes and ampersands from breaking the attribute or JSON.parse
     'data-alfb'  => wp_json_encode( $alfb_config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ),
+    // the mark of a book made here (see the lightbox above)
+    'alfb-block' => '',
     'tabindex'   => '0',
     'role'       => 'region',
     'aria-label' => __( 'Flipbook', 'softicon-flipbook' ),

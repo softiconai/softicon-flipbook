@@ -21,7 +21,10 @@ const colorVars = attributes => {
 };
 
 // memo: once view.js has started a book, React leaves its markup alone
-export const Flipbook = memo(({ attributes, config }) => <div className='alfb_wrapper wp-block-softicon-flipbook' data-alfb={JSON.stringify(config)} style={colorVars(attributes)}
+// the mark view.js starts books by (Flipbook.js BOOKS)
+export const BLOCK = { 'alfb-block': '' };
+
+export const Flipbook = memo(({ attributes, config }) => <div className='alfb_wrapper wp-block-softicon-flipbook' {...BLOCK} data-alfb={JSON.stringify(config)} style={colorVars(attributes)}
 	tabIndex='0' role='region' aria-label={__('Flipbook', 'softicon-flipbook')}>
 	<div className='alfb_stage'><div className='alfb_loading'><span className='alfb_spinner' /></div></div>
 </div>);
@@ -33,7 +36,7 @@ export const Lightbox = memo(({ attributes, config }) => {
 	const cover = 'cover' === a.lightboxTrigger;
 	const style = { ...colorVars(a), ...(cover ? { '--alfb-lb-width': Math.min(600, Math.max(120, a.lightboxWidth)) + 'px' } : {}) };
 
-	return <div className={'alfb_lb wp-block-softicon-flipbook alfb_lb_' + a.lightboxAlign + (cover ? ' alfb_lb_draw' : '')} data-alfb={JSON.stringify(config)} style={style}>
+	return <div className={'alfb_lb wp-block-softicon-flipbook alfb_lb_' + a.lightboxAlign + (cover ? ' alfb_lb_draw' : '')} {...BLOCK} data-alfb={JSON.stringify(config)} style={style}>
 		{cover ? <a className='alfb_lb_trigger alfb_lb_cover' href={config.pdf} aria-haspopup='dialog' aria-label={text ? undefined : label}>
 			<span className='alfb_lb_img' />
 			{text && <span className='alfb_lb_caption'>{text}</span>}

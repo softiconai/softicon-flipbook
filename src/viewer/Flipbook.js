@@ -42,7 +42,8 @@ export const linkedPage = win => {
 };
 
 // #page=5 is for the first book on the page, #page=5&book=2 for the second (flipbooks and lightboxes, in page order)
-export const BOOKS = '.alfb_wrapper[data-alfb], .alfb_lb[data-alfb]';
+// only books the plugin made carry alfb-block; a look-alike in post content (kses keeps class and data-*) has none
+export const BOOKS = '.alfb_wrapper[data-alfb][alfb-block], .alfb_lb[data-alfb][alfb-block]';
 export const linkedBook = win => {
 	const match = /(?:^#|&)book=(\d+)/.exec(win.location.hash);
 	return match ? parseInt(match[1], 10) : 1;
@@ -687,7 +688,7 @@ export default class Flipbook {
 		if (this.config.showDownload && 'pdf' === this.config.source) {
 			const link = this.doc.createElement('a');
 			link.className = 'alfb_btn alfb_btn_download';
-			link.href = this.config.pdf;
+			link.href = this.safeUrl(this.config.pdf) || '#';
 			link.download = '';
 			link.target = '_blank';
 			link.rel = 'noopener';
