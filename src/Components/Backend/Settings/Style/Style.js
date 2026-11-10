@@ -105,6 +105,7 @@ const Style = ({ attributes, setAttributes }) => {
 		{/* the Pro settings of this tab, shown as a notice only: the code is in Pro, which replaces this panel */}
 		{!editorInfo.pro && <Panel id='branding' title={__('Branding', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 			<ProNotice href={editorInfo.pricing} text={__('Your logo in the toolbar, linked to your site, and your own picture behind the book are available in Pro.', 'softicon-flipbook')} />
+			<p className='alfbHelp'><ExternalLink href={videos.branding}>{__('Watch branding in 40 seconds', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>}
 	</>;
 };

@@ -135,6 +135,8 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 				</div>
 				<ToggleRow label={__('Start again at the end', 'softicon-flipbook')} tip={__('After the last page the book goes back to the first one and keeps playing.', 'softicon-flipbook')} checked={autoplayLoop} onChange={set('autoplayLoop')} />
 			</>}
+			<p className='alfbHelp'><ExternalLink href={videos.autoplay}>{__('Watch autoplay in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
+			<p className='alfbHelp'><ExternalLink href={videos.rtl}>{__('Watch right to left and fullscreen on phones', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>
 
 		<Panel id='toolbar' title={__('Toolbar', 'softicon-flipbook')}>
@@ -169,6 +171,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			</Panel>
 			<Panel id='hotspots' title={__('Hotspots', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')} />
+				<p className='alfbHelp'><ExternalLink href={videos.hotspots}>{__('Watch hotspots in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
 			</Panel>
 			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')} />

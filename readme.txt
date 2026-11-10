@@ -18,7 +18,7 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 https://www.youtube.com/watch?v=5geq69DXoN8
 
-Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g) and [the shortcode for the Classic Editor and Elementor](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
+Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g) and [the shortcode for the Classic Editor and Elementor](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g) and [autoplay](https://www.youtube.com/watch?v=bkuMUupI92Y&list=PLJEAefIarF4g) and [right to left and fullscreen on phones](https://www.youtube.com/watch?v=MzZs4jJInFA&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
 
 = Why choose SoftIcon Flipbook? =
 
@@ -64,12 +64,12 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 
 * **Shelf of books** – show many books on a wooden shelf; a click on a cover opens that book in a popup. [Watch the shelf](https://www.youtube.com/watch?v=9UY2KNYzkGk&list=PLJEAefIarF4g).
 * **Lead capture** – ask readers for their name and email after the pages you choose. Leads are saved on your site, with CSV download and an email for each new lead. [Watch lead capture](https://www.youtube.com/watch?v=GxbrW_pyAdA&list=PLJEAefIarF4g).
-* **Reading analytics** – opens and downloads per book, the most read pages and a daily chart, with a CSV export and no cookies.
+* **Reading analytics** – opens and downloads per book, the most read pages and a daily chart, with a CSV export and no cookies. [Watch reading analytics](https://www.youtube.com/watch?v=ET4JXhOO-2s&list=PLJEAefIarF4g).
 * **PDF protection** – no download button, no right-click saving, and the PDF address kept out of the page.
 * **Password for a book** – readers type a password to open it; the password is checked on your site and never put in the page. [Watch protection and the password](https://www.youtube.com/watch?v=5UNgRO22s_Q&list=PLJEAefIarF4g).
 * **Page buttons** – a button under the book while a chosen page is open, linking anywhere or to a WooCommerce product with its name and price. [Watch page buttons](https://www.youtube.com/watch?v=fS5RMGkPQXk&list=PLJEAefIarF4g).
-* **Hotspots** – draw clickable areas on any page: a link, or a WooCommerce product that opens a card with its picture, name and price.
-* **Branding** – your logo in the book's toolbar, with a link, and your own picture behind the book.
+* **Hotspots** – draw clickable areas on any page: a link, or a WooCommerce product that opens a card with its picture, name and price. [Watch hotspots](https://www.youtube.com/watch?v=D7WiNswbHi8&list=PLJEAefIarF4g).
+* **Branding** – your logo in the book's toolbar, with a link, and your own picture behind the book. [Watch branding](https://www.youtube.com/watch?v=iOr2NJ0yaAA&list=PLJEAefIarF4g).
 * **Watermark** – your words or logo drawn into every page, also when printed, with the reader's name or email if you like.
 
 See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qXI&list=PLJEAefIarF4g).

@@ -29,11 +29,16 @@ export const videos = {
 	settings: 'https://www.youtube.com/watch?v=H9IxgIocY68' + LIST,
 	promo: 'https://www.youtube.com/watch?v=Oj9sHOZbb3A' + LIST,
 	shortcode: 'https://www.youtube.com/watch?v=slQlR4GTghg' + LIST,
+	autoplay: 'https://www.youtube.com/watch?v=bkuMUupI92Y' + LIST,
+	rtl: 'https://www.youtube.com/watch?v=MzZs4jJInFA' + LIST,
 	// Pro features
 	shelf: 'https://www.youtube.com/watch?v=9UY2KNYzkGk' + LIST,
 	buttons: 'https://www.youtube.com/watch?v=fS5RMGkPQXk' + LIST,
 	leads: 'https://www.youtube.com/watch?v=GxbrW_pyAdA' + LIST,
 	protect: 'https://www.youtube.com/watch?v=5UNgRO22s_Q' + LIST,
+	hotspots: 'https://www.youtube.com/watch?v=D7WiNswbHi8' + LIST,
+	branding: 'https://www.youtube.com/watch?v=iOr2NJ0yaAA' + LIST,
+	analytics: 'https://www.youtube.com/watch?v=ET4JXhOO-2s' + LIST,
 	pro: 'https://www.youtube.com/watch?v=LtCj7-J2qXI' + LIST
 };
 

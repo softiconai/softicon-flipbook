@@ -63,6 +63,8 @@ class dashboard {
             'https://www.youtube.com/watch?v=1J7wCaUvugc' => __('Reading features', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=H9IxgIocY68' => __('Every setting explained', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=slQlR4GTghg' => __('Shortcode: the Classic Editor and Elementor', 'softicon-flipbook'),
+            'https://www.youtube.com/watch?v=bkuMUupI92Y' => __('Autoplay', 'softicon-flipbook'),
+            'https://www.youtube.com/watch?v=MzZs4jJInFA' => __('Right to left and fullscreen on phones', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=LtCj7-J2qXI' => __('Pro: every Pro feature in one minute', 'softicon-flipbook'),
         );
         if ( self::is_pro() ) {
@@ -71,6 +73,9 @@ class dashboard {
                 'https://www.youtube.com/watch?v=fS5RMGkPQXk' => __('Pro: page buttons', 'softicon-flipbook'),
                 'https://www.youtube.com/watch?v=GxbrW_pyAdA' => __('Pro: lead capture', 'softicon-flipbook'),
                 'https://www.youtube.com/watch?v=5UNgRO22s_Q' => __('Pro: protection and password', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=D7WiNswbHi8' => __('Pro: hotspots', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=iOr2NJ0yaAA' => __('Pro: branding', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=ET4JXhOO-2s' => __('Pro: reading analytics', 'softicon-flipbook'),
             );
         }
         return $videos;

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-09T12:39:05+00:00\n"
+"POT-Creation-Date: 2026-11-10T01:13:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -42,7 +42,7 @@ msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:63
-#: includes/dashboard.php:168
+#: includes/dashboard.php:173
 #: includes/shortcode.php:39
 #: build/dashboard.js:1
 #: build/index.js:10
@@ -85,71 +85,92 @@ msgid "Shortcode: the Classic Editor and Elementor"
 msgstr ""
 
 #: includes/dashboard.php:66
+#: build/index.js:2
+msgid "Autoplay"
+msgstr ""
+
+#: includes/dashboard.php:67
+msgid "Right to left and fullscreen on phones"
+msgstr ""
+
+#: includes/dashboard.php:68
 msgid "Pro: every Pro feature in one minute"
 msgstr ""
 
-#: includes/dashboard.php:70
+#: includes/dashboard.php:72
 msgid "Pro: a shelf of books"
 msgstr ""
 
-#: includes/dashboard.php:71
+#: includes/dashboard.php:73
 msgid "Pro: page buttons"
 msgstr ""
 
-#: includes/dashboard.php:72
+#: includes/dashboard.php:74
 msgid "Pro: lead capture"
 msgstr ""
 
-#: includes/dashboard.php:73
+#: includes/dashboard.php:75
 msgid "Pro: protection and password"
 msgstr ""
 
-#: includes/dashboard.php:167
-#: includes/dashboard.php:176
-#: includes/dashboard.php:354
+#: includes/dashboard.php:76
+msgid "Pro: hotspots"
+msgstr ""
+
+#: includes/dashboard.php:77
+msgid "Pro: branding"
+msgstr ""
+
+#: includes/dashboard.php:78
+msgid "Pro: reading analytics"
+msgstr ""
+
+#: includes/dashboard.php:172
+#: includes/dashboard.php:181
+#: includes/dashboard.php:359
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:176
-#: includes/dashboard.php:180
+#: includes/dashboard.php:181
+#: includes/dashboard.php:185
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:182
-#: includes/dashboard.php:224
+#: includes/dashboard.php:187
+#: includes/dashboard.php:229
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:189
+#: includes/dashboard.php:194
 #: build/dashboard.js:1
 #: build/dashboard.js:3
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:219
+#: includes/dashboard.php:224
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:220
+#: includes/dashboard.php:225
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:223
+#: includes/dashboard.php:228
 #: build/dashboard.js:3
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:226
+#: includes/dashboard.php:231
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:354
+#: includes/dashboard.php:359
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:358
+#: includes/dashboard.php:363
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -206,7 +227,7 @@ msgid "This link has expired. Please opt in again from the Flipbook dashboard."
 msgstr ""
 
 #: vendor/fs-lite/fs-lite.php:494
-#: vendor/fs-lite/fs-lite.php:566
+#: vendor/fs-lite/fs-lite.php:568
 msgid "Could not reach Freemius. Please try again."
 msgstr ""
 
@@ -223,186 +244,202 @@ msgid "I no longer need the plugin"
 msgstr ""
 
 #: vendor/fs-lite/fs-lite.php:518
-msgid "I found a better plugin"
+msgid "I could not figure out how to set it up"
 msgstr ""
 
 #: vendor/fs-lite/fs-lite.php:518
-msgid "Which plugin?"
+msgid "Where did you get stuck?"
 msgstr ""
 
 #: vendor/fs-lite/fs-lite.php:519
+msgid "It is not what I was looking for"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:519
+msgid "What were you looking for?"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:520
+msgid "I found a better plugin"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:520
+msgid "Which plugin?"
+msgstr ""
+
+#: vendor/fs-lite/fs-lite.php:521
 msgid "I only needed it for a short time"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:520
+#: vendor/fs-lite/fs-lite.php:522
 msgid "It is not working"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:520
+#: vendor/fs-lite/fs-lite.php:522
 msgid "What did not work? We would like to fix it."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:521
+#: vendor/fs-lite/fs-lite.php:523
 msgid "I need a feature it does not have"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:521
+#: vendor/fs-lite/fs-lite.php:523
 msgid "Which feature?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:522
+#: vendor/fs-lite/fs-lite.php:524
 msgid "It broke my site"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:523
+#: vendor/fs-lite/fs-lite.php:525
 msgid "It is a temporary deactivation, I am fixing something"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:524
+#: vendor/fs-lite/fs-lite.php:526
 msgid "Other"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:524
-msgid "Please tell us more"
+#: vendor/fs-lite/fs-lite.php:526
+msgid "A few words help us improve the plugin"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:565
+#: vendor/fs-lite/fs-lite.php:567
 msgid "Stop sending usage data to SoftIcon through Freemius? You can opt in again at any time."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:569
+#: vendor/fs-lite/fs-lite.php:571
 msgid "Quick question before you go"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:570
+#: vendor/fs-lite/fs-lite.php:572
 msgid "Why are you deactivating SoftIcon Flipbook? Your answer helps us make it better."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:572
+#: vendor/fs-lite/fs-lite.php:574
 msgid "Only your answer and an anonymous site ID are sent, when the plugin is deleted. No name or email unless you opted in before."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:573
+#: vendor/fs-lite/fs-lite.php:575
 msgid "Skip & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:574
+#: vendor/fs-lite/fs-lite.php:576
 msgid "Cancel"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:575
+#: vendor/fs-lite/fs-lite.php:577
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:594
+#: vendor/fs-lite/fs-lite.php:596
 msgid "Never miss an important update"
 msgstr ""
 
 #. translators: %s: the admin's first name or user name
-#: vendor/fs-lite/fs-lite.php:596
+#: vendor/fs-lite/fs-lite.php:598
 #, php-format
 msgid "Hi %s! Opt in to get emails about security fixes and new features, and to share some basic site data with SoftIcon through Freemius. It helps us make Flipbook better. If you skip, the plugin works just the same."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:597
+#: vendor/fs-lite/fs-lite.php:599
 msgid "What is shared"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:599
+#: vendor/fs-lite/fs-lite.php:601
 msgid "Your profile"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:599
+#: vendor/fs-lite/fs-lite.php:601
 msgid "Name and email address"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:600
+#: vendor/fs-lite/fs-lite.php:602
 msgid "Your site"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:600
+#: vendor/fs-lite/fs-lite.php:602
 msgid "Site address, title and language, WordPress and PHP versions"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:601
+#: vendor/fs-lite/fs-lite.php:603
 msgid "Plugin events"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:601
+#: vendor/fs-lite/fs-lite.php:603
 msgid "Flipbook version, activation, deactivation and uninstall"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:603
+#: vendor/fs-lite/fs-lite.php:605
 msgid "Nothing about your posts, visitors, other plugins or themes. You can opt out at any time from the Plugins page."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:604
+#: vendor/fs-lite/fs-lite.php:606
 msgid "Freemius privacy policy"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:608
+#: vendor/fs-lite/fs-lite.php:610
 msgid "Allow & Continue"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:608
+#: vendor/fs-lite/fs-lite.php:610
 msgid "Connecting…"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:608
-#: vendor/fs-lite/fs-lite.php:646
+#: vendor/fs-lite/fs-lite.php:610
+#: vendor/fs-lite/fs-lite.php:648
 msgid "Could not reach Freemius right now. Please try again later."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:610
+#: vendor/fs-lite/fs-lite.php:612
 msgid "Skip"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:614
+#: vendor/fs-lite/fs-lite.php:616
 msgid "Check your email"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:615
+#: vendor/fs-lite/fs-lite.php:617
 msgid "We sent a confirmation email to"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:617
+#: vendor/fs-lite/fs-lite.php:619
 msgid "Click the button in that email to finish. Until then, nothing is sent."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:618
+#: vendor/fs-lite/fs-lite.php:620
 msgid "Not in your inbox?"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:619
+#: vendor/fs-lite/fs-lite.php:621
 msgid "Look in your Spam or Junk folder (and Promotions in Gmail). Mark the email as \"Not spam\", then click the button in it."
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:620
+#: vendor/fs-lite/fs-lite.php:622
 msgid "Go to the Flipbook dashboard"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:621
+#: vendor/fs-lite/fs-lite.php:623
 msgid "Send the email again"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:624
+#: vendor/fs-lite/fs-lite.php:626
 msgid "Powered by Freemius"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:625
+#: vendor/fs-lite/fs-lite.php:627
 msgid "Privacy Policy"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:626
+#: vendor/fs-lite/fs-lite.php:628
 msgid "Terms of Service"
 msgstr ""
 
-#: vendor/fs-lite/fs-lite.php:639
+#: vendor/fs-lite/fs-lite.php:641
 msgid "Thank you! You will now hear about important Flipbook updates."
 msgstr ""
 
 #. translators: %s: email address
-#: vendor/fs-lite/fs-lite.php:643
+#: vendor/fs-lite/fs-lite.php:645
 #, php-format
 msgid "Almost done: open the email we sent to %s and click the button in it. Not in your inbox? Look in your Spam or Junk folder and mark it as \"Not spam\"."
 msgstr ""
@@ -1021,10 +1058,6 @@ msgid "For books read from right to left, such as Arabic, Hebrew or Urdu: the ne
 msgstr ""
 
 #: build/index.js:2
-msgid "Autoplay"
-msgstr ""
-
-#: build/index.js:2
 msgid "Turns the pages by itself while the book is on screen, on the published page. It holds while the mouse is over the book, stops when a reader takes over, and the toolbar gets a pause button."
 msgstr ""
 
@@ -1038,6 +1071,14 @@ msgstr ""
 
 #: build/index.js:2
 msgid "After the last page the book goes back to the first one and keeps playing."
+msgstr ""
+
+#: build/index.js:2
+msgid "Watch autoplay in 45 seconds"
+msgstr ""
+
+#: build/index.js:2
+msgid "Watch right to left and fullscreen on phones"
 msgstr ""
 
 #: build/index.js:2
@@ -1154,6 +1195,10 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Clickable areas on your pages, with a link or a WooCommerce product and its price, are available in Pro."
+msgstr ""
+
+#: build/index.js:2
+msgid "Watch hotspots in 45 seconds"
 msgstr ""
 
 #: build/index.js:2
@@ -1366,6 +1411,10 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Your logo in the toolbar, linked to your site, and your own picture behind the book are available in Pro."
+msgstr ""
+
+#: build/index.js:2
+msgid "Watch branding in 40 seconds"
 msgstr ""
 
 #: build/index.js:2
