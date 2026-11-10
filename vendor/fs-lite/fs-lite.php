@@ -515,13 +515,15 @@ class fs_lite {
     public static function reasons() {
         return array(
             1                      => array( __('I no longer need the plugin', 'softicon-flipbook'), '' ),
+            10                     => array( __('I could not figure out how to set it up', 'softicon-flipbook'), __('Where did you get stuck?', 'softicon-flipbook') ),
+            13                     => array( __('It is not what I was looking for', 'softicon-flipbook'), __('What were you looking for?', 'softicon-flipbook') ),
             2                      => array( __('I found a better plugin', 'softicon-flipbook'), __('Which plugin?', 'softicon-flipbook') ),
             3                      => array( __('I only needed it for a short time', 'softicon-flipbook'), '' ),
             12                     => array( __('It is not working', 'softicon-flipbook'), __('What did not work? We would like to fix it.', 'softicon-flipbook') ),
             11                     => array( __('I need a feature it does not have', 'softicon-flipbook'), __('Which feature?', 'softicon-flipbook') ),
             4                      => array( __('It broke my site', 'softicon-flipbook'), '' ),
             self::REASON_TEMPORARY => array( __('It is a temporary deactivation, I am fixing something', 'softicon-flipbook'), '' ),
-            self::REASON_OTHER     => array( __('Other', 'softicon-flipbook'), __('Please tell us more', 'softicon-flipbook') ),
+            self::REASON_OTHER     => array( __('Other', 'softicon-flipbook'), __('A few words help us improve the plugin', 'softicon-flipbook') ),
         );
     }
 
