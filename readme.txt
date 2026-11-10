@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -211,6 +211,10 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 
 == Changelog ==
 
+= 1.6.1 =
+* New: short videos in the block: Autoplay and Right to left with fullscreen on phones under the Pages panel, Hotspots and Branding under their Pro panels; both free videos are also in the dashboard's video tutorials.
+* Changed: when you deactivate the plugin, two more answers to choose from, "I could not figure out how to set it up" and "It is not what I was looking for", each with its own short question. Answering stays optional.
+
 = 1.6.0 =
 * New: Autoplay. The book turns its pages by itself while it is on screen, every few seconds you choose, and can start again at the end. It holds under the mouse, stops when a reader takes over, and the toolbar gets a play / pause button. Readers who ask for reduced motion start it themselves.
 * New: Right to left, for Arabic, Hebrew, Urdu or Persian books. The book opens from the right, the next page is on the left, and the arrows and arrow keys follow.
@@ -311,6 +315,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.6.1 =
+Short videos for autoplay, right to left and the Pro panels, and clearer answers when you deactivate. Your flipbooks keep all their settings.
 
 = 1.6.0 =
 Autoplay, right to left, fullscreen on phones, print, a share menu, a title, a dark theme and a security fix. Your flipbooks keep all their settings.
