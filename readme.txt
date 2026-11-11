@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -211,6 +211,10 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 
 == Changelog ==
 
+= 1.6.2 =
+* New: true colours for PDFs with a colour profile. Books exported from InDesign or made for print (ProPhoto RGB, Adobe RGB, CMYK such as ISO Coated) now show the same colours as in Acrobat, instead of duller ones. Nothing to set.
+* Fix: pictures missing from some PDFs exported from InDesign, such as full-page pictures on chapter pages. A JPEG 2000 picture whose colour profile happened to contain a certain pair of bytes was skipped; it now shows as in Acrobat.
+
 = 1.6.1 =
 * New: short videos in the block: Autoplay and Right to left with fullscreen on phones under the Pages panel, Hotspots and Branding under their Pro panels; both free videos are also in the dashboard's video tutorials.
 * Changed: when you deactivate the plugin, two more answers to choose from, "I could not figure out how to set it up" and "It is not what I was looking for", each with its own short question. Answering stays optional.
@@ -315,6 +319,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.6.2 =
+PDFs with a colour profile (InDesign, print) now show their true colours, and pictures that were missing from some InDesign PDFs now show. Your flipbooks keep all their settings.
 
 = 1.6.1 =
 Short videos for autoplay, right to left and the Pro panels, and clearer answers when you deactivate. Your flipbooks keep all their settings.
