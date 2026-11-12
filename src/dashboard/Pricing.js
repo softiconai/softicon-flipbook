@@ -74,6 +74,46 @@ const ProButton = ({ checkout, plan, price, className }) => {
 	</a>;
 };
 
+// the free trial set in Freemius: the checkout opens as a trial, without a card when the plan does not ask for one
+const TrialButton = ({ checkout, plan, className, children }) => {
+	const mode = plan.trial_card ? 'paid' : 'free';
+	const href = `${checkout.base}?plan_id=${plan.id}&trial=${mode}`;
+	const open = event => {
+		if (event.metaKey || event.ctrlKey || event.shiftKey || 0 !== event.button) {
+			return;
+		}
+		event.preventDefault();
+		try {
+			new Checkout({ product_id: checkout.product, plan_id: plan.id, public_key: checkout.key }).open({ trial: mode });
+		} catch (error) {
+			window.open(href, '_blank', 'noopener');
+		}
+	};
+	return <a className={className} href={href} target='_blank' rel='noopener noreferrer' onClick={open}>{children}</a>;
+};
+
+const trialLabel = plan => sprintf(
+	/* translators: %d: number of days */
+	_n('Start %d-day free trial', 'Start %d-day free trial', plan.trial, 'softicon-flipbook'),
+	plan.trial
+);
+
+// above the plans: every Pro feature for the trial days, then a plan or back to free
+const Trial = ({ checkout, plan }) => <div className='alfb-card alfb-trial'>
+	<span className='dashicons dashicons-clock' aria-hidden='true' />
+	<div>
+		<h3>{sprintf(
+			/* translators: %d: number of days */
+			_n('Try Pro free for %d day', 'Try Pro free for %d days', plan.trial, 'softicon-flipbook'),
+			plan.trial
+		)}</h3>
+		<p>{plan.trial_card
+			? __('Every Pro feature on one website. Cancel before the trial ends and you pay nothing.', 'softicon-flipbook')
+			: __('Every Pro feature on one website, no card needed. When the trial ends, pick a plan or keep using the free plugin.', 'softicon-flipbook')}</p>
+	</div>
+	<TrialButton checkout={checkout} plan={plan} className='alfb-btn alfb-btn-amber'>{trialLabel(plan)} &rarr;</TrialButton>
+</div>;
+
 // while Freemius has no paid plan to list, or cannot be reached
 const NoPlans = ({ data }) => <div className='alfb-card alfb-no-plans'>
 	<span className='dashicons dashicons-clock' aria-hidden='true' />
@@ -106,6 +146,8 @@ export const Pricing = ({ play }) => {
 			<p>{__('Every plan has all Pro features; pick how many websites you need.', 'softicon-flipbook')}</p>
 			<ProVideo play={play} />
 		</Intro>
+
+		{plan && plan.trial > 0 && data.checkout && <Trial checkout={data.checkout} plan={plan} />}
 
 		{plan ? <div className='alfb-plans alfb-plans-3'>
 			{plan.prices.map(price => <div className='alfb-plan' key={price.licenses}>
@@ -175,6 +217,7 @@ export const Compare = ({ play }) => {
 				{plan.text && <p>{plan.text}</p>}
 				<Price price={plan.prices[0]} />
 				<ProButton checkout={data.checkout} plan={plan} price={plan.prices[0]} className='alfb-btn-light' />
+				{plan.trial > 0 && <TrialButton checkout={data.checkout} plan={plan} className='alfb-more-plans alfb-trial-link'>{trialLabel(plan)}</TrialButton>}
 				{plan.prices.length > 1 && <a className='alfb-more-plans' href='#/pricing'>{__('Plans for more websites', 'softicon-flipbook')}</a>}
 			</div>}
 		</div>

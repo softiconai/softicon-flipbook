@@ -142,6 +142,9 @@ class dashboard {
                     'text'     => isset( $plan->description ) ? sanitize_text_field( $plan->description ) : '',
                     'features' => $features,
                     'prices'   => $prices,
+                    // the free trial set in Freemius: its days (0: none), and whether it asks for a card first
+                    'trial'      => isset( $plan->trial_period ) ? absint( $plan->trial_period ) : 0,
+                    'trial_card' => ! empty( $plan->is_require_subscription ),
                 );
             } elseif ( ! $prices && isset( $plan->name ) && 'free' === $plan->name ) {
                 $data['free'] = $features;

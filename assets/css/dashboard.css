@@ -986,3 +986,56 @@
 	align-items: center;
 	gap: 10px;
 }
+
+/* the free trial set in Freemius (src/dashboard/Pricing.js) */
+.alfb-trial {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	max-width: 1100px;
+	margin: 0 0 24px;
+	border-color: #fcd34d;
+	background: #fffbeb;
+}
+
+.alfb-trial > .dashicons {
+	flex: none;
+	width: 40px;
+	height: 40px;
+	color: #d97706;
+	font-size: 40px;
+}
+
+.alfb-trial > div {
+	flex: 1;
+}
+
+.alfb-trial h3 {
+	margin: 0 0 4px;
+}
+
+.alfb-trial p {
+	margin: 0;
+	color: #50575e;
+}
+
+.alfb-trial .alfb-btn {
+	flex: none;
+	white-space: nowrap;
+}
+
+.alfb-trial-link {
+	margin-top: 8px;
+	font-weight: 600;
+}
+
+@media (max-width: 782px) {
+	.alfb-trial {
+		flex-wrap: wrap;
+	}
+
+	.alfb-trial .alfb-btn {
+		width: 100%;
+		text-align: center;
+	}
+}
