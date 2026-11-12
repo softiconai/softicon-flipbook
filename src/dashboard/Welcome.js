@@ -1,11 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import VideoLink from './VideoLink';
-
-const steps = () => [
-	[__('Add the block', 'softicon-flipbook'), __('In any page or post, click + and search for "Flipbook".', 'softicon-flipbook')],
-	[__('Pick a PDF', 'softicon-flipbook'), __('Upload one, choose it from the Media Library, or build the book from images.', 'softicon-flipbook')],
-	[__('Choose the look', 'softicon-flipbook'), __('Classic or Hardcover, on the page or in a popup, then publish.', 'softicon-flipbook')]
-];
+import GettingStarted from './GettingStarted';
 
 const Welcome = ({ config, play }) => <>
 	<section className='alfb-hero'>
@@ -23,14 +18,7 @@ const Welcome = ({ config, play }) => <>
 		</VideoLink>
 	</section>
 
-	<h2 className='alfb-title'>{__('Get started in three steps', 'softicon-flipbook')}</h2>
-	<div className='alfb-grid alfb-steps'>
-		{steps().map(([title, text], i) => <div className='alfb-card' key={title}>
-			<span className='alfb-step'>{i + 1}</span>
-			<h3>{title}</h3>
-			<p>{text}</p>
-		</div>)}
-	</div>
+	<GettingStarted config={config} play={play} />
 
 	<h2 className='alfb-title' id='alfb-videos'>{__('Video tutorials', 'softicon-flipbook')}</h2>
 	<div className='alfb-grid alfb-videos'>

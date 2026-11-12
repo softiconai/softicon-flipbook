@@ -270,8 +270,40 @@ class dashboard {
                 'demo'     => ALFB_PLUGIN_URL . 'assets/demo/',
                 'playlist' => self::PLAYLIST,
             ),
+            'start'   => self::start(),
         );
         return apply_filters( 'alfb_dashboard_config', $config );
+    }
+
+    // Getting started (src/dashboard/GettingStarted.js): the editors on this site, and the newest flipbooks with their shortcodes
+    private static function start() {
+        $books = array();
+        foreach ( get_posts( array(
+            'post_type'        => shortcode::TYPE,
+            'post_status'      => 'publish',
+            'numberposts'      => 5,
+            'orderby'          => 'modified',
+            'suppress_filters' => false,
+        ) ) as $book ) {
+            // plain text for React, which escapes it: get_the_title() turns & into &#038;
+            $title   = html_entity_decode( wp_strip_all_tags( get_the_title( $book ) ), ENT_QUOTES, 'UTF-8' );
+            $books[] = array(
+                'id'    => (int) $book->ID,
+                'title' => '' !== $title ? $title : __('(no title)', 'softicon-flipbook'),
+                'edit'  => (string) get_edit_post_link( $book->ID, 'raw' ),
+            );
+        }
+        $count = wp_count_posts( shortcode::TYPE );
+        return array(
+            'books'      => $books,
+            'total'      => isset( $count->publish ) ? (int) $count->publish : 0,
+            'newBook'    => admin_url( 'post-new.php?post_type=' . shortcode::TYPE ),
+            'allBooks'   => admin_url( 'edit.php?post_type=' . shortcode::TYPE ),
+            'elementor'  => did_action( 'elementor/loaded' ) > 0,
+            'classic'    => class_exists( 'Classic_Editor' ),
+            'blockTheme' => function_exists( 'wp_is_block_theme' ) && wp_is_block_theme(),
+            'siteEditor' => admin_url( 'site-editor.php' ),
+        );
     }
 
     // registered on every request (REST calls are not admin pages), see softicon-flipbook.php

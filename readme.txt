@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -71,12 +71,15 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 * **Hotspots** – draw clickable areas on any page: a link, or a WooCommerce product that opens a card with its picture, name and price. [Watch hotspots](https://www.youtube.com/watch?v=D7WiNswbHi8&list=PLJEAefIarF4g).
 * **Branding** – your logo in the book's toolbar, with a link, and your own picture behind the book. [Watch branding](https://www.youtube.com/watch?v=iOr2NJ0yaAA&list=PLJEAefIarF4g).
 * **Watermark** – your words or logo drawn into every page, also when printed, with the reader's name or email if you like.
+* **PDF from a custom field** – each post shows the PDF in its own Meta Box or ACF field, so one flipbook in a template, a Query Loop or a shortcode shows every post's book.
+* **Bookmarks** – readers mark pages with one click and find them again in a small list with page pictures, saved in their own browser.
+* **Selectable text** – readers select and copy the words of the PDF.
 
 See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qXI&list=PLJEAefIarF4g).
 
 Pro replaces the free plugin when you activate it, and every book you made keeps working. Prices and a full comparison are in Flipbook → Pricing in your dashboard.
 
-**Try Pro without risk:** every Pro plan comes with a 14-day money-back guarantee. Any problem or question, before or after you buy, email us at softiconai@gmail.com. We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first.
+**Try Pro without risk:** start with a free trial from Flipbook → Pricing, no card needed, and every Pro plan comes with a 14-day money-back guarantee. Any problem or question, before or after you buy, email us at softiconai@gmail.com. We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first.
 
 = Third-party libraries =
 
@@ -211,6 +214,11 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 
 == Changelog ==
 
+= 1.6.3 =
+* New: Getting started on the Flipbook dashboard, with the steps for the block editor, the Classic Editor, Elementor and other page builders, and themes (PHP). Your flipbooks are listed with their shortcodes, ready to copy, and it opens on the editor your site uses.
+* New: when SoftIcon Flipbook Pro has a free trial, Pricing and Free vs Pro show a "Start free trial" button.
+* New: short notices in the block for three new Pro features: a PDF from a custom field (Meta Box, ACF), selectable text, and bookmarks.
+
 = 1.6.2 =
 * New: true colours for PDFs with a colour profile. Books exported from InDesign or made for print (ProPhoto RGB, Adobe RGB, CMYK such as ISO Coated) now show the same colours as in Acrobat, instead of duller ones. Nothing to set.
 * Fix: pictures missing from some PDFs exported from InDesign, such as full-page pictures on chapter pages. A JPEG 2000 picture whose colour profile happened to contain a certain pair of bytes was skipped; it now shows as in Acrobat.
@@ -319,6 +327,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.6.3 =
+A Getting started guide for the block editor, the Classic Editor, Elementor and themes, with your shortcodes ready to copy. Your flipbooks keep all their settings.
 
 = 1.6.2 =
 PDFs with a colour profile (InDesign, print) now show their true colours, and pictures that were missing from some InDesign PDFs now show. Your flipbooks keep all their settings.

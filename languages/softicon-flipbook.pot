@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.6.2\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.6.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-11T13:39:53+00:00\n"
+"POT-Creation-Date: 2026-11-12T14:15:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -35,16 +35,17 @@ msgid "https://profiles.wordpress.org/softiconai/"
 msgstr ""
 
 #: build/render.php:24
-#: build/dashboard.js:1
+#: build/dashboard.js:3
 #: build/index.js:2
 #: build/index.js:10
 msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:63
-#: includes/dashboard.php:173
+#: includes/dashboard.php:176
 #: includes/shortcode.php:39
 #: build/dashboard.js:1
+#: build/dashboard.js:3
 #: build/index.js:10
 #: build/view.js:9
 msgid "Flipbook"
@@ -61,6 +62,7 @@ msgstr ""
 #: includes/dashboard.php:60
 #: includes/shortcode.php:40
 #: includes/shortcode.php:41
+#: build/dashboard.js:3
 msgid "Add a flipbook"
 msgstr ""
 
@@ -125,52 +127,57 @@ msgstr ""
 msgid "Pro: reading analytics"
 msgstr ""
 
-#: includes/dashboard.php:172
-#: includes/dashboard.php:181
-#: includes/dashboard.php:359
+#: includes/dashboard.php:175
+#: includes/dashboard.php:184
+#: includes/dashboard.php:394
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:181
-#: includes/dashboard.php:185
+#: includes/dashboard.php:184
+#: includes/dashboard.php:188
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:187
-#: includes/dashboard.php:229
+#: includes/dashboard.php:190
+#: includes/dashboard.php:232
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:194
+#: includes/dashboard.php:197
 #: build/dashboard.js:1
 #: build/dashboard.js:3
+#: build/dashboard.js:7
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:224
+#: includes/dashboard.php:227
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:225
+#: includes/dashboard.php:228
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:228
-#: build/dashboard.js:3
+#: includes/dashboard.php:231
+#: build/dashboard.js:7
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:231
+#: includes/dashboard.php:234
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:359
+#: includes/dashboard.php:292
+msgid "(no title)"
+msgstr ""
+
+#: includes/dashboard.php:394
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:363
+#: includes/dashboard.php:398
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -209,6 +216,7 @@ msgid "Click to copy"
 msgstr ""
 
 #: includes/shortcode.php:101
+#: build/dashboard.js:1
 #: build/index.js:2
 msgid "Copied"
 msgstr ""
@@ -490,7 +498,7 @@ msgid "A quick review on WordPress.org helps other people find it, and it means 
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Leave a review"
 msgstr ""
 
@@ -504,129 +512,6 @@ msgstr ""
 
 #: build/dashboard.js:1
 msgid "This is a Pro feature."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Turn any PDF into a book people enjoy reading"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Catalogs, magazines, menus and brochures that turn like real pages, on phones and big screens, right inside the block editor."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Create a flipbook"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "See the demos"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Watch the video tutorials"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Get started in three steps"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Add the block"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "In any page or post, click + and search for \"Flipbook\"."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Pick a PDF"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Upload one, choose it from the Media Library, or build the book from images."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Choose the look"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Classic or Hardcover, on the page or in a popup, then publish."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Something went wrong. Please try again."
-msgstr ""
-
-#: build/dashboard.js:1
-#: build/dashboard.js:3
-#: build/index.js:2
-msgid "Pro"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Available in Pro"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Classic book"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "The default look: two pages side by side, one page on phones, and the full toolbar."
-msgstr ""
-
-#: build/dashboard.js:1
-#: build/index.js:2
-msgid "Hardcover"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Pages inside a cover, with the stack of page edges, a shadow at the spine and large arrows."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Chapters and links"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "A PDF with bookmarks gets a table of contents, and the links inside it can be clicked."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Covers that open a popup"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Only the covers show on the page. A click opens the book over the page, and it loads only then."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Spring Living 2026"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Room Guide 2026"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "A button that opens a popup"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "A theme-styled button, or a plain text link, opens the book in a popup."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Open the room guide"
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "These are real flipbooks, try them. Add one to any page with the Flipbook block."
-msgstr ""
-
-#: build/dashboard.js:1
-msgid "Loading…"
 msgstr ""
 
 #: build/dashboard.js:1
@@ -667,6 +552,12 @@ msgstr ""
 #: build/dashboard.js:1
 #: build/index.js:2
 msgid "Classic"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/dashboard.js:3
+#: build/index.js:2
+msgid "Hardcover"
 msgstr ""
 
 #: build/dashboard.js:1
@@ -715,202 +606,511 @@ msgid "More plugins"
 msgstr ""
 
 #: build/dashboard.js:1
+#: build/index.js:2
+msgid "Copy"
+msgstr ""
+
+#: build/dashboard.js:1
+msgid "Your flipbooks"
+msgstr ""
+
+#. translators: %s: flipbook title
+#: build/dashboard.js:2
+#, js-format
+msgid "Copy the shortcode of %s"
+msgstr ""
+
+#. translators: %d: number of flipbooks
+#: build/dashboard.js:3
+#, js-format
+msgid "See all %d flipbook"
+msgid_plural "See all %d flipbooks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/dashboard.js:3
+msgid "No flipbooks yet. Make one and its shortcode shows up here, ready to copy."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Make the flipbook"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Go to Flipbook → All Flipbooks → Add a flipbook. It opens with the Flipbook block: pick the PDF and the look, then publish."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Copy its shortcode"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Every flipbook has a shortcode in the All Flipbooks list and in the block's Help panel. Your flipbooks are listed here too."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Block editor"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Add the Flipbook block"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Create a flipbook page"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "In any page or post, click <b>+</b> and search for <b>Flipbook</b>, or type <code>/flipbook</code> in an empty line."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Pick a PDF or images"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Upload a PDF, choose one from the Media Library, paste a link, or build the book from your own images."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Choose the look and publish"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Classic or Hardcover, on the page or in a popup: every setting is in the block's sidebar, and the editor shows the finished book."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Add a flipbook in 36 seconds"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Classic editor"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Paste it in the Classic Editor"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Paste the shortcode where the book goes, in the Visual or the Text tab, then update the page. It works in text widgets too."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Copy the shortcode"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Where to paste the shortcode"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Elementor & builders"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Add a Shortcode widget"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "In <b>Elementor</b>, drag the <b>Shortcode</b> widget onto the page and paste the shortcode; the book shows in Elementor's preview too. Other builders work the same way:"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Code module"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "HTML or Text Editor module"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Text Block"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Shortcode element"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "The shortcode in Elementor and more"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Theme / PHP"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Block theme: add the block to a template"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Open the Site Editor"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Your theme is a block theme. In Appearance → Editor → Templates, open a template and add the Flipbook block like on any page."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Any theme: print the shortcode"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Make the flipbook under All Flipbooks, then show it from a template file, such as <code>single.php</code>, with:"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Copy the PHP code"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "One book for every post"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Keep each post's PDF in a Meta Box or ACF field, put one flipbook in the template, and turn on \"PDF from a custom field\" in its Source panel: every post shows its own book."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "With Pro, one flipbook in a template shows each post's own PDF from a Meta Box or ACF field. <a>See Pro</a>"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Getting started"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Pick where you build your pages; the steps follow."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Where you build your pages"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "On this site"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Fastest start"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "A new page opens with a sample book already in place; swap in your own PDF."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Create a flipbook"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Turn any PDF into a book people enjoy reading"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Catalogs, magazines, menus and brochures that turn like real pages, on phones and big screens, right inside the block editor."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "See the demos"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Watch the video tutorials"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: build/dashboard.js:3
+#: build/dashboard.js:7
+#: build/index.js:2
+msgid "Pro"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Available in Pro"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Classic book"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "The default look: two pages side by side, one page on phones, and the full toolbar."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Pages inside a cover, with the stack of page edges, a shadow at the spine and large arrows."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Chapters and links"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "A PDF with bookmarks gets a table of contents, and the links inside it can be clicked."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Covers that open a popup"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Only the covers show on the page. A click opens the book over the page, and it loads only then."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Spring Living 2026"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Room Guide 2026"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "A button that opens a popup"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "A theme-styled button, or a plain text link, opens the book in a popup."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Open the room guide"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "These are real flipbooks, try them. Add one to any page with the Flipbook block."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Loading…"
+msgstr ""
+
+#: build/dashboard.js:3
 msgid "Try Pro without risk"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 #, js-format
 msgid "If Pro is not right for you, tell us within %d days and you get all your money back, no questions asked."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 msgid "If Pro is not right for you, tell us and we will make it right."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 #, js-format
 msgid "Any problem or question? Email us at %s, a real person from our team will help you."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 msgid "We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first."
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 #, js-format
 msgid "%d-day money-back guarantee"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 #, js-format
 msgid "Questions? %s"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 msgid "one-time"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 msgid "per year"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 msgid "per month"
 msgstr ""
 
-#: build/dashboard.js:2
+#: build/dashboard.js:4
 msgid "Unlimited websites"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:5
 #, js-format
 msgid "%d website"
 msgid_plural "%d websites"
 msgstr[0] ""
 msgstr[1] ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:5
 msgid "Get Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#. translators: %d: number of days
+#: build/dashboard.js:6
+#, js-format
+msgid "Start %d-day free trial"
+msgid_plural "Start %d-day free trial"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of days
+#: build/dashboard.js:7
+#, js-format
+msgid "Try Pro free for %d day"
+msgid_plural "Try Pro free for %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/dashboard.js:7
+msgid "Every Pro feature on one website. Cancel before the trial ends and you pay nothing."
+msgstr ""
+
+#: build/dashboard.js:7
+msgid "Every Pro feature on one website, no card needed. When the trial ends, pick a plan or keep using the free plugin."
+msgstr ""
+
+#: build/dashboard.js:7
 msgid "The Pro plans could not be loaded right now. Please try again later."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "SoftIcon Flipbook Pro is coming soon."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Every Pro feature in one minute"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Watch every Pro feature in one minute"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Pay once, use it for life"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Pick your plan"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Every plan has all Pro features; pick how many websites you need."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Every free feature"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Secure checkout by Freemius. Pro replaces the free plugin and keeps every book you made."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Compare Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Included"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Not included"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "In Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Only in Pro"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Compare"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Free vs Pro at a glance"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 #, js-format
 msgid "See what you get when you upgrade. %s features are only in Pro."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Free"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Free forever, everything you need to put books on your site."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "forever"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "You already have it"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Plans for more websites"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Feature breakdown"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Filter features"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Filter features…"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Feature"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "No features match."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Get help"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Support forum"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Free or Pro, we are glad to help with any problem, and a real person reads every email. Tell us your WordPress version, the page with the flipbook and what you see."
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Learn"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Frequently asked questions"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Source code on GitHub"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "Like the plugin?"
 msgstr ""
 
-#: build/dashboard.js:3
+#: build/dashboard.js:7
 msgid "More plugins from SoftIcon"
 msgstr ""
 
@@ -937,10 +1137,6 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Paste it in the Classic Editor, Elementor or any page builder to show this flipbook there."
-msgstr ""
-
-#: build/index.js:2
-msgid "Copy"
 msgstr ""
 
 #: build/index.js:2
@@ -982,6 +1178,10 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Choose PDF"
+msgstr ""
+
+#: build/index.js:2
+msgid "Taking each post's PDF from a custom field (Meta Box, ACF), and text readers can select and copy, are available in Pro."
 msgstr ""
 
 #: build/index.js:2
@@ -1139,6 +1339,10 @@ msgstr ""
 
 #: build/index.js:2
 msgid "A button that shows all pages, a click opens one."
+msgstr ""
+
+#: build/index.js:2
+msgid "Bookmarks, so readers can mark pages and come back to them, are available in Pro."
 msgstr ""
 
 #: build/index.js:2
