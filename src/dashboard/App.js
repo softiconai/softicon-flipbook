@@ -2,7 +2,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import apiFetch from '@wordpress/api-fetch';
-import Header from './Header';
+import Header, { groupOf } from './Header';
 import VideoPopup from './VideoPopup';
 import useRoute from './useRoute';
 
@@ -77,19 +77,49 @@ const App = ({ config, tabs }) => {
 		}
 	}, [isLocked]);
 
+	// the group's tab opens this page again next time
+	const group = groupOf(config, tab);
+	useEffect(() => {
+		if (group) {
+			try {
+				window.localStorage.setItem('alfb-group-' + group.key, tab);
+			} catch (e) {
+				// storage can be blocked
+			}
+		}
+	}, [group, tab]);
+
 	useEffect(() => {
 		if ('videos' === route) {
 			document.getElementById('alfb-videos')?.scrollIntoView({ behavior: 'smooth' });
 		}
 	}, [route]);
 
+	const page = isLocked ? <div className='alfb-card alfb-status'><span className='dashicons dashicons-lock' aria-hidden='true' />{__('This is a Pro feature.', 'softicon-flipbook')}</div>
+		: <Content config={config} play={setVideo} unlock={unlock} />;
+
 	return <>
 		<Header config={config} active={tab} unlock={unlock} />
 		<div className='alfb-dash-body'>
 			{config.notice && <Notice notice={config.notice} tab={tab} />}
 			{config.review && <Review review={config.review} />}
-			{isLocked ? <div className='alfb-card alfb-status'><span className='dashicons dashicons-lock' aria-hidden='true' />{__('This is a Pro feature.', 'softicon-flipbook')}</div>
-				: <Content config={config} play={setVideo} unlock={unlock} />}
+			{group ? <div className='alfb-group'>
+				<nav className='alfb-group-nav' aria-label={group.label}>
+					<span className='alfb-group-title'>{group.label}</span>
+					{group.items.map(item => {
+						const locked = config.lockedTabs.includes(item.key);
+						return <a key={item.key} href={'#/' + item.key} className={item.key === tab ? 'is-active' : undefined} aria-current={item.key === tab ? 'page' : undefined}
+							onClick={locked ? event => {
+								event.preventDefault();
+								unlock();
+							} : undefined}>
+							<span className={'alfb-group-icon dashicons dashicons-' + (item.icon || 'admin-generic')} aria-hidden='true' />
+							<span><strong>{item.label}{locked && <span className='dashicons dashicons-lock' aria-label={__('Locked', 'softicon-flipbook')} />}{!config.pro && <span className='alfb-badge'>{__('Pro', 'softicon-flipbook')}</span>}</strong>{item.text && <small>{item.text}</small>}</span>
+						</a>;
+					})}
+				</nav>
+				<div className='alfb-group-main'>{page}</div>
+			</div> : page}
 		</div>
 		<VideoPopup video={video} onClose={() => setVideo(null)} />
 		{/* SoftIcon Flipbook Pro without a license adds its popup here */}

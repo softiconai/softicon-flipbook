@@ -10,7 +10,7 @@ import { videos } from '../utils/options';
 const symbols = { usd: '$', eur: '€', gbp: '£', aud: 'A$', cad: 'C$' };
 
 // where people write for help, a refund or anything else
-const SUPPORT = 'softiconai@gmail.com';
+const SUPPORT = 'support@softiconai.com';
 const mail = <a href={'mailto:' + SUPPORT} />;
 
 // buying without risk: the money-back days set in Freemius, a person to write to, and why we care

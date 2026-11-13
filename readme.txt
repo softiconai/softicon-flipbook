@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.6.3
+Stable tag: 1.7.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,7 +79,7 @@ See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qX
 
 Pro replaces the free plugin when you activate it, and every book you made keeps working. Prices and a full comparison are in Flipbook → Pricing in your dashboard.
 
-**Try Pro without risk:** start with a free trial from Flipbook → Pricing, no card needed, and every Pro plan comes with a 14-day money-back guarantee. Any problem or question, before or after you buy, email us at softiconai@gmail.com. We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first.
+**Try Pro without risk:** start with a free trial from Flipbook → Pricing, no card needed, and every Pro plan comes with a 14-day money-back guarantee. Any problem or question, before or after you buy, email us at support@softiconai.com. We build SoftIcon Flipbook for the people who use it, and your satisfaction comes first.
 
 = Third-party libraries =
 
@@ -169,7 +169,7 @@ We never collect your posts, pages or PDFs, anything about your visitors, or the
 
 **Why we ask:** to email you about security fixes and important new features, to know which WordPress and PHP versions we must keep supporting, and to learn what to improve.
 
-**Changed your mind?** Click "Opt Out" under Flipbook on the Plugins page and nothing more is sent. To have your data deleted, email us at softiconai@gmail.com.
+**Changed your mind?** Click "Opt Out" under Flipbook on the Plugins page and nothing more is sent. To have your data deleted, email us at support@softiconai.com.
 
 **When you deactivate the plugin**, a short form asks why. Answering is optional ("Skip & Deactivate" is always there). If you choose a reason, it is sent only when you delete the plugin. If you never opted in, only the reason and the anonymous site ID are sent, never your name or email.
 
@@ -194,11 +194,11 @@ If you opted in or skipped with an earlier version, your choice is kept and you 
 
 = What if Pro is not right for me? =
 
-Every Pro plan comes with a 14-day money-back guarantee. Email softiconai@gmail.com within 14 days of your purchase and we refund you in full, no questions asked. The same address works for any question or problem with Pro.
+Every Pro plan comes with a 14-day money-back guarantee. Email support@softiconai.com within 14 days of your purchase and we refund you in full, no questions asked. The same address works for any question or problem with Pro.
 
 = Where can I get help? =
 
-Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipbook/) and we will reply there, so the answer can help others too. For anything you would rather not post in public, such as a site you cannot share, email us at softiconai@gmail.com. Tell us your WordPress version, the page with the flipbook and what you see, and we will get back to you.
+Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipbook/) and we will reply there, so the answer can help others too. For anything you would rather not post in public, such as a site you cannot share, email us at support@softiconai.com. Tell us your WordPress version, the page with the flipbook and what you see, and we will get back to you.
 
 == Screenshots ==
 
@@ -213,6 +213,13 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 9. The Flipbook dashboard with live demos, video tutorials and help.
 
 == Changelog ==
+
+= 1.7.0 =
+* New: a Manage menu on the Flipbook dashboard. It shows what Pro's reading analytics, lead capture, site defaults and settings do, each with a working demo you can click, using sample data.
+* New: a new Help page with the ways to reach us (a support ticket, the docs, video tutorials and the forum), quick answers you can search, and your site details (WordPress, PHP and theme versions) to copy into a ticket. The details are only copied, never sent.
+* New: a short notice in the block's Colors panel: Pro can set the colors, size and toolbar once for every flipbook.
+* Changed: the dashboard uses more of a wide screen, and the Pricing and Free vs Pro pages line up with the rest.
+* Changed: the support email is now support@softiconai.com.
 
 = 1.6.3 =
 * New: Getting started on the Flipbook dashboard, with the steps for the block editor, the Classic Editor, Elementor and other page builders, and themes (PHP). Your flipbooks are listed with their shortcodes, ready to copy, and it opens on the editor your site uses.
@@ -327,6 +334,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.7.0 =
+A new Help page with quick answers, and a Manage menu that shows what Pro adds. Your flipbooks keep all their settings.
 
 = 1.6.3 =
 A Getting started guide for the block editor, the Classic Editor, Elementor and themes, with your shortcodes ready to copy. Your flipbooks keep all their settings.

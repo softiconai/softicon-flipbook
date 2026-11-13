@@ -6,6 +6,7 @@ import Welcome from './Welcome';
 import Demos from './Demos';
 import { Pricing, Compare } from './Pricing';
 import Help from './Help';
+import { proPages } from './ProPage';
 
 const start = () => {
 	const root = document.getElementById('alfb-dashboard');
@@ -13,8 +14,8 @@ const start = () => {
 	if (!root || !config) {
 		return;
 	}
-	// SoftIcon Flipbook Pro adds Analytics, Leads and Settings here
-	const tabs = applyFilters('alfb.dashboard.tabs', { welcome: Welcome, demos: Demos, pricing: Pricing, compare: Compare, help: Help }, config);
+	// SoftIcon Flipbook Pro puts its real Analytics, Leads, Defaults and Settings pages here
+	const tabs = applyFilters('alfb.dashboard.tabs', { welcome: Welcome, demos: Demos, ...proPages(), pricing: Pricing, compare: Compare, help: Help }, config);
 	createRoot(root).render(<App config={config} tabs={tabs} />);
 };
 

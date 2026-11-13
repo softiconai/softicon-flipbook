@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { applyFilters } from '@wordpress/hooks';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, ExternalLink, RangeControl, TextControl } from '@wordpress/components';
 import { aligns, designs, lightboxTriggers, videos } from '../../../../utils/options';
@@ -15,6 +16,11 @@ const Style = ({ attributes, setAttributes }) => {
 	const cover = 'cover' === lightboxTrigger;
 	const set = key => val => setAttributes({ [key]: val });
 	const color = key => ({ value: attributes[key], onChange: set(key) });
+	// SoftIcon Flipbook Pro: under a setting, whether it follows the site default or is this book's own; Reset goes
+	// back to the site default and is off while the book follows it
+	const hint = name => applyFilters('alfb.block.hint', null, { name, setAttributes });
+	const resetTo = (name, value) => applyFilters('alfb.block.reset', value, name);
+	const atDefault = (name, same) => applyFilters('alfb.block.atDefault', same, name);
 
 	// one choice sets the whole look, the arrows can still be turned off afterwards
 	const setDesign = val => setAttributes({ bookStyle: val, sideArrows: 'hardcover' === val });
@@ -22,7 +28,7 @@ const Style = ({ attributes, setAttributes }) => {
 	return <>
 		<Panel id='display' title={__('Display', 'softicon-flipbook')} badge={__('New', 'softicon-flipbook')}>
 			<ToggleRow label={__('Open in a lightbox', 'softicon-flipbook')} tip={__('Off: the book shows on the page. On: only a cover, button or link shows on the page, and a click opens the book in a popup over the page; the book loads only then.', 'softicon-flipbook')}
-				checked={lightbox} onChange={val => setAttributes({ displayMode: val ? 'lightbox' : 'inline' })} />
+				checked={lightbox} onChange={val => setAttributes({ displayMode: val ? 'lightbox' : 'inline' })} />{hint('displayMode')}
 
 			{!lightbox && <div>
 				<FieldHead label={__('Title above the book', 'softicon-flipbook')} tip={__('Shown above the book, also in full screen. Leave it empty for no title.', 'softicon-flipbook')} />
@@ -30,7 +36,7 @@ const Style = ({ attributes, setAttributes }) => {
 			</div>}
 
 			{lightbox && <>
-				<Tiles label={__('Open with', 'softicon-flipbook')} value={lightboxTrigger} options={lightboxTriggers} onChange={set('lightboxTrigger')} />
+				<Tiles label={__('Open with', 'softicon-flipbook')} value={lightboxTrigger} options={lightboxTriggers} onChange={set('lightboxTrigger')} />{hint('lightboxTrigger')}
 
 				<div>
 					<FieldHead label={cover ? __('Caption', 'softicon-flipbook') : __('Text', 'softicon-flipbook')}
@@ -53,20 +59,20 @@ const Style = ({ attributes, setAttributes }) => {
 
 				{cover && <div>
 					<FieldHead label={__('Cover width (px)', 'softicon-flipbook')} tip={__('Narrow columns and phones make the cover smaller.', 'softicon-flipbook')}
-						action={<Reset onClick={() => setAttributes({ lightboxWidth: 260 })} disabled={260 === lightboxWidth} />} />
-					<RangeControl label={__('Cover width (px)', 'softicon-flipbook')} hideLabelFromVision value={lightboxWidth} onChange={val => setAttributes({ lightboxWidth: val || 260 })} min={120} max={600} step={10} __nextHasNoMarginBottom />
+						action={<Reset onClick={() => setAttributes({ lightboxWidth: resetTo('lightboxWidth', 260) })} disabled={atDefault('lightboxWidth', 260 === lightboxWidth)} />} />
+					<RangeControl label={__('Cover width (px)', 'softicon-flipbook')} hideLabelFromVision value={lightboxWidth} onChange={val => setAttributes({ lightboxWidth: val || 260 })} min={120} max={600} step={10} __nextHasNoMarginBottom />{hint('lightboxWidth')}
 				</div>}
 
-				<Tiles label={__('Alignment', 'softicon-flipbook')} value={lightboxAlign} options={aligns} onChange={set('lightboxAlign')} />
+				<Tiles label={__('Alignment', 'softicon-flipbook')} value={lightboxAlign} options={aligns} onChange={set('lightboxAlign')} />{hint('lightboxAlign')}
 			</>}
 
 			<p className='alfbHelp'><ExternalLink href={videos.lightbox}>{__('See the lightbox in action', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>
 
 		<Panel id='design' title={__('Design', 'softicon-flipbook')}>
-			<Tiles label={__('Design', 'softicon-flipbook')} tip={__('Hardcover puts the pages inside a cover, with the stack of page edges, a shadow at the spine and large arrows beside the book.', 'softicon-flipbook')} value={bookStyle} options={designs} onChange={setDesign} />
+			<Tiles label={__('Design', 'softicon-flipbook')} tip={__('Hardcover puts the pages inside a cover, with the stack of page edges, a shadow at the spine and large arrows beside the book.', 'softicon-flipbook')} value={bookStyle} options={designs} onChange={setDesign} />{hint('bookStyle')}
 
-			{hardcover && <ToggleRow label={__('Side arrows', 'softicon-flipbook')} tip={__('Large arrows beside the book. On phones they sit over the page edges.', 'softicon-flipbook')} checked={sideArrows} onChange={set('sideArrows')} />}
+			{hardcover && <><ToggleRow label={__('Side arrows', 'softicon-flipbook')} tip={__('Large arrows beside the book. On phones they sit over the page edges.', 'softicon-flipbook')} checked={sideArrows} onChange={set('sideArrows')} />{hint('sideArrows')}</>}
 
 			<p className='alfbHelp'><ExternalLink href={videos.design}>{__('See the Hardcover design in action', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>
@@ -75,8 +81,8 @@ const Style = ({ attributes, setAttributes }) => {
 		{!lightbox && <Panel id='size' title={__('Size', 'softicon-flipbook')}>
 			<div>
 				<FieldHead label={__('Maximum height (px)', 'softicon-flipbook')} tip={__('The book keeps the page shape and shrinks to fit smaller screens.', 'softicon-flipbook')}
-					action={<Reset onClick={() => setAttributes({ maxHeight: 700 })} disabled={700 === maxHeight} />} />
-				<RangeControl label={__('Maximum height (px)', 'softicon-flipbook')} hideLabelFromVision value={maxHeight} onChange={val => setAttributes({ maxHeight: val || 700 })} min={300} max={1400} step={10} __nextHasNoMarginBottom />
+					action={<Reset onClick={() => setAttributes({ maxHeight: resetTo('maxHeight', 700) })} disabled={atDefault('maxHeight', 700 === maxHeight)} />} />
+				<RangeControl label={__('Maximum height (px)', 'softicon-flipbook')} hideLabelFromVision value={maxHeight} onChange={val => setAttributes({ maxHeight: val || 700 })} min={300} max={1400} step={10} __nextHasNoMarginBottom />{hint('maxHeight')}
 			</div>
 			<div className='alfbDeviceHeights'>
 				<FieldHead label={__('On tablets and phones', 'softicon-flipbook')} tip={__('A different maximum height on tablets (under 1025 px wide) and phones (under 600 px). Leave a field empty to keep the height above. The editor\'s Tablet and Mobile previews show them.', 'softicon-flipbook')} />
@@ -84,6 +90,7 @@ const Style = ({ attributes, setAttributes }) => {
 					onChange={val => setAttributes({ maxHeightTablet: parseInt(val, 10) > 0 ? parseInt(val, 10) : 0 })} __next40pxDefaultSize __nextHasNoMarginBottom />
 				<TextControl type='number' min={200} max={2000} label={__('Phone (px)', 'softicon-flipbook')} value={maxHeightPhone || ''} placeholder={String(maxHeight)}
 					onChange={val => setAttributes({ maxHeightPhone: parseInt(val, 10) > 0 ? parseInt(val, 10) : 0 })} __next40pxDefaultSize __nextHasNoMarginBottom />
+				{hint('maxHeightTablet')}{hint('maxHeightPhone')}
 			</div>
 		</Panel>}
 
@@ -93,13 +100,14 @@ const Style = ({ attributes, setAttributes }) => {
 					{ label: __('Light', 'softicon-flipbook'), value: 'light' },
 					{ label: __('Dark', 'softicon-flipbook'), value: 'dark' },
 					{ label: __('Auto', 'softicon-flipbook'), value: 'auto' }
-				]} />
+				]} />{hint('theme')}
 			<div className='siColors'>
-				{hardcover && <ColorRow label={__('Cover', 'softicon-flipbook')} {...color('coverColor')} />}
-				<ColorRow label={__('Background', 'softicon-flipbook')} {...color('bgColor')} />
-				<ColorRow label={__('Toolbar background', 'softicon-flipbook')} {...color('toolbarBg')} />
-				<ColorRow label={__('Toolbar icons and text', 'softicon-flipbook')} {...color('toolbarColor')} />
+				{hardcover && <><ColorRow label={__('Cover', 'softicon-flipbook')} {...color('coverColor')} />{hint('coverColor')}</>}
+				<ColorRow label={__('Background', 'softicon-flipbook')} {...color('bgColor')} />{hint('bgColor')}
+				<ColorRow label={__('Toolbar background', 'softicon-flipbook')} {...color('toolbarBg')} />{hint('toolbarBg')}
+				<ColorRow label={__('Toolbar icons and text', 'softicon-flipbook')} {...color('toolbarColor')} />{hint('toolbarColor')}
 			</div>
+			{!editorInfo.pro && <ProNotice href={editorInfo.defaults || editorInfo.pricing} text={__('Setting the colors, size and toolbar once for every flipbook on the site is available in Pro.', 'softicon-flipbook')} />}
 		</Panel>
 
 		{/* the Pro settings of this tab, shown as a notice only: the code is in Pro, which replaces this panel */}

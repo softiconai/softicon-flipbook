@@ -221,12 +221,31 @@ class dashboard {
         do_action( 'alfb_dashboard_assets' );
     }
 
+    // tabs shown as one in the header, with a menu beside their pages (src/dashboard/App.js)
+    public static function groups() {
+        $item = function ( $key, $icon, $label, $text ) {
+            return array( 'key' => $key, 'icon' => $icon, 'label' => $label, 'text' => $text );
+        };
+        return array( array( 'key' => 'manage', 'label' => __('Manage', 'softicon-flipbook'), 'items' => array(
+            $item( 'analytics', 'chart-bar', __('Analytics', 'softicon-flipbook'), __('Opens and pages read', 'softicon-flipbook') ),
+            $item( 'leads', 'email-alt', __('Leads', 'softicon-flipbook'), __('Emails from your readers', 'softicon-flipbook') ),
+            $item( 'defaults', 'admin-appearance', __('Defaults', 'softicon-flipbook'), __('One look for every book', 'softicon-flipbook') ),
+            $item( 'settings', 'admin-generic', __('Settings', 'softicon-flipbook'), __('Analytics and lead emails', 'softicon-flipbook') ),
+        ) ) );
+    }
+
     // the tab names; their content is React (src/dashboard), Pro adds its own through the alfb.dashboard.tabs JS filter
     public static function tabs() {
         $tabs = array(
             'welcome' => __('Welcome', 'softicon-flipbook'),
             'demos'   => __('Demos', 'softicon-flipbook'),
         );
+        // the Pro pages, under Manage (self::groups()); the free plugin shows what each one does
+        if ( ! self::is_pro() ) {
+            foreach ( self::groups()[0]['items'] as $item ) {
+                $tabs[ $item['key'] ] = $item['label'];
+            }
+        }
         if ( ! self::is_pro() || self::locked() ) {
             $tabs['pricing'] = __('Pricing', 'softicon-flipbook');
             $tabs['compare'] = __('Free vs Pro', 'softicon-flipbook');
@@ -271,6 +290,9 @@ class dashboard {
                 'playlist' => self::PLAYLIST,
             ),
             'start'   => self::start(),
+            'groups'  => self::groups(),
+            // the Help tab's "Your site details", copied into a support ticket (only copied, never sent)
+            'site'    => array( 'wp' => get_bloginfo( 'version' ), 'php' => PHP_VERSION, 'theme' => wp_get_theme()->get( 'Name' ) ),
         );
         return apply_filters( 'alfb_dashboard_config', $config );
     }

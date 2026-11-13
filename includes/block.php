@@ -40,6 +40,7 @@ class block {
             // the dashboard is for admins; other editors see the notices without a link
             'dashboard' => current_user_can( 'manage_options' ) ? dashboard::url( 'compare' ) : '',
             'pricing'   => current_user_can( 'manage_options' ) ? dashboard::url( 'pricing' ) : '',
+            'defaults'  => current_user_can( 'manage_options' ) ? dashboard::url( 'defaults' ) : '',
             // "Create a flipbook" on the dashboard starts the new page with this book
             'demoPdf'   => ALFB_PLUGIN_URL . 'assets/demo/spring-catalog.pdf',
         ) ) . ';';

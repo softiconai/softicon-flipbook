@@ -40,4 +40,4 @@ The viewer is in `src/viewer/` (pdf.js 6 and page-flip 2). `src/vendor/softicon-
 
 ## Support
 
-Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipbook/), or email softiconai@gmail.com.
+Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipbook/), or email support@softiconai.com.
