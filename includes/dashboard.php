@@ -76,6 +76,8 @@ class dashboard {
                 'https://www.youtube.com/watch?v=D7WiNswbHi8' => __('Pro: hotspots', 'softicon-flipbook'),
                 'https://www.youtube.com/watch?v=iOr2NJ0yaAA' => __('Pro: branding', 'softicon-flipbook'),
                 'https://www.youtube.com/watch?v=ET4JXhOO-2s' => __('Pro: reading analytics', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=BGlS_IKKagM' => __('Pro: each post\'s own PDF (Meta Box, ACF)', 'softicon-flipbook'),
+                'https://www.youtube.com/watch?v=4-D5HxqV1yg' => __('Pro: bookmarks and selectable text', 'softicon-flipbook'),
             );
         }
         return $videos;

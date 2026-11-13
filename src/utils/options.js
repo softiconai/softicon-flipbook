@@ -39,6 +39,8 @@ export const videos = {
 	hotspots: 'https://www.youtube.com/watch?v=D7WiNswbHi8' + LIST,
 	branding: 'https://www.youtube.com/watch?v=iOr2NJ0yaAA' + LIST,
 	analytics: 'https://www.youtube.com/watch?v=ET4JXhOO-2s' + LIST,
+	field: 'https://www.youtube.com/watch?v=BGlS_IKKagM' + LIST,
+	bookmarks: 'https://www.youtube.com/watch?v=4-D5HxqV1yg' + LIST,
 	pro: 'https://www.youtube.com/watch?v=LtCj7-J2qXI' + LIST
 };
 

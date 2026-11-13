@@ -97,6 +97,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 						render={({ open }) => <Button variant='secondary' onClick={open}>{pdfUrl ? __('Replace PDF', 'softicon-flipbook') : __('Choose PDF', 'softicon-flipbook')}</Button>} />
 				</MediaUploadCheck>
 				{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Taking each post\'s PDF from a custom field (Meta Box, ACF), and text readers can select and copy, are available in Pro.', 'softicon-flipbook')} />}
+				{!editorInfo.pro && <p className='alfbHelp'><ExternalLink href={videos.field}>{__('Watch: each post\'s own PDF from Meta Box or ACF', 'softicon-flipbook')}</ExternalLink></p>}
 				<ToggleRow label={__('Links in the PDF', 'softicon-flipbook')} tip={__('Web, email and page links inside the PDF can be clicked. Web links open in a new tab, page links turn the book.', 'softicon-flipbook')} checked={showLinks} onChange={set('showLinks')} />{hint('showLinks')}
 			</div> : <div className='alfbStack'>
 				<FieldHead label={__('Pages', 'softicon-flipbook')} tip={__('Each image is one page. Drag them in the media window to change the order.', 'softicon-flipbook')} />
@@ -159,6 +160,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />{hint('showThumbnails')}
 
 			{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Bookmarks, so readers can mark pages and come back to them, are available in Pro.', 'softicon-flipbook')} />}
+			{!editorInfo.pro && <p className='alfbHelp'><ExternalLink href={videos.bookmarks}>{__('Watch: bookmarks and selectable text', 'softicon-flipbook')}</ExternalLink></p>}
 
 			<ToggleRow label={__('Zoom', 'softicon-flipbook')} tip={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} />{hint('showZoom')}
 

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-13T13:44:51+00:00\n"
+"POT-Creation-Date: 2026-11-13T13:59:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -42,7 +42,7 @@ msgid "Read the flipbook"
 msgstr ""
 
 #: build/render.php:63
-#: includes/dashboard.php:176
+#: includes/dashboard.php:178
 #: includes/shortcode.php:39
 #: build/dashboard.js:1
 #: build/dashboard.js:3
@@ -127,23 +127,31 @@ msgstr ""
 msgid "Pro: reading analytics"
 msgstr ""
 
-#: includes/dashboard.php:175
-#: includes/dashboard.php:184
-#: includes/dashboard.php:416
+#: includes/dashboard.php:79
+msgid "Pro: each post's own PDF (Meta Box, ACF)"
+msgstr ""
+
+#: includes/dashboard.php:80
+msgid "Pro: bookmarks and selectable text"
+msgstr ""
+
+#: includes/dashboard.php:177
+#: includes/dashboard.php:186
+#: includes/dashboard.php:418
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/dashboard.php:184
-#: includes/dashboard.php:188
+#: includes/dashboard.php:186
+#: includes/dashboard.php:190
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:190
-#: includes/dashboard.php:251
+#: includes/dashboard.php:192
+#: includes/dashboard.php:253
 msgid "Free vs Pro"
 msgstr ""
 
-#: includes/dashboard.php:197
+#: includes/dashboard.php:199
 #: build/dashboard.js:1
 #: build/dashboard.js:3
 #: build/dashboard.js:7
@@ -151,71 +159,71 @@ msgstr ""
 msgid "Video tutorials"
 msgstr ""
 
-#: includes/dashboard.php:229
+#: includes/dashboard.php:231
 msgid "Manage"
 msgstr ""
 
-#: includes/dashboard.php:230
+#: includes/dashboard.php:232
 msgid "Analytics"
 msgstr ""
 
-#: includes/dashboard.php:230
+#: includes/dashboard.php:232
 msgid "Opens and pages read"
 msgstr ""
 
-#: includes/dashboard.php:231
+#: includes/dashboard.php:233
 #: build/dashboard.js:8
 msgid "Leads"
 msgstr ""
 
-#: includes/dashboard.php:231
+#: includes/dashboard.php:233
 msgid "Emails from your readers"
 msgstr ""
 
-#: includes/dashboard.php:232
+#: includes/dashboard.php:234
 msgid "Defaults"
 msgstr ""
 
-#: includes/dashboard.php:232
+#: includes/dashboard.php:234
 msgid "One look for every book"
 msgstr ""
 
-#: includes/dashboard.php:233
+#: includes/dashboard.php:235
 #: build/dashboard.js:9
 msgid "Settings"
 msgstr ""
 
-#: includes/dashboard.php:233
+#: includes/dashboard.php:235
 msgid "Analytics and lead emails"
 msgstr ""
 
-#: includes/dashboard.php:240
+#: includes/dashboard.php:242
 msgid "Welcome"
 msgstr ""
 
-#: includes/dashboard.php:241
+#: includes/dashboard.php:243
 msgid "Demos"
 msgstr ""
 
-#: includes/dashboard.php:250
+#: includes/dashboard.php:252
 #: build/dashboard.js:7
 msgid "Pricing"
 msgstr ""
 
-#: includes/dashboard.php:253
+#: includes/dashboard.php:255
 #: build/index.js:2
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:314
+#: includes/dashboard.php:316
 msgid "(no title)"
 msgstr ""
 
-#: includes/dashboard.php:416
+#: includes/dashboard.php:418
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:420
+#: includes/dashboard.php:422
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -1726,6 +1734,10 @@ msgid "Taking each post's PDF from a custom field (Meta Box, ACF), and text read
 msgstr ""
 
 #: build/index.js:2
+msgid "Watch: each post's own PDF from Meta Box or ACF"
+msgstr ""
+
+#: build/index.js:2
 msgid "Links in the PDF"
 msgstr ""
 
@@ -1878,6 +1890,10 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Bookmarks, so readers can mark pages and come back to them, are available in Pro."
+msgstr ""
+
+#: build/index.js:2
+msgid "Watch: bookmarks and selectable text"
 msgstr ""
 
 #: build/index.js:2
