@@ -33,7 +33,8 @@ const pages = () => ({
 			__('Hide the download button on every book at once', 'softicon-flipbook'),
 			__('Your brand colors and height on each new book', 'softicon-flipbook'),
 			__('Right to left for every book on an Arabic, Hebrew or Urdu site', 'softicon-flipbook'),
-			__('A live preview before you save', 'softicon-flipbook')
+			__('A live preview before you save', 'softicon-flipbook'),
+			__('Presets: save a book\'s look and give it to other books in one click', 'softicon-flipbook')
 		]
 	},
 	settings: {

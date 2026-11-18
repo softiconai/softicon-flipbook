@@ -107,7 +107,7 @@ const Style = ({ attributes, setAttributes }) => {
 				<ColorRow label={__('Toolbar background', 'softicon-flipbook')} {...color('toolbarBg')} />{hint('toolbarBg')}
 				<ColorRow label={__('Toolbar icons and text', 'softicon-flipbook')} {...color('toolbarColor')} />{hint('toolbarColor')}
 			</div>
-			{!editorInfo.pro && <ProNotice href={editorInfo.defaults || editorInfo.pricing} text={__('Setting the colors, size and toolbar once for every flipbook on the site is available in Pro.', 'softicon-flipbook')} />}
+			{!editorInfo.pro && <ProNotice href={editorInfo.defaults || editorInfo.pricing} text={__('Setting the colors, size and toolbar once for every flipbook on the site, and presets that give one book\'s look to others, are available in Pro.', 'softicon-flipbook')} />}
 		</Panel>
 
 		{/* the Pro settings of this tab, shown as a notice only: the code is in Pro, which replaces this panel */}

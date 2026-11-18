@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -134,7 +134,7 @@ Yes. The block tells its script where the plugin's files are, so combining or mo
 
 = Does it work with the Classic Editor or page builders? =
 
-Yes. In the block editor add the Flipbook block. For the Classic Editor, Elementor, Divi or a widget, go to Flipbook → All Flipbooks, click Add a flipbook and set it up in the block editor, then publish it. The list shows its shortcode, such as `[softicon_flipbook id="123"]`; paste it where the flipbook should be. Change the flipbook there later and every page with its shortcode shows the change. Watch the [shortcode video](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g).
+Yes. In the block editor add the Flipbook block. For the Classic Editor, Elementor, Divi or a widget, go to Flipbook → All Flipbooks, click Add a flipbook and set it up in the block editor, then publish it. The list shows its shortcode, such as `[softicon_flipbook id="123"]`; paste it where the flipbook should be. Change the flipbook there later and every page with its shortcode shows the change. To change a setting in one place only, add it to the shortcode, such as `[softicon_flipbook id="123" height="500" theme="dark" show_download="no"]`. Watch the [shortcode video](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g).
 
 = How do I link to a specific page? =
 
@@ -213,6 +213,11 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 9. The Flipbook dashboard with live demos, video tutorials and help.
 
 == Changelog ==
+
+= 1.8.0 =
+* New: the Welcome tab asks how you want to add your flipbook: as a block in a page, or with a shortcode for the Classic Editor, Elementor and other page builders. The way that fits your site is marked, and the block then shows the steps for it.
+* New: change a flipbook's settings in one place with its shortcode, such as `[softicon_flipbook id="123" height="500" theme="dark" show_download="no"]`. The flipbook keeps its own settings everywhere else. Any setting of the block works, by its name; a name or value the shortcode can't use is left out, with a note that only the flipbook's editors see. The block's Help panel shows how.
+* Changed: after you activate the plugin, the Flipbook dashboard opens.
 
 = 1.7.0 =
 * New: a Manage menu on the Flipbook dashboard. It shows what Pro's reading analytics, lead capture, site defaults and settings do, each with a working demo you can click, using sample data.
@@ -334,6 +339,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.8.0 =
+Change a flipbook's settings in one place with its shortcode, and a quicker start on the Welcome tab. Your flipbooks keep all their settings.
 
 = 1.7.0 =
 A new Help page with quick answers, and a Manage menu that shows what Pro adds. Your flipbooks keep all their settings.
