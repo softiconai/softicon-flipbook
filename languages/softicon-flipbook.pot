@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-14T13:37:43+00:00\n"
+"POT-Creation-Date: 2026-11-18T14:44:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -43,7 +43,7 @@ msgstr ""
 
 #: build/render.php:63
 #: includes/dashboard.php:178
-#: includes/shortcode.php:39
+#: includes/shortcode.php:40
 #: build/dashboard.js:1
 #: build/dashboard.js:3
 #: build/index.js:10
@@ -60,8 +60,8 @@ msgid "Overview in one minute"
 msgstr ""
 
 #: includes/dashboard.php:60
-#: includes/shortcode.php:40
 #: includes/shortcode.php:41
+#: includes/shortcode.php:42
 #: build/dashboard.js:3
 msgid "Add a flipbook"
 msgstr ""
@@ -227,42 +227,48 @@ msgstr ""
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
-#: includes/shortcode.php:38
+#: includes/shortcode.php:39
 msgid "Flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:42
+#: includes/shortcode.php:43
 msgid "Edit flipbook"
 msgstr ""
 
-#: includes/shortcode.php:43
+#: includes/shortcode.php:44
 msgid "All Flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:44
+#: includes/shortcode.php:45
 msgid "No flipbooks yet."
 msgstr ""
 
-#: includes/shortcode.php:45
+#: includes/shortcode.php:46
 msgid "No flipbooks in the trash."
 msgstr ""
 
-#: includes/shortcode.php:46
+#: includes/shortcode.php:47
 msgid "Search flipbooks"
 msgstr ""
 
-#: includes/shortcode.php:86
-#: includes/shortcode.php:91
+#. translators: %s: the shortcode options that were left out, such as "heigth, theme=blue"
+#: includes/shortcode.php:87
+#, php-format
+msgid "Flipbook shortcode: left out %s (a setting the shortcode cannot change, or a value it cannot take). Only people who can edit this flipbook see this note."
+msgstr ""
+
+#: includes/shortcode.php:134
+#: includes/shortcode.php:139
 #: build/dashboard.js:3
 #: build/index.js:2
 msgid "Shortcode"
 msgstr ""
 
-#: includes/shortcode.php:91
+#: includes/shortcode.php:139
 msgid "Click to copy"
 msgstr ""
 
-#: includes/shortcode.php:101
+#: includes/shortcode.php:149
 #: build/dashboard.js:1
 #: build/dashboard.js:8
 #: build/index.js:2
@@ -1727,6 +1733,22 @@ msgstr ""
 
 #: build/index.js:2
 msgid "Where to paste it: the Classic Editor, Elementor and more"
+msgstr ""
+
+#: build/index.js:2
+msgid "Change a setting in one place"
+msgstr ""
+
+#: build/index.js:2
+msgid "Add a setting to the shortcode to change it only where you paste it; this flipbook keeps its own everywhere else. For example:"
+msgstr ""
+
+#: build/index.js:2
+msgid "More:"
+msgstr ""
+
+#: build/index.js:2
+msgid "Yes or no settings take yes, no, true, false, 1 or 0. A name or value the flipbook does not know is left out, with a note that only its editors see."
 msgstr ""
 
 #: build/index.js:2

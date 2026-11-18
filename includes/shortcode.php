@@ -4,7 +4,8 @@ namespace ALFB_Flipbook;
 if ( !defined('ABSPATH') ) { exit; }
 
 // Flipbooks for the Classic Editor and page builders: Flipbook → All Flipbooks holds one Flipbook block per flipbook (set up
-// in the block editor), and [softicon_flipbook id="123"] shows it anywhere a shortcode works. The post type stays alfb_book
+// in the block editor), and [softicon_flipbook id="123"] shows it anywhere a shortcode works, with any of its settings
+// changed for that place (options()). The post type stays alfb_book
 class shortcode {
 
     const TYPE = 'alfb_book';
@@ -65,6 +66,8 @@ class shortcode {
             return '';
         }
 
+        list( $options, $wrong ) = self::options( $atts );
+
         // the block reads its media as part of the book's own post (block::may_use())
         global $post;
         $page = $post;
@@ -72,11 +75,56 @@ class shortcode {
         $html = '';
         foreach ( parse_blocks( $book->post_content ) as $block ) {
             if ( 'softicon/flipbook' === $block['blockName'] ) {
+                $block['attrs'] = array_merge( is_array( $block['attrs'] ) ? $block['attrs'] : array(), $options );
                 $html .= render_block( $block );
             }
         }
         $post = $page; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- the page's own post again
+
+        // a name or value that does nothing is told to whoever can edit the book, never to readers
+        if ( $wrong && '' !== $html && current_user_can( 'edit_post', $book->ID ) ) {
+            /* translators: %s: the shortcode options that were left out, such as "heigth, theme=blue" */
+            $html = '<p class="alfb-shortcode-note" style="margin:0 0 8px;padding:8px 12px;border-left:3px solid #d97706;background:#fffbeb;color:#1e1e1e;font-size:14px">' . esc_html( sprintf( __('Flipbook shortcode: left out %s (a setting the shortcode cannot change, or a value it cannot take). Only people who can edit this flipbook see this note.', 'softicon-flipbook'), implode( ', ', $wrong ) ) ) . '</p>' . $html;
+        }
         return $html;
+    }
+
+    // [softicon_flipbook id="123" height="500" theme="dark" show_download="no"]: the book's settings changed for this one
+    // place, by their block names in any case, with or without _ or - (WordPress lowercases them); a bare name turns one on.
+    // Not the PDF or the images, and an add-on takes out the settings that keep a book safe (alfb_shortcode_attributes)
+    public static function options( $atts ) {
+        $type  = \WP_Block_Type_Registry::get_instance()->get_registered( 'softicon/flipbook' );
+        $names = array( 'height' => 'maxHeight', 'title' => 'bookTitle' );
+        foreach ( $type ? $type->attributes : array() as $name => $schema ) {
+            if ( isset( $schema['type'] ) && in_array( $schema['type'], array( 'boolean', 'number', 'string' ), true ) && ! in_array( $name, array( 'source', 'pdfId', 'pdfUrl' ), true ) ) {
+                $names[ self::key( $name ) ] = $name;
+            }
+        }
+        $names   = apply_filters( 'alfb_shortcode_attributes', $names );
+        $options = array();
+        $wrong   = array();
+        foreach ( is_array( $atts ) ? $atts : array() as $key => $value ) {
+            if ( is_int( $key ) ) {
+                list( $key, $value ) = array( $value, 'true' );
+            }
+            $name = isset( $names[ self::key( $key ) ] ) ? $names[ self::key( $key ) ] : '';
+            $kind = $name && isset( $type->attributes[ $name ]['type'] ) ? $type->attributes[ $name ]['type'] : '';
+            $bool = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+            if ( 'boolean' === $kind && null !== $bool ) {
+                $options[ $name ] = $bool;
+            } elseif ( 'number' === $kind && is_numeric( $value ) ) {
+                $options[ $name ] = $value + 0;
+            } elseif ( 'string' === $kind ) {
+                $options[ $name ] = (string) $value;
+            } elseif ( 'id' !== $key ) {
+                $wrong[] = $name ? $key . '=' . $value : $key;
+            }
+        }
+        return array( $options, $wrong );
+    }
+
+    private static function key( $name ) {
+        return strtolower( str_replace( array( '_', '-' ), '', (string) $name ) );
     }
 
     // the All Flipbooks list shows each flipbook's shortcode; a click copies it

@@ -60,6 +60,14 @@ const Shortcode = () => {
 		</div>
 		{!published && <p className='alfbHelp'>{__('It shows the flipbook once it is published.', 'softicon-flipbook')}</p>}
 		<p className='alfbHelp'><ExternalLink href={videos.shortcode}>{__('Where to paste it: the Classic Editor, Elementor and more', 'softicon-flipbook')}</ExternalLink></p>
+		{/* includes/shortcode.php: any setting, by its name, for the one place the shortcode is pasted */}
+		<details className='alfbShortcodeMore'>
+			<summary>{__('Change a setting in one place', 'softicon-flipbook')}</summary>
+			<p>{__('Add a setting to the shortcode to change it only where you paste it; this flipbook keeps its own everywhere else. For example:', 'softicon-flipbook')}</p>
+			<code>{`[softicon_flipbook id="${id}" height="500" theme="dark" show_download="no"]`}</code>
+			<p>{__('More:', 'softicon-flipbook')} <code>page_mode</code> (auto, double, single), <code>book_style</code> (flat, hardcover), <code>display_mode</code> (inline, lightbox), <code>start_page</code>, <code>bg_color</code>, <code>show_share</code>, <code>show_print</code>, <code>autoplay</code>, <code>rtl</code>.</p>
+			<p>{__('Yes or no settings take yes, no, true, false, 1 or 0. A name or value the flipbook does not know is left out, with a note that only its editors see.', 'softicon-flipbook')}</p>
+		</details>
 	</div>;
 };
 
