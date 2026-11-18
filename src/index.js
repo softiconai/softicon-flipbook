@@ -21,16 +21,21 @@ addFilter('blockEditor.useSetting.before', 'softicon-flipbook/no-margin-panel', 
 	metadata.name === blockName && 'spacing.margin' === path ? false : value
 ));
 
-// "Create a flipbook" on the dashboard opens a new page with ?alfb_start=1: once the editor is ready the page gets a
-// flipbook of the demo PDF, selected, so the first book is there at once and only needs the person's own PDF
+// the dashboard opens a new page with ?alfb_start=…: once the editor is ready the page gets a flipbook, selected.
+// 1 ("Start from a sample book"): one of the demo PDF, only needing the person's own; block (the Welcome tab's "Block"):
+// an empty one, which asks for the PDF; shortcode: a flipbook under All Flipbooks, whose block is already there
 domReady(() => {
 	const url = new URL(window.location.href);
+	const mode = url.searchParams.get('alfb_start');
 	const pdfUrl = window.alfbEditor?.demoPdf;
-	if (!url.searchParams.has('alfb_start') || !pdfUrl) {
+	if (null === mode) {
 		return;
 	}
 	url.searchParams.delete('alfb_start');
 	window.history.replaceState(window.history.state, '', url.toString());
+	if ('shortcode' === mode || ('block' !== mode && !pdfUrl)) {
+		return;
+	}
 	// the editor is often ready before this runs, and then nothing in the stores changes: check now, else wait
 	let done = false;
 	const start = () => {
@@ -48,7 +53,7 @@ domReady(() => {
 			if (blocks.some(block => metadata.name === block.name) || ++tries > 6) {
 				return;
 			}
-			dispatch('core/block-editor').insertBlocks(createBlock(metadata.name, { pdfUrl }), blocks.length);
+			dispatch('core/block-editor').insertBlocks(createBlock(metadata.name, 'block' === mode ? {} : { pdfUrl }), blocks.length);
 			setTimeout(add, 700);
 		};
 		setTimeout(add, 400);

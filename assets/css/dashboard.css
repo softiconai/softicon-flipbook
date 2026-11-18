@@ -175,11 +175,114 @@
 	font-size: 15px;
 }
 
-.alfb-hero .alfb-actions {
+/* Welcome: "Block or Shortcode?" in the hero */
+.alfb-choice {
+	margin-top: 24px;
+}
+
+.alfb-hero .alfb-choice h3 {
+	margin: 0 0 12px;
+	color: #fff;
+	font-size: 16px;
+}
+
+.alfb-choice-cards {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.alfb-choice-card {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 16px 18px;
+	border: 2px solid transparent;
+	border-radius: 12px;
+	background: #fff;
+	color: var(--alfb-ink);
+	text-decoration: none;
+	transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.alfb-choice-card:hover,
+.alfb-choice-card:focus {
+	color: var(--alfb-ink);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+	transform: translateY(-2px);
+}
+
+.alfb-choice-card:focus-visible {
+	outline: 2px solid var(--alfb-amber);
+	outline-offset: 2px;
+}
+
+.alfb-choice-card.is-fit {
+	border-color: #fbbf24;
+}
+
+.alfb-choice-icon {
+	width: 32px;
+	height: 32px;
+	border-radius: 8px;
+	background: #ccfbf1;
+	color: var(--alfb-teal);
+	font-size: 20px;
+	line-height: 32px;
+	text-align: center;
+}
+
+.alfb-choice-card strong {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px;
-	margin-top: 22px;
+	align-items: center;
+	gap: 8px;
+	font-size: 16px;
+}
+
+.alfb-choice-fit {
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: #fef3c7;
+	color: #92400e;
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.alfb-hero .alfb-choice-text {
+	color: #50575e;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.alfb-choice-go {
+	margin-top: auto;
+	padding-top: 4px;
+	color: var(--alfb-teal);
+	font-weight: 600;
+}
+
+.alfb-hero .alfb-choice-more {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 18px;
+	margin-top: 14px;
+	font-size: 13px;
+}
+
+.alfb-choice-more a {
+	color: #fff;
+}
+
+.alfb-choice-more a:hover,
+.alfb-choice-more a:focus {
+	color: #fde68a;
+}
+
+@media (max-width: 600px) {
+	.alfb-choice-cards {
+		grid-template-columns: 1fr;
+	}
 }
 
 .alfb-hero-video {

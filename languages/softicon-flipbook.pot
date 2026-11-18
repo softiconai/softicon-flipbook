@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-13T13:59:23+00:00\n"
+"POT-Creation-Date: 2026-11-14T13:37:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -253,6 +253,7 @@ msgstr ""
 
 #: includes/shortcode.php:86
 #: includes/shortcode.php:91
+#: build/dashboard.js:3
 #: build/index.js:2
 msgid "Shortcode"
 msgstr ""
@@ -865,15 +866,47 @@ msgid "Create a flipbook"
 msgstr ""
 
 #: build/dashboard.js:3
+msgid "Block"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Add the flipbook right inside a page or post, in the block editor."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Open a new page"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Make the flipbook once, then paste its shortcode in the Classic Editor, Elementor or any page builder."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Make a flipbook"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "How do you want to add your flipbook?"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Fits this site"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Or start from a sample book"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "See the demos"
+msgstr ""
+
+#: build/dashboard.js:3
 msgid "Turn any PDF into a book people enjoy reading"
 msgstr ""
 
 #: build/dashboard.js:3
 msgid "Catalogs, magazines, menus and brochures that turn like real pages, on phones and big screens, right inside the block editor."
-msgstr ""
-
-#: build/dashboard.js:3
-msgid "See the demos"
 msgstr ""
 
 #: build/dashboard.js:3
@@ -2294,6 +2327,38 @@ msgstr ""
 #: build/index.js:10
 #: build/view.js:9
 msgid "This flipbook could not be loaded."
+msgstr ""
+
+#: build/index.js:10
+msgid "Pick the page images, in reading order."
+msgstr ""
+
+#: build/index.js:10
+msgid "Pick your PDF: upload it, choose it from the Media Library or paste its link."
+msgstr ""
+
+#: build/index.js:10
+msgid "Give the flipbook a title, change its look in the sidebar if you like, then click Publish."
+msgstr ""
+
+#: build/index.js:10
+msgid "Copy its shortcode from the sidebar's Block tab and paste it in your page: the Classic Editor, an Elementor Shortcode widget or any page builder."
+msgstr ""
+
+#: build/index.js:10
+msgid "Change its look in the sidebar on the right: Classic or Hardcover, on the page or in a popup."
+msgstr ""
+
+#: build/index.js:10
+msgid "Click Publish: the flipbook shows on the page."
+msgstr ""
+
+#: build/index.js:10
+msgid "Your flipbook is ready. Give it a title and click Publish, then copy its shortcode from the sidebar's Block tab."
+msgstr ""
+
+#: build/index.js:10
+msgid "Your flipbook is ready. Change its look in the sidebar on the right, then click Publish."
 msgstr ""
 
 #: build/index.js:10

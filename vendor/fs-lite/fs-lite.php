@@ -406,15 +406,15 @@ class fs_lite {
 
         $data = $this->data();
 
-        // once after activation on the Plugins screen, the dashboard where the opt-in is; only for the person who
-        // activated it, within a minute, and not after a bulk, network, AJAX or WP-CLI activation
+        // once after activation on the Plugins screen: the opt-in if it is not answered yet, else the dashboard's Welcome;
+        // only for the person who activated it, within a minute, and not after a bulk, network, AJAX or WP-CLI activation
         global $pagenow;
         $redirect = 'alfb_fs_redirect_' . $this->slug;
         // a transient comes back as a string, hence the (int)
         if ( 'plugins.php' === $pagenow && get_current_user_id() && (int) get_transient( $redirect ) === get_current_user_id() ) {
             delete_transient( $redirect );
-            if ( '' === $data['state'] && current_user_can( 'manage_options' ) && ! isset( $_GET['activate-multi'] ) && ! wp_doing_ajax() && ! is_network_admin() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only reads where WordPress came from
-                wp_safe_redirect( $this->optin_url() );
+            if ( current_user_can( 'manage_options' ) && ! isset( $_GET['activate-multi'] ) && ! wp_doing_ajax() && ! is_network_admin() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only reads where WordPress came from
+                wp_safe_redirect( '' === $data['state'] ? $this->optin_url() : $this->page_url() );
                 exit;
             }
         }
@@ -439,7 +439,7 @@ class fs_lite {
         register_uninstall_hook( $this->file, array( __CLASS__, 'uninstall' ) );
         // an old answer from an earlier deactivation is not sent later
         $data = $this->save( array( 'reason' => null ) );
-        if ( '' === $data['state'] && get_current_user_id() && ! wp_doing_ajax() && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+        if ( get_current_user_id() && ! wp_doing_ajax() && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
             set_transient( 'alfb_fs_redirect_' . $this->slug, get_current_user_id(), MINUTE_IN_SECONDS );
         }
         if ( 'connected' === $data['state'] && $data['tracking'] ) {

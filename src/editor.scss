@@ -13,6 +13,27 @@
 	font-size: 13px;
 }
 
+// the steps for the way picked on the dashboard's Welcome tab (Edit.js)
+.alfbGuide {
+	flex-basis: 100%;
+	margin: 4px 0 14px;
+	padding: 12px 16px 12px 34px;
+	border-left: 3px solid #0f766e;
+	border-radius: 4px;
+	background: #f0fdfa;
+	color: #1e1e1e;
+	font-size: 13px;
+	line-height: 1.5;
+
+	li {
+		margin: 0 0 4px;
+	}
+
+	li:last-child {
+		margin-bottom: 0;
+	}
+}
+
 .alfbImages {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);

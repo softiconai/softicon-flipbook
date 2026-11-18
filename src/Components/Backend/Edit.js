@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { BlockControls, MediaPlaceholder, MediaReplaceFlow, MediaUpload, MediaUploadCheck, useBlockProps } from '@wordpress/block-editor';
 import { Button, ExternalLink, ToolbarButton } from '@wordpress/components';
+import { dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 // copied from the shared softicon-tools folder by `npm run tools` (prebuild), edit it there
 import useIframeAssets from '../../vendor/softicon-tools/hooks/useIframeAssets';
@@ -11,6 +12,7 @@ import Flipbook from '../../viewer/Flipbook';
 import { blockIcon } from '../../utils/icons';
 import { cssVars, hasContent, toConfig, toImage } from '../../utils/functions';
 import { videos } from '../../utils/options';
+import guide from '../../utils/guide';
 
 // waits for the user to stop dragging a slider before the preview reloads the PDF
 const useDebounced = (value, delay) => {
@@ -21,6 +23,21 @@ const useDebounced = (value, delay) => {
 	}, [value, delay]);
 	return debounced;
 };
+
+// the steps for the way picked on the Welcome tab (utils/guide.js), under the PDF picker
+const Steps = ({ images }) => <ol className='alfbGuide'>
+	<li>{images ? __('Pick the page images, in reading order.', 'softicon-flipbook') : __('Pick your PDF: upload it, choose it from the Media Library or paste its link.', 'softicon-flipbook')}</li>
+	{'shortcode' === guide ? <>
+		<li>{__('Give the flipbook a title, change its look in the sidebar if you like, then click Publish.', 'softicon-flipbook')}</li>
+		<li>{__('Copy its shortcode from the sidebar\'s Block tab and paste it in your page: the Classic Editor, an Elementor Shortcode widget or any page builder.', 'softicon-flipbook')}</li>
+	</> : <>
+		<li>{__('Change its look in the sidebar on the right: Classic or Hardcover, on the page or in a popup.', 'softicon-flipbook')}</li>
+		<li>{__('Click Publish: the flipbook shows on the page.', 'softicon-flipbook')}</li>
+	</>}
+</ol>;
+
+// once the PDF is picked, the next step stays in view at the top of the editor
+let guided = false;
 
 const Edit = (props) => {
 	const { attributes, setAttributes } = props;
@@ -36,6 +53,16 @@ const Edit = (props) => {
 	const onSelectImages = items => setAttributes({ images: items.map(toImage) });
 
 	const ready = hasContent(attributes);
+	useEffect(() => {
+		if (!guide || !ready || guided) {
+			return;
+		}
+		guided = true;
+		dispatch('core/notices').createInfoNotice('shortcode' === guide ?
+			__('Your flipbook is ready. Give it a title and click Publish, then copy its shortcode from the sidebar\'s Block tab.', 'softicon-flipbook') :
+			__('Your flipbook is ready. Change its look in the sidebar on the right, then click Publish.', 'softicon-flipbook'), { id: 'alfb-guide' });
+	}, [ready]);
+
 	// the toolbar buttons the preview leaves out (Flipbook.js, editor mode) do not reload it
 	const preview = toConfig(attributes);
 	['showFullscreen', 'showZoom', 'showThumbnails', 'showContents', 'showLinks', 'showSearch', 'showShare', 'flipSound', 'showPrint', 'startWith', 'autoplay', 'autoplaySeconds', 'autoplayLoop', 'phoneFullscreen'].forEach(key => delete preview[key]);
@@ -76,6 +103,7 @@ const Edit = (props) => {
 	useEffect(applyColors, [attributes.bgColor, attributes.toolbarBg, attributes.toolbarColor, attributes.coverColor]);
 
 	const switchSource = value => <>
+		{guide && <Steps images={'pdf' === value} />}
 		<Button variant='link' onClick={() => setAttributes({ source: value })}>
 			{'images' === value ? __('Use images instead', 'softicon-flipbook') : __('Use a PDF instead', 'softicon-flipbook')}
 		</Button>
