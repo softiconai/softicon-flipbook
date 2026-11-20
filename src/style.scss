@@ -684,9 +684,15 @@
 			margin: 0;
 		}
 
+		// the keys keep their own height when the text beside them takes two lines
 		dt {
 			display: flex;
+			align-items: flex-start;
 			gap: 4px;
+		}
+
+		dd {
+			padding-top: 2px;
 		}
 
 		kbd {
