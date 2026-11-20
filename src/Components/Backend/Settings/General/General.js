@@ -7,6 +7,7 @@ import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendo
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
 import { ImagesPicker, PdfPicker } from './SourcePicker';
+import TocList from './TocList';
 
 // the number can be emptied while typing; it becomes a page (1 or more) when the field loses focus
 const StartPage = ({ value, onChange }) => {
@@ -72,7 +73,7 @@ const Shortcode = () => {
 };
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, pageHint, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, showCover, pageHint, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	// SoftIcon Flipbook Pro: under a setting, whether it follows the site default or is this book's own
 	const hint = name => applyFilters('alfb.block.hint', null, { name, setAttributes });
@@ -151,7 +152,11 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 
 			<ToggleRow label={__('Fullscreen on phones', 'softicon-flipbook')} tip={__('On a phone the book shows "Tap to read"; one tap opens it full screen, where the pages are easier to read.', 'softicon-flipbook')} checked={phoneFullscreen} onChange={set('phoneFullscreen')} />{hint('phoneFullscreen')}
 
-			{'pdf' === source && <><ToggleRow label={__('Table of contents', 'softicon-flipbook')} tip={__("A button with the PDF's chapters (its bookmarks), a click opens one. It shows only when the PDF has bookmarks.", 'softicon-flipbook')} checked={showContents} onChange={set('showContents')} />{hint('showContents')}</>}
+			<ToggleRow label={__('Table of contents', 'softicon-flipbook')} tip={__("A button with the book's chapters, a click opens one: your own list below, else the PDF's bookmarks. Without either there is no button.", 'softicon-flipbook')} checked={showContents} onChange={set('showContents')} />{hint('showContents')}
+			{showContents && <div>
+				<p className='alfbHelp'>{'pdf' === source ? __("Your own chapters, in place of the PDF's bookmarks. Leave it empty to use them.", 'softicon-flipbook') : __('Your own chapters, with the page each one starts on.', 'softicon-flipbook')}</p>
+				<TocList toc={toc} onChange={set('toc')} />
+			</div>}
 
 			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />{hint('showThumbnails')}
 

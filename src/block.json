@@ -35,6 +35,7 @@
 		"showZoom": { "type": "boolean", "default": true },
 		"showThumbnails": { "type": "boolean", "default": true },
 		"showContents": { "type": "boolean", "default": true },
+		"toc": { "type": "array", "default": [] },
 		"showLinks": { "type": "boolean", "default": true },
 		"showSearch": { "type": "boolean", "default": true },
 		"showShare": { "type": "boolean", "default": false },

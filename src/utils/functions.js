@@ -1,6 +1,12 @@
+// the book's own table of contents, the same as block::toc() in includes/block.php: entries with a title and a page
+export const ownToc = toc => (Array.isArray(toc) ? toc : [])
+	.map(entry => ({ title: String(entry?.title || '').trim().slice(0, 200), page: parseInt(entry?.page, 10) || 0 }))
+	.filter(entry => entry.title && entry.page >= 1)
+	.slice(0, 200);
+
 // The same config shape render.php builds, so the editor preview matches the front end.
 export const toConfig = attributes => {
-	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound } = attributes;
 	return {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
@@ -30,6 +36,7 @@ export const toConfig = attributes => {
 		showZoom,
 		showThumbnails,
 		showContents,
+		toc: ownToc(toc),
 		showLinks,
 		showSearch: false !== showSearch,
 		showShare: !!showShare,

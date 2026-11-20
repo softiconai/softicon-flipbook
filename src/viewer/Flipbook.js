@@ -314,6 +314,11 @@ export default class Flipbook {
 		if (this.config.showThumbnails) {
 			this.thumbs = new Thumbnails(this);
 		}
+		// the book's own list, set in the block, takes the place of the PDF's bookmarks (and gives image books one)
+		const own = Array.isArray(this.config.toc) ? this.config.toc.filter(entry => entry.title && entry.page >= 1) : [];
+		if (this.config.showContents && own.length) {
+			this.outline = own;
+		}
 		if (this.outline) {
 			this.contents = new Contents(this, this.outline);
 		}

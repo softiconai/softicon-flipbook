@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 // deeper bookmark levels keep this indent
 const MAX_LEVEL = 3;
 
-// the PDF's bookmarks as a list over the book, a click turns to that page
+// the PDF's bookmarks, or the book's own list (title and page), as a list over the book; a click turns to that page
 export default class Contents {
 	constructor(book, outline) {
 		this.book = book;
@@ -77,8 +77,8 @@ export default class Contents {
 			return el;
 		}
 		el.type = 'button';
-		// the page number fills in once pdf.js has looked up the bookmark's target
-		const page = book.destPage(item.dest);
+		// an own entry has its page; a bookmark's fills in once pdf.js has looked up its target
+		const page = item.page ? Promise.resolve(Math.min(book.count, item.page) - 1) : book.destPage(item.dest);
 		page.then(index => {
 			if (null === index) {
 				el.disabled = true;

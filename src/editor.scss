@@ -596,6 +596,61 @@
 }
 
 
+// the book's own table of contents (Settings/General/TocList.js): title, page, and move / remove buttons in one row
+.alfbToc {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.alfbTocRows {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.alfbTocRow {
+	display: grid;
+	grid-template-columns: 1fr 56px auto;
+	align-items: center;
+	gap: 4px;
+	margin: 0;
+
+	input {
+		box-sizing: border-box;
+		width: 100%;
+		min-width: 0;
+		height: 32px;
+		min-height: 0;
+		padding: 0 8px;
+		border: 1px solid #949494;
+		border-radius: 4px;
+		font-size: 13px;
+
+		&:focus {
+			border-color: var(--wp-admin-theme-color);
+			box-shadow: 0 0 0 1px var(--wp-admin-theme-color);
+			outline: none;
+		}
+	}
+}
+
+.alfbTocTools {
+	display: flex;
+
+	.components-button.has-icon {
+		min-width: 24px;
+		width: 24px;
+		padding: 0;
+	}
+}
+
 // the shortcode of this book (Settings/General/General.js)
 .alfbShortcode {
 	margin-top: 16px;

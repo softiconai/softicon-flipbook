@@ -182,6 +182,7 @@ class block {
             'showZoom'       => ! isset( $attributes['showZoom'] ) || (bool) $attributes['showZoom'],
             'showThumbnails' => ! isset( $attributes['showThumbnails'] ) || (bool) $attributes['showThumbnails'],
             'showContents'   => ! isset( $attributes['showContents'] ) || (bool) $attributes['showContents'],
+            'toc'            => self::toc( $attributes ),
             'showLinks'      => ! isset( $attributes['showLinks'] ) || (bool) $attributes['showLinks'],
             'showSearch'     => ! isset( $attributes['showSearch'] ) || (bool) $attributes['showSearch'],
             'showShare'      => ! empty( $attributes['showShare'] ),
@@ -189,6 +190,19 @@ class block {
         );
 
         return apply_filters( 'alfb_config', $config, $attributes );
+    }
+
+    // the book's own table of contents: entries with a title and a page, at most 200 (ownToc in src/utils/functions.js)
+    public static function toc( $attributes ) {
+        $toc = array();
+        foreach ( isset( $attributes['toc'] ) && is_array( $attributes['toc'] ) ? $attributes['toc'] : array() as $entry ) {
+            $title = is_array( $entry ) && isset( $entry['title'] ) && is_string( $entry['title'] ) ? mb_substr( trim( sanitize_text_field( $entry['title'] ) ), 0, 200 ) : '';
+            $page  = is_array( $entry ) && isset( $entry['page'] ) ? absint( $entry['page'] ) : 0;
+            if ( '' !== $title && $page >= 1 && count( $toc ) < 200 ) {
+                $toc[] = array( 'title' => $title, 'page' => $page );
+            }
+        }
+        return $toc;
     }
 
     // what opens the lightbox; the cover is the chosen image, else WordPress's preview of the PDF
