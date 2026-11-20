@@ -199,7 +199,9 @@ export default class Flipbook {
 	}
 
 	async openPdf() {
-		this.task = await openDocument(this.config.pdf, this.doc);
+		// SoftIcon Flipbook Pro: a lighter PDF for phones; the download button keeps the book's own
+		const phone = this.config.pdfPhone && this.win.matchMedia?.('(max-width: 600px)').matches;
+		this.task = await openDocument(phone ? this.config.pdfPhone : this.config.pdf, this.doc);
 		this.pdf = await this.task.promise;
 		this.count = this.pdf.numPages;
 		// the bookmarks for the table of contents, a PDF without them gets no button
