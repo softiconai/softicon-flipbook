@@ -124,6 +124,33 @@ const dragInWindow = (flip, win) => {
 	ui.setHandlers();
 };
 
+// the books on the page, for keys pressed with nothing in focus: the one clicked last while it is still in view,
+// else the one with most of it in view
+const books = new Set();
+let lastBook = null;
+const shownArea = book => {
+	const box = book.root.getBoundingClientRect();
+	const win = book.win;
+	const width = Math.min(box.right, win.innerWidth) - Math.max(box.left, 0);
+	const height = Math.min(box.bottom, win.innerHeight) - Math.max(box.top, 0);
+	return width > 0 && height > 0 ? width * height : 0;
+};
+const bookInView = doc => {
+	if (lastBook && books.has(lastBook) && lastBook.doc === doc && shownArea(lastBook) > 0) {
+		return lastBook;
+	}
+	let best = null;
+	let most = 0;
+	books.forEach(book => {
+		const area = book.doc === doc ? shownArea(book) : 0;
+		if (area > most) {
+			best = book;
+			most = area;
+		}
+	});
+	return best;
+};
+
 export default class Flipbook {
 	constructor(root, config, { editor = false } = {}) {
 		this.root = root;
@@ -826,6 +853,56 @@ export default class Flipbook {
 		this.seek.style.setProperty('--alfb-seek', ((this.seek.value - 1) / (this.count - 1)) * 100 + '%');
 	}
 
+	// the book's keys: from inside the book, or (outside) pressed with nothing in focus while it is the book in view
+	onKey(event, outside = false) {
+		// the list of keys is open: Escape or ? closes it
+		if (this.keys) {
+			if ('Escape' === event.key || '?' === event.key) {
+				event.preventDefault();
+				this.closeKeys();
+			}
+			return;
+		}
+		// the thumbnail or contents panel covers the book, only Escape acts on it
+		const panel = this.thumbs?.open ? this.thumbs : this.contents?.open ? this.contents : this.search?.open && this.search;
+		if (panel) {
+			if ('Escape' === event.key) {
+				// preventDefault keeps a lightbox around the book open
+				event.preventDefault();
+				panel.close(true);
+			}
+			return;
+		}
+		// the page slider and the page number box use the arrow keys themselves
+		if (event.target.closest?.('input, textarea, select')) {
+			return;
+		}
+		const zoomKey = this.zoom && !event.ctrlKey && !event.metaKey;
+		// the arrow keys follow the page on screen: right to left, ← is the next page;
+		// Home and End only from inside the book, on the page they scroll it
+		if (!outside && ('Home' === event.key || 'End' === event.key)) {
+			event.preventDefault();
+			this.go('Home' === event.key ? 0 : this.count - 1);
+		} else if ('?' === event.key) {
+			event.preventDefault();
+			this.showKeys();
+		} else if ('ArrowLeft' === event.key) {
+			this.back();
+		} else if ('ArrowRight' === event.key) {
+			this.forward();
+		} else if (zoomKey && ('+' === event.key || '=' === event.key)) {
+			this.zoom.step(1);
+		} else if (zoomKey && '-' === event.key) {
+			this.zoom.step(-1);
+		} else if ('Escape' === event.key && this.zoom?.active) {
+			event.preventDefault();
+			this.zoom.set(1);
+		} else if ('Escape' === event.key && this.root.classList.contains('alfb_overlay')) {
+			event.preventDefault();
+			this.setFullscreen(false);
+		}
+	}
+
 	// the keyboard shortcuts in a small box over the book (the ? key)
 	showKeys() {
 		const box = this.doc.createElement('div');
@@ -1096,51 +1173,17 @@ export default class Flipbook {
 					this.toast(__('Press ? for keyboard shortcuts', 'softicon-flipbook'));
 				}
 			});
-			this.on(this.root, 'keydown', event => {
-				// the list of keys is open: Escape or ? closes it
-				if (this.keys) {
-					if ('Escape' === event.key || '?' === event.key) {
-						event.preventDefault();
-						this.closeKeys();
-					}
-					return;
-				}
-				// the thumbnail or contents panel covers the book, only Escape acts on it
-				const panel = this.thumbs?.open ? this.thumbs : this.contents?.open ? this.contents : this.search?.open && this.search;
-				if (panel) {
-					if ('Escape' === event.key) {
-						// preventDefault keeps a lightbox around the book open
-						event.preventDefault();
-						panel.close(true);
-					}
-					return;
-				}
-				// the page slider and the page number box use the arrow keys themselves
-				if (event.target.closest?.('input, textarea, select')) {
-					return;
-				}
-				const zoomKey = this.zoom && !event.ctrlKey && !event.metaKey;
-				// the arrow keys follow the page on screen: right to left, ← is the next page
-				if ('Home' === event.key || 'End' === event.key) {
-					event.preventDefault();
-					this.go('Home' === event.key ? 0 : this.count - 1);
-				} else if ('?' === event.key) {
-					event.preventDefault();
-					this.showKeys();
-				} else if ('ArrowLeft' === event.key) {
-					this.back();
-				} else if ('ArrowRight' === event.key) {
-					this.forward();
-				} else if (zoomKey && ('+' === event.key || '=' === event.key)) {
-					this.zoom.step(1);
-				} else if (zoomKey && '-' === event.key) {
-					this.zoom.step(-1);
-				} else if ('Escape' === event.key && this.zoom?.active) {
-					event.preventDefault();
-					this.zoom.set(1);
-				} else if ('Escape' === event.key && this.root.classList.contains('alfb_overlay')) {
-					event.preventDefault();
-					this.setFullscreen(false);
+			this.on(this.root, 'keydown', event => this.onKey(event));
+			// keys pressed with nothing in focus (as after the page opens) go to the book in view
+			books.add(this);
+			this.listeners.push(() => books.delete(this));
+			this.on(this.root, 'pointerdown', () => {
+				lastBook = this;
+			}, true);
+			this.on(this.doc, 'keydown', event => {
+				const nowhere = !event.target || event.target === this.doc.body || event.target === this.doc.documentElement;
+				if (nowhere && !event.defaultPrevented && !event.altKey && bookInView(this.doc) === this) {
+					this.onKey(event, true);
 				}
 			});
 		}
