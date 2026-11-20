@@ -72,7 +72,7 @@ const Shortcode = () => {
 };
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	// SoftIcon Flipbook Pro: under a setting, whether it follows the site default or is this book's own
 	const hint = name => applyFilters('alfb.block.hint', null, { name, setAttributes });
@@ -137,7 +137,9 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 		</Panel>
 
 		<Panel id='toolbar' title={__('Toolbar', 'softicon-flipbook')}>
-			<p className='alfbHelp'>{__('The preview here shows only the book; the buttons work on the published page.', 'softicon-flipbook')}</p>
+			<ToggleRow label={__('First and last page', 'softicon-flipbook')} tip={__('Two more buttons beside the arrows that go straight to the first or the last page.', 'softicon-flipbook')} checked={showFirstLast} onChange={set('showFirstLast')} />{hint('showFirstLast')}
+
+			<ToggleRow label={__('Page slider', 'softicon-flipbook')} tip={__('A slider above the buttons: drag it to any page of a long book.', 'softicon-flipbook')} checked={showSeek} onChange={set('showSeek')} />{hint('showSeek')}
 
 			{'pdf' === source && <><ToggleRow label={__('Download button', 'softicon-flipbook')} tip={__('Lets visitors save the PDF.', 'softicon-flipbook')} checked={showDownload} onChange={set('showDownload')} />{hint('showDownload')}</>}
 

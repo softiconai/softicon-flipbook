@@ -155,6 +155,75 @@
 		gap: 4px;
 	}
 
+	// the page slider, a row of its own above the buttons (Flipbook.js seekBar)
+	.alfb_seek {
+		display: flex;
+		flex: 1 1 100%;
+		align-items: center;
+		height: 20px;
+
+		input[type="range"] {
+			flex: 1;
+			width: 100%;
+			height: 20px;
+			min-height: 0;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			background: transparent;
+			box-shadow: none;
+			cursor: pointer;
+			appearance: none;
+
+			// the pages read so far filled in (--alfb-seek from Flipbook.js), from the right in a right to left book
+			--alfb-seek-fill: linear-gradient(to var(--alfb-seek-to, right), currentColor var(--alfb-seek, 0%), rgba(127, 127, 127, 0.35) var(--alfb-seek, 0%));
+
+			&::-webkit-slider-runnable-track {
+				height: 4px;
+				border-radius: 2px;
+				background: var(--alfb-seek-fill);
+			}
+
+			&::-moz-range-track {
+				height: 4px;
+				border-radius: 2px;
+				background: var(--alfb-seek-fill);
+			}
+
+			&::-webkit-slider-thumb {
+				width: 14px;
+				height: 14px;
+				margin-top: -5px;
+				border: 0;
+				border-radius: 50%;
+				background: currentColor;
+				appearance: none;
+			}
+
+			&::-moz-range-thumb {
+				width: 14px;
+				height: 14px;
+				border: 0;
+				border-radius: 50%;
+				background: currentColor;
+			}
+
+			// the ring on the thumb: browsers also count a mouse drag on a slider as keyboard focus
+			&:focus,
+			&:focus-visible {
+				outline: none;
+			}
+
+			&:focus-visible::-webkit-slider-thumb {
+				box-shadow: 0 0 0 4px rgba(127, 127, 127, 0.45);
+			}
+
+			&:focus-visible::-moz-range-thumb {
+				box-shadow: 0 0 0 4px rgba(127, 127, 127, 0.45);
+			}
+		}
+	}
+
 	.alfb_counter {
 		min-width: 72px;
 		font-size: 14px;

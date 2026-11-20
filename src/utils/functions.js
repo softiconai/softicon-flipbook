@@ -1,6 +1,6 @@
 // The same config shape render.php builds, so the editor preview matches the front end.
 export const toConfig = attributes => {
-	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	return {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
@@ -23,6 +23,8 @@ export const toConfig = attributes => {
 		maxHeightPhone: parseInt(maxHeightPhone, 10) > 0 ? Math.min(2000, Math.max(200, parseInt(maxHeightPhone, 10))) : 0,
 		showDownload,
 		showPrint: !!showPrint,
+		showFirstLast: !!showFirstLast,
+		showSeek: !!showSeek,
 		showFullscreen,
 		showZoom,
 		showThumbnails,

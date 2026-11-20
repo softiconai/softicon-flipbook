@@ -175,6 +175,8 @@ class block {
             'maxHeightPhone'  => ! empty( $attributes['maxHeightPhone'] ) ? min( 2000, max( 200, absint( $attributes['maxHeightPhone'] ) ) ) : 0,
             'showDownload'   => ! isset( $attributes['showDownload'] ) || (bool) $attributes['showDownload'],
             'showPrint'      => ! empty( $attributes['showPrint'] ),
+            'showFirstLast'  => ! empty( $attributes['showFirstLast'] ),
+            'showSeek'       => ! empty( $attributes['showSeek'] ),
             'showFullscreen' => ! isset( $attributes['showFullscreen'] ) || (bool) $attributes['showFullscreen'],
             'showZoom'       => ! isset( $attributes['showZoom'] ) || (bool) $attributes['showZoom'],
             'showThumbnails' => ! isset( $attributes['showThumbnails'] ) || (bool) $attributes['showThumbnails'],

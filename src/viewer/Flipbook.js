@@ -15,6 +15,8 @@ const svg = path => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden
 const icons = {
 	prev: svg('M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z'),
 	next: svg('M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z'),
+	first: svg('M18.4 16.6 13.8 12l4.6-4.6L17 6l-6 6 6 6zM6 6h2v12H6z'),
+	last: svg('M5.6 7.4 10.2 12l-4.6 4.6L7 18l6-6-6-6zM16 6h2v12h-2z'),
 	fullscreen: svg('M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z'),
 	exitFullscreen: svg('M5 16h3v3h2v-5H5zm3-8H5v2h5V5H8zm6 11h2v-3h3v-2h-5zm2-11V5h-2v5h5V8z'),
 	print: svg('M19 8H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3m-3 11H8v-5h8zm3-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2m-1-9H6v4h12z'),
@@ -378,6 +380,17 @@ export default class Flipbook {
 		);
 		this.prevBtn.disabled = 0 === Math.min(...shown);
 		this.nextBtn.disabled = this.count - 1 === Math.max(...shown);
+		if (this.firstBtn) {
+			this.firstBtn.disabled = this.prevBtn.disabled;
+			this.lastBtn.disabled = this.nextBtn.disabled;
+		}
+		if (this.seek && !this.seeking) {
+			this.seek.value = Math.min(...shown) + 1;
+			this.seekFill();
+			this.seek.setAttribute('aria-valuetext', sprintf(
+				/* translators: 1: page number, 2: total pages */
+				__('Page %1$s of %2$s', 'softicon-flipbook'), this.seek.value, this.count));
+		}
 		if (this.sidePrev) {
 			this.sidePrev.disabled = this.prevBtn.disabled;
 			this.sideNext.disabled = this.nextBtn.disabled;
@@ -665,7 +678,15 @@ export default class Flipbook {
 
 		const nav = this.doc.createElement('div');
 		nav.className = 'alfb_nav';
-		nav.append(...(this.rtl ? [this.nextBtn, this.counter, this.prevBtn] : [this.prevBtn, this.counter, this.nextBtn]));
+		const order = [this.prevBtn, this.counter, this.nextBtn];
+		// beside the arrows, pointing the same way as them in a right to left book
+		if (this.config.showFirstLast) {
+			this.firstBtn = this.button(this.rtl ? 'last' : 'first', __('First page', 'softicon-flipbook'), () => this.go(0));
+			this.lastBtn = this.button(this.rtl ? 'first' : 'last', __('Last page', 'softicon-flipbook'), () => this.go(this.count - 1));
+			order.unshift(this.firstBtn);
+			order.push(this.lastBtn);
+		}
+		nav.append(...(this.rtl ? order.reverse() : order));
 
 		const tools = this.doc.createElement('div');
 		tools.className = 'alfb_tools';
@@ -744,11 +765,58 @@ export default class Flipbook {
 		}
 
 		bar.append(nav, tools);
+		if (this.config.showSeek && this.count > 2) {
+			bar.prepend(this.seekBar());
+		}
 		this.root.appendChild(bar);
 		this.bar = bar;
 		if (this.zoom) {
 			this.onZoom();
 		}
+	}
+
+	// a row above the buttons: dragging shows the page in the counter, letting go turns to it
+	seekBar() {
+		const row = this.doc.createElement('div');
+		row.className = 'alfb_seek';
+		const input = this.doc.createElement('input');
+		input.type = 'range';
+		input.min = 1;
+		input.max = this.count;
+		input.step = 1;
+		input.value = 1;
+		// the next page is on the left in a right to left book
+		input.dir = this.rtl ? 'rtl' : 'ltr';
+		input.style.setProperty('--alfb-seek-to', this.rtl ? 'left' : 'right');
+		input.setAttribute('aria-label', __('Page', 'softicon-flipbook'));
+		const label = () => sprintf(
+			/* translators: 1: page number, 2: total pages */
+			__('Page %1$s of %2$s', 'softicon-flipbook'), input.value, this.count);
+		input.addEventListener('input', () => {
+			this.seeking = true;
+			this.seekFill();
+			this.counter.textContent = sprintf(
+				/* translators: 1: visible page or pages, 2: total pages */
+				__('%1$s / %2$s', 'softicon-flipbook'), input.value, this.count);
+			input.setAttribute('aria-valuetext', label());
+		});
+		input.addEventListener('change', () => {
+			this.seeking = false;
+			const index = parseInt(input.value, 10) - 1;
+			// a page of the spread already open: only the counter goes back
+			if (this.visible().includes(index)) {
+				this.onChange();
+			} else {
+				this.go(index);
+			}
+		});
+		row.append(input);
+		this.seek = input;
+		return row;
+	}
+
+	seekFill() {
+		this.seek.style.setProperty('--alfb-seek', ((this.seek.value - 1) / (this.count - 1)) * 100 + '%');
 	}
 
 	// a link to the page that is open (#page=5): the phone's share sheet, or copied on a computer

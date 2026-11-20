@@ -27,6 +27,8 @@
 		"maxHeightPhone": { "type": "number", "default": 0 },
 		"showDownload": { "type": "boolean", "default": true },
 		"showPrint": { "type": "boolean", "default": false },
+		"showFirstLast": { "type": "boolean", "default": false },
+		"showSeek": { "type": "boolean", "default": false },
 		"showFullscreen": { "type": "boolean", "default": true },
 		"phoneFullscreen": { "type": "boolean", "default": false },
 		"showZoom": { "type": "boolean", "default": true },
