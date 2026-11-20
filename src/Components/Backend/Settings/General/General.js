@@ -180,7 +180,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 					video={videos.buttons} videoLabel={__('Watch page buttons in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='hotspots' title={__('Hotspots', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')}
+				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link, a video that plays over the book, or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')}
 					video={videos.hotspots} videoLabel={__('Watch hotspots in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
