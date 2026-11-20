@@ -4,7 +4,7 @@ import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { Button, ExternalLink, SelectControl, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
-import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
+import { helpCards, pageModes, sources, videos, viewModes } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
 import { ImagesPicker, PdfPicker } from './SourcePicker';
 import TocList from './TocList';
@@ -73,7 +73,7 @@ const Shortcode = () => {
 };
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, pageHint, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, viewMode, showCover, pageHint, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	// SoftIcon Flipbook Pro: under a setting, whether it follows the site default or is this book's own
 	const hint = name => applyFilters('alfb.block.hint', null, { name, setAttributes });
@@ -102,6 +102,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 		</Panel>
 
 		<Panel id='pages' title={__('Pages', 'softicon-flipbook')}>
+			<Tiles label={__('How pages move', 'softicon-flipbook')} tip={__('Turn: like a book. Scroll: one page under the other, in a box as tall as the book, easier on long documents and small screens. Scroll on phones: scroll on phones, turn on bigger screens.', 'softicon-flipbook')} value={viewMode} options={viewModes} onChange={set('viewMode')} />{hint('viewMode')}
 			<Tiles label={__('Layout', 'softicon-flipbook')} tip={__('Auto shows two pages side by side on wide screens and one page on phones. Or keep one layout everywhere.', 'softicon-flipbook')} value={pageMode} options={pageModes} onChange={set('pageMode')} />{hint('pageMode')}
 
 			<ToggleRow label={__('Cover page', 'softicon-flipbook')} tip={__('The first and last pages turn on their own, like a printed book.', 'softicon-flipbook')} checked={showCover} onChange={set('showCover')} />{hint('showCover')}

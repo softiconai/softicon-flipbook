@@ -55,6 +55,13 @@ export const lightboxTriggers = [
 	{ label: __('Text link', 'softicon-flipbook'), value: 'text', icon: icons.text }
 ];
 
+// how the pages move: turned like a book, or scrolled in a column (always, or on phones only)
+export const viewModes = [
+	{ label: __('Turn', 'softicon-flipbook'), value: 'flip' },
+	{ label: __('Scroll', 'softicon-flipbook'), value: 'scroll' },
+	{ label: __('Scroll on phones', 'softicon-flipbook'), value: 'phone' }
+];
+
 // the lightbox popup: how much of the window height the book takes, and what shows around it
 export const lightboxSizes = [
 	{ label: __('Full screen', 'softicon-flipbook'), value: 'full' },

@@ -6,6 +6,7 @@ import Thumbnails from './Thumbnails';
 import Contents from './Contents';
 import Search from './Search';
 import Hardcover from './Hardcover';
+import ScrollView from './ScrollView';
 import Autoplay from './Autoplay';
 import print from './Print';
 import Share from './Share';
@@ -233,9 +234,12 @@ export default class Flipbook {
 		const startPage = (linked && linkedPage(this.win)) || this.config.startPage;
 		const ratio = size.width / size.height;
 		const maxWidth = Math.max(100, Math.floor(maxHeight * ratio));
+		// scroll mode: the pages in a column instead of page-flip (ScrollView), always or on phones only
+		this.scroll = 'scroll' === this.config.viewMode || ('phone' === this.config.viewMode && screen < 600);
+		this.root.classList.toggle('alfb_scrolling', this.scroll);
 		// right to left: page-flip gets the pages in reverse order; this.pages and every index outside page-flip stay
-		// in reading order (toFlip turns one into page-flip's)
-		this.rtl = !!this.config.rtl;
+		// in reading order (toFlip turns one into page-flip's); a column reads top to bottom either way
+		this.rtl = !!this.config.rtl && !this.scroll;
 		this.ratio = ratio;
 		this.maxWidth = maxWidth;
 
@@ -245,7 +249,7 @@ export default class Flipbook {
 			page.setAttribute('role', 'img');
 			/* translators: %d: page number */
 			page.setAttribute('aria-label', sprintf(__('Page %d', 'softicon-flipbook'), i + 1));
-			if (showCover && (0 === i || this.count - 1 === i)) {
+			if (showCover && !this.scroll && (0 === i || this.count - 1 === i)) {
 				page.dataset.density = 'hard';
 			}
 			this.pages.push(page);
@@ -256,7 +260,7 @@ export default class Flipbook {
 		this.book.className = 'alfb_book';
 		this.stage.appendChild(this.book);
 		// before page-flip measures the stage, the cover adds padding around the book
-		if ('hardcover' === this.config.bookStyle) {
+		if ('hardcover' === this.config.bookStyle && !this.scroll) {
 			this.cover = new Hardcover(this);
 		}
 
@@ -265,30 +269,13 @@ export default class Flipbook {
 		// (minWidth above maxWidth makes page-flip reset maxWidth to 2000)
 		const minWidth = 'single' === pageMode ? maxWidth : Math.min(300, maxWidth);
 
-		this.flip = new PageFlip(this.book, {
-			size: 'stretch',
-			width: 400,
-			height: Math.round(400 / ratio),
-			minWidth,
-			maxWidth,
-			minHeight: 100,
-			maxHeight,
-			usePortrait: 'double' !== pageMode,
-			showCover: !!showCover,
-			startPage: this.toFlip(Math.min(this.count, Math.max(1, startPage || 1)) - 1),
-			flippingTime: this.calm ? 1 : 700,
-			maxShadowOpacity: 0.5,
-			mobileScrollSupport: true,
-			// in the editor a click selects the block; a drag still turns the page
-			disableFlipByClick: this.editor
-		});
-		// the book's width before page-flip lays it out: a one page book that starts as a two page spread would open a page early
-		this.fit();
-		this.flip.loadFromHTML(this.rtl ? [...this.pages].reverse() : this.pages);
-		dragInWindow(this.flip, this.win);
-
-		// page-flip sets a min-width that overflows small phones
-		this.book.style.minWidth = '0px';
+		const first = Math.min(this.count, Math.max(1, startPage || 1)) - 1;
+		if (this.scroll) {
+			this.flip = new ScrollView(this.book, { maxWidth, minWidth: maxWidth, maxHeight, ratio, startPage: first });
+			this.flip.loadFromHTML(this.pages);
+		} else {
+			this.startFlip(PageFlip, { minWidth, maxWidth, maxHeight, ratio, first });
+		}
 		this.fit();
 
 		// a page dragged over never reaches the flipping state: its sound plays when it lands (flip comes before read)
@@ -357,6 +344,35 @@ export default class Flipbook {
 		}
 	}
 
+	// the book as page-flip pages (turn mode)
+	startFlip(PageFlip, { minWidth, maxWidth, maxHeight, ratio, first }) {
+		const { pageMode, showCover } = this.config;
+		this.flip = new PageFlip(this.book, {
+			size: 'stretch',
+			width: 400,
+			height: Math.round(400 / ratio),
+			minWidth,
+			maxWidth,
+			minHeight: 100,
+			maxHeight,
+			usePortrait: 'double' !== pageMode,
+			showCover: !!showCover,
+			startPage: this.toFlip(first),
+			flippingTime: this.calm ? 1 : 700,
+			maxShadowOpacity: 0.5,
+			mobileScrollSupport: true,
+			// in the editor a click selects the block; a drag still turns the page
+			disableFlipByClick: this.editor
+		});
+		// the book's width before page-flip lays it out: a one page book that starts as a two page spread would open a page early
+		this.fit();
+		this.flip.loadFromHTML(this.rtl ? [...this.pages].reverse() : this.pages);
+		dragInWindow(this.flip, this.win);
+
+		// page-flip sets a min-width that overflows small phones
+		this.book.style.minWidth = '0px';
+	}
+
 	// alfb:ready and alfb:page on the block, for add-ons; detail.book is this book
 	emit(name, detail = {}) {
 		if (!this.editor) {
@@ -368,6 +384,12 @@ export default class Flipbook {
 	// wide, else a page as tall as the block leaves empty space above and below it
 	fit() {
 		const { maxWidth, minWidth } = this.flip.getSettings();
+		// scroll mode: room for a page up to 1.6 times its full height width, and the scrollbar
+		if (this.scroll) {
+			this.book.style.maxWidth = Math.ceil(maxWidth * 1.6) + 24 + 'px';
+			this.root.style.setProperty('--alfb-book-width', Math.ceil(maxWidth * 1.6) + 24 + 'px');
+			return;
+		}
 		const full = 'single' === this.config.pageMode ? maxWidth : maxWidth * 2;
 		const style = this.win.getComputedStyle(this.stage);
 		const room = this.stage.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
@@ -862,7 +884,7 @@ export default class Flipbook {
 	// once, when the book first comes well into view: the corner of the next page lifts and settles back, so new
 	// readers see the pages turn; not in the editor, for less motion, or once the reader has clicked or pressed a key
 	pageHint() {
-		if (!this.config.pageHint || this.editor || this.calm || this.count < 2 || !this.win.IntersectionObserver) {
+		if (!this.config.pageHint || this.editor || this.calm || this.scroll || this.count < 2 || !this.win.IntersectionObserver) {
 			return;
 		}
 		let used = false;

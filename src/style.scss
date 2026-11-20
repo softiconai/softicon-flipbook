@@ -94,9 +94,28 @@
 		margin: 0 auto;
 	}
 
+	// scroll mode (viewer/ScrollView.js): the pages one under the other in a box as tall as the book
+	.alfb_book.alfb_scroll {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+		box-sizing: border-box;
+		padding: 0 0 4px;
+		overflow-y: auto;
+		scrollbar-gutter: stable;
+		clip-path: none;
+
+		.alfb_page {
+			flex: none;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+		}
+	}
+
 	// one page at a time, page-flip turns a page back from one page width left of the book; drawn only inside
 	// the book's own sides it slides in from the edge (room above and below stays for the shadows)
-	&.alfb_portrait .alfb_book {
+	&.alfb_portrait .alfb_book:not(.alfb_scroll) {
 		clip-path: inset(-60px 0);
 	}
 

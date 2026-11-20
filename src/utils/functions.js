@@ -6,12 +6,13 @@ export const ownToc = toc => (Array.isArray(toc) ? toc : [])
 
 // The same config shape render.php builds, so the editor preview matches the front end.
 export const toConfig = attributes => {
-	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound, lightboxSize, lightboxBackdrop } = attributes;
+	const { source, pdfUrl, images, pageMode, viewMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound, lightboxSize, lightboxBackdrop } = attributes;
 	return {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
 		images: 'images' === source ? images : [],
 		pageMode: ['auto', 'double', 'single'].includes(pageMode) ? pageMode : 'auto',
+		viewMode: ['scroll', 'phone'].includes(viewMode) ? viewMode : 'flip',
 		bookStyle: 'hardcover' === bookStyle ? 'hardcover' : 'flat',
 		sideArrows: !!sideArrows,
 		showCover,

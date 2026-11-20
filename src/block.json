@@ -14,6 +14,7 @@
 		"pdfUrl": { "type": "string", "default": "" },
 		"images": { "type": "array", "default": [] },
 		"pageMode": { "type": "string", "default": "auto" },
+		"viewMode": { "type": "string", "enum": [ "flip", "scroll", "phone" ], "default": "flip" },
 		"showCover": { "type": "boolean", "default": true },
 		"pageHint": { "type": "boolean", "default": true },
 		"startPage": { "type": "number", "default": 1 },

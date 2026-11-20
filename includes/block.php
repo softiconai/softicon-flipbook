@@ -158,6 +158,7 @@ class block {
             'images'         => 'images' === $source ? self::images( $attributes ) : array(),
             'pageMode'       => $mode,
             'bookStyle'      => $style,
+            'viewMode'       => isset( $attributes['viewMode'] ) && in_array( $attributes['viewMode'], array( 'scroll', 'phone' ), true ) ? $attributes['viewMode'] : 'flip',
             'sideArrows'     => ! empty( $attributes['sideArrows'] ),
             'showCover'      => ! isset( $attributes['showCover'] ) || (bool) $attributes['showCover'],
             'pageHint'       => ! isset( $attributes['pageHint'] ) || (bool) $attributes['pageHint'],
