@@ -123,11 +123,12 @@ const DefaultsDemo = ({ config }) => {
 };
 
 const SettingsDemo = () => {
-	const [values, setValues] = useState({ analytics: true, skipEditors: true, leadEmail: false });
+	const [values, setValues] = useState({ analytics: true, skipEditors: true, leadEmail: false, gaEvents: false });
 	const rows = [
 		['analytics', __('Count opens and pages read', 'softicon-flipbook'), __('Reading analytics for every book. Nothing personal is stored and no cookies are set.', 'softicon-flipbook')],
 		['skipEditors', __('Do not count logged-in editors', 'softicon-flipbook'), __('Your own visits while you work on the site are left out.', 'softicon-flipbook')],
-		['leadEmail', __('Email me each new lead', 'softicon-flipbook'), __('Sent to the site admin email.', 'softicon-flipbook')]
+		['leadEmail', __('Email me each new lead', 'softicon-flipbook'), __('Sent to the site admin email.', 'softicon-flipbook')],
+		['gaEvents', __('Send events to Google Analytics', 'softicon-flipbook'), __('When the site already has Google Analytics or Tag Manager: opens, pages read, finished books and downloads.', 'softicon-flipbook')]
 	];
 	return <>
 		{rows.map(([name, label, help]) => <div className='alfb-try-setting' key={name}>
