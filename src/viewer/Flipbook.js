@@ -1225,8 +1225,15 @@ export default class Flipbook {
 		this.on(this.doc, 'fullscreenchange', () => this.setFullscreen(this.doc.fullscreenElement === this.root));
 
 		if (this.editor) {
-			// page-flip cancels the mouse press, which would leave the block unselected: the block takes the focus
-			this.on(this.stage, 'pointerdown', () => this.root.closest('[data-block]')?.focus({ preventScroll: true }), true);
+			// page-flip cancels the mouse press, which would leave the block unselected: the block takes the focus,
+			// afresh when it still has it after being deselected, so the editor hears it and selects the block
+			this.on(this.stage, 'pointerdown', () => {
+				const block = this.root.closest('[data-block]');
+				if (block && this.doc.activeElement === block) {
+					block.blur();
+				}
+				block?.focus({ preventScroll: true });
+			}, true);
 		}
 
 		if (!this.editor) {
