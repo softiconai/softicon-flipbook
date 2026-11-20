@@ -92,7 +92,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 			{'pdf' === source ? <div className='alfbStack'>
 				<FieldHead label={__('PDF', 'softicon-flipbook')} tip={__('PDFs from your Media Library always work. A link to a PDF on another website works only if that site allows it.', 'softicon-flipbook')} />
 				<PdfPicker {...{ pdfId, pdfUrl, onSelectPdf, onSelectPdfUrl }} />
-				{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Taking each post\'s PDF from a custom field (Meta Box, ACF), and text readers can select and copy, are available in Pro.', 'softicon-flipbook')}
+				{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Taking each post\'s PDF from a custom field (Meta Box, ACF), text readers can select and copy, and a text version search engines can read, are available in Pro.', 'softicon-flipbook')}
 					video={videos.field} videoLabel={__('Watch: each post\'s own PDF from Meta Box or ACF', 'softicon-flipbook')} />}
 				<ToggleRow label={__('Links in the PDF', 'softicon-flipbook')} tip={__('Web, email and page links inside the PDF can be clicked. Web links open in a new tab, page links turn the book.', 'softicon-flipbook')} checked={showLinks} onChange={set('showLinks')} />{hint('showLinks')}
 			</div> : <div className='alfbStack'>
