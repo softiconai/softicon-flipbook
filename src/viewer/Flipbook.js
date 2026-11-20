@@ -399,6 +399,11 @@ export default class Flipbook {
 			// no room beside the book: the arrows sit over the page edges as round buttons
 			this.root.classList.toggle('alfb_side_over', (this.stage.clientWidth - this.book.offsetWidth) / 2 < 56);
 		}
+		// a button just turned off at the first or last page would drop the focus to the page, and with it the arrow keys
+		const focused = this.doc.activeElement;
+		if (focused?.disabled && this.root.contains(focused)) {
+			this.root.focus({ preventScroll: true });
+		}
 		this.cover?.update();
 		this.load(Math.min(...shown));
 		this.zoom?.update();
