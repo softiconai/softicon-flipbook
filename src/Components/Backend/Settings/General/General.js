@@ -161,7 +161,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 
 			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />{hint('showThumbnails')}
 
-			{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Bookmarks, so readers can mark pages and come back to them, are available in Pro.', 'softicon-flipbook')}
+			{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Bookmarks, so readers can mark pages, and each reader coming back to the page they left, are available in Pro.', 'softicon-flipbook')}
 				video={videos.bookmarks} videoLabel={__('Watch: bookmarks and selectable text', 'softicon-flipbook')} />}
 
 			<ToggleRow label={__('Zoom', 'softicon-flipbook')} tip={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} />{hint('showZoom')}
