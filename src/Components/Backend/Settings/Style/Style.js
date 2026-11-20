@@ -116,7 +116,10 @@ const Style = ({ attributes, setAttributes }) => {
 			{!editorInfo.pro && <ProNotice href={editorInfo.defaults || editorInfo.pricing} text={__('Setting the colors, size and toolbar once for every flipbook on the site, and presets that give one book\'s look to others, are available in Pro.', 'softicon-flipbook')} />}
 		</Panel>
 
-		{/* the Pro settings of this tab, shown as a notice only: the code is in Pro, which replaces this panel */}
+		{/* the Pro settings of this tab, shown as notices only: the code is in Pro, which replaces these panels */}
+		{!editorInfo.pro && <Panel id='toolbarstyle' title={__('Toolbar style', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+			<ProNotice href={editorInfo.pricing} text={__('The toolbar above the book, or floating over it so the book gets more room, is available in Pro.', 'softicon-flipbook')} />
+		</Panel>}
 		{!editorInfo.pro && <Panel id='branding' title={__('Branding', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 			<ProNotice href={editorInfo.pricing} text={__('Your logo in the toolbar, linked to your site, and your own picture behind the book are available in Pro.', 'softicon-flipbook')}
 				video={videos.branding} videoLabel={__('Watch branding in 40 seconds', 'softicon-flipbook')} />

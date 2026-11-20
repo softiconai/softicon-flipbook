@@ -99,6 +99,8 @@ export default class Lightbox {
 				wrapper.style.setProperty(name, value);
 			}
 		}
+		// SoftIcon Flipbook Pro: the block's toolbar style (alfb_tb_top, alfb_tb_float) in the popup too
+		[...this.root.classList].filter(name => name.startsWith('alfb_tb_')).forEach(name => wrapper.classList.add(name));
 		// with a background or toolbar color of its own the book keeps its light look in the popup
 		wrapper.classList.toggle('alfb_has_bg', !!(this.root.style.getPropertyValue('--alfb-bg') || this.root.style.getPropertyValue('--alfb-bar-bg')));
 		wrapper.innerHTML = '<div class="alfb_stage"><div class="alfb_loading"><span class="alfb_spinner"></span></div></div>';
