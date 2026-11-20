@@ -132,6 +132,8 @@ export default class Flipbook {
 		this.config = config;
 		this.editor = editor;
 		this.sound = !!config.flipSound;
+		// readers who ask their device for less motion: pages turn without the animation
+		this.calm = !!this.win.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 		this.pages = [];
 		this.rendered = [];
 		this.queue = Promise.resolve();
@@ -247,7 +249,7 @@ export default class Flipbook {
 			usePortrait: 'double' !== pageMode,
 			showCover: !!showCover,
 			startPage: this.toFlip(Math.min(this.count, Math.max(1, startPage || 1)) - 1),
-			flippingTime: 700,
+			flippingTime: this.calm ? 1 : 700,
 			maxShadowOpacity: 0.5,
 			mobileScrollSupport: true,
 			// in the editor a click selects the block; a drag still turns the page
@@ -819,6 +821,80 @@ export default class Flipbook {
 		this.seek.style.setProperty('--alfb-seek', ((this.seek.value - 1) / (this.count - 1)) * 100 + '%');
 	}
 
+	// the keyboard shortcuts in a small box over the book (the ? key)
+	showKeys() {
+		const box = this.doc.createElement('div');
+		box.className = 'alfb_keys';
+		box.setAttribute('role', 'dialog');
+		box.setAttribute('aria-label', __('Keyboard shortcuts', 'softicon-flipbook'));
+		box.tabIndex = -1;
+
+		const title = this.doc.createElement('p');
+		title.className = 'alfb_keys_title';
+		title.textContent = __('Keyboard shortcuts', 'softicon-flipbook');
+
+		const close = this.doc.createElement('button');
+		close.type = 'button';
+		close.className = 'alfb_btn alfb_keys_close';
+		close.setAttribute('aria-label', __('Close', 'softicon-flipbook'));
+		close.textContent = '×';
+		close.addEventListener('click', () => this.closeKeys());
+
+		const rows = [
+			['← →', __('Turn the page', 'softicon-flipbook')],
+			['Home', __('First page', 'softicon-flipbook')],
+			['End', __('Last page', 'softicon-flipbook')],
+			...(this.zoom ? [['+ −', __('Zoom in or out', 'softicon-flipbook')]] : []),
+			['Esc', __('Close a panel, the zoom or full screen', 'softicon-flipbook')],
+			['?', __('Show or hide this list', 'softicon-flipbook')]
+		];
+		const list = this.doc.createElement('dl');
+		rows.forEach(([keys, text]) => {
+			const term = this.doc.createElement('dt');
+			keys.split(' ').forEach(key => {
+				const kbd = this.doc.createElement('kbd');
+				kbd.textContent = key;
+				term.append(kbd);
+			});
+			const desc = this.doc.createElement('dd');
+			desc.textContent = text;
+			list.append(term, desc);
+		});
+
+		box.append(title, close, list);
+		this.stage.append(box);
+		this.keys = box;
+		box.focus({ preventScroll: true });
+	}
+
+	closeKeys() {
+		this.keys?.remove();
+		this.keys = null;
+		this.root.focus({ preventScroll: true });
+	}
+
+	// a link for keyboard users to jump past the book and its many buttons, seen only when it has the focus;
+	// before the book, which takes the focus itself for its arrow keys
+	skipLink() {
+		const end = this.doc.createElement('span');
+		end.className = 'alfb_skip_end';
+		end.tabIndex = -1;
+		const link = this.doc.createElement('a');
+		link.className = 'alfb_skip';
+		link.href = '#';
+		link.textContent = __('Skip the flipbook', 'softicon-flipbook');
+		link.addEventListener('click', event => {
+			event.preventDefault();
+			end.focus();
+		});
+		this.root.before(link);
+		this.root.after(end);
+		this.listeners.push(() => {
+			link.remove();
+			end.remove();
+		});
+	}
+
 	// a link to the page that is open (#page=5): the phone's share sheet, or copied on a computer
 	async share() {
 		// the editor's canvas has no address of its own to share
@@ -991,7 +1067,24 @@ export default class Flipbook {
 					this.root.focus({ preventScroll: true });
 				}
 			}, true);
+			this.skipLink();
+			// the first time the keyboard brings the focus into the book: how to see its keys
+			let hinted = false;
+			this.on(this.root, 'focusin', event => {
+				if (!hinted && event.target.matches?.(':focus-visible')) {
+					hinted = true;
+					this.toast(__('Press ? for keyboard shortcuts', 'softicon-flipbook'));
+				}
+			});
 			this.on(this.root, 'keydown', event => {
+				// the list of keys is open: Escape or ? closes it
+				if (this.keys) {
+					if ('Escape' === event.key || '?' === event.key) {
+						event.preventDefault();
+						this.closeKeys();
+					}
+					return;
+				}
 				// the thumbnail or contents panel covers the book, only Escape acts on it
 				const panel = this.thumbs?.open ? this.thumbs : this.contents?.open ? this.contents : this.search?.open && this.search;
 				if (panel) {
@@ -1002,9 +1095,19 @@ export default class Flipbook {
 					}
 					return;
 				}
+				// the page slider and the page number box use the arrow keys themselves
+				if (event.target.closest?.('input, textarea, select')) {
+					return;
+				}
 				const zoomKey = this.zoom && !event.ctrlKey && !event.metaKey;
 				// the arrow keys follow the page on screen: right to left, ← is the next page
-				if ('ArrowLeft' === event.key) {
+				if ('Home' === event.key || 'End' === event.key) {
+					event.preventDefault();
+					this.go('Home' === event.key ? 0 : this.count - 1);
+				} else if ('?' === event.key) {
+					event.preventDefault();
+					this.showKeys();
+				} else if ('ArrowLeft' === event.key) {
 					this.back();
 				} else if ('ArrowRight' === event.key) {
 					this.forward();
