@@ -838,41 +838,56 @@ export default class Flipbook {
 		title.className = 'alfb_keys_title';
 		title.textContent = __('Keyboard shortcuts', 'softicon-flipbook');
 
-		const close = this.doc.createElement('button');
-		close.type = 'button';
-		close.className = 'alfb_btn alfb_keys_close';
-		close.setAttribute('aria-label', __('Close', 'softicon-flipbook'));
-		close.textContent = '×';
-		close.addEventListener('click', () => this.closeKeys());
+		const closeBtn = this.doc.createElement('button');
+		closeBtn.type = 'button';
+		closeBtn.className = 'alfb_btn alfb_keys_close';
+		closeBtn.setAttribute('aria-label', __('Close', 'softicon-flipbook'));
+		closeBtn.textContent = '×';
+		closeBtn.addEventListener('click', () => this.closeKeys());
 
+		// each key is also a button that does the same, for a mouse or a touch screen; the list stays open for more
+		const close = () => this.closeKeys();
 		const rows = [
-			['← →', __('Turn the page', 'softicon-flipbook')],
-			['Home', __('First page', 'softicon-flipbook')],
-			['End', __('Last page', 'softicon-flipbook')],
-			...(this.zoom ? [['+ −', __('Zoom in or out', 'softicon-flipbook')]] : []),
-			['Esc', __('Close a panel, the zoom or full screen', 'softicon-flipbook')],
-			['?', __('Show or hide this list', 'softicon-flipbook')]
+			[[['←', __('Turn the page left', 'softicon-flipbook'), () => this.back()], ['→', __('Turn the page right', 'softicon-flipbook'), () => this.forward()]], __('Turn the page', 'softicon-flipbook')],
+			[[['Home', __('First page', 'softicon-flipbook'), () => this.go(0)]], __('First page', 'softicon-flipbook')],
+			[[['End', __('Last page', 'softicon-flipbook'), () => this.go(this.count - 1)]], __('Last page', 'softicon-flipbook')],
+			...(this.zoom ? [[[['+', __('Zoom in', 'softicon-flipbook'), () => this.zoom.step(1)], ['−', __('Zoom out', 'softicon-flipbook'), () => this.zoom.step(-1)]], __('Zoom in or out', 'softicon-flipbook')]] : []),
+			[[['Esc', __('Close this list', 'softicon-flipbook'), close]], __('Close a panel, the zoom or full screen', 'softicon-flipbook')],
+			[[['?', __('Close this list', 'softicon-flipbook'), close]], __('Show or hide this list', 'softicon-flipbook')]
 		];
 		const list = this.doc.createElement('dl');
 		rows.forEach(([keys, text]) => {
 			const term = this.doc.createElement('dt');
-			keys.split(' ').forEach(key => {
-				const kbd = this.doc.createElement('kbd');
-				kbd.textContent = key;
-				term.append(kbd);
+			keys.forEach(([key, label, action]) => {
+				const button = this.doc.createElement('button');
+				button.type = 'button';
+				button.className = 'alfb_key';
+				button.textContent = key;
+				button.setAttribute('aria-label', label);
+				button.title = label;
+				button.addEventListener('click', action);
+				term.append(button);
 			});
 			const desc = this.doc.createElement('dd');
 			desc.textContent = text;
 			list.append(term, desc);
 		});
 
-		box.append(title, close, list);
+		box.append(title, closeBtn, list);
 		this.stage.append(box);
 		this.keys = box;
 		box.focus({ preventScroll: true });
+		// a press on the book outside the box closes it
+		this.keysOutside = event => {
+			if (!box.contains(event.target)) {
+				this.closeKeys();
+			}
+		};
+		this.stage.addEventListener('pointerdown', this.keysOutside, true);
 	}
 
 	closeKeys() {
+		this.stage.removeEventListener('pointerdown', this.keysOutside, true);
 		this.keys?.remove();
 		this.keys = null;
 		this.root.focus({ preventScroll: true });
