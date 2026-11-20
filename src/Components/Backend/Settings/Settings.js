@@ -6,11 +6,11 @@ import Style from './Style/Style';
 import { Panel, PanelGroup } from '../../../vendor/softicon-tools/components/Panels';
 import { tabs } from '../../../utils/options';
 
-const Settings = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
+const Settings = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }) => {
 	return <InspectorControls>
 		<TabPanel className='siSettings' tabs={tabs}>
 			{(tab) => <PanelGroup key={tab.name} initial={'style' === tab.name ? 'display' : 'source'}>
-				{'general' === tab.name && <General {...{ attributes, setAttributes, onSelectPdf, onSelectImages }} />}
+				{'general' === tab.name && <General {...{ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }} />}
 
 				{'style' === tab.name && <Style {...{ attributes, setAttributes }} />}
 

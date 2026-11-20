@@ -2,6 +2,8 @@ import { SVG, Path } from '@wordpress/primitives';
 
 export const blockIcon = <SVG viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
 	<Path d='M12 6.5C10.3 5.3 8 4.75 5 4.75H3v13h2c3 0 5.3.55 7 1.75 1.7-1.2 4-1.75 7-1.75h2v-13h-2c-3 0-5.3.55-7 1.75m-1.25 10.6c-1.5-.6-3.4-.9-5.75-.85V6.25c2.5 0 4.4.45 5.75 1.4zm8.25-.85c-2.35-.05-4.25.25-5.75.85V7.65c1.35-.95 3.25-1.4 5.75-1.4z' />
+	{/* a page that turns over in the editor (editor.scss); hidden wherever that style is not loaded */}
+	<Path className='alfbIconLeaf' opacity='0' d='M12.75 7.65c1.35-.95 3.25-1.4 5.75-1.4v10c-2.35-.05-4.25.25-5.75.85z' />
 </SVG>;
 
 const icon = (d, evenOdd = false) => <SVG viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true' focusable='false'>
@@ -22,5 +24,7 @@ export const icons = {
 	text: icon('M3 7h18v1.5H3zm0 4.5h12V13H3zm0 4.5h7.5v1.5H3z'),
 	alignLeft: icon('M4 5h16v1.5H4zm0 4h10v1.5H4zm0 4h16v1.5H4zm0 4h10v1.5H4z'),
 	alignCenter: icon('M4 5h16v1.5H4zm3 4h10v1.5H7zm-3 4h16v1.5H4zm3 4h10v1.5H7z'),
-	alignRight: icon('M4 5h16v1.5H4zm6 4h10v1.5H10zm-6 4h16v1.5H4zm6 4h10v1.5H10z')
+	alignRight: icon('M4 5h16v1.5H4zm6 4h10v1.5H10zm-6 4h16v1.5H4zm6 4h10v1.5H10z'),
+	play: icon('M8 5.5v13l10.5-6.5z'),
+	link: icon('M10.6 13.4a1 1 0 0 1 0-1.4l3.5-3.5a1 1 0 1 1 1.4 1.4L12 13.4a1 1 0 0 1-1.4 0M8.8 17.2a3 3 0 0 1-4.2-4.2l2.5-2.5 1.06 1.06-2.5 2.5a1.5 1.5 0 0 0 2.12 2.12l2.5-2.5 1.06 1.06zm6.4-6.4-1.06-1.06 2.5-2.5a1.5 1.5 0 0 0-2.12-2.12l-2.5 2.5L10.96 6.6l2.5-2.5a3 3 0 0 1 4.24 4.24z')
 };

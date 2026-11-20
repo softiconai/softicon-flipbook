@@ -9,7 +9,7 @@ import useIframeAssets from '../../vendor/softicon-tools/hooks/useIframeAssets';
 import Settings from './Settings/Settings';
 import LightboxPreview from './LightboxPreview';
 import Flipbook from '../../viewer/Flipbook';
-import { blockIcon } from '../../utils/icons';
+import { blockIcon, icons } from '../../utils/icons';
 import { cssVars, hasContent, toConfig, toImage } from '../../utils/functions';
 import { videos } from '../../utils/options';
 import guide from '../../utils/guide';
@@ -63,9 +63,9 @@ const Edit = (props) => {
 			__('Your flipbook is ready. Change its look in the sidebar on the right, then click Publish.', 'softicon-flipbook'), { id: 'alfb-guide' });
 	}, [ready]);
 
-	// the toolbar buttons the preview leaves out (Flipbook.js, editor mode) do not reload it
+	// the preview has the page's toolbar; only what the editor leaves out (Flipbook.js, editor mode) does not reload it
 	const preview = toConfig(attributes);
-	['showFullscreen', 'showZoom', 'showThumbnails', 'showContents', 'showLinks', 'showSearch', 'showShare', 'flipSound', 'showPrint', 'startWith', 'autoplay', 'autoplaySeconds', 'autoplayLoop', 'phoneFullscreen'].forEach(key => delete preview[key]);
+	['showLinks', 'phoneFullscreen'].forEach(key => delete preview[key]);
 	const configKey = useDebounced(JSON.stringify(preview), 400);
 
 	useEffect(() => {
@@ -104,20 +104,26 @@ const Edit = (props) => {
 
 	const switchSource = value => <>
 		{guide && <Steps images={'pdf' === value} />}
-		<Button variant='link' onClick={() => setAttributes({ source: value })}>
-			{'images' === value ? __('Use images instead', 'softicon-flipbook') : __('Use a PDF instead', 'softicon-flipbook')}
-		</Button>
-		<p className='alfbPlaceholderHelp'><ExternalLink href={videos.add}>{__('New here? Watch the 36-second tutorial', 'softicon-flipbook')}</ExternalLink></p>
+		{/* the last row: the tutorial, and the other kind of book */}
+		<div className='alfbPlaceholderFoot'>
+			<ExternalLink href={videos.add} className='alfbPlaceholderVideo'>
+				<span className='alfbPlaceholderPlay'>{icons.play}</span>
+				{__('New here? Watch the 36-second tutorial', 'softicon-flipbook')}
+			</ExternalLink>
+			<Button variant='link' className='alfbPlaceholderSwitch' icon={icons[value]} onClick={() => setAttributes({ source: value })}>
+				{'images' === value ? __('Use images instead', 'softicon-flipbook') : __('Use a PDF instead', 'softicon-flipbook')}
+			</Button>
+		</div>
 	</>;
 
 	if (!ready) {
 		return <div {...useBlockProps({ ref: assetsRef })}>
 			{'images' === source ?
-				<MediaPlaceholder icon={blockIcon} labels={{ title: __('Flipbook', 'softicon-flipbook'), instructions: __('Upload or pick the page images, in reading order.', 'softicon-flipbook') }}
+				<MediaPlaceholder className='alfbPlaceholder' icon={blockIcon} labels={{ title: __('Flipbook', 'softicon-flipbook'), instructions: __('Upload or pick the page images, in reading order.', 'softicon-flipbook') }}
 					allowedTypes={['image']} multiple gallery onSelect={onSelectImages}>
 					{switchSource('pdf')}
 				</MediaPlaceholder> :
-				<MediaPlaceholder icon={blockIcon} labels={{ title: __('Flipbook', 'softicon-flipbook'), instructions: __('Upload a PDF, pick one from the Media Library or paste a link.', 'softicon-flipbook') }}
+				<MediaPlaceholder className='alfbPlaceholder' icon={blockIcon} labels={{ title: __('Flipbook', 'softicon-flipbook'), instructions: __('Upload a PDF, pick one from the Media Library or paste a link.', 'softicon-flipbook') }}
 					allowedTypes={['application/pdf']} accept='application/pdf' onSelect={onSelectPdf} onSelectURL={onSelectPdfUrl}>
 					{switchSource('images')}
 				</MediaPlaceholder>}
@@ -125,7 +131,7 @@ const Edit = (props) => {
 	}
 
 	return <>
-		<Settings {...{ attributes, setAttributes, onSelectPdf, onSelectImages }} />
+		<Settings {...{ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }} />
 
 		<BlockControls group='other'>
 			{'images' === source ?

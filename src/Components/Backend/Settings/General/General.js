@@ -1,12 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
-import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { Button, ExternalLink, SelectControl, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
 import { helpCards, pageModes, sources, videos } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
+import { ImagesPicker, PdfPicker } from './SourcePicker';
 
 // the number can be emptied while typing; it becomes a page (1 or more) when the field loses focus
 const StartPage = ({ value, onChange }) => {
@@ -71,20 +71,11 @@ const Shortcode = () => {
 	</div>;
 };
 
-const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => {
+const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }) => {
 	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	// SoftIcon Flipbook Pro: under a setting, whether it follows the site default or is this book's own
 	const hint = name => applyFilters('alfb.block.hint', null, { name, setAttributes });
-	const fileName = (() => {
-		const name = pdfUrl ? pdfUrl.split('/').pop().split('?')[0] : '';
-		try {
-			return decodeURIComponent(name);
-		} catch (e) {
-			// a pasted link can hold a stray %
-			return name;
-		}
-	})();
 
 	return <>
 		<Panel id='help' title={__('Help', 'softicon-flipbook')}>
@@ -99,23 +90,13 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 			{'pdf' === source ? <div className='alfbStack'>
 				<FieldHead label={__('PDF', 'softicon-flipbook')} tip={__('PDFs from your Media Library always work. A link to a PDF on another website works only if that site allows it.', 'softicon-flipbook')} />
-				{fileName && <p className='alfbFile'>{fileName}</p>}
-				<MediaUploadCheck>
-					<MediaUpload allowedTypes={['application/pdf']} value={pdfId} onSelect={onSelectPdf}
-						render={({ open }) => <Button variant='secondary' onClick={open}>{pdfUrl ? __('Replace PDF', 'softicon-flipbook') : __('Choose PDF', 'softicon-flipbook')}</Button>} />
-				</MediaUploadCheck>
-				{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Taking each post\'s PDF from a custom field (Meta Box, ACF), and text readers can select and copy, are available in Pro.', 'softicon-flipbook')} />}
-				{!editorInfo.pro && <p className='alfbHelp'><ExternalLink href={videos.field}>{__('Watch: each post\'s own PDF from Meta Box or ACF', 'softicon-flipbook')}</ExternalLink></p>}
+				<PdfPicker {...{ pdfId, pdfUrl, onSelectPdf, onSelectPdfUrl }} />
+				{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Taking each post\'s PDF from a custom field (Meta Box, ACF), and text readers can select and copy, are available in Pro.', 'softicon-flipbook')}
+					video={videos.field} videoLabel={__('Watch: each post\'s own PDF from Meta Box or ACF', 'softicon-flipbook')} />}
 				<ToggleRow label={__('Links in the PDF', 'softicon-flipbook')} tip={__('Web, email and page links inside the PDF can be clicked. Web links open in a new tab, page links turn the book.', 'softicon-flipbook')} checked={showLinks} onChange={set('showLinks')} />{hint('showLinks')}
 			</div> : <div className='alfbStack'>
 				<FieldHead label={__('Pages', 'softicon-flipbook')} tip={__('Each image is one page. Drag them in the media window to change the order.', 'softicon-flipbook')} />
-				{!!images.length && <div className='alfbImages'>
-					{images.slice(0, 8).map(image => <img key={image.id || image.url} src={image.url} alt='' />)}
-				</div>}
-				<MediaUploadCheck>
-					<MediaUpload allowedTypes={['image']} multiple gallery value={images.map(image => image.id)} onSelect={onSelectImages}
-						render={({ open }) => <Button variant='secondary' onClick={open}>{images.length ? __('Edit pages', 'softicon-flipbook') : __('Choose images', 'softicon-flipbook')}</Button>} />
-				</MediaUploadCheck>
+				<ImagesPicker {...{ images, onSelectImages }} />
 			</div>}
 		</Panel>
 
@@ -129,13 +110,16 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 				<StartPage value={startPage} onChange={val => setAttributes({ startPage: val })} />
 			</div>
 
-			<SelectControl label={__('Start with', 'softicon-flipbook')} help={__('Readers can first pick a page from the thumbnails or the table of contents (from the PDF\'s bookmarks). On the published page.', 'softicon-flipbook')}
-				value={startWith} onChange={set('startWith')} __next40pxDefaultSize __nextHasNoMarginBottom
-				options={[
-					{ label: __('The book', 'softicon-flipbook'), value: 'book' },
-					{ label: __('The thumbnails', 'softicon-flipbook'), value: 'thumbnails' },
-					{ label: __('The table of contents', 'softicon-flipbook'), value: 'contents' }
-				]} />
+			<div>
+				<FieldHead label={__('Start with', 'softicon-flipbook')} tip={__('Readers first pick a page from the thumbnails or the table of contents (the PDF\'s bookmarks).', 'softicon-flipbook')} />
+				<SelectControl label={__('Start with', 'softicon-flipbook')} hideLabelFromVision
+					value={startWith} onChange={set('startWith')} __next40pxDefaultSize __nextHasNoMarginBottom
+					options={[
+						{ label: __('The book', 'softicon-flipbook'), value: 'book' },
+						{ label: __('The thumbnails', 'softicon-flipbook'), value: 'thumbnails' },
+						{ label: __('The table of contents', 'softicon-flipbook'), value: 'contents' }
+					]} />
+			</div>
 
 			<ToggleRow label={__('Right to left', 'softicon-flipbook')} tip={__('For books read from right to left, such as Arabic, Hebrew or Urdu: the next page is on the left, and the arrows and arrow keys follow.', 'softicon-flipbook')} checked={rtl} onChange={set('rtl')} />{hint('rtl')}
 
@@ -167,8 +151,8 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 
 			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />{hint('showThumbnails')}
 
-			{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Bookmarks, so readers can mark pages and come back to them, are available in Pro.', 'softicon-flipbook')} />}
-			{!editorInfo.pro && <p className='alfbHelp'><ExternalLink href={videos.bookmarks}>{__('Watch: bookmarks and selectable text', 'softicon-flipbook')}</ExternalLink></p>}
+			{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Bookmarks, so readers can mark pages and come back to them, are available in Pro.', 'softicon-flipbook')}
+				video={videos.bookmarks} videoLabel={__('Watch: bookmarks and selectable text', 'softicon-flipbook')} />}
 
 			<ToggleRow label={__('Zoom', 'softicon-flipbook')} tip={__('Zoom buttons, pinch on phones and Ctrl + scroll on computers.', 'softicon-flipbook')} checked={showZoom} onChange={set('showZoom')} />{hint('showZoom')}
 
@@ -182,24 +166,24 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectImages }) => 
 		{/* the Pro settings of this block, shown as notices only: the code is in Pro, which replaces these panels */}
 		{!editorInfo.pro && <>
 			<Panel id='buttons' title={__('Page buttons', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('A button on a chosen page, such as a link or a WooCommerce product with its price, is available in Pro.', 'softicon-flipbook')} />
-				<p className='alfbHelp'><ExternalLink href={videos.buttons}>{__('Watch page buttons in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
+				<ProNotice href={editorInfo.pricing} text={__('A button on a chosen page, such as a link or a WooCommerce product with its price, is available in Pro.', 'softicon-flipbook')}
+					video={videos.buttons} videoLabel={__('Watch page buttons in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='hotspots' title={__('Hotspots', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')} />
-				<p className='alfbHelp'><ExternalLink href={videos.hotspots}>{__('Watch hotspots in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
+				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')}
+					video={videos.hotspots} videoLabel={__('Watch hotspots in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')} />
-				<p className='alfbHelp'><ExternalLink href={videos.leads}>{__('Watch lead capture in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
+				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')}
+					video={videos.leads} videoLabel={__('Watch lead capture in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='shelf' title={__('Shelf', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Showing many books on one shelf, each opening in a popup, is available in Pro.', 'softicon-flipbook')} />
-				<p className='alfbHelp'><ExternalLink href={videos.shelf}>{__('Watch the shelf in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
+				<ProNotice href={editorInfo.pricing} text={__('Showing many books on one shelf, each opening in a popup, is available in Pro.', 'softicon-flipbook')}
+					video={videos.shelf} videoLabel={__('Watch the shelf in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='protect' title={__('Protection', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Protecting the PDF (a password, no download button, no right-click, the PDF address kept out of the page) is available in Pro.', 'softicon-flipbook')} />
-				<p className='alfbHelp'><ExternalLink href={videos.protect}>{__('Watch protection in 40 seconds', 'softicon-flipbook')}</ExternalLink></p>
+				<ProNotice href={editorInfo.pricing} text={__('Protecting the PDF (a password, no download button, no right-click, the PDF address kept out of the page) is available in Pro.', 'softicon-flipbook')}
+					video={videos.protect} videoLabel={__('Watch protection in 40 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='watermark' title={__('Watermark', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Your words or logo drawn into every page, with the reader\'s name or email if you like, is available in Pro.', 'softicon-flipbook')} />

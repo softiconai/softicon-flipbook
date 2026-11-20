@@ -98,6 +98,30 @@ export const openDocument = async (url, doc) => {
 	});
 };
 
+// page-flip listens for the mouse moving and letting go on the window its script runs in. The editor's book is in the
+// canvas iframe, whose moves never reach that window, so a drag could not turn the page: they go to the book's window.
+const moves = [['mousemove', 'onMouseMove'], ['touchmove', 'onTouchMove'], ['mouseup', 'onMouseUp'], ['touchend', 'onTouchEnd']];
+const dragInWindow = (flip, win) => {
+	const ui = flip.ui;
+	if (win === window || 'function' !== typeof ui?.setHandlers) {
+		return;
+	}
+	const proto = Object.getPrototypeOf(ui);
+	// page-flip sets them again whenever its pages change
+	ui.setHandlers = () => {
+		proto.setHandlers.call(ui);
+		moves.forEach(([type, name]) => {
+			window.removeEventListener(type, ui[name]);
+			win.addEventListener(type, ui[name], 'touchmove' === type ? { passive: false } : false);
+		});
+	};
+	ui.removeHandlers = () => {
+		proto.removeHandlers.call(ui);
+		moves.forEach(([type, name]) => win.removeEventListener(type, ui[name]));
+	};
+	ui.setHandlers();
+};
+
 export default class Flipbook {
 	constructor(root, config, { editor = false } = {}) {
 		this.root = root;
@@ -105,7 +129,7 @@ export default class Flipbook {
 		this.win = this.doc.defaultView || window;
 		this.config = config;
 		this.editor = editor;
-		this.sound = !!config.flipSound && !editor;
+		this.sound = !!config.flipSound;
 		this.pages = [];
 		this.rendered = [];
 		this.queue = Promise.resolve();
@@ -147,7 +171,7 @@ export default class Flipbook {
 		this.pdf = await this.task.promise;
 		this.count = this.pdf.numPages;
 		// the bookmarks for the table of contents, a PDF without them gets no button
-		if (this.config.showContents && !this.editor) {
+		if (this.config.showContents) {
 			const outline = await this.pdf.getOutline().catch(() => null);
 			this.outline = outline?.length ? outline : null;
 		}
@@ -224,44 +248,55 @@ export default class Flipbook {
 			flippingTime: 700,
 			maxShadowOpacity: 0.5,
 			mobileScrollSupport: true,
-			// the editor canvas is an iframe, page-flip listens for mouse moves on the parent window
-			useMouseEvents: !this.editor,
-			showPageCorners: !this.editor
+			// in the editor a click selects the block; a drag still turns the page
+			disableFlipByClick: this.editor
 		});
 		// the book's width before page-flip lays it out: a one page book that starts as a two page spread would open a page early
 		this.fit();
 		this.flip.loadFromHTML(this.rtl ? [...this.pages].reverse() : this.pages);
+		dragInWindow(this.flip, this.win);
 
 		// page-flip sets a min-width that overflows small phones
 		this.book.style.minWidth = '0px';
 		this.fit();
 
-		this.flip.on('flip', () => this.onChange());
+		// a page dragged over never reaches the flipping state: its sound plays when it lands (flip comes before read)
+		let dragging = false;
+		this.flip.on('flip', () => {
+			if (dragging && this.sound) {
+				playFlip();
+			}
+			this.onChange();
+		});
 		this.flip.on('changeOrientation', () => this.onChange());
 		this.flip.on('changeState', event => {
 			if ('flipping' === event.data && this.sound) {
 				playFlip();
 			}
+			dragging = 'user_fold' === event.data;
 			this.cover?.flipping('read' !== event.data);
 		});
 
-		if (this.config.showZoom && !this.editor) {
+		if (this.config.showZoom) {
 			this.zoom = new Zoom(this);
 		}
-		if (this.config.showThumbnails && !this.editor) {
+		if (this.config.showThumbnails) {
 			this.thumbs = new Thumbnails(this);
 		}
 		if (this.outline) {
 			this.contents = new Contents(this, this.outline);
 		}
-		if (this.config.showSearch && 'pdf' === this.config.source && !this.editor) {
+		if (this.config.showSearch && 'pdf' === this.config.source) {
 			this.search = new Search(this);
 		}
-		if (this.config.autoplay && !this.editor && this.count > 1) {
+		// the editor shows the same toolbar as the page; there the book only plays when Play is pressed
+		if (this.config.autoplay && this.count > 1) {
 			this.autoplay = new Autoplay(this);
 		}
 		this.toolbar();
-		this.autoplay?.start();
+		if (!this.editor) {
+			this.autoplay?.start();
+		}
 		// on a phone the book can open full screen with one tap
 		if (this.config.phoneFullscreen && !this.editor && this.win.matchMedia?.('(max-width: 600px)').matches) {
 			this.tapToRead();
@@ -621,14 +656,12 @@ export default class Flipbook {
 		this.prevBtn = this.button(this.rtl ? 'next' : 'prev', __('Previous page', 'softicon-flipbook'), () => this.prev());
 		this.nextBtn = this.button(this.rtl ? 'prev' : 'next', __('Next page', 'softicon-flipbook'), () => this.next());
 
-		this.counter = this.doc.createElement(this.editor ? 'span' : 'button');
+		this.counter = this.doc.createElement('button');
 		this.counter.className = 'alfb_counter';
 		this.counter.setAttribute('aria-live', 'polite');
-		if (!this.editor) {
-			this.counter.type = 'button';
-			this.counter.title = __('Go to page', 'softicon-flipbook');
-			this.counter.addEventListener('click', () => this.askPage());
-		}
+		this.counter.type = 'button';
+		this.counter.title = __('Go to page', 'softicon-flipbook');
+		this.counter.addEventListener('click', () => this.askPage());
 
 		const nav = this.doc.createElement('div');
 		nav.className = 'alfb_nav';
@@ -672,7 +705,7 @@ export default class Flipbook {
 			tools.append(this.zoomOutBtn, this.zoomInBtn);
 		}
 
-		if (this.config.flipSound && !this.editor) {
+		if (this.config.flipSound) {
 			const toggle = this.button(this.sound ? 'soundOn' : 'soundOff', __('Page turn sound', 'softicon-flipbook'), () => {
 				this.sound = !this.sound;
 				toggle.innerHTML = icons[this.sound ? 'soundOn' : 'soundOff'];
@@ -682,7 +715,7 @@ export default class Flipbook {
 			tools.append(toggle);
 		}
 
-		if (this.config.showPrint && !this.editor) {
+		if (this.config.showPrint) {
 			tools.append(this.button('print', __('Print', 'softicon-flipbook'), () => print(this)));
 		}
 
@@ -699,13 +732,13 @@ export default class Flipbook {
 			tools.append(link);
 		}
 
-		if (this.config.showShare && !this.editor) {
+		if (this.config.showShare) {
 			this.shareBtn = this.button('share', __('Share this page', 'softicon-flipbook'), () => this.share());
 			this.shareBtn.setAttribute('aria-haspopup', 'dialog');
 			tools.append(this.shareBtn);
 		}
 
-		if (this.config.showFullscreen && !this.editor) {
+		if (this.config.showFullscreen) {
 			this.fsBtn = this.button('fullscreen', __('Fullscreen', 'softicon-flipbook'), () => this.toggleFullscreen());
 			tools.append(this.fsBtn);
 		}
@@ -720,6 +753,11 @@ export default class Flipbook {
 
 	// a link to the page that is open (#page=5): the phone's share sheet, or copied on a computer
 	async share() {
+		// the editor's canvas has no address of its own to share
+		if (this.editor) {
+			this.toast(__('Sharing works on the published page.', 'softicon-flipbook'));
+			return;
+		}
 		const url = new URL(this.win.location.href);
 		// the book inside a lightbox popup is linked through its lightbox (owner)
 		const number = bookNumber(this.owner || this.root);
@@ -872,6 +910,11 @@ export default class Flipbook {
 
 	watch() {
 		this.on(this.doc, 'fullscreenchange', () => this.setFullscreen(this.doc.fullscreenElement === this.root));
+
+		if (this.editor) {
+			// page-flip cancels the mouse press, which would leave the block unselected: the block takes the focus
+			this.on(this.stage, 'pointerdown', () => this.root.closest('[data-block]')?.focus({ preventScroll: true }), true);
+		}
 
 		if (!this.editor) {
 			// page-flip cancels the mouse press, so a click on a page would leave the arrow keys elsewhere

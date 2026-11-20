@@ -22,6 +22,7 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 
 = Why choose SoftIcon Flipbook? =
 
+* **No page limit** – a PDF with 5 pages or 500, or as many page images as you like, in the free version too.
 * **Block first** – upload or pick a PDF in the block and preview the real flipbook while you edit.
 * **Readable on phones** – the book switches to one page at a time on small screens, two-page spreads on wide ones. Or force one layout.
 * **Light on your pages** – the flipbook engine loads only when the book scrolls into view, and pages are drawn as the reader gets near them. In a lightbox the book loads only when a visitor opens it.
@@ -122,7 +123,7 @@ Only if that website allows it (CORS). Browsers block reading PDFs from other si
 
 = Is there a page or file size limit? =
 
-The plugin adds no limit of its own; your site's upload limit still applies. Pages are drawn as the reader gets near them, and on servers that support range requests (most do) large PDFs are fetched in parts instead of all at once.
+No page limit: a flipbook shows every page of your PDF, or every image you pick, in the free version too. The plugin adds no file size limit of its own either; your site's upload limit still applies. Pages are drawn as the reader gets near them, and on servers that support range requests (most do) large PDFs are fetched in parts instead of all at once.
 
 = Does it slow down my pages? =
 
