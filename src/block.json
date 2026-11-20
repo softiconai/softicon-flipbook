@@ -52,7 +52,10 @@
 		"lightboxText": { "type": "string", "default": "" },
 		"lightboxImage": { "type": "object", "default": {} },
 		"lightboxWidth": { "type": "number", "default": 260 },
-		"lightboxAlign": { "type": "string", "default": "center" }
+		"lightboxAlign": { "type": "string", "default": "center" },
+		"lightboxSize": { "type": "string", "enum": [ "full", "large", "medium" ], "default": "full" },
+		"lightboxBackdrop": { "type": "string", "enum": [ "dark", "light", "blur" ], "default": "dark" },
+		"lightboxNofollow": { "type": "boolean", "default": false }
 	},
 	"supports": {
 		"html": false,

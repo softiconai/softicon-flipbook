@@ -1,5 +1,6 @@
 import './public-path';
-import { createBlock, registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
+import { createBlock, registerBlockType, registerBlockVariation } from '@wordpress/blocks';
 import { dispatch, select, subscribe } from '@wordpress/data';
 import domReady from '@wordpress/dom-ready';
 import { addFilter } from '@wordpress/hooks';
@@ -14,6 +15,39 @@ registerBlockType(metadata, {
 	edit: Edit,
 	// Dynamic block, the markup comes from render.php.
 	save: () => null
+});
+
+// the lightbox ways in as items of their own in the inserter, like separate blocks: the same block, set to a popup
+const popup = trigger => attributes => 'lightbox' === attributes.displayMode && trigger === (attributes.lightboxTrigger || 'cover');
+registerBlockVariation(metadata.name, {
+	name: 'popup',
+	title: __('Flipbook Popup', 'softicon-flipbook'),
+	description: __('A cover on the page; a click opens the flipbook in a popup.', 'softicon-flipbook'),
+	icon: blockIcon,
+	keywords: ['lightbox', 'modal', 'cover'],
+	attributes: { displayMode: 'lightbox', lightboxTrigger: 'cover' },
+	scope: ['inserter', 'transform'],
+	isActive: popup('cover')
+});
+registerBlockVariation(metadata.name, {
+	name: 'popup-button',
+	title: __('Flipbook Button', 'softicon-flipbook'),
+	description: __('A button on the page that opens the flipbook in a popup.', 'softicon-flipbook'),
+	icon: blockIcon,
+	keywords: ['lightbox', 'modal', 'button'],
+	attributes: { displayMode: 'lightbox', lightboxTrigger: 'button' },
+	scope: ['inserter', 'transform'],
+	isActive: popup('button')
+});
+registerBlockVariation(metadata.name, {
+	name: 'popup-link',
+	title: __('Flipbook Link', 'softicon-flipbook'),
+	description: __('A text link on the page that opens the flipbook in a popup.', 'softicon-flipbook'),
+	icon: blockIcon,
+	keywords: ['lightbox', 'modal', 'link'],
+	attributes: { displayMode: 'lightbox', lightboxTrigger: 'text' },
+	scope: ['inserter', 'transform'],
+	isActive: popup('text')
 });
 
 // no WordPress Dimensions (margin) panel for this block; margins saved before still apply on the page

@@ -59,11 +59,12 @@ export default class Lightbox {
 		}
 	}
 
-	// the book fills the window height, less the room around it
+	// the book fills the window height (or the share of it the popup size gives), less the room around it
 	room() {
 		// a title above the book takes a line too
 		const chrome = CHROME + ('hardcover' === this.config.bookStyle ? HARDCOVER : 0) + (this.config.title ? 40 : 0);
-		return Math.max(200, this.win.innerHeight - chrome);
+		const share = { large: 0.85, medium: 0.7 }[this.config.lightboxSize] || 1;
+		return Math.max(200, Math.round(this.win.innerHeight * share) - chrome);
 	}
 
 	open(page) {
@@ -75,7 +76,7 @@ export default class Lightbox {
 		}
 
 		const dialog = this.doc.createElement('dialog');
-		dialog.className = 'alfb_dialog';
+		dialog.className = 'alfb_dialog alfb_backdrop_' + (['light', 'blur'].includes(this.config.lightboxBackdrop) ? this.config.lightboxBackdrop : 'dark');
 		dialog.setAttribute('aria-label', this.trigger.textContent.trim() || this.trigger.getAttribute('aria-label') || __('Flipbook', 'softicon-flipbook'));
 
 		const close = this.doc.createElement('button');

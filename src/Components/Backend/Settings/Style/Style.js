@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, ExternalLink, RangeControl, TextControl } from '@wordpress/components';
-import { aligns, designs, lightboxTriggers, videos } from '../../../../utils/options';
+import { aligns, designs, lightboxBackdrops, lightboxSizes, lightboxTriggers, videos } from '../../../../utils/options';
 import { toImage } from '../../../../utils/functions';
 import ProNotice from '../../ProNotice';
 import { ColorRow, FieldHead, Panel, Reset, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
@@ -10,7 +10,7 @@ import { ColorRow, FieldHead, Panel, Reset, Tiles, ToggleRow } from '../../../..
 const editorInfo = window.alfbEditor || {};
 
 const Style = ({ attributes, setAttributes }) => {
-	const { bookTitle, theme, maxHeight, maxHeightTablet, maxHeightPhone, bookStyle, sideArrows, displayMode, lightboxTrigger, lightboxText, lightboxImage, lightboxWidth, lightboxAlign } = attributes;
+	const { bookTitle, theme, maxHeight, maxHeightTablet, maxHeightPhone, bookStyle, sideArrows, displayMode, lightboxTrigger, lightboxText, lightboxImage, lightboxWidth, lightboxAlign, lightboxSize, lightboxBackdrop, lightboxNofollow } = attributes;
 	const hardcover = 'hardcover' === bookStyle;
 	const lightbox = 'lightbox' === displayMode;
 	const cover = 'cover' === lightboxTrigger;
@@ -64,6 +64,12 @@ const Style = ({ attributes, setAttributes }) => {
 				</div>}
 
 				<Tiles label={__('Alignment', 'softicon-flipbook')} value={lightboxAlign} options={aligns} onChange={set('lightboxAlign')} />{hint('lightboxAlign')}
+
+				<Tiles label={__('Popup size', 'softicon-flipbook')} tip={__('How much of the window height the book takes in the popup.', 'softicon-flipbook')} value={lightboxSize} options={lightboxSizes} onChange={set('lightboxSize')} />{hint('lightboxSize')}
+
+				<Tiles label={__('Behind the book', 'softicon-flipbook')} tip={__('What readers see around the book while it is open: a dark or light screen, or the page itself, blurred.', 'softicon-flipbook')} value={lightboxBackdrop} options={lightboxBackdrops} onChange={set('lightboxBackdrop')} />{hint('lightboxBackdrop')}
+
+				<ToggleRow label={__('Ask search engines not to follow', 'softicon-flipbook')} tip={__('Adds rel="nofollow" to the cover, button or link, which points to the PDF.', 'softicon-flipbook')} checked={lightboxNofollow} onChange={set('lightboxNofollow')} />
 			</>}
 
 			<p className='alfbHelp'><ExternalLink href={videos.lightbox}>{__('See the lightbox in action', 'softicon-flipbook')}</ExternalLink></p>

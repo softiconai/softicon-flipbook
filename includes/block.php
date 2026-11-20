@@ -187,6 +187,8 @@ class block {
             'showSearch'     => ! isset( $attributes['showSearch'] ) || (bool) $attributes['showSearch'],
             'showShare'      => ! empty( $attributes['showShare'] ),
             'flipSound'      => ! isset( $attributes['flipSound'] ) || (bool) $attributes['flipSound'],
+            'lightboxSize'     => isset( $attributes['lightboxSize'] ) && in_array( $attributes['lightboxSize'], array( 'large', 'medium' ), true ) ? $attributes['lightboxSize'] : 'full',
+            'lightboxBackdrop' => isset( $attributes['lightboxBackdrop'] ) && in_array( $attributes['lightboxBackdrop'], array( 'light', 'blur' ), true ) ? $attributes['lightboxBackdrop'] : 'dark',
         );
 
         return apply_filters( 'alfb_config', $config, $attributes );
@@ -239,6 +241,7 @@ class block {
             'text'    => $text,
             'image'   => $image,
             'alt'     => $alt,
+            'rel'     => empty( $attributes['lightboxNofollow'] ) ? '' : ' rel="nofollow"',
             'width'   => isset( $attributes['lightboxWidth'] ) ? min( 600, max( 120, absint( $attributes['lightboxWidth'] ) ) ) : 260,
             // without JavaScript the trigger still opens the PDF or the first page, unless an add-on protects it
             'href'    => ! empty( $config['protect'] ) ? '#' : ( 'pdf' === $config['source'] ? $config['pdf'] : $config['images'][0]['url'] ),

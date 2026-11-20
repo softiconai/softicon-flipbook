@@ -6,7 +6,7 @@ export const ownToc = toc => (Array.isArray(toc) ? toc : [])
 
 // The same config shape render.php builds, so the editor preview matches the front end.
 export const toConfig = attributes => {
-	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfUrl, images, pageMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound, lightboxSize, lightboxBackdrop } = attributes;
 	return {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
@@ -40,7 +40,9 @@ export const toConfig = attributes => {
 		showLinks,
 		showSearch: false !== showSearch,
 		showShare: !!showShare,
-		flipSound
+		flipSound,
+		lightboxSize: ['large', 'medium'].includes(lightboxSize) ? lightboxSize : 'full',
+		lightboxBackdrop: ['light', 'blur'].includes(lightboxBackdrop) ? lightboxBackdrop : 'dark'
 	};
 };
 

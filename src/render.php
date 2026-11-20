@@ -34,7 +34,7 @@ if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayM
     ?>
     <div <?php echo $alfb_wrapper; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() escapes ?>>
         <?php if ( 'cover' === $alfb_lb['trigger'] ) : ?>
-            <a class="alfb_lb_trigger alfb_lb_cover" href="<?php echo esc_url( $alfb_lb['href'] ); ?>" aria-haspopup="dialog"<?php echo '' === $alfb_lb['text'] ? ' aria-label="' . esc_attr( $alfb_label ) . '"' : ''; ?>>
+            <a class="alfb_lb_trigger alfb_lb_cover" href="<?php echo esc_url( $alfb_lb['href'] ); ?>"<?php echo $alfb_lb['rel']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- a fixed string from block::lightbox() ?> aria-haspopup="dialog"<?php echo '' === $alfb_lb['text'] ? ' aria-label="' . esc_attr( $alfb_label ) . '"' : ''; ?>>
                 <span class="alfb_lb_img">
                     <?php if ( $alfb_lb['image'] ) : ?>
                         <img src="<?php echo esc_url( $alfb_lb['image'] ); ?>" alt="<?php echo esc_attr( $alfb_lb['alt'] ); ?>" loading="lazy" decoding="async">
@@ -45,7 +45,7 @@ if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayM
                 <?php endif; ?>
             </a>
         <?php else : ?>
-            <a class="alfb_lb_trigger <?php echo 'button' === $alfb_lb['trigger'] ? 'alfb_lb_button wp-element-button' : 'alfb_lb_link'; ?>" href="<?php echo esc_url( $alfb_lb['href'] ); ?>" aria-haspopup="dialog"><?php echo esc_html( $alfb_label ); ?></a>
+            <a class="alfb_lb_trigger <?php echo 'button' === $alfb_lb['trigger'] ? 'alfb_lb_button wp-element-button' : 'alfb_lb_link'; ?>" href="<?php echo esc_url( $alfb_lb['href'] ); ?>"<?php echo $alfb_lb['rel']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- a fixed string from block::lightbox() ?> aria-haspopup="dialog"><?php echo esc_html( $alfb_label ); ?></a>
         <?php endif; ?>
     </div>
     <?php

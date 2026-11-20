@@ -55,6 +55,19 @@ export const lightboxTriggers = [
 	{ label: __('Text link', 'softicon-flipbook'), value: 'text', icon: icons.text }
 ];
 
+// the lightbox popup: how much of the window height the book takes, and what shows around it
+export const lightboxSizes = [
+	{ label: __('Full screen', 'softicon-flipbook'), value: 'full' },
+	{ label: __('Large', 'softicon-flipbook'), value: 'large' },
+	{ label: __('Medium', 'softicon-flipbook'), value: 'medium' }
+];
+
+export const lightboxBackdrops = [
+	{ label: __('Dark', 'softicon-flipbook'), value: 'dark' },
+	{ label: __('Light', 'softicon-flipbook'), value: 'light' },
+	{ label: __('Blurred', 'softicon-flipbook'), value: 'blur' }
+];
+
 export const aligns = [
 	{ label: __('Left', 'softicon-flipbook'), value: 'left', icon: icons.alignLeft },
 	{ label: __('Center', 'softicon-flipbook'), value: 'center', icon: icons.alignCenter },

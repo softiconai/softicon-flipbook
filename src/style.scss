@@ -1025,6 +1025,35 @@ html.alfb_lb_open {
 		background: rgba(14, 14, 16, 0.95);
 	}
 
+	// Behind the book: a light screen, or the page itself blurred (the close button follows)
+	&.alfb_backdrop_light {
+		color: #1e1e1e;
+
+		&::backdrop {
+			background: rgba(246, 247, 247, 0.96);
+		}
+
+		.alfb_dialog_close {
+			color: #1e1e1e;
+		}
+
+		// the book's controls dark on the light screen, the same as an inline book's
+		.alfb_wrapper:not(.alfb_has_bg) {
+			--alfb-bg: #f0f0f1;
+			--alfb-bar-color: #1e1e1e;
+
+			.alfb_spinner {
+				border-color: rgba(0, 0, 0, 0.12);
+				border-top-color: rgba(0, 0, 0, 0.6);
+			}
+		}
+	}
+
+	&.alfb_backdrop_blur::backdrop {
+		background: rgba(14, 14, 16, 0.45);
+		backdrop-filter: blur(10px);
+	}
+
 	.alfb_dialog_close {
 		position: absolute;
 		top: 8px;
