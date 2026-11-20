@@ -80,6 +80,8 @@ export default class Share {
 		});
 		root.append(menu);
 		this.menu = menu;
+		// add-ons put their own items in the menu (alfb:share, detail.menu and detail.link)
+		this.book.emit('share', { menu, link });
 		this.book.shareBtn?.setAttribute('aria-expanded', 'true');
 		menu.querySelector('a').focus({ preventScroll: true });
 		setTimeout(() => doc.addEventListener('click', this.outside = event => !menu.contains(event.target) && !this.book.shareBtn?.contains(event.target) && this.close()));
