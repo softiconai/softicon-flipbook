@@ -183,6 +183,9 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link, a video that plays over the book, or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')}
 					video={videos.hotspots} videoLabel={__('Watch hotspots in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
+			<Panel id='paywall' title={__('Preview and paywall', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
+				<ProNotice href={editorInfo.pricing} text={__('A preview of the first pages for everyone, and the whole book only for logged-in readers or customers who bought a WooCommerce product, is available in Pro.', 'softicon-flipbook')} />
+			</Panel>
 			<Panel id='leads' title={__('Lead capture', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
 				<ProNotice href={editorInfo.pricing} text={__('Asking readers for their email after a few pages is available in Pro. The leads are saved on your site.', 'softicon-flipbook')}
 					video={videos.leads} videoLabel={__('Watch lead capture in 45 seconds', 'softicon-flipbook')} />
