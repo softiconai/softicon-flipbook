@@ -72,7 +72,7 @@ const Shortcode = () => {
 };
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, showCover, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, showCover, pageHint, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, showLinks, showSearch, showShare, flipSound } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	// SoftIcon Flipbook Pro: under a setting, whether it follows the site default or is this book's own
 	const hint = name => applyFilters('alfb.block.hint', null, { name, setAttributes });
@@ -104,6 +104,8 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 			<Tiles label={__('Layout', 'softicon-flipbook')} tip={__('Auto shows two pages side by side on wide screens and one page on phones. Or keep one layout everywhere.', 'softicon-flipbook')} value={pageMode} options={pageModes} onChange={set('pageMode')} />{hint('pageMode')}
 
 			<ToggleRow label={__('Cover page', 'softicon-flipbook')} tip={__('The first and last pages turn on their own, like a printed book.', 'softicon-flipbook')} checked={showCover} onChange={set('showCover')} />{hint('showCover')}
+
+			<ToggleRow label={__('Page turn hint', 'softicon-flipbook')} tip={__('When the book first comes into view, the corner of the next page lifts once, so readers see they can turn it. Not for readers who ask their device for less motion.', 'softicon-flipbook')} checked={pageHint} onChange={set('pageHint')} />{hint('pageHint')}
 
 			<div>
 				<FieldHead label={__('Open at page', 'softicon-flipbook')} tip={__('The book opens at this page. A link ending in #page=5 opens it at page 5.', 'softicon-flipbook')} />

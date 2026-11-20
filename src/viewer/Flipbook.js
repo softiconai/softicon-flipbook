@@ -338,6 +338,7 @@ export default class Flipbook {
 		this.watch();
 
 		this.root.classList.add('alfb_ready');
+		this.pageHint();
 		this.stage.querySelector('.alfb_loading')?.remove();
 		// before the first alfb:page
 		this.emit('ready');
@@ -851,6 +852,48 @@ export default class Flipbook {
 
 	seekFill() {
 		this.seek.style.setProperty('--alfb-seek', ((this.seek.value - 1) / (this.count - 1)) * 100 + '%');
+	}
+
+	// once, when the book first comes well into view: the corner of the next page lifts and settles back, so new
+	// readers see the pages turn; not in the editor, for less motion, or once the reader has clicked or pressed a key
+	pageHint() {
+		if (!this.config.pageHint || this.editor || this.calm || this.count < 2 || !this.win.IntersectionObserver) {
+			return;
+		}
+		let used = false;
+		this.on(this.root, 'pointerdown', () => {
+			used = true;
+		}, true);
+		this.on(this.root, 'keydown', () => {
+			used = true;
+		}, true);
+		const watcher = new this.win.IntersectionObserver(entries => {
+			if (entries.some(entry => entry.isIntersecting)) {
+				watcher.disconnect();
+				this.hintTimer = setTimeout(() => this.liftCorner(() => used), 700);
+			}
+		}, { threshold: 0.6 });
+		watcher.observe(this.root);
+		this.listeners.push(() => {
+			watcher.disconnect();
+			clearTimeout(this.hintTimer);
+		});
+	}
+
+	// page-flip's own hover fold on the bottom corner of the next page (the left one in a right to left book)
+	liftCorner(used) {
+		if (used() || this.zoom?.active || 'read' !== this.flip.getState() || this.visible().includes(this.count - 1)) {
+			return;
+		}
+		const rect = this.flip.getRender().getRect();
+		const controller = this.flip.getFlipController();
+		controller.showCorner({ x: this.rtl ? rect.left + 2 : rect.left + rect.width - 2, y: rect.top + rect.height - 2 });
+		this.hintTimer = setTimeout(() => {
+			// a point off the corners lets the page settle back
+			if ('fold_corner' === this.flip.getState()) {
+				controller.showCorner({ x: -1000, y: -1000 });
+			}
+		}, 1100);
 	}
 
 	// the book's keys: from inside the book, or (outside) pressed with nothing in focus while it is the book in view

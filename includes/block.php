@@ -160,6 +160,7 @@ class block {
             'bookStyle'      => $style,
             'sideArrows'     => ! empty( $attributes['sideArrows'] ),
             'showCover'      => ! isset( $attributes['showCover'] ) || (bool) $attributes['showCover'],
+            'pageHint'       => ! isset( $attributes['pageHint'] ) || (bool) $attributes['pageHint'],
             'startPage'      => isset( $attributes['startPage'] ) ? max( 1, absint( $attributes['startPage'] ) ) : 1,
             'theme'          => isset( $attributes['theme'] ) && in_array( $attributes['theme'], array( 'dark', 'auto' ), true ) ? $attributes['theme'] : 'light',
             'startWith'      => isset( $attributes['startWith'] ) && in_array( $attributes['startWith'], array( 'thumbnails', 'contents' ), true ) ? $attributes['startWith'] : 'book',

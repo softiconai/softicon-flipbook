@@ -15,6 +15,7 @@
 		"images": { "type": "array", "default": [] },
 		"pageMode": { "type": "string", "default": "auto" },
 		"showCover": { "type": "boolean", "default": true },
+		"pageHint": { "type": "boolean", "default": true },
 		"startPage": { "type": "number", "default": 1 },
 		"startWith": { "type": "string", "default": "book" },
 		"bookTitle": { "type": "string", "default": "" },
