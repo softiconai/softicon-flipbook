@@ -864,11 +864,22 @@ export default class Flipbook {
 				__('%1$s / %2$s', 'softicon-flipbook'), input.value, this.count);
 			input.setAttribute('aria-valuetext', label());
 		});
+		// an arrow key on the slider moves a whole spread, not to the other page of the one that is open
+		let key = '';
+		input.addEventListener('keydown', event => {
+			key = event.key;
+		});
 		input.addEventListener('change', () => {
 			this.seeking = false;
 			const index = parseInt(input.value, 10) - 1;
-			// a page of the spread already open: only the counter goes back
-			if (this.visible().includes(index)) {
+			const shown = this.visible();
+			const first = Math.min(...shown);
+			const stepped = /^(Arrow|Page)/.test(key);
+			key = '';
+			if (stepped && shown.includes(index) && index !== first) {
+				this.go(index > first ? Math.max(...shown) + 1 : first - 1);
+			} else if (shown.includes(index)) {
+				// a page of the spread already open: only the counter goes back
 				this.onChange();
 			} else {
 				this.go(index);
