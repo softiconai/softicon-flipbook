@@ -34,16 +34,19 @@ const pages = () => ({
 			__('Your brand colors and height on each new book', 'softicon-flipbook'),
 			__('Right to left for every book on an Arabic, Hebrew or Urdu site', 'softicon-flipbook'),
 			__('A live preview before you save', 'softicon-flipbook'),
-			__('Presets: save a book\'s look and give it to other books in one click', 'softicon-flipbook')
+			__('Presets: save a book\'s look and give it to other books in one click', 'softicon-flipbook'),
+			__('Move the defaults and presets to another site in one file', 'softicon-flipbook')
 		]
 	},
 	settings: {
 		icon: 'admin-generic', eyebrow: __('Site', 'softicon-flipbook'), title: __('Settings', 'softicon-flipbook'),
-		text: __('The site-wide switches for reading analytics and lead emails.', 'softicon-flipbook'),
+		text: __('The site-wide switches for reading analytics, lead emails, Google Analytics and books from other flipbook plugins.', 'softicon-flipbook'),
 		points: [
 			__('Turn reading analytics on or off', 'softicon-flipbook'),
 			__('Leave out your own visits while you work', 'softicon-flipbook'),
-			__('Get an email for each new lead', 'softicon-flipbook')
+			__('Get an email for each new lead', 'softicon-flipbook'),
+			__('Send opens and pages read to Google Analytics', 'softicon-flipbook'),
+			__('Show the books of a flipbook plugin you left as SoftIcon flipbooks', 'softicon-flipbook')
 		]
 	}
 });

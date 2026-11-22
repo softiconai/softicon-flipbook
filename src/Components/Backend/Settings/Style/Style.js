@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, ExternalLink, RangeControl, TextControl } from '@wordpress/components';
-import { aligns, designs, lightboxBackdrops, lightboxSizes, lightboxTriggers, videos } from '../../../../utils/options';
+import { aligns, designs, lightboxBackdrops, lightboxSizes, lightboxTriggers, videos, whatsNewAt } from '../../../../utils/options';
 import { toImage } from '../../../../utils/functions';
 import ProNotice from '../../ProNotice';
 import { ColorRow, FieldHead, Panel, Reset, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
@@ -73,6 +73,7 @@ const Style = ({ attributes, setAttributes }) => {
 			</>}
 
 			<p className='alfbHelp'><ExternalLink href={videos.lightbox}>{__('See the lightbox in action', 'softicon-flipbook')}</ExternalLink></p>
+			<p className='alfbHelp'><ExternalLink href={whatsNewAt(76)}>{__('Watch: popup size and background', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>
 
 		<Panel id='design' title={__('Design', 'softicon-flipbook')}>

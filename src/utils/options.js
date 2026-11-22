@@ -41,8 +41,14 @@ export const videos = {
 	analytics: 'https://www.youtube.com/watch?v=ET4JXhOO-2s' + LIST,
 	field: 'https://www.youtube.com/watch?v=BGlS_IKKagM' + LIST,
 	bookmarks: 'https://www.youtube.com/watch?v=4-D5HxqV1yg' + LIST,
-	pro: 'https://www.youtube.com/watch?v=LtCj7-J2qXI' + LIST
+	pro: 'https://www.youtube.com/watch?v=LtCj7-J2qXI' + LIST,
+	// what's new (November 2026): every new option step by step, and the 30-second promo
+	whatsnew: 'https://www.youtube.com/watch?v=A_lgGx9x3Ew' + LIST,
+	whatsnewPromo: 'https://www.youtube.com/watch?v=9o7efHaG-YM' + LIST
 };
+
+// the what's new video from the part about a panel's options (seconds)
+export const whatsNewAt = seconds => 'https://www.youtube.com/watch?v=A_lgGx9x3Ew&t=' + seconds + 's' + LIST;
 
 export const designs = [
 	{ label: __('Classic', 'softicon-flipbook'), value: 'flat', icon: icons.classic },

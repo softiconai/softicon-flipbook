@@ -61,6 +61,8 @@ class dashboard {
             'https://www.youtube.com/watch?v=XBJuUV9HpkA' => __('Lightbox: covers that open a popup', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=qqQeZQkX5ms' => __('Hardcover design', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=1J7wCaUvugc' => __('Reading features', 'softicon-flipbook'),
+            'https://www.youtube.com/watch?v=A_lgGx9x3Ew' => __('What\'s new: every new option, step by step', 'softicon-flipbook'),
+            'https://www.youtube.com/watch?v=9o7efHaG-YM' => __('What\'s new in 30 seconds', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=H9IxgIocY68' => __('Every setting explained', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=slQlR4GTghg' => __('Shortcode: the Classic Editor and Elementor', 'softicon-flipbook'),
             'https://www.youtube.com/watch?v=bkuMUupI92Y' => __('Autoplay', 'softicon-flipbook'),

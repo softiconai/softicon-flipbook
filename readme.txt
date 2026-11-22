@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.8.0
+Stable tag: 1.9.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,7 +18,7 @@ Turn any PDF or set of images into a page-turning flipbook with a block editor b
 
 https://www.youtube.com/watch?v=5geq69DXoN8
 
-Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g) and [the shortcode for the Classic Editor and Elementor](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g) and [autoplay](https://www.youtube.com/watch?v=bkuMUupI92Y&list=PLJEAefIarF4g) and [right to left and fullscreen on phones](https://www.youtube.com/watch?v=MzZs4jJInFA&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
+Video tutorials: [what's new in 30 seconds](https://www.youtube.com/watch?v=9o7efHaG-YM&list=PLJEAefIarF4g), [every new option, step by step](https://www.youtube.com/watch?v=A_lgGx9x3Ew&list=PLJEAefIarF4g), [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb3A&list=PLJEAefIarF4g), [every setting explained](https://www.youtube.com/watch?v=H9IxgIocY68&list=PLJEAefIarF4g), [add a flipbook](https://www.youtube.com/watch?v=KGP_xpi8NGo&list=PLJEAefIarF4g), [the Hardcover design](https://www.youtube.com/watch?v=qqQeZQkX5ms&list=PLJEAefIarF4g) and [reading features](https://www.youtube.com/watch?v=1J7wCaUvugc&list=PLJEAefIarF4g) and [the lightbox](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g) and [the shortcode for the Classic Editor and Elementor](https://www.youtube.com/watch?v=slQlR4GTghg&list=PLJEAefIarF4g) and [autoplay](https://www.youtube.com/watch?v=bkuMUupI92Y&list=PLJEAefIarF4g) and [right to left and fullscreen on phones](https://www.youtube.com/watch?v=MzZs4jJInFA&list=PLJEAefIarF4g), or watch the [whole playlist](https://www.youtube.com/playlist?list=PLJEAefIarF4g).
 
 = Why choose SoftIcon Flipbook? =
 
@@ -32,22 +32,25 @@ Video tutorials: [the 30-second promo](https://www.youtube.com/watch?v=Oj9sHOZbb
 
 = Features =
 
-* Lightbox: a cover, button or text link on the page opens the book in a popup over the page
+* Lightbox: a cover, button or text link on the page opens the book in a popup over the page, full screen, large or medium, on a dark, light or blurred page
 * Two designs: Classic, or Hardcover book with a cover around the pages, the stack of page edges, a shadow at the spine and large arrows beside the book
 * PDF flipbook from the Media Library or a link
 * Image flipbook from any set of images
 * Auto, always-two-pages or always-one-page layout
 * Hard cover: first and last pages turn on their own
 * Open at any page, jump to a page from the page counter, or link straight to a page with #page=5
+* First and last page buttons, and a page slider to drag to any page
+* Turn the pages like a book, or scroll them in one column (also on phones only)
+* Page turn hint: the corner of the next page lifts once, so new readers see the pages turn
 * Thumbnails of all pages: a click opens that page
 * Links inside the PDF work: web and email links, and page links that turn the book
-* Table of contents from the PDF's bookmarks
+* Table of contents from the PDF's bookmarks, or your own list of chapters, also for books made of images
 * Search: type a word, see the pages that have it with a short excerpt, and open one with a click
 * Share menu: Facebook, X, LinkedIn, Pinterest, email and Copy link for the page that is open; phones use their own share sheet (optional)
 * Print: readers print the whole book, one book page on each sheet of paper (optional)
 * Zoom with the toolbar buttons, a pinch on phones or Ctrl + scroll on computers; drag to move around a zoomed page
 * Toolbar with page counter, previous/next, play / pause, thumbnails, zoom, print, download, share, fullscreen and a page-turn sound visitors can mute
-* Keyboard arrows turn the pages, the toolbar works with screen readers
+* Keyboard and accessibility: the arrow keys turn the pages, ? lists every shortcut, a skip link for keyboard users, no page animation for readers who ask for less motion, and a toolbar that works with screen readers
 * Fullscreen that fits the book to the screen, with an iPhone fallback
 * Fullscreen on phones: the book shows "Tap to read" and one tap opens it full screen
 * Autoplay: the book turns its own pages every few seconds, holds under the mouse, stops when a reader takes over, and can start again at the end
@@ -75,6 +78,17 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 * **PDF from a custom field** – each post shows the PDF in its own Meta Box or ACF field, so one flipbook in a template, a Query Loop or a shortcode shows every post's book.
 * **Bookmarks** – readers mark pages with one click and find them again in a small list with page pictures, saved in their own browser.
 * **Selectable text** – readers select and copy the words of the PDF.
+* **Preview and paywall** – readers who are not logged in, or have not bought a WooCommerce product, read a short preview, then a card to log in or buy. The whole PDF never reaches them.
+* **Text version for search engines** – the PDF's words under the book, so search engines and screen readers can read it.
+* **PDF for phones** – a lighter copy of the PDF that phones open, so big books load fast on mobile data.
+* **Reader page and QR code** – every book gets a page of its own, and the share menu shows its QR code.
+* **Toolbar style** – the toolbar at the bottom, at the top, or floating over the book.
+* **Resume reading** – a reader who comes back opens the book where they stopped.
+* **Read aloud** – the browser's own voice reads the open pages out loud.
+* **Videos in hotspots** – a YouTube, Vimeo or video file link plays over the page.
+* **Google Analytics events** – opens, pages read, finished books and downloads go to your own Google Analytics.
+* **Switch from another plugin** – once DearFlip, 3D FlipBook, Real3D, Flipa, TNC, PDF Embedder or PDF.js Viewer is turned off, its shortcodes in your posts show as SoftIcon flipbooks.
+* **Presets, export and import** – save a book's settings as a preset for other books, and move the site defaults and presets to another site in one file.
 
 See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qXI&list=PLJEAefIarF4g).
 
@@ -215,6 +229,16 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 
 == Changelog ==
 
+= 1.9.0 =
+* New: First and last page buttons, and a page slider to drag to any page. On the slider the arrow keys move a whole spread. Turn them on in the Toolbar panel.
+* New: your own table of contents, under Table of contents in the Toolbar panel: a title and a page for each chapter. It takes the place of the PDF's bookmarks, and books made of images get one too.
+* New: Scroll. How pages move, in the Pages panel: Turn as before, Scroll (the pages one under the other) or Scroll on phones.
+* New: Page turn hint. When a book first comes into view, the corner of the next page lifts once, so readers see that the pages turn. On by default, with a switch in the Pages panel.
+* New: popup options. The popup's size (full screen, large or medium), a dark, light or blurred page behind the book, and rel="nofollow" on the cover, button or link. Flipbook Popup, Flipbook Button and Flipbook Link are in the block inserter.
+* New: accessibility. Pages turn without the animation for readers whose device asks for less motion. The ? key lists every keyboard shortcut, each also a button. A "Skip the flipbook" link for keyboard users, and keys pressed right after the page opens go to the book in view.
+* Changed: a new empty block, and a Source panel with the same Upload, Media Library and Insert from URL. The preview in the editor has the same toolbar as the page, and its pages turn by dragging.
+* New: short notices in the block for the new Pro features.
+
 = 1.8.0 =
 * New: the Welcome tab asks how you want to add your flipbook: as a block in a page, or with a shortcode for the Classic Editor, Elementor and other page builders. The way that fits your site is marked, and the block then shows the steps for it.
 * New: change a flipbook's settings in one place with its shortcode, such as `[softicon_flipbook id="123" height="500" theme="dark" show_download="no"]`. The flipbook keeps its own settings everywhere else. Any setting of the block works, by its name; a name or value the shortcode can't use is left out, with a note that only the flipbook's editors see. The block's Help panel shows how.
@@ -340,6 +364,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.9.0 =
+First and last page buttons, a page slider, your own table of contents, Scroll mode, a page turn hint and popup options. New options are off until you turn them on, except the page turn hint. Your flipbooks keep all their settings.
 
 = 1.8.0 =
 Change a flipbook's settings in one place with its shortcode, and a quicker start on the Welcome tab. Your flipbooks keep all their settings.

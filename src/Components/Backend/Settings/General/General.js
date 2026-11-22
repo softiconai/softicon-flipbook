@@ -4,7 +4,7 @@ import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { Button, ExternalLink, SelectControl, TextControl } from '@wordpress/components';
 import { FieldHead, HelpCards, Panel, Tiles, ToggleRow } from '../../../../vendor/softicon-tools/components/Panels';
-import { helpCards, pageModes, sources, videos, viewModes } from '../../../../utils/options';
+import { helpCards, pageModes, sources, videos, viewModes, whatsNewAt } from '../../../../utils/options';
 import ProNotice from '../../ProNotice';
 import { ImagesPicker, PdfPicker } from './SourcePicker';
 import TocList from './TocList';
@@ -82,6 +82,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 		<Panel id='help' title={__('Help', 'softicon-flipbook')}>
 			<HelpCards cards={helpCards} />
 			<p className='alfbHelp'><ExternalLink href={videos.settings}>{__('Every setting explained, in 2 minutes', 'softicon-flipbook')}</ExternalLink></p>
+			<p className='alfbHelp'><ExternalLink href={videos.whatsnew}>{__('What\'s new: every new option, step by step', 'softicon-flipbook')}</ExternalLink></p>
 			<p className='alfbHelp'>{__('Email:', 'softicon-flipbook')} <a href='mailto:support@softiconai.com'>support@softiconai.com</a></p>
 			<Shortcode />
 		</Panel>
@@ -138,6 +139,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 			</>}
 			<p className='alfbHelp'><ExternalLink href={videos.autoplay}>{__('Watch autoplay in 45 seconds', 'softicon-flipbook')}</ExternalLink></p>
 			<p className='alfbHelp'><ExternalLink href={videos.rtl}>{__('Watch right to left and fullscreen on phones', 'softicon-flipbook')}</ExternalLink></p>
+			<p className='alfbHelp'><ExternalLink href={whatsNewAt(22)}>{__('Watch: Turn or Scroll, and the page turn hint', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>
 
 		<Panel id='toolbar' title={__('Toolbar', 'softicon-flipbook')}>
@@ -171,6 +173,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 			<ToggleRow label={__('Share', 'softicon-flipbook')} tip={__('A link to the page that is open: on Facebook, X, LinkedIn, Pinterest, by email or copied. Phones use their own share sheet.', 'softicon-flipbook')} checked={showShare} onChange={set('showShare')} />{hint('showShare')}
 
 			<ToggleRow label={__('Page turn sound', 'softicon-flipbook')} tip={__('Visitors can mute it from the toolbar.', 'softicon-flipbook')} checked={flipSound} onChange={set('flipSound')} />{hint('flipSound')}
+			<p className='alfbHelp'><ExternalLink href={whatsNewAt(38)}>{__('Watch: first and last page, the page slider and your own contents', 'softicon-flipbook')}</ExternalLink></p>
 		</Panel>
 
 		{/* the Pro settings of this block, shown as notices only: the code is in Pro, which replaces these panels */}
