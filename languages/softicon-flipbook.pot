@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.9.0\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.9.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-22T14:03:22+00:00\n"
+"POT-Creation-Date: 2026-11-25T13:32:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -53,6 +53,66 @@ msgstr ""
 
 #: build/render.php:71
 msgid "Open the PDF"
+msgstr ""
+
+#: includes/black-friday.php:30
+#: includes/dashboard.php:179
+#: includes/dashboard.php:188
+#: includes/dashboard.php:445
+msgid "SoftIcon Flipbook"
+msgstr ""
+
+#: includes/black-friday.php:34
+msgid "Shelf of books"
+msgstr ""
+
+#: includes/black-friday.php:34
+#: build/dashboard.js:9
+#: build/index.js:6
+msgid "Lead capture"
+msgstr ""
+
+#: includes/black-friday.php:34
+#: build/dashboard.js:9
+msgid "Reading analytics"
+msgstr ""
+
+#: includes/black-friday.php:34
+msgid "PDF protection"
+msgstr ""
+
+#. translators: %s: the discount, e.g. 40%
+#: includes/black-friday.php:46
+#, php-format
+msgid "Black Friday: Save %s!"
+msgstr ""
+
+#. translators: 1: plugin name, 2: the discount, e.g. 40%
+#: includes/black-friday.php:86
+#, php-format
+msgid "%1$s's Biggest Black Friday Sale is Live – %2$s OFF!"
+msgstr ""
+
+#. translators: 1: plugin name, 2: the discount, 3: the coupon code
+#: includes/black-friday.php:90
+#, php-format
+msgid "The biggest deal of the year: get %1$s Pro at %2$s off until 5 December with code %3$s, and unlock every Pro feature at the lowest price of the year."
+msgstr ""
+
+#: includes/black-friday.php:92
+msgid "Unlock PRO Features →"
+msgstr ""
+
+#: includes/black-friday.php:95
+msgid "Pro features"
+msgstr ""
+
+#: includes/black-friday.php:97
+msgid "And much more →"
+msgstr ""
+
+#: includes/black-friday.php:99
+msgid "Dismiss"
 msgstr ""
 
 #: includes/dashboard.php:59
@@ -144,12 +204,6 @@ msgstr ""
 msgid "Pro: bookmarks and selectable text"
 msgstr ""
 
-#: includes/dashboard.php:179
-#: includes/dashboard.php:188
-#: includes/dashboard.php:420
-msgid "SoftIcon Flipbook"
-msgstr ""
-
 #: includes/dashboard.php:188
 #: includes/dashboard.php:192
 msgid "Dashboard"
@@ -224,15 +278,15 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: includes/dashboard.php:318
+#: includes/dashboard.php:343
 msgid "(no title)"
 msgstr ""
 
-#: includes/dashboard.php:420
+#: includes/dashboard.php:445
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:424
+#: includes/dashboard.php:449
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -970,6 +1024,38 @@ msgid "See the demos"
 msgstr ""
 
 #: build/dashboard.js:3
+msgid "Open Document Viewer"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Activate"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Install free"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "More from SoftIcon"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Document Viewer"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Active"
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Word, Excel and PowerPoint files, and PDFs read as plain pages, right on your pages. Visitors read and search them in the browser, no Google or Microsoft viewer. Free, as a block or a shortcode."
+msgstr ""
+
+#: build/dashboard.js:3
+msgid "Details"
+msgstr ""
+
+#: build/dashboard.js:3
 msgid "Turn any PDF into a book people enjoy reading"
 msgstr ""
 
@@ -1662,10 +1748,6 @@ msgid "Insights"
 msgstr ""
 
 #: build/dashboard.js:9
-msgid "Reading analytics"
-msgstr ""
-
-#: build/dashboard.js:9
 msgid "See how many people open each book and how far they read."
 msgstr ""
 
@@ -1687,11 +1769,6 @@ msgstr ""
 
 #: build/dashboard.js:9
 msgid "Audience"
-msgstr ""
-
-#: build/dashboard.js:9
-#: build/index.js:6
-msgid "Lead capture"
 msgstr ""
 
 #: build/dashboard.js:9

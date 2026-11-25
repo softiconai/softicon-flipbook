@@ -392,6 +392,58 @@
 	color: #50575e;
 }
 
+/* More from SoftIcon (Welcome): icon, text and button in a row,
+   stacked on a phone */
+.alfb-more {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.alfb-more img {
+	flex: none;
+	border-radius: 12px;
+}
+
+.alfb-more-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.alfb-more-text p {
+	max-width: 640px;
+}
+
+.alfb-more-on {
+	margin-left: 8px;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: #e6f4f1;
+	color: var(--alfb-teal);
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.alfb-more-go {
+	display: flex;
+	flex: none;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+@media (max-width: 782px) {
+
+	.alfb-more {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.alfb-more-go {
+		align-items: flex-start;
+	}
+}
+
 .alfb-step {
 	display: inline-block;
 	width: 30px;

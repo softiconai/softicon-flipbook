@@ -294,11 +294,36 @@ class dashboard {
                 'playlist' => self::PLAYLIST,
             ),
             'start'   => self::start(),
+            'more'    => self::more(),
             'groups'  => self::groups(),
             // the Help tab's "Your site details", copied into a support ticket (only copied, never sent)
             'site'    => array( 'wp' => get_bloginfo( 'version' ), 'php' => PHP_VERSION, 'theme' => wp_get_theme()->get( 'Name' ) ),
         );
         return apply_filters( 'alfb_dashboard_config', $config );
+    }
+
+    // More from SoftIcon on the Welcome tab (src/dashboard/Welcome.js): Document Viewer, with the next step for this site:
+    // open it when it is on, activate it when it is installed, else install it (or its WordPress.org page without the right)
+    private static function more() {
+        $file = 'softicon-document-viewer/softicon-document-viewer.php';
+        $page = 'https://wordpress.org/plugins/softicon-document-viewer/';
+        if ( defined( 'ALDV_PLUGIN_VERSION' ) ) {
+            $state = 'active';
+            $url   = current_user_can( 'manage_options' ) ? admin_url( 'admin.php?page=softicon-document-viewer' ) : $page;
+        } elseif ( file_exists( WP_PLUGIN_DIR . '/' . $file ) ) {
+            $state = 'installed';
+            // a raw url for React (wp_nonce_url() would give &amp;)
+            $url   = current_user_can( 'activate_plugin', $file ) ? admin_url( 'plugins.php?action=activate&plugin=' . rawurlencode( $file ) . '&_wpnonce=' . wp_create_nonce( 'activate-plugin_' . $file ) ) : $page;
+        } else {
+            $state = 'none';
+            $url   = current_user_can( 'install_plugins' ) ? admin_url( 'plugin-install.php?s=softicon-document-viewer&tab=search&type=term' ) : $page;
+        }
+        return array(
+            'state' => $state,
+            'url'   => $url,
+            'page'  => $page,
+            'icon'  => ALFB_PLUGIN_URL . 'assets/images/document-viewer-128x128.png',
+        );
     }
 
     // Getting started (src/dashboard/GettingStarted.js): the editors on this site, and the newest flipbooks with their shortcodes

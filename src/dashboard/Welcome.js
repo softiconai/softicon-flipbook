@@ -51,6 +51,34 @@ const Choice = ({ config }) => {
 	</div>;
 };
 
+// More from SoftIcon: Document Viewer, for the Word, Excel and PowerPoint files a flipbook does not take
+const More = ({ more }) => {
+	if (!more) {
+		return null;
+	}
+	const action = {
+		active: __('Open Document Viewer', 'softicon-flipbook'),
+		installed: __('Activate', 'softicon-flipbook'),
+		none: __('Install free', 'softicon-flipbook')
+	}[more.state];
+	// the WordPress.org page opens in a new tab, the steps on this site in this one
+	const away = more.url === more.page ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+	return <>
+		<h2 className='alfb-title'>{__('More from SoftIcon', 'softicon-flipbook')}</h2>
+		<div className='alfb-card alfb-more'>
+			<img src={more.icon} alt='' width='64' height='64' />
+			<div className='alfb-more-text'>
+				<h3>{__('Document Viewer', 'softicon-flipbook')}{'active' === more.state && <span className='alfb-more-on'>{__('Active', 'softicon-flipbook')}</span>}</h3>
+				<p>{__('Word, Excel and PowerPoint files, and PDFs read as plain pages, right on your pages. Visitors read and search them in the browser, no Google or Microsoft viewer. Free, as a block or a shortcode.', 'softicon-flipbook')}</p>
+			</div>
+			<div className='alfb-more-go'>
+				<a className='alfb-btn alfb-btn-teal' href={more.url} {...away}>{action}</a>
+				{more.url !== more.page && <a href={more.page} target='_blank' rel='noopener noreferrer'>{__('Details', 'softicon-flipbook')} ↗</a>}
+			</div>
+		</div>
+	</>;
+};
+
 const Welcome = ({ config, play }) => <>
 	<section className='alfb-hero'>
 		<div>
@@ -72,6 +100,8 @@ const Welcome = ({ config, play }) => <>
 			<span className='dashicons dashicons-video-alt3' aria-hidden='true' />{video.title}
 		</VideoLink>)}
 	</div>
+
+	<More more={config.more} />
 </>;
 
 export default Welcome;

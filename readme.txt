@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -131,6 +131,10 @@ Select the flipbook, open the Style tab and choose Hardcover book under Design. 
 
 Yes. Select the flipbook, open the Style tab and turn on Open in a lightbox under Display. Choose what shows on the page – the book's cover, a button or a text link – and a click opens the book in a popup over the page. The cover is the PDF's first page, or any image you choose. The book loads only when it is opened, so a page can list many books and stay fast. Watch the [lightbox video](https://www.youtube.com/watch?v=XBJuUV9HpkA&list=PLJEAefIarF4g).
 
+= Can it show Word, Excel or PowerPoint files? =
+
+A flipbook is made from a PDF or images. For Word (DOCX), Excel (XLSX, XLS), PowerPoint (PPTX) and CSV files, or a PDF you want shown as plain pages, use our free [SoftIcon Document Viewer](https://wordpress.org/plugins/softicon-document-viewer/). It shows them right on the page, in the visitor's browser, with search, zoom and a download button. Flipbook → Welcome links to it.
+
 = Does it work with a PDF hosted on another website? =
 
 Only if that website allows it (CORS). Browsers block reading PDFs from other sites otherwise. Upload the PDF to your Media Library and it always works.
@@ -228,6 +232,10 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 9. The Flipbook dashboard with live demos, video tutorials and help.
 
 == Changelog ==
+
+= 1.9.1 =
+* New: Black Friday offer, 26 November to 5 December 2026: 40% off SoftIcon Flipbook Pro, shown on the Flipbook dashboard, the All Flipbooks list and the Plugins page. Close it with × and it stays closed. It disappears by itself after the sale, and never shows with Pro active.
+* New: the Welcome tab links to SoftIcon Document Viewer, our free plugin for Word, Excel and PowerPoint files, with a button to open, activate or install it. The FAQ says when to use it.
 
 = 1.9.0 =
 * New: First and last page buttons, and a page slider to drag to any page. On the slider the arrow keys move a whole spread. Turn them on in the Toolbar panel.
@@ -364,6 +372,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.9.1 =
+A link on the Welcome tab to SoftIcon Document Viewer, and a Black Friday offer for Pro until 5 December that you can close. Your flipbooks don't change.
 
 = 1.9.0 =
 First and last page buttons, a page slider, your own table of contents, Scroll mode, a page turn hint and popup options. New options are off until you turn them on, except the page turn hint. Your flipbooks keep all their settings.
