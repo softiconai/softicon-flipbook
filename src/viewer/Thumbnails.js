@@ -54,7 +54,7 @@ export default class Thumbnails {
 			const number = this.doc.createElement('span');
 			number.className = 'alfb_thumb_num';
 			number.setAttribute('aria-hidden', 'true');
-			number.textContent = index + 1;
+			number.textContent = this.book.label(index);
 			item.append(box, number);
 
 			item.addEventListener('click', () => {

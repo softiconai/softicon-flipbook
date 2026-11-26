@@ -37,10 +37,52 @@ export default class Lightbox {
 	}
 
 	init() {
+		this.anchor = this.root.dataset.anchor || '';
+		if (this.anchor) {
+			this.listen();
+			return;
+		}
 		this.trigger.addEventListener('click', event => {
+			// a cover, button or link an add-on sends to a new tab (SoftIcon Flipbook Pro's "Open in a new tab")
+			if ('_blank' === this.trigger.target) {
+				return;
+			}
 			event.preventDefault();
 			this.open();
 		});
+	}
+
+	// "Any link": a link to #name on this page (a menu item, a theme button, a link in the text) opens the book, and so
+	// does arriving with #name in the address
+	listen() {
+		const hash = '#' + this.anchor;
+		const ours = link => {
+			const href = link.getAttribute('href') || '';
+			if (href === hash) {
+				return true;
+			}
+			try {
+				const url = new URL(href, this.win.location.href);
+				return url.hash === hash && url.origin + url.pathname === this.win.location.origin + this.win.location.pathname;
+			} catch (e) {
+				return false;
+			}
+		};
+		this.doc.addEventListener('click', event => {
+			const link = event.target.closest?.('a[href*="#"]');
+			if (link && ours(link) && !event.defaultPrevented && 0 === event.button && !event.metaKey && !event.ctrlKey) {
+				event.preventDefault();
+				this.opener = link;
+				this.open();
+			}
+		});
+		const fromAddress = () => {
+			if (this.win.location.hash === hash) {
+				this.open();
+			}
+		};
+		this.win.addEventListener('hashchange', fromAddress);
+		fromAddress();
 	}
 
 	// the first page as the cover, when no image was set
@@ -142,9 +184,27 @@ export default class Lightbox {
 		dialog.showModal();
 		wrapper.focus();
 		this.dialog = dialog;
+		// straight to full screen: the click still counts as the reader's own, so the browser allows it; the book's
+		// own box goes full screen (browsers refuse a modal dialog), as with its Fullscreen button; a phone without
+		// element fullscreen (iPhone) keeps the popup, which already fills the window
+		if (this.config.lightboxFullscreen && wrapper.requestFullscreen && this.doc.fullscreenEnabled) {
+			wrapper.requestFullscreen().catch(() => {});
+			// the book starts after the switch: it takes the full screen size once it is ready
+			wrapper.addEventListener('alfb:ready', () => {
+				if (this.doc.fullscreenElement === wrapper) {
+					this.book?.setFullscreen(true);
+				}
+			}, { once: true });
+			this.onFullscreen = () => {
+				if (!this.doc.fullscreenElement && this.dialog) {
+					this.close();
+				}
+			};
+			this.doc.addEventListener('fullscreenchange', this.onFullscreen);
+		}
 
 		// the popup sizes the book to the screen, whatever the block's tablet and phone heights
-		this.book = new Flipbook(wrapper, { ...this.config, maxHeight: this.room(), maxHeightTablet: 0, maxHeightPhone: 0, startPage: page || this.page || this.config.startPage });
+		this.book = new Flipbook(wrapper, { ...this.config, fitWidth: false, maxHeight: this.room(), maxHeightTablet: 0, maxHeightPhone: 0, startPage: page || this.page || this.config.startPage });
 		this.book.owner = this.root;
 		this.book.init();
 
@@ -168,12 +228,21 @@ export default class Lightbox {
 			this.doc.exitFullscreen();
 		}
 		this.win.removeEventListener('resize', this.onResize);
+		if (this.onFullscreen) {
+			this.doc.removeEventListener('fullscreenchange', this.onFullscreen);
+			this.onFullscreen = null;
+		}
 		this.book?.destroy();
 		this.book = null;
 		this.dialog.close();
 		this.dialog.remove();
 		this.dialog = null;
 		this.doc.documentElement.classList.remove('alfb_lb_open');
-		this.trigger.focus();
+		(this.opener || this.trigger).focus();
+		this.opener = null;
+		// "Any link" opened from the address: closing takes #name away, so a reload doesn't open it again
+		if (this.anchor && this.win.location.hash === '#' + this.anchor) {
+			this.win.history.replaceState(null, '', this.win.location.pathname + this.win.location.search);
+		}
 	}
 }

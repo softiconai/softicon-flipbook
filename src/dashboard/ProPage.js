@@ -40,13 +40,14 @@ const pages = () => ({
 	},
 	settings: {
 		icon: 'admin-generic', eyebrow: __('Site', 'softicon-flipbook'), title: __('Settings', 'softicon-flipbook'),
-		text: __('The site-wide switches for reading analytics, lead emails, Google Analytics and books from other flipbook plugins.', 'softicon-flipbook'),
+		text: __('The site-wide switches for reading analytics, lead emails, Google Analytics, PDF links and books from other flipbook plugins.', 'softicon-flipbook'),
 		points: [
 			__('Turn reading analytics on or off', 'softicon-flipbook'),
 			__('Leave out your own visits while you work', 'softicon-flipbook'),
 			__('Get an email for each new lead', 'softicon-flipbook'),
 			__('Send opens and pages read to Google Analytics', 'softicon-flipbook'),
-			__('Show the books of a flipbook plugin you left as SoftIcon flipbooks', 'softicon-flipbook')
+			__('Show the books of a flipbook plugin you left as SoftIcon flipbooks', 'softicon-flipbook'),
+			__('Open every link to a PDF of your site as a flipbook', 'softicon-flipbook')
 		]
 	}
 });

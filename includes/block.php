@@ -190,6 +190,12 @@ class block {
             'flipSound'      => ! isset( $attributes['flipSound'] ) || (bool) $attributes['flipSound'],
             'lightboxSize'     => isset( $attributes['lightboxSize'] ) && in_array( $attributes['lightboxSize'], array( 'large', 'medium' ), true ) ? $attributes['lightboxSize'] : 'full',
             'lightboxBackdrop' => isset( $attributes['lightboxBackdrop'] ) && in_array( $attributes['lightboxBackdrop'], array( 'light', 'blur' ), true ) ? $attributes['lightboxBackdrop'] : 'dark',
+            'pageOffset'     => isset( $attributes['pageOffset'] ) ? min( 50, absint( $attributes['pageOffset'] ) ) : 0,
+            'pageUrl'        => ! empty( $attributes['pageUrl'] ),
+            'fitWidth'       => ! empty( $attributes['fitWidth'] ),
+            'showSpread'     => ! empty( $attributes['showSpread'] ),
+            'showTheme'      => ! empty( $attributes['showTheme'] ),
+            'lightboxFullscreen' => ! empty( $attributes['lightboxFullscreen'] ),
         );
 
         return apply_filters( 'alfb_config', $config, $attributes );
@@ -211,7 +217,7 @@ class block {
     // what opens the lightbox; the cover is the chosen image, else WordPress's preview of the PDF
     // (servers with Imagick make one on upload), else the first page image, else view.js draws page 1
     public static function lightbox( $attributes, $config ) {
-        $trigger = isset( $attributes['lightboxTrigger'] ) && in_array( $attributes['lightboxTrigger'], array( 'cover', 'button', 'text' ), true ) ? $attributes['lightboxTrigger'] : 'cover';
+        $trigger = isset( $attributes['lightboxTrigger'] ) && in_array( $attributes['lightboxTrigger'], array( 'cover', 'button', 'text', 'anchor' ), true ) ? $attributes['lightboxTrigger'] : 'cover';
         $align   = isset( $attributes['lightboxAlign'] ) && in_array( $attributes['lightboxAlign'], array( 'left', 'center', 'right' ), true ) ? $attributes['lightboxAlign'] : 'center';
         $text    = isset( $attributes['lightboxText'] ) ? trim( sanitize_text_field( $attributes['lightboxText'] ) ) : '';
 
@@ -243,6 +249,8 @@ class block {
             'image'   => $image,
             'alt'     => $alt,
             'rel'     => empty( $attributes['lightboxNofollow'] ) ? '' : ' rel="nofollow"',
+            // "Any link": links to #name anywhere on the page open the book (anchorOf() in JS)
+            'anchor'  => substr( trim( preg_replace( '/[^a-z0-9-]+/', '-', strtolower( isset( $attributes['lightboxAnchor'] ) && is_string( $attributes['lightboxAnchor'] ) ? $attributes['lightboxAnchor'] : '' ) ), '-' ), 0, 40 ),
             'width'   => isset( $attributes['lightboxWidth'] ) ? min( 600, max( 120, absint( $attributes['lightboxWidth'] ) ) ) : 260,
             // without JavaScript the trigger still opens the PDF or the first page, unless an add-on protects it
             'href'    => ! empty( $config['protect'] ) ? '#' : ( 'pdf' === $config['source'] ? $config['pdf'] : $config['images'][0]['url'] ),

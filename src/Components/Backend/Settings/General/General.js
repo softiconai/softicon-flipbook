@@ -73,7 +73,7 @@ const Shortcode = () => {
 };
 
 const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSelectImages }) => {
-	const { source, pdfId, pdfUrl, images, pageMode, viewMode, showCover, pageHint, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound } = attributes;
+	const { source, pdfId, pdfUrl, images, pageMode, viewMode, showCover, pageHint, startPage, startWith, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound, pageOffset, pageUrl, showSpread, showTheme } = attributes;
 	const set = key => val => setAttributes({ [key]: val });
 	// SoftIcon Flipbook Pro: under a setting, whether it follows the site default or is this book's own
 	const hint = name => applyFilters('alfb.block.hint', null, { name, setAttributes });
@@ -114,6 +114,14 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 				<FieldHead label={__('Open at page', 'softicon-flipbook')} tip={__('The book opens at this page. A link ending in #page=5 opens it at page 5.', 'softicon-flipbook')} />
 				<StartPage value={startPage} onChange={val => setAttributes({ startPage: val })} />
 			</div>
+
+			<div>
+				<FieldHead label={__('Pages before page 1', 'softicon-flipbook')} tip={__('When the printed page numbers start later, such as after a cover and a contents page: the toolbar, the page box and the thumbnails then show the printed numbers, and the pages before get i, ii, iii. Links like #page=5 still count every page.', 'softicon-flipbook')} />
+				<TextControl type='number' min={0} max={50} label={__('Pages before page 1', 'softicon-flipbook')} hideLabelFromVision value={pageOffset || 0}
+					onChange={val => setAttributes({ pageOffset: Math.min(50, Math.max(0, parseInt(val, 10) || 0)) })} __next40pxDefaultSize __nextHasNoMarginBottom />
+			</div>
+
+			<ToggleRow label={__('Page number in the address', 'softicon-flipbook')} tip={__('The address in the browser ends in #page=5 as the reader turns, so a copied address opens the same page.', 'softicon-flipbook')} checked={pageUrl} onChange={set('pageUrl')} />
 
 			<div>
 				<FieldHead label={__('Start with', 'softicon-flipbook')} tip={__('Readers first pick a page from the thumbnails or the table of contents (the PDF\'s bookmarks).', 'softicon-flipbook')} />
@@ -161,6 +169,10 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 				<TocList toc={toc} onChange={set('toc')} />
 			</div>}
 
+			<ToggleRow label={__('One or two pages', 'softicon-flipbook')} tip={__('A button that lets readers switch between one page and two pages side by side. Not on phones, which always show one page.', 'softicon-flipbook')} checked={showSpread} onChange={set('showSpread')} />
+
+			<ToggleRow label={__('Colors for readers', 'softicon-flipbook')} tip={__('A button that lets readers switch between the book colors, dark (or light) and high contrast. The choice is kept for every book on the site.', 'softicon-flipbook')} checked={showTheme} onChange={set('showTheme')} />
+
 			<ToggleRow label={__('Thumbnails', 'softicon-flipbook')} tip={__('A button that shows all pages, a click opens one.', 'softicon-flipbook')} checked={showThumbnails} onChange={set('showThumbnails')} />{hint('showThumbnails')}
 
 			{!editorInfo.pro && <ProNotice href={editorInfo.pricing} text={__('Bookmarks, each reader coming back to the page they left, and the pages read aloud are available in Pro.', 'softicon-flipbook')}
@@ -183,7 +195,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 					video={videos.buttons} videoLabel={__('Watch page buttons in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='hotspots' title={__('Hotspots', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link, a video that plays over the book, or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')}
+				<ProNotice href={editorInfo.pricing} text={__('Clickable areas on your pages, with a link, a video that plays over the book, a sound, or a WooCommerce product and its price, are available in Pro.', 'softicon-flipbook')}
 					video={videos.hotspots} videoLabel={__('Watch hotspots in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='paywall' title={__('Preview and paywall', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
@@ -194,7 +206,7 @@ const General = ({ attributes, setAttributes, onSelectPdf, onSelectPdfUrl, onSel
 					video={videos.leads} videoLabel={__('Watch lead capture in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='shelf' title={__('Shelf', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>
-				<ProNotice href={editorInfo.pricing} text={__('Showing many books on one shelf, each opening in a popup, is available in Pro.', 'softicon-flipbook')}
+				<ProNotice href={editorInfo.pricing} text={__('Showing many books on one shelf, each opening in a popup, or every book of a category, is available in Pro.', 'softicon-flipbook')}
 					video={videos.shelf} videoLabel={__('Watch the shelf in 45 seconds', 'softicon-flipbook')} />
 			</Panel>
 			<Panel id='protect' title={__('Protection', 'softicon-flipbook')} badge={__('Pro', 'softicon-flipbook')}>

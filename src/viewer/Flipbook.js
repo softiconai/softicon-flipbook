@@ -8,6 +8,7 @@ import Search from './Search';
 import Hardcover from './Hardcover';
 import ScrollView from './ScrollView';
 import Autoplay from './Autoplay';
+import { fileUrl } from '../utils/drive';
 import print from './Print';
 import Share from './Share';
 
@@ -29,6 +30,9 @@ const icons = {
 	soundOn: svg('M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4M14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6'),
 	search: svg('M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9'),
 	play: svg('M8 5v14l11-7z'),
+	onePage: svg('M6 3h12v18H6zm2 2v14h8V5z'),
+	twoPages: svg('M2 4h9v16H2zm2 2v12h5V6zm9-2h9v16h-9zm2 2v12h5V6z'),
+	look: svg('M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 2v16a8 8 0 0 1 0-16'),
 	pause: svg('M6 19h4V5H6zm8-14v14h4V5z'),
 	share: svg('M18 16.1c-.8 0-1.4.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8a3 3 0 1 0-3-3c0 .2 0 .5.1.7L8 9.8A3 3 0 1 0 8 14.2l7.1 4.2c-.1.2-.1.4-.1.6a2.9 2.9 0 1 0 3-2.9'),
 	soundOff: svg('M16.5 12A4.5 4.5 0 0 0 14 8v2.2l2.5 2.5zm2.5 0a7 7 0 0 1-.6 2.8l1.5 1.5A9 9 0 0 0 14 3.2v2.1a7 7 0 0 1 5 6.7M4.3 3 3 4.3 7.7 9H3v6h4l5 5v-6.7l4.3 4.3a7 7 0 0 1-2.3 1.2v2.1a9 9 0 0 0 3.7-1.8l2 2 1.3-1.3-9-9zM12 4 9.9 6.1 12 8.2z')
@@ -37,6 +41,24 @@ const icons = {
 // pages kept rendered on each side of the open spread
 const AHEAD = 4;
 const KEEP = 10;
+
+// i, ii, iii… for the pages before a book's printed page 1
+const roman = n => [[10, 'x'], [9, 'ix'], [5, 'v'], [4, 'iv'], [1, 'i']].reduce((text, [value, letters]) => {
+	while (n >= value) {
+		text += letters;
+		n -= value;
+	}
+	return text;
+}, '');
+
+// the reader's own look from the Look button, the same on every book of the site: the book's colors, the other of
+// light and dark, or high contrast
+const LOOK_KEY = 'alfb_look';
+const looks = {
+	light: { '--alfb-bg': '#f0f0f1', '--alfb-bar-bg': 'transparent', '--alfb-bar-color': '#1e1e1e' },
+	dark: { '--alfb-bg': '#1f2125', '--alfb-bar-bg': 'transparent', '--alfb-bar-color': '#f0f0f1' },
+	contrast: { '--alfb-bg': '#000', '--alfb-bar-bg': '#000', '--alfb-bar-color': '#fff' }
+};
 
 // page number from a #page=5 link, 0 when there is none
 export const linkedPage = win => {
@@ -82,7 +104,8 @@ export const openDocument = async (url, doc) => {
 	pdfjs.GlobalWorkerOptions.workerSrc = base + 'pdf.worker.min.js?ver=' + pdfjs.version + '-p2';
 
 	return pdfjs.getDocument({
-		url,
+		// a Google Drive share link: the file from Drive's download server
+		url: fileUrl(url),
 		cMapUrl: base + 'cmaps/',
 		cMapPacked: true,
 		standardFontDataUrl: base + 'standard_fonts/',
@@ -227,7 +250,10 @@ export default class Flipbook {
 		// so its Tablet and Mobile previews show them too
 		const screen = this.win.innerWidth;
 		const device = screen < 600 ? this.config.maxHeightPhone : (screen < 1025 ? this.config.maxHeightTablet : 0);
-		if (device > 0) {
+		// Fit width: as wide as the column, the height follows the page shape (the lightbox fits the window instead)
+		if (this.config.fitWidth) {
+			this.config.maxHeight = 4000;
+		} else if (device > 0) {
 			this.config.maxHeight = device;
 		}
 		const { pageMode, showCover, maxHeight } = this.config;
@@ -434,8 +460,8 @@ export default class Flipbook {
 		this.counter.textContent = sprintf(
 			/* translators: 1: visible page or pages, 2: total pages */
 			__('%1$s / %2$s', 'softicon-flipbook'),
-			shown.map(i => i + 1).join('–'),
-			this.count
+			shown.map(i => this.label(i)).join('–'),
+			this.label(this.count - 1)
 		);
 		this.prevBtn.disabled = 0 === Math.min(...shown);
 		this.nextBtn.disabled = this.count - 1 === Math.max(...shown);
@@ -448,7 +474,7 @@ export default class Flipbook {
 			this.seekFill();
 			this.seek.setAttribute('aria-valuetext', sprintf(
 				/* translators: 1: page number, 2: total pages */
-				__('Page %1$s of %2$s', 'softicon-flipbook'), this.seek.value, this.count));
+				__('Page %1$s of %2$s', 'softicon-flipbook'), this.label(this.seek.value - 1), this.label(this.count - 1)));
 		}
 		if (this.sidePrev) {
 			this.sidePrev.disabled = this.prevBtn.disabled;
@@ -464,7 +490,31 @@ export default class Flipbook {
 		this.cover?.update();
 		this.load(Math.min(...shown));
 		this.zoom?.update();
+		this.spreadState();
+		this.pageInAddress(Math.min(...shown));
 		this.emit('page', { pages: shown });
+	}
+
+	// the number printed on a page: with a page offset (a cover and front matter before page 1) the count starts
+	// after them, and the pages before get small roman numerals
+	label(index) {
+		const printed = index + 1 - (this.config.pageOffset || 0);
+		return printed >= 1 ? String(printed) : roman(index + 1);
+	}
+
+	// "Page number in the address": #page=5 follows the reader, so a copied address opens the same page; not before
+	// the first turn, so a page opened at page 1 keeps a clean address
+	pageInAddress(index) {
+		if (!this.config.pageUrl || this.editor) {
+			return;
+		}
+		const number = bookNumber(this.owner || this.root);
+		const hash = '#page=' + (index + 1) + (number > 1 ? '&book=' + number : '');
+		if (this.win.location.hash === hash || (!linkedPage(this.win) && 0 === index && !this.turned)) {
+			return;
+		}
+		this.turned = true;
+		this.win.history.replaceState(this.win.history.state, '', this.win.location.pathname + this.win.location.search + hash);
 	}
 
 	// jumps to a page index, animated unless zoomed
@@ -807,7 +857,7 @@ export default class Flipbook {
 		if (this.config.showDownload && 'pdf' === this.config.source) {
 			const link = this.doc.createElement('a');
 			link.className = 'alfb_btn alfb_btn_download';
-			link.href = this.safeUrl(this.config.pdf) || '#';
+			link.href = this.safeUrl(fileUrl(this.config.pdf)) || '#';
 			link.download = '';
 			link.target = '_blank';
 			link.rel = 'noopener';
@@ -821,6 +871,24 @@ export default class Flipbook {
 			this.shareBtn = this.button('share', __('Share this page', 'softicon-flipbook'), () => this.share());
 			this.shareBtn.setAttribute('aria-haspopup', 'dialog');
 			tools.append(this.shareBtn);
+		}
+
+		// one page or two side by side, for the reader to choose (turn mode only; phones always show one)
+		if (this.config.showSpread && !this.scroll) {
+			this.spreadBtn = this.button('twoPages', __('Two pages', 'softicon-flipbook'), () => this.toggleSpread());
+			tools.append(this.spreadBtn);
+		}
+
+		if (this.config.showTheme) {
+			this.lookBtn = this.button('look', __('Colors', 'softicon-flipbook'), () => this.nextLook());
+			tools.append(this.lookBtn);
+			let saved = '';
+			try {
+				saved = this.win.localStorage.getItem(LOOK_KEY) || '';
+			} catch (e) {
+				// storage blocked: the book's own colors
+			}
+			this.setLook(saved, false);
 		}
 
 		if (this.config.showFullscreen) {
@@ -855,13 +923,13 @@ export default class Flipbook {
 		input.setAttribute('aria-label', __('Page', 'softicon-flipbook'));
 		const label = () => sprintf(
 			/* translators: 1: page number, 2: total pages */
-			__('Page %1$s of %2$s', 'softicon-flipbook'), input.value, this.count);
+			__('Page %1$s of %2$s', 'softicon-flipbook'), this.label(input.value - 1), this.label(this.count - 1));
 		input.addEventListener('input', () => {
 			this.seeking = true;
 			this.seekFill();
 			this.counter.textContent = sprintf(
 				/* translators: 1: visible page or pages, 2: total pages */
-				__('%1$s / %2$s', 'softicon-flipbook'), input.value, this.count);
+				__('%1$s / %2$s', 'softicon-flipbook'), this.label(input.value - 1), this.label(this.count - 1));
 			input.setAttribute('aria-valuetext', label());
 		});
 		// an arrow key on the slider moves a whole spread, not to the other page of the one that is open
@@ -1101,13 +1169,76 @@ export default class Flipbook {
 	}
 
 	// the counter turns into a page number field, Enter jumps, Escape cancels
+	// the reader's switch between one page and two: one page keeps the book a page wide, two lets page-flip show a spread
+	toggleSpread() {
+		const settings = this.flip.getSettings();
+		const one = 'portrait' !== this.flip.getOrientation();
+		this.config.pageMode = one ? 'single' : 'auto';
+		settings.usePortrait = true;
+		settings.minWidth = one ? settings.maxWidth : Math.min(300, settings.maxWidth);
+		this.refresh();
+		this.toast(one ? __('One page', 'softicon-flipbook') : __('Two pages', 'softicon-flipbook'));
+	}
+
+	// the button names what a click gives; no button where two pages don't fit anyway
+	spreadState() {
+		if (!this.spreadBtn) {
+			return;
+		}
+		const one = 'portrait' === this.flip.getOrientation();
+		const label = one ? __('Two pages', 'softicon-flipbook') : __('One page', 'softicon-flipbook');
+		this.spreadBtn.innerHTML = icons[one ? 'twoPages' : 'onePage'];
+		this.spreadBtn.title = label;
+		this.spreadBtn.setAttribute('aria-label', label);
+		this.spreadBtn.hidden = one && 'single' !== this.config.pageMode;
+	}
+
+	// the reader's look: '' is the book's own colors
+	setLook(look, remember = true) {
+		const dark = 'dark' === this.config.theme || ('auto' === this.config.theme && !!this.win.matchMedia?.('(prefers-color-scheme: dark)').matches);
+		const other = dark ? 'light' : 'dark';
+		this.look = [other, 'contrast'].includes(look) ? look : '';
+		if (!this.ownColors) {
+			this.ownColors = Object.fromEntries(Object.keys(looks.dark).map(name => [name, this.root.style.getPropertyValue(name)]));
+		}
+		Object.entries(this.look ? looks[this.look] : this.ownColors).forEach(([name, value]) => (
+			value ? this.root.style.setProperty(name, value) : this.root.style.removeProperty(name)
+		));
+		this.root.classList.toggle('alfb_look_dark', 'dark' === this.look || 'contrast' === this.look);
+		this.root.classList.toggle('alfb_look_light', 'light' === this.look);
+		this.root.classList.toggle('alfb_contrast', 'contrast' === this.look);
+		const names = { '': __('Book colors', 'softicon-flipbook'), light: __('Light', 'softicon-flipbook'), dark: __('Dark', 'softicon-flipbook'), contrast: __('High contrast', 'softicon-flipbook') };
+		/* translators: %s: the look the book has now: Book colors, Light, Dark or High contrast */
+		const label = sprintf(__('Colors: %s', 'softicon-flipbook'), names[this.look]);
+		this.lookBtn.title = label;
+		this.lookBtn.setAttribute('aria-label', label);
+		if (remember) {
+			try {
+				this.win.localStorage.setItem(LOOK_KEY, this.look);
+			} catch (e) {
+				// storage blocked: this book only
+			}
+			this.toast(names[this.look]);
+		}
+	}
+
+	nextLook() {
+		const order = ['', 'dark' === this.config.theme ? 'light' : 'dark', 'contrast'];
+		const dark = 'auto' === this.config.theme && !!this.win.matchMedia?.('(prefers-color-scheme: dark)').matches;
+		if (dark) {
+			order[1] = 'light';
+		}
+		this.setLook(order[(order.indexOf(this.look || '') + 1) % order.length]);
+	}
+
 	askPage() {
 		const input = this.doc.createElement('input');
 		input.type = 'number';
 		input.className = 'alfb_page_input';
+		const offset = this.config.pageOffset || 0;
 		input.min = 1;
-		input.max = this.count;
-		input.value = Math.min(...this.visible()) + 1;
+		input.max = Math.max(1, this.count - offset);
+		input.value = Math.max(1, Math.min(...this.visible()) + 1 - offset);
 		input.setAttribute('aria-label', __('Page number', 'softicon-flipbook'));
 
 		let open = true;
@@ -1119,7 +1250,7 @@ export default class Flipbook {
 			const page = parseInt(input.value, 10);
 			input.replaceWith(this.counter);
 			if (jump && page) {
-				this.go(page - 1);
+				this.go(page - 1 + offset);
 			}
 			if (refocus) {
 				this.counter.focus();

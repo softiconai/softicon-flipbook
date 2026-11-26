@@ -152,7 +152,7 @@ export default class Search {
 
 		const number = doc.createElement('span');
 		number.className = 'alfb_entry_num';
-		number.textContent = index + 1;
+		number.textContent = this.book.label(index);
 
 		button.append(excerpt, number);
 		button.addEventListener('click', () => {

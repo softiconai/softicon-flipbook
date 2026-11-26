@@ -58,7 +58,8 @@ export const designs = [
 export const lightboxTriggers = [
 	{ label: __('Cover', 'softicon-flipbook'), value: 'cover', icon: icons.cover },
 	{ label: __('Button', 'softicon-flipbook'), value: 'button', icon: icons.button },
-	{ label: __('Text link', 'softicon-flipbook'), value: 'text', icon: icons.text }
+	{ label: __('Text link', 'softicon-flipbook'), value: 'text', icon: icons.text },
+	{ label: __('Any link', 'softicon-flipbook'), value: 'anchor', icon: icons.link }
 ];
 
 // how the pages move: turned like a book, or scrolled in a column (always, or on phones only)

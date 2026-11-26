@@ -84,7 +84,7 @@ export default class Contents {
 				el.disabled = true;
 				return;
 			}
-			number.textContent = index + 1;
+			number.textContent = book.label(index);
 		});
 		el.addEventListener('click', async () => {
 			const index = await page;

@@ -23,6 +23,11 @@ if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayM
     $alfb_lb    = ALFB_Flipbook\block::lightbox( $attributes, $alfb_config );
     $alfb_label = '' !== $alfb_lb['text'] ?$alfb_lb['text'] : __( 'Read the flipbook', 'softicon-flipbook' );
     $alfb_class = 'alfb_lb alfb_lb_' . $alfb_lb['align'] . ( 'cover' === $alfb_lb['trigger'] && ! $alfb_lb['image'] ? ' alfb_lb_draw' : '' );
+    // "Any link": nothing shows here, links to #name on the page (a menu item, a theme button) open the book
+    $alfb_anchor = 'anchor' === $alfb_lb['trigger'] && '' !== $alfb_lb['anchor'];
+    if ( $alfb_anchor ) {
+        $alfb_class .= ' alfb_lb_anchor';
+    }
 
     $alfb_wrapper = ALFB_Flipbook\block::wrapper_attributes( array(
         'class'      => $alfb_class,
@@ -30,10 +35,13 @@ if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayM
         // the mark of a book made here: post content can't carry it (kses keeps data-* but drops this), so view.js
         // never starts a look-alike written into a post
         'alfb-block' => '',
+        'data-anchor' => $alfb_anchor ? $alfb_lb['anchor'] : '',
     ), $alfb_style . ( 'cover' === $alfb_lb['trigger'] ? '--alfb-lb-width:' . $alfb_lb['width'] . 'px;' : '' ) );
     ?>
     <div <?php echo $alfb_wrapper; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() escapes ?>>
-        <?php if ( 'cover' === $alfb_lb['trigger'] ) : ?>
+        <?php if ( $alfb_anchor ) : ?>
+            <span class="alfb_lb_trigger" hidden><?php echo esc_html( $alfb_label ); ?></span>
+        <?php elseif ( 'cover' === $alfb_lb['trigger'] ) : ?>
             <a class="alfb_lb_trigger alfb_lb_cover" href="<?php echo esc_url( $alfb_lb['href'] ); ?>"<?php echo $alfb_lb['rel']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- a fixed string from block::lightbox() ?> aria-haspopup="dialog"<?php echo '' === $alfb_lb['text'] ? ' aria-label="' . esc_attr( $alfb_label ) . '"' : ''; ?>>
                 <span class="alfb_lb_img">
                     <?php if ( $alfb_lb['image'] ) : ?>

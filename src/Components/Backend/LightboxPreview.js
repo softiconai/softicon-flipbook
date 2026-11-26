@@ -1,12 +1,13 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { drawCover } from '../../viewer/Lightbox';
+import { anchorOf } from '../../utils/functions';
 
 // the cover, button or link the page shows in lightbox mode, the same markup as render.php
 const LightboxPreview = ({ attributes }) => {
 	const { source, pdfUrl, images, lightboxImage } = attributes;
 	// the same fallbacks and limits as block::lightbox()
-	const lightboxTrigger = ['cover', 'button', 'text'].includes(attributes.lightboxTrigger) ? attributes.lightboxTrigger : 'cover';
+	const lightboxTrigger = ['cover', 'button', 'text', 'anchor'].includes(attributes.lightboxTrigger) ? attributes.lightboxTrigger : 'cover';
 	const lightboxAlign = ['left', 'center', 'right'].includes(attributes.lightboxAlign) ? attributes.lightboxAlign : 'center';
 	const lightboxWidth = Math.min(600, Math.max(120, parseInt(attributes.lightboxWidth, 10) || 260));
 	const lightboxText = (attributes.lightboxText || '').trim();
@@ -37,6 +38,14 @@ const LightboxPreview = ({ attributes }) => {
 	}, [draw, pdfUrl]);
 
 	const label = lightboxText || __('Read the flipbook', 'softicon-flipbook');
+
+	// "Any link": the page shows nothing, the editor says which link opens the book
+	if ('anchor' === lightboxTrigger) {
+		return <div className='alfb_lb_note'>
+			<strong>{__('Flipbook popup', 'softicon-flipbook')}</strong>
+			<span>{__('Nothing shows here on the page. Any link to this opens the book:', 'softicon-flipbook')} <code>#{anchorOf(attributes.lightboxAnchor)}</code></span>
+		</div>;
+	}
 
 	return <div className={`alfb_lb alfb_lb_${lightboxAlign}` + (draw && !drawn ? ' alfb_lb_draw' : '')} style={{ '--alfb-lb-width': lightboxWidth + 'px' }}>
 		{cover ? <span className='alfb_lb_trigger alfb_lb_cover'>

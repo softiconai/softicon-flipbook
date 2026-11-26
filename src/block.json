@@ -18,6 +18,8 @@
 		"showCover": { "type": "boolean", "default": true },
 		"pageHint": { "type": "boolean", "default": true },
 		"startPage": { "type": "number", "default": 1 },
+		"pageOffset": { "type": "number", "default": 0 },
+		"pageUrl": { "type": "boolean", "default": false },
 		"startWith": { "type": "string", "default": "book" },
 		"bookTitle": { "type": "string", "default": "" },
 		"autoplay": { "type": "boolean", "default": false },
@@ -27,6 +29,7 @@
 		"maxHeight": { "type": "number", "default": 700 },
 		"maxHeightTablet": { "type": "number", "default": 0 },
 		"maxHeightPhone": { "type": "number", "default": 0 },
+		"fitWidth": { "type": "boolean", "default": false },
 		"showDownload": { "type": "boolean", "default": true },
 		"showPrint": { "type": "boolean", "default": false },
 		"showFirstLast": { "type": "boolean", "default": false },
@@ -40,6 +43,8 @@
 		"showLinks": { "type": "boolean", "default": true },
 		"showSearch": { "type": "boolean", "default": true },
 		"showShare": { "type": "boolean", "default": false },
+		"showSpread": { "type": "boolean", "default": false },
+		"showTheme": { "type": "boolean", "default": false },
 		"bookStyle": { "type": "string", "default": "flat" },
 		"sideArrows": { "type": "boolean", "default": false },
 		"coverColor": { "type": "string", "default": "" },
@@ -56,7 +61,9 @@
 		"lightboxAlign": { "type": "string", "default": "center" },
 		"lightboxSize": { "type": "string", "enum": [ "full", "large", "medium" ], "default": "full" },
 		"lightboxBackdrop": { "type": "string", "enum": [ "dark", "light", "blur" ], "default": "dark" },
-		"lightboxNofollow": { "type": "boolean", "default": false }
+		"lightboxNofollow": { "type": "boolean", "default": false },
+		"lightboxAnchor": { "type": "string", "default": "" },
+		"lightboxFullscreen": { "type": "boolean", "default": false }
 	},
 	"supports": {
 		"html": false,

@@ -41,6 +41,25 @@
 		}
 	}
 
+	// the reader's Colors button: the variables are set inline by the viewer, the text follows
+	&.alfb_look_dark {
+		color: #f0f0f1;
+	}
+
+	&.alfb_look_light {
+		color: #1e1e1e;
+	}
+
+	// high contrast also sharpens the pages themselves
+	&.alfb_contrast .alfb_page :is(canvas, img) {
+		filter: contrast(1.35);
+	}
+
+	// the one page / two pages button where two pages don't fit
+	.alfb_btn[hidden] {
+		display: none;
+	}
+
 	// the book's title above it
 	.alfb_title {
 		margin: 0 0 10px;
@@ -933,6 +952,11 @@
 }
 
 // lightbox: a cover, button or link on the page
+// "Any link": the block itself shows nothing, links to #name open the book
+.alfb_lb.alfb_lb_anchor {
+	display: none;
+}
+
 .alfb_lb {
 	&.alfb_lb_left {
 		text-align: left;

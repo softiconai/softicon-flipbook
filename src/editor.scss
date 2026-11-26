@@ -702,3 +702,19 @@
 		grid-column: 1 / -1;
 	}
 }
+
+// "Any link" in the editor: a note in place of the cover, button or link
+.alfb_lb_note {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 16px 20px;
+	border: 1px dashed currentColor;
+	border-radius: 8px;
+	font-size: 14px;
+	line-height: 1.5;
+
+	code {
+		font-size: 13px;
+	}
+}

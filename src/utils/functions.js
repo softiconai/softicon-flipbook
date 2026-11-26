@@ -4,9 +4,15 @@ export const ownToc = toc => (Array.isArray(toc) ? toc : [])
 	.filter(entry => entry.title && entry.page >= 1)
 	.slice(0, 200);
 
+// pages before the printed page 1 (a cover, front matter), the same as block::config(): 0 to 50
+export const pageOffsetOf = value => Math.min(50, Math.max(0, parseInt(value, 10) || 0));
+
+// a link name for "Any link" (block::anchor()): letters, digits and dashes
+export const anchorOf = value => String(value || '').toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+
 // The same config shape render.php builds, so the editor preview matches the front end.
 export const toConfig = attributes => {
-	const { source, pdfUrl, images, pageMode, viewMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound, lightboxSize, lightboxBackdrop } = attributes;
+	const { source, pdfUrl, images, pageMode, viewMode, bookStyle, sideArrows, showCover, pageHint, startPage, startWith, bookTitle, theme, autoplay, autoplaySeconds, autoplayLoop, rtl, phoneFullscreen, maxHeight, maxHeightTablet, maxHeightPhone, showDownload, showPrint, showFirstLast, showSeek, showFullscreen, showZoom, showThumbnails, showContents, toc, showLinks, showSearch, showShare, flipSound, lightboxSize, lightboxBackdrop, pageOffset, pageUrl, fitWidth, showSpread, showTheme, lightboxFullscreen } = attributes;
 	return {
 		source: 'images' === source ? 'images' : 'pdf',
 		pdf: 'images' === source ? '' : pdfUrl,
@@ -43,7 +49,13 @@ export const toConfig = attributes => {
 		showShare: !!showShare,
 		flipSound,
 		lightboxSize: ['large', 'medium'].includes(lightboxSize) ? lightboxSize : 'full',
-		lightboxBackdrop: ['light', 'blur'].includes(lightboxBackdrop) ? lightboxBackdrop : 'dark'
+		lightboxBackdrop: ['light', 'blur'].includes(lightboxBackdrop) ? lightboxBackdrop : 'dark',
+		pageOffset: pageOffsetOf(pageOffset),
+		pageUrl: !!pageUrl,
+		fitWidth: !!fitWidth,
+		showSpread: !!showSpread,
+		showTheme: !!showTheme,
+		lightboxFullscreen: !!lightboxFullscreen
 	};
 };
 
