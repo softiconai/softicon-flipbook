@@ -56,7 +56,10 @@ const sites = licenses => 'unlimited' === licenses
 
 // Get Pro opens the Freemius checkout in a popup; the link opens it in a new tab if that fails
 const ProButton = ({ checkout, plan, price, className }) => {
-	const href = `${checkout.base}?plan_id=${plan.id}&licenses=${price.licenses}&billing_cycle=${price.cycle}`;
+	// a running sale's coupon is filled in for the buyer
+	const coupon = checkout.coupon ? { coupon: checkout.coupon } : {};
+	const href = `${checkout.base}?plan_id=${plan.id}&licenses=${price.licenses}&billing_cycle=${price.cycle}` +
+		(checkout.coupon ? `&coupon=${encodeURIComponent(checkout.coupon)}` : '');
 	const open = event => {
 		if (event.metaKey || event.ctrlKey || event.shiftKey || 0 !== event.button) {
 			return;
@@ -64,7 +67,7 @@ const ProButton = ({ checkout, plan, price, className }) => {
 		event.preventDefault();
 		try {
 			new Checkout({ product_id: checkout.product, plan_id: plan.id, public_key: checkout.key })
-				.open({ licenses: price.licenses, billing_cycle: price.cycle });
+				.open({ licenses: price.licenses, billing_cycle: price.cycle, ...coupon });
 		} catch (error) {
 			window.open(href, '_blank', 'noopener');
 		}
