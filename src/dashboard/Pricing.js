@@ -43,11 +43,37 @@ const cycles = () => ({
 	monthly: __('per month', 'softicon-flipbook')
 });
 
-const Price = ({ price }) => <p className='alfb-price'>
-	<sup>{symbols[price.currency] || price.currency.toUpperCase() + ' '}</sup>
-	{price.price.toLocaleString(undefined, { minimumFractionDigits: Number.isInteger(price.price) ? 0 : 2, maximumFractionDigits: 2 })}
-	<span>{cycles()[price.cycle]}</span>
-</p>;
+const amount = number => number.toLocaleString(undefined, { minimumFractionDigits: Number.isInteger(number) ? 0 : 2, maximumFractionDigits: 2 });
+const symbol = price => symbols[price.currency] || price.currency.toUpperCase() + ' ';
+
+// the percent off while a sale's coupon is filled in at checkout, 0 otherwise
+const saleOff = checkout => (checkout && checkout.coupon && checkout.off > 0 ? checkout.off : 0);
+
+// as Freemius counts it: the discount rounded to cents, taken off the price
+const salePrice = (price, off) => Math.round((price - Math.round(price * off) / 100) * 100) / 100;
+
+// in a sale: the old price struck through, the sale's name and the price at checkout
+const Price = ({ price, off = 0 }) => <>
+	{off > 0 && <div className='alfb-price-was'>
+		<s>{symbol(price)}{amount(price.price)}</s>
+		{/* translators: %d: percent off, e.g. 40 */}
+		<span className='alfb-sale'>{sprintf(__('Black Friday: %d%% off', 'softicon-flipbook'), off)}</span>
+	</div>}
+	<p className='alfb-price'>
+		<sup>{symbol(price)}</sup>
+		{amount(off > 0 ? salePrice(price.price, off) : price.price)}
+		<span>{cycles()[price.cycle]}</span>
+	</p>
+</>;
+
+// under Get Pro in a sale: the code is already in the checkout
+const SaleNote = ({ checkout }) => <div className='alfb-sale-note'>
+	{createInterpolateElement(sprintf(
+		/* translators: %s: coupon code */
+		__('Code %s is applied at checkout. The sale ends on 5 December.', 'softicon-flipbook'),
+		'<b>' + checkout.coupon + '</b>'
+	), { b: <strong /> })}
+</div>;
 
 const sites = licenses => 'unlimited' === licenses
 	? __('Unlimited websites', 'softicon-flipbook')
@@ -143,6 +169,7 @@ export const Pricing = ({ play }) => {
 	}
 	const plan = data.pro;
 	const once = plan && 'lifetime' === plan.prices[0].cycle;
+	const off = saleOff(data.checkout);
 
 	return <>
 		<Intro eyebrow={__('Pricing', 'softicon-flipbook')} title={once ? __('Pay once, use it for life', 'softicon-flipbook') : __('Pick your plan', 'softicon-flipbook')}>
@@ -156,8 +183,9 @@ export const Pricing = ({ play }) => {
 			{plan.prices.map(price => <div className='alfb-plan' key={price.licenses}>
 				<span className='alfb-tag'>{sites(price.licenses)}</span>
 				<h3>{plan.title}</h3>
-				<Price price={price} />
+				<Price price={price} off={off} />
 				<ProButton checkout={data.checkout} plan={plan} price={price} className='alfb-btn-teal' />
+				{off > 0 && <SaleNote checkout={data.checkout} />}
 				<ul className='alfb-checks'>
 					<li>{sites(price.licenses)}</li>
 					<li>{__('Every free feature', 'softicon-flipbook')}</li>
@@ -218,8 +246,9 @@ export const Compare = ({ play }) => {
 				<span className='alfb-tag'>{__('Pro', 'softicon-flipbook')}</span>
 				<h3>{plan.title}</h3>
 				{plan.text && <p>{plan.text}</p>}
-				<Price price={plan.prices[0]} />
+				<Price price={plan.prices[0]} off={saleOff(data.checkout)} />
 				<ProButton checkout={data.checkout} plan={plan} price={plan.prices[0]} className='alfb-btn-light' />
+				{saleOff(data.checkout) > 0 && <SaleNote checkout={data.checkout} />}
 				{plan.trial > 0 && <TrialButton checkout={data.checkout} plan={plan} className='alfb-more-plans alfb-trial-link'>{trialLabel(plan)}</TrialButton>}
 				{plan.prices.length > 1 && <a className='alfb-more-plans' href='#/pricing'>{__('Plans for more websites', 'softicon-flipbook')}</a>}
 			</div>}

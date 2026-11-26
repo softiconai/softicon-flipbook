@@ -234,7 +234,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 == Changelog ==
 
 = 1.9.2 =
-* Improved: during the Black Friday sale (until 5 December 2026), Get Pro on the Pricing tab opens the checkout with the 40% coupon already applied, so there is no code to type.
+* Improved: during the Black Friday sale (until 5 December 2026), the Pricing and Free vs Pro tabs show the sale price next to the old one, and Get Pro opens the checkout with the 40% coupon already applied, so there is no code to type.
 
 = 1.9.1 =
 * New: Black Friday offer, 26 November to 5 December 2026: 40% off SoftIcon Flipbook Pro, shown on the Flipbook dashboard, the All Flipbooks list and the Plugins page. Close it with × and it stays closed. It disappears by itself after the sale, and never shows with Pro active.
@@ -377,7 +377,7 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 == Upgrade Notice ==
 
 = 1.9.2 =
-The Black Friday coupon is applied for you when you buy Pro from the Pricing tab, until 5 December. Your flipbooks don't change.
+Black Friday sale prices on the Pricing tab, and the coupon applied for you at checkout, until 5 December. Your flipbooks don't change.
 
 = 1.9.1 =
 A link on the Welcome tab to SoftIcon Document Viewer, and a Black Friday offer for Pro until 5 December that you can close. Your flipbooks don't change.
