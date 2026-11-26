@@ -35,8 +35,7 @@ if ( isset( $attributes['displayMode'] ) && 'lightbox' === $attributes['displayM
         // the mark of a book made here: post content can't carry it (kses keeps data-* but drops this), so view.js
         // never starts a look-alike written into a post
         'alfb-block' => '',
-        'data-anchor' => $alfb_anchor ? $alfb_lb['anchor'] : '',
-    ), $alfb_style . ( 'cover' === $alfb_lb['trigger'] ? '--alfb-lb-width:' . $alfb_lb['width'] . 'px;' : '' ) );
+    ) + ( $alfb_anchor ? array( 'data-anchor' => $alfb_lb['anchor'] ) : array() ), $alfb_style . ( 'cover' === $alfb_lb['trigger'] ? '--alfb-lb-width:' . $alfb_lb['width'] . 'px;' : '' ) );
     ?>
     <div <?php echo $alfb_wrapper; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() escapes ?>>
         <?php if ( $alfb_anchor ) : ?>

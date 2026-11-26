@@ -5,6 +5,10 @@ import { MediaUpload, MediaUploadCheck, store as blockEditorStore } from '@wordp
 import { Button, FormFileUpload, Spinner } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { icons } from '../../../../utils/icons';
+import { driveId } from '../../../../utils/drive';
+import ProNotice from '../../ProNotice';
+
+const editorInfo = window.alfbEditor || {};
 
 // the PDF's file name from its address
 const nameOf = url => {
@@ -106,6 +110,8 @@ export const PdfPicker = ({ pdfId, pdfUrl, onSelectPdf, onSelectPdfUrl }) => {
 					render={({ open }) => <Button variant='secondary' className='alfbSourceBtn' onClick={open} __next40pxDefaultSize>{__('Media Library', 'softicon-flipbook')}</Button>} />
 			</div>
 		</MediaUploadCheck>
+
+		{!editorInfo.pro && !pdfId && driveId(pdfUrl) && <ProNotice href={editorInfo.pricing} text={__('Showing a PDF from Google Drive, or from a website that does not allow it, is available in Pro.', 'softicon-flipbook')} />}
 
 		{typing ? <UrlForm value={pdfId ? '' : pdfUrl} onCancel={() => setTyping(false)} onApply={url => {
 			onSelectPdfUrl(url);

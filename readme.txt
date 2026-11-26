@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.9.2
+Stable tag: 1.10.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,12 +33,15 @@ Video tutorials: [what's new in 30 seconds](https://www.youtube.com/watch?v=9o7e
 = Features =
 
 * Lightbox: a cover, button or text link on the page opens the book in a popup over the page, full screen, large or medium, on a dark, light or blurred page
+* Open the popup from any link: a menu item, your theme's button or a link in your text that points to #name, or an address ending in #name; the popup can also open the book straight in full screen
 * Two designs: Classic, or Hardcover book with a cover around the pages, the stack of page edges, a shadow at the spine and large arrows beside the book
 * PDF flipbook from the Media Library or a link
 * Image flipbook from any set of images
 * Auto, always-two-pages or always-one-page layout
 * Hard cover: first and last pages turn on their own
 * Open at any page, jump to a page from the page counter, or link straight to a page with #page=5
+* The page number in the address (#page=5) changes as readers turn the pages, so a copied link opens the same page
+* Page numbers like the printed book: set the pages before page 1, and those pages show as i, ii, iii
 * First and last page buttons, and a page slider to drag to any page
 * Turn the pages like a book, or scroll them in one column (also on phones only)
 * Page turn hint: the corner of the next page lifts once, so new readers see the pages turn
@@ -49,6 +52,8 @@ Video tutorials: [what's new in 30 seconds](https://www.youtube.com/watch?v=9o7e
 * Share menu: Facebook, X, LinkedIn, Pinterest, email and Copy link for the page that is open; phones use their own share sheet (optional)
 * Print: readers print the whole book, one book page on each sheet of paper (optional)
 * Zoom with the toolbar buttons, a pinch on phones or Ctrl + scroll on computers; drag to move around a zoomed page
+* One or two pages: a toolbar button lets readers switch between a single page and the two-page spread
+* Colors for readers: a toolbar button for the book's own colors, dark, light or high contrast, remembered for every book on the site
 * Toolbar with page counter, previous/next, play / pause, thumbnails, zoom, print, download, share, fullscreen and a page-turn sound visitors can mute
 * Keyboard and accessibility: the arrow keys turn the pages, ? lists every shortcut, a skip link for keyboard users, no page animation for readers who ask for less motion, and a toolbar that works with screen readers
 * Fullscreen that fits the book to the screen, with an iPhone fallback
@@ -58,6 +63,7 @@ Video tutorials: [what's new in 30 seconds](https://www.youtube.com/watch?v=9o7e
 * Start with the thumbnails or the table of contents, so readers pick a page first
 * A title above the book
 * Maximum height, with its own height for tablets and phones
+* Fit the width: the book takes the full width of its column, as tall as the pages need
 * Light, Dark or Auto theme (dark when the reader's device is), and colors for background, toolbar and icons
 * Wide and full width alignment
 * Flipbooks with a shortcode, such as `[softicon_flipbook id="123"]`, for the Classic Editor, Elementor and other page builders
@@ -89,6 +95,14 @@ Everything above stays free, with no limits on books or pages. SoftIcon Flipbook
 * **Google Analytics events** – opens, pages read, finished books and downloads go to your own Google Analytics.
 * **Switch from another plugin** – once DearFlip, 3D FlipBook, Real3D, Flipa, TNC, PDF Embedder or PDF.js Viewer is turned off, its shortcodes in your posts show as SoftIcon flipbooks.
 * **Presets, export and import** – save a book's settings as a preset for other books, and move the site defaults and presets to another site in one file.
+* **Open in a new tab** – the cover, button or link opens the book on a page of its own in a new tab, also for a book in a post or page.
+* **No toolbar** – a Toolbar style with no buttons at all: readers turn the pages with the large arrows beside the book.
+* **Categories and category shelves** – sort your books into Flipbook → Categories, and a shelf shows every book of a category, newest first or A–Z; a new book joins the shelf by itself.
+* **Elementor widget** – a Flipbook widget in Elementor: pick a book, show it on the page or in a popup, and set its height, first page and theme.
+* **Sound in hotspots** – an MP3 or other audio link plays in a small player over the page, and stops when the page turns.
+* **PDF links as flipbooks** – one switch in Manage → Settings opens every link to a PDF on your site as a flipbook in a popup.
+* **Google Drive PDFs in your Media Library** – paste a Drive share link and the PDF is copied to your Media Library once, so the book loads from your own site.
+* **PDFs from Google Drive and other websites** – a Google Drive link, a Media Library kept on Google Drive by another plugin, or a PDF on a website that does not allow other sites to show it is read through your own site, which keeps a copy for a week.
 
 See [every Pro feature in one minute](https://www.youtube.com/watch?v=LtCj7-J2qXI&list=PLJEAefIarF4g).
 
@@ -137,7 +151,7 @@ A flipbook is made from a PDF or images. For Word (DOCX), Excel (XLSX, XLS), Pow
 
 = Does it work with a PDF hosted on another website? =
 
-Only if that website allows it (CORS). Browsers block reading PDFs from other sites otherwise. Upload the PDF to your Media Library and it always works.
+Only if that website allows it (CORS). Browsers block reading PDFs from other sites otherwise. Upload the PDF to your Media Library and it always works. A Google Drive link does not work either: Google Drive does not let other websites show its files. Download the PDF from Drive and upload it, or use SoftIcon Flipbook Pro, which reads such PDFs through your own site.
 
 = Is there a page or file size limit? =
 
@@ -232,6 +246,17 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 9. The Flipbook dashboard with live demos, video tutorials and help.
 
 == Changelog ==
+
+= 1.10.0 =
+* New: open the popup from any link. Under Open with in the Display panel, choose Any link: nothing shows on the page, and a menu item, a theme button or a link in your text to #name opens the book, as does an address that ends in #name.
+* New: Open in full screen. The popup opens the book straight in full screen; Esc closes both.
+* New: Fit the width, in the Size panel. The book takes the full width of its column, as tall as its pages need.
+* New: Page number in the address, in the Pages panel. The address shows #page=5 as readers turn the pages, so a copied link opens the same page.
+* New: Pages before page 1, in the Pages panel. The page counter, thumbnails, search and contents use the page numbers printed in the book, and the pages before page 1 show as i, ii, iii.
+* New: One or two pages, a toolbar button that lets readers switch between one page and the two-page spread.
+* New: Colors for readers, a toolbar button for the book's own colors, dark, light or high contrast. The choice is kept for every book on the site.
+* Improved: a Google Drive link as the PDF says what to do. Google Drive does not let other websites show its files, so the book asks you to download the PDF from Drive and upload it to your Media Library.
+* New: short notices in the block for the new Pro features.
 
 = 1.9.2 =
 * Improved: during the Black Friday sale (until 5 December 2026), the Pricing and Free vs Pro tabs show the sale price next to the old one, and Get Pro opens the checkout with the 40% coupon already applied, so there is no code to type.
@@ -375,6 +400,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.10.0 =
+Open the popup from any link or a menu, full screen popups, Fit the width, page numbers like the printed book, the page in the address, and one-or-two pages and colors buttons for readers. Your flipbooks don't change.
 
 = 1.9.2 =
 Black Friday sale prices on the Pricing tab, and the coupon applied for you at checkout, until 5 December. Your flipbooks don't change.

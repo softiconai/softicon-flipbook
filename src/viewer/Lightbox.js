@@ -7,9 +7,9 @@ const closeIcon = '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="
 const CHROME = 136;
 const HARDCOVER = 36;
 
-// page 1 of a PDF drawn into a canvas, for a cover without an image
-export const drawCover = async (url, doc, width) => {
-	const task = await openDocument(url, doc);
+// page 1 of a PDF drawn into a canvas, for a cover without an image; config: the book's settings (Pro: remote PDFs)
+export const drawCover = async (url, doc, width, config) => {
+	const task = await openDocument(url, doc, config);
 	try {
 		const pdf = await task.promise;
 		const page = await pdf.getPage(1);
@@ -93,7 +93,7 @@ export default class Lightbox {
 		}
 		try {
 			const width = parseInt(this.win.getComputedStyle(this.root).getPropertyValue('--alfb-lb-width'), 10) || 260;
-			box.replaceChildren(await drawCover(this.config.pdf, this.doc, width));
+			box.replaceChildren(await drawCover(this.config.pdf, this.doc, width, this.config));
 			this.root.classList.remove('alfb_lb_draw');
 		} catch (error) {
 			// eslint-disable-next-line no-console

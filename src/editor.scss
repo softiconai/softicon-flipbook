@@ -532,7 +532,10 @@
 
 .alfbSourceFileText {
 	display: flex;
+	flex: 1 1 0;
 	flex-direction: column;
+	// no width from its text: a long name without spaces (a Google Drive id) would widen the whole sidebar
+	width: 0;
 	min-width: 0;
 
 	strong {
@@ -716,5 +719,18 @@
 
 	code {
 		font-size: 13px;
+	}
+}
+
+// a panel's tag (Pro, New) at the right of its title, beside the arrow
+.siPanel > .components-panel__body-title .components-panel__body-toggle:has(.siBadge) {
+	padding-right: 100px;
+
+	.siBadge {
+		position: absolute;
+		top: 50%;
+		right: 48px;
+		margin: 0;
+		transform: translateY(-50%);
 	}
 }

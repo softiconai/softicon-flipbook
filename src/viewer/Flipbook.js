@@ -8,7 +8,7 @@ import Search from './Search';
 import Hardcover from './Hardcover';
 import ScrollView from './ScrollView';
 import Autoplay from './Autoplay';
-import { fileUrl } from '../utils/drive';
+import { driveFolder, driveId } from '../utils/drive';
 import print from './Print';
 import Share from './Share';
 
@@ -98,14 +98,18 @@ class JsonDataFactory {
 
 // starts loading a PDF; the task's promise gives the document (also used for the lightbox cover)
 export const openDocument = async (url, doc) => {
+	// Google Drive refuses files to other websites in the browser (its download server answers a cross-site
+	// request with 403), so a Drive link fails at once with its own message, see fail()
+	if (driveId(url) || driveFolder(url)) {
+		throw new Error('Google Drive link');
+	}
 	const base = __webpack_public_path__ + 'pdfjs/';
 	const pdfjs = await import(/* webpackChunkName: "pdfjs" */ 'pdfjs-dist/legacy/build/pdf.mjs');
 	// -p2: the worker carries our patches (webpack.config.js: JPEG 2000 size, colour profiles), so cached older copies are not used
 	pdfjs.GlobalWorkerOptions.workerSrc = base + 'pdf.worker.min.js?ver=' + pdfjs.version + '-p2';
 
 	return pdfjs.getDocument({
-		// a Google Drive share link: the file from Drive's download server
-		url: fileUrl(url),
+		url,
 		cMapUrl: base + 'cmaps/',
 		cMapPacked: true,
 		standardFontDataUrl: base + 'standard_fonts/',
@@ -857,7 +861,7 @@ export default class Flipbook {
 		if (this.config.showDownload && 'pdf' === this.config.source) {
 			const link = this.doc.createElement('a');
 			link.className = 'alfb_btn alfb_btn_download';
-			link.href = this.safeUrl(fileUrl(this.config.pdf)) || '#';
+			link.href = this.safeUrl(this.config.pdf) || '#';
 			link.download = '';
 			link.target = '_blank';
 			link.rel = 'noopener';
@@ -1208,8 +1212,11 @@ export default class Flipbook {
 		this.root.classList.toggle('alfb_look_light', 'light' === this.look);
 		this.root.classList.toggle('alfb_contrast', 'contrast' === this.look);
 		const names = { '': __('Book colors', 'softicon-flipbook'), light: __('Light', 'softicon-flipbook'), dark: __('Dark', 'softicon-flipbook'), contrast: __('High contrast', 'softicon-flipbook') };
-		/* translators: %s: the look the book has now: Book colors, Light, Dark or High contrast */
-		const label = sprintf(__('Colors: %s', 'softicon-flipbook'), names[this.look]);
+		const label = sprintf(
+			/* translators: %s: the look the book has now: Book colors, Light, Dark or High contrast */
+			__('Colors: %s', 'softicon-flipbook'),
+			names[this.look]
+		);
 		this.lookBtn.title = label;
 		this.lookBtn.setAttribute('aria-label', label);
 		if (remember) {
@@ -1433,9 +1440,16 @@ export default class Flipbook {
 
 		const url = this.config.pdf ? new URL(this.config.pdf, this.win.location.href) : null;
 		const crossOrigin = url && url.origin !== this.win.location.origin;
-		message.textContent = crossOrigin
-			? __('This PDF is on another website that does not allow it to be shown here. Upload the PDF to your Media Library instead.', 'softicon-flipbook')
-			: __('This flipbook could not be loaded.', 'softicon-flipbook');
+		// a Google Drive link: Drive shows its files only on its own site
+		if (driveFolder(this.config.pdf)) {
+			message.textContent = __('This is a link to a Google Drive folder, not to a PDF. Use the link of the PDF itself (in the folder, open the PDF, then Share and Copy link), or upload the PDF to your Media Library.', 'softicon-flipbook');
+		} else if (driveId(this.config.pdf)) {
+			message.textContent = __('Google Drive does not let other websites show its files. Download the PDF from Drive and upload it to your Media Library.', 'softicon-flipbook');
+		} else {
+			message.textContent = crossOrigin
+				? __('This PDF is on another website that does not allow it to be shown here. Upload the PDF to your Media Library instead.', 'softicon-flipbook')
+				: __('This flipbook could not be loaded.', 'softicon-flipbook');
+		}
 
 		this.stage.replaceChildren(message);
 		// eslint-disable-next-line no-console

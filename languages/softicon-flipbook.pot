@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.9.2\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-26T00:53:39+00:00\n"
+"POT-Creation-Date: 2026-11-26T14:21:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -37,21 +37,21 @@ msgstr ""
 #: build/render.php:24
 #: build/dashboard.js:3
 #: build/index.js:6
-#: build/index.js:17
+#: build/index.js:18
 msgid "Read the flipbook"
 msgstr ""
 
-#: build/render.php:63
+#: build/render.php:70
 #: includes/dashboard.php:180
 #: includes/shortcode.php:40
 #: build/dashboard.js:1
 #: build/dashboard.js:3
-#: build/index.js:17
-#: build/view.js:12
+#: build/index.js:18
+#: build/view.js:13
 msgid "Flipbook"
 msgstr ""
 
-#: build/render.php:71
+#: build/render.php:78
 msgid "Open the PDF"
 msgstr ""
 
@@ -601,6 +601,7 @@ msgstr ""
 #: build/dashboard.js:1
 #: build/index.js:17
 #: build/view.js:12
+#: build/view.js:13
 msgid "Close"
 msgstr ""
 
@@ -660,11 +661,17 @@ msgstr ""
 
 #: build/dashboard.js:1
 #: build/index.js:2
+#: build/index.js:15
+#: build/index.js:17
+#: build/view.js:10
+#: build/view.js:12
 msgid "Two pages"
 msgstr ""
 
 #: build/dashboard.js:1
 #: build/index.js:2
+#: build/index.js:17
+#: build/view.js:12
 msgid "One page"
 msgstr ""
 
@@ -709,6 +716,11 @@ msgstr ""
 
 #: build/dashboard.js:1
 #: build/index.js:2
+msgid "Any link"
+msgstr ""
+
+#: build/dashboard.js:1
+#: build/index.js:2
 msgid "Turn"
 msgstr ""
 
@@ -741,6 +753,8 @@ msgstr ""
 #: build/dashboard.js:9
 #: build/index.js:2
 #: build/index.js:6
+#: build/index.js:17
+#: build/view.js:12
 msgid "Dark"
 msgstr ""
 
@@ -748,6 +762,8 @@ msgstr ""
 #: build/dashboard.js:9
 #: build/index.js:2
 #: build/index.js:6
+#: build/index.js:17
+#: build/view.js:12
 msgid "Light"
 msgstr ""
 
@@ -1843,7 +1859,7 @@ msgid "Site"
 msgstr ""
 
 #: build/dashboard.js:10
-msgid "The site-wide switches for reading analytics, lead emails, Google Analytics and books from other flipbook plugins."
+msgid "The site-wide switches for reading analytics, lead emails, Google Analytics, PDF links and books from other flipbook plugins."
 msgstr ""
 
 #: build/dashboard.js:10
@@ -1864,6 +1880,10 @@ msgstr ""
 
 #: build/dashboard.js:10
 msgid "Show the books of a flipbook plugin you left as SoftIcon flipbooks"
+msgstr ""
+
+#: build/dashboard.js:10
+msgid "Open every link to a PDF of your site as a flipbook"
 msgstr ""
 
 #: build/dashboard.js:10
@@ -1931,6 +1951,10 @@ msgid "Media Library"
 msgstr ""
 
 #: build/index.js:3
+msgid "Showing a PDF from Google Drive, or from a website that does not allow it, is available in Pro."
+msgstr ""
+
+#: build/index.js:3
 msgid "Insert from URL"
 msgstr ""
 
@@ -1943,7 +1967,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: build/index.js:4
-#: build/index.js:17
+#: build/index.js:18
 msgid "Edit pages"
 msgstr ""
 
@@ -2102,6 +2126,22 @@ msgid "The book opens at this page. A link ending in #page=5 opens it at page 5.
 msgstr ""
 
 #: build/index.js:6
+msgid "Pages before page 1"
+msgstr ""
+
+#: build/index.js:6
+msgid "When the printed page numbers start later, such as after a cover and a contents page: the toolbar, the page box and the thumbnails then show the printed numbers, and the pages before get i, ii, iii. Links like #page=5 still count every page."
+msgstr ""
+
+#: build/index.js:6
+msgid "Page number in the address"
+msgstr ""
+
+#: build/index.js:6
+msgid "The address in the browser ends in #page=5 as the reader turns, so a copied address opens the same page."
+msgstr ""
+
+#: build/index.js:6
 msgid "Start with"
 msgstr ""
 
@@ -2228,6 +2268,22 @@ msgid "Your own chapters, with the page each one starts on."
 msgstr ""
 
 #: build/index.js:6
+msgid "One or two pages"
+msgstr ""
+
+#: build/index.js:6
+msgid "A button that lets readers switch between one page and two pages side by side. Not on phones, which always show one page."
+msgstr ""
+
+#: build/index.js:6
+msgid "Colors for readers"
+msgstr ""
+
+#: build/index.js:6
+msgid "A button that lets readers switch between the book colors, dark (or light) and high contrast. The choice is kept for every book on the site."
+msgstr ""
+
+#: build/index.js:6
 msgid "A button that shows all pages, a click opens one."
 msgstr ""
 
@@ -2286,7 +2342,7 @@ msgid "Hotspots"
 msgstr ""
 
 #: build/index.js:6
-msgid "Clickable areas on your pages, with a link, a video that plays over the book, or a WooCommerce product and its price, are available in Pro."
+msgid "Clickable areas on your pages, with a link, a video that plays over the book, a sound, or a WooCommerce product and its price, are available in Pro."
 msgstr ""
 
 #: build/index.js:6
@@ -2314,7 +2370,7 @@ msgid "Shelf"
 msgstr ""
 
 #: build/index.js:6
-msgid "Showing many books on one shelf, each opening in a popup, is available in Pro."
+msgid "Showing many books on one shelf, each opening in a popup, or every book of a category, is available in Pro."
 msgstr ""
 
 #: build/index.js:6
@@ -2367,6 +2423,22 @@ msgstr ""
 
 #: build/index.js:6
 msgid "Open with"
+msgstr ""
+
+#: build/index.js:6
+msgid "Any link: nothing shows where the block is; any link to the name below opens the book, such as a menu item, a theme button or a link in your text."
+msgstr ""
+
+#: build/index.js:6
+msgid "Link name"
+msgstr ""
+
+#: build/index.js:6
+msgid "Letters, numbers and dashes. Use it as the link: #name on this page, or the page address followed by #name from anywhere else."
+msgstr ""
+
+#: build/index.js:6
+msgid "Link to:"
 msgstr ""
 
 #: build/index.js:6
@@ -2430,6 +2502,18 @@ msgid "What readers see around the book while it is open: a dark or light screen
 msgstr ""
 
 #: build/index.js:6
+msgid "Open in full screen"
+msgstr ""
+
+#: build/index.js:6
+msgid "The book opens full screen at once; leaving full screen closes it. iPhones have no full screen for web pages, there the popup fills the window."
+msgstr ""
+
+#: build/index.js:6
+msgid "Opening the book in a new tab, on a page of its own, is available in Pro."
+msgstr ""
+
+#: build/index.js:6
 msgid "Ask search engines not to follow"
 msgstr ""
 
@@ -2466,6 +2550,14 @@ msgid "Size"
 msgstr ""
 
 #: build/index.js:6
+msgid "Fit the width"
+msgstr ""
+
+#: build/index.js:6
+msgid "The book is as wide as the column and as tall as its pages need, with no height limit. Good for landscape brochures and small text."
+msgstr ""
+
+#: build/index.js:6
 msgid "Maximum height (px)"
 msgstr ""
 
@@ -2490,6 +2582,8 @@ msgid "Phone (px)"
 msgstr ""
 
 #: build/index.js:6
+#: build/index.js:15
+#: build/view.js:10
 msgid "Colors"
 msgstr ""
 
@@ -2514,7 +2608,7 @@ msgid "Toolbar style"
 msgstr ""
 
 #: build/index.js:6
-msgid "The toolbar above the book, or floating over it so the book gets more room, is available in Pro."
+msgid "The toolbar above the book, floating over it so the book gets more room, or no toolbar at all, is available in Pro."
 msgstr ""
 
 #: build/index.js:6
@@ -2624,16 +2718,16 @@ msgid "Go to page %d"
 msgstr ""
 
 #: build/index.js:13
-#: build/index.js:17
+#: build/index.js:18
 #: build/view.js:8
-#: build/view.js:12
+#: build/view.js:13
 msgid "Previous page"
 msgstr ""
 
 #: build/index.js:13
-#: build/index.js:17
+#: build/index.js:18
 #: build/view.js:8
-#: build/view.js:12
+#: build/view.js:13
 msgid "Next page"
 msgstr ""
 
@@ -2744,106 +2838,141 @@ msgstr ""
 
 #: build/index.js:17
 #: build/view.js:12
+msgid "Book colors"
+msgstr ""
+
+#: build/index.js:17
+#: build/view.js:12
+msgid "High contrast"
+msgstr ""
+
+#. translators: %s: the look the book has now: Book colors, Light, Dark or High contrast
+#: build/index.js:18
+#: build/view.js:13
+#, js-format
+msgid "Colors: %s"
+msgstr ""
+
+#: build/index.js:18
+#: build/view.js:13
 msgid "Page number"
 msgstr ""
 
-#: build/index.js:17
-#: build/view.js:12
+#: build/index.js:18
+#: build/view.js:13
 msgid "Tap to read"
 msgstr ""
 
-#: build/index.js:17
-#: build/view.js:12
+#: build/index.js:18
+#: build/view.js:13
 msgid "Press ? for keyboard shortcuts"
 msgstr ""
 
-#: build/index.js:17
-#: build/view.js:12
+#: build/index.js:18
+#: build/view.js:13
+msgid "This is a link to a Google Drive folder, not to a PDF. Use the link of the PDF itself (in the folder, open the PDF, then Share and Copy link), or upload the PDF to your Media Library."
+msgstr ""
+
+#: build/index.js:18
+#: build/view.js:13
+msgid "Google Drive does not let other websites show its files. Download the PDF from Drive and upload it to your Media Library."
+msgstr ""
+
+#: build/index.js:18
+#: build/view.js:13
 msgid "This PDF is on another website that does not allow it to be shown here. Upload the PDF to your Media Library instead."
 msgstr ""
 
-#: build/index.js:17
-#: build/view.js:12
+#: build/index.js:18
+#: build/view.js:13
 msgid "This flipbook could not be loaded."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
+msgid "Flipbook popup"
+msgstr ""
+
+#: build/index.js:18
+msgid "Nothing shows here on the page. Any link to this opens the book:"
+msgstr ""
+
+#: build/index.js:18
 msgid "Pick the page images, in reading order."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Pick your PDF: upload it, choose it from the Media Library or paste its link."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Give the flipbook a title, change its look in the sidebar if you like, then click Publish."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Copy its shortcode from the sidebar's Block tab and paste it in your page: the Classic Editor, an Elementor Shortcode widget or any page builder."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Change its look in the sidebar on the right: Classic or Hardcover, on the page or in a popup."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Click Publish: the flipbook shows on the page."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Your flipbook is ready. Give it a title and click Publish, then copy its shortcode from the sidebar's Block tab."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Your flipbook is ready. Change its look in the sidebar on the right, then click Publish."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "New here? Watch the 36-second tutorial"
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Use images instead"
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Use a PDF instead"
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Replace PDF"
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Upload or pick the page images, in reading order."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Upload a PDF, pick one from the Media Library or paste a link."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Flipbook Popup"
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "A cover on the page; a click opens the flipbook in a popup."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Flipbook Button"
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "A button on the page that opens the flipbook in a popup."
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "Flipbook Link"
 msgstr ""
 
-#: build/index.js:17
+#: build/index.js:18
 msgid "A text link on the page that opens the flipbook in a popup."
 msgstr ""
 
