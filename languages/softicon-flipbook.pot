@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.9.1\n"
+"Project-Id-Version: SoftIcon Flipbook – PDF Flipbook & Magazine Viewer 1.9.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/softicon-flipbook\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T13:32:27+00:00\n"
+"POT-Creation-Date: 2026-11-26T00:53:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: softicon-flipbook\n"
@@ -55,63 +55,63 @@ msgstr ""
 msgid "Open the PDF"
 msgstr ""
 
-#: includes/black-friday.php:30
+#: includes/black-friday.php:35
 #: includes/dashboard.php:179
 #: includes/dashboard.php:188
-#: includes/dashboard.php:445
+#: includes/dashboard.php:448
 msgid "SoftIcon Flipbook"
 msgstr ""
 
-#: includes/black-friday.php:34
+#: includes/black-friday.php:39
 msgid "Shelf of books"
 msgstr ""
 
-#: includes/black-friday.php:34
-#: build/dashboard.js:9
+#: includes/black-friday.php:39
+#: build/dashboard.js:10
 #: build/index.js:6
 msgid "Lead capture"
 msgstr ""
 
-#: includes/black-friday.php:34
-#: build/dashboard.js:9
+#: includes/black-friday.php:39
+#: build/dashboard.js:10
 msgid "Reading analytics"
 msgstr ""
 
-#: includes/black-friday.php:34
+#: includes/black-friday.php:39
 msgid "PDF protection"
 msgstr ""
 
 #. translators: %s: the discount, e.g. 40%
-#: includes/black-friday.php:46
+#: includes/black-friday.php:51
 #, php-format
 msgid "Black Friday: Save %s!"
 msgstr ""
 
 #. translators: 1: plugin name, 2: the discount, e.g. 40%
-#: includes/black-friday.php:86
+#: includes/black-friday.php:91
 #, php-format
 msgid "%1$s's Biggest Black Friday Sale is Live – %2$s OFF!"
 msgstr ""
 
 #. translators: 1: plugin name, 2: the discount, 3: the coupon code
-#: includes/black-friday.php:90
+#: includes/black-friday.php:95
 #, php-format
 msgid "The biggest deal of the year: get %1$s Pro at %2$s off until 5 December with code %3$s, and unlock every Pro feature at the lowest price of the year."
 msgstr ""
 
-#: includes/black-friday.php:92
+#: includes/black-friday.php:97
 msgid "Unlock PRO Features →"
 msgstr ""
 
-#: includes/black-friday.php:95
+#: includes/black-friday.php:100
 msgid "Pro features"
 msgstr ""
 
-#: includes/black-friday.php:97
+#: includes/black-friday.php:102
 msgid "And much more →"
 msgstr ""
 
-#: includes/black-friday.php:99
+#: includes/black-friday.php:104
 msgid "Dismiss"
 msgstr ""
 
@@ -217,7 +217,7 @@ msgstr ""
 #: includes/dashboard.php:201
 #: build/dashboard.js:1
 #: build/dashboard.js:3
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 #: build/index.js:2
 msgid "Video tutorials"
 msgstr ""
@@ -235,7 +235,7 @@ msgid "Opens and pages read"
 msgstr ""
 
 #: includes/dashboard.php:235
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Leads"
 msgstr ""
 
@@ -252,7 +252,7 @@ msgid "One look for every book"
 msgstr ""
 
 #: includes/dashboard.php:237
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Settings"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgid "Demos"
 msgstr ""
 
 #: includes/dashboard.php:254
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Pricing"
 msgstr ""
 
@@ -282,11 +282,11 @@ msgstr ""
 msgid "(no title)"
 msgstr ""
 
-#: includes/dashboard.php:445
+#: includes/dashboard.php:448
 msgid "SoftIcon Flipbook Pro"
 msgstr ""
 
-#: includes/dashboard.php:449
+#: includes/dashboard.php:452
 msgid "The Flipbook dashboard needs JavaScript."
 msgstr ""
 
@@ -333,7 +333,7 @@ msgstr ""
 
 #: includes/shortcode.php:149
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 msgid "Copied"
 msgstr ""
@@ -609,7 +609,7 @@ msgid "Dismiss this notice."
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Enjoying SoftIcon Flipbook?"
 msgstr ""
 
@@ -618,7 +618,7 @@ msgid "A quick review on WordPress.org helps other people find it, and it means 
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Leave a review"
 msgstr ""
 
@@ -636,8 +636,8 @@ msgstr ""
 
 #: build/dashboard.js:1
 #: build/dashboard.js:3
-#: build/dashboard.js:7
-#: build/dashboard.js:9
+#: build/dashboard.js:8
+#: build/dashboard.js:10
 #: build/index.js:6
 msgid "Pro"
 msgstr ""
@@ -679,14 +679,14 @@ msgid "Images"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:2
 msgid "Classic"
 msgstr ""
 
 #: build/dashboard.js:1
 #: build/dashboard.js:3
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:2
 msgid "Hardcover"
 msgstr ""
@@ -738,14 +738,14 @@ msgid "Medium"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:2
 #: build/index.js:6
 msgid "Dark"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:2
 #: build/index.js:6
 msgid "Light"
@@ -782,13 +782,13 @@ msgid "Rate Flipbook"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:2
 msgid "More plugins"
 msgstr ""
 
 #: build/dashboard.js:1
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 msgid "Copy"
 msgstr ""
@@ -1164,6 +1164,11 @@ msgid "Questions? %s"
 msgstr ""
 
 #: build/dashboard.js:4
+#, js-format
+msgid "Black Friday: %d%% off"
+msgstr ""
+
+#: build/dashboard.js:4
 msgid "one-time"
 msgstr ""
 
@@ -1175,23 +1180,29 @@ msgstr ""
 msgid "per month"
 msgstr ""
 
-#: build/dashboard.js:4
-msgid "Unlimited websites"
+#. translators: %s: coupon code
+#: build/dashboard.js:5
+#, js-format
+msgid "Code %s is applied at checkout. The sale ends on 5 December."
 msgstr ""
 
 #: build/dashboard.js:5
+msgid "Unlimited websites"
+msgstr ""
+
+#: build/dashboard.js:6
 #, js-format
 msgid "%d website"
 msgid_plural "%d websites"
 msgstr[0] ""
 msgstr[1] ""
 
-#: build/dashboard.js:5
+#: build/dashboard.js:6
 msgid "Get Pro"
 msgstr ""
 
 #. translators: %d: number of days
-#: build/dashboard.js:6
+#: build/dashboard.js:7
 #, js-format
 msgid "Start %d-day free trial"
 msgid_plural "Start %d-day free trial"
@@ -1199,667 +1210,667 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of days
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 #, js-format
 msgid "Try Pro free for %d day"
 msgid_plural "Try Pro free for %d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Every Pro feature on one website. Cancel before the trial ends and you pay nothing."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Every Pro feature on one website, no card needed. When the trial ends, pick a plan or keep using the free plugin."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "The Pro plans could not be loaded right now. Please try again later."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "SoftIcon Flipbook Pro is coming soon."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Every Pro feature in one minute"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Watch every Pro feature in one minute"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Pay once, use it for life"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Pick your plan"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Every plan has all Pro features; pick how many websites you need."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Every free feature"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Secure checkout by Freemius. Pro replaces the free plugin and keeps every book you made."
 msgstr ""
 
-#: build/dashboard.js:7
-#: build/dashboard.js:9
+#: build/dashboard.js:8
+#: build/dashboard.js:10
 msgid "Compare Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Included"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Not included"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "In Free and Pro"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Only in Pro"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Compare"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Free vs Pro at a glance"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 #, js-format
 msgid "See what you get when you upgrade. %s features are only in Pro."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Free"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Free forever, everything you need to put books on your site."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "forever"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "You already have it"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Plans for more websites"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Feature breakdown"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Filter features"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Filter features…"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Feature"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "No features match."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Plugin"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "no license"
 msgstr ""
 
-#: build/dashboard.js:7
 #: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 msgid "Theme"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Browser"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "How do I add a flipbook?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Edit a page, open the block inserter, search for Flipbook and add the block. Pick a PDF from your Media Library or upload one, and the book appears right away."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Does it work with the Classic Editor, Elementor or other page builders?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Yes. Go to Flipbook → All Flipbooks, add a flipbook, set it up and publish it. The list shows its shortcode, such as [softicon_flipbook id=\"123\"]; paste it where the flipbook should be."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "My PDF from another website does not load"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Browsers only read a PDF from another website when that site allows it (CORS). Upload the PDF to your Media Library and it always works."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Can the flipbook open in a popup?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Yes. Select the flipbook, open the Style tab and turn on Open in a lightbox under Display. A cover, a button or a text link shows on the page, and a click opens the book."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "How do I link to a page of the book?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Add #page= and the number to the page address, for example example.com/catalog/#page=12. Links like <a href=\"#page=8\"> on the same page turn the book there."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "How do I hide the download button?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Select the flipbook and turn off Download button in the Toolbar panel of the General tab."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Does it work with caching and minify plugins?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Yes. The block tells its script where the plugin's files are, so combining or moving scripts does not break the flipbook. After an update, clear your cache once."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Does it slow down my pages?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "The page gets a 35 KB script (12 KB compressed). The PDF engine loads only when a flipbook comes near the screen, or when a lightbox is opened."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Open a support ticket"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Use the email you bought Pro with, and the developers answer you."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Tell us what happened; the people who build the plugin answer."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Write to us"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Documentation"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Guides for every setting, step by step."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Read the docs"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Short videos, most under a minute."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Watch here"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Community forum"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Ask in public on WordPress.org, and search past answers."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Visit the forum"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Fastest"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Support"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "How can we help?"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Free or Pro, a real person reads every message: the developers who build SoftIcon Flipbook."
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Search the answers"
 msgstr ""
 
-#: build/dashboard.js:7
+#: build/dashboard.js:8
 msgid "Quick answers"
 msgstr ""
 
 #. translators: %d: the number of answers that match the search
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #, js-format
 msgid "%d found"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "The questions people ask most"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Watch how"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "No quick answer for that."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Ask us instead"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "All questions and answers"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Your site details"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Paste these into your ticket with the address of the page and what you see. They are only copied, never sent."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:7
 #: build/view.js:2
 msgid "Email"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Licenses and downloads"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Your account"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Sales and billing"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "14-day money-back on Pro"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Pro plans"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "A review helps other people find it and keeps it free."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Source on GitHub"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Spring catalog"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Room guide"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Price list"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Period"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "7 days"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "30 days"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "90 days"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Views"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Pages read"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Pages per view"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Downloads"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Views per day"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Book"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Today"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Yesterday"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "2 days ago"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "3 days ago"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Search leads"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Download CSV"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Name"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Asked at page"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "When"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "No sample lead matches."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Toolbar on every book"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Download"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:13
 #: build/view.js:8
 msgid "Print"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 #: build/index.js:13
 #: build/view.js:8
 msgid "Thumbnails"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 #: build/index.js:13
 #: build/view.js:8
 msgid "Search"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 msgid "Share"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Sound"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 msgid "Design"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 #: build/index.js:6
 msgid "Background"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Theme color"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Count opens and pages read"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Reading analytics for every book. Nothing personal is stored and no cookies are set."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Do not count logged-in editors"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Your own visits while you work on the site are left out."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Email me each new lead"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Sent to the site admin email."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Show other plugins' flipbooks"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Switching from DearFlip, 3D FlipBook, Real3D, Flipa, TNC or PDF Embedder: once it is deactivated, its books in your posts show as SoftIcon flipbooks."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Send events to Google Analytics"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "When the site already has Google Analytics or Tag Manager: opens, pages read, finished books and downloads."
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Save settings"
 msgstr ""
 
-#: build/dashboard.js:8
+#: build/dashboard.js:9
 msgid "Try it"
 msgstr ""
 
 #. translators: %s: the Pro feature, such as Reading analytics
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 #, js-format
 msgid "A working demo of %s with sample data. Click around; nothing is saved."
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Insights"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "See how many people open each book and how far they read."
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Views, pages read and downloads for every book"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "A chart per day, for 7, 30 or 90 days"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "No cookies and nothing personal stored"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Download the numbers as a CSV file"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Audience"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Readers leave their email to keep reading after a few pages."
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Choose after how many pages the form shows"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Every lead saved on your own site"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "An email to you for each new lead"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Download your leads as a CSV file"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Appearance"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Site defaults"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Set the toolbar, size, colors and more once, and every flipbook uses them. A book can still change any setting for itself."
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Hide the download button on every book at once"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Your brand colors and height on each new book"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Right to left for every book on an Arabic, Hebrew or Urdu site"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "A live preview before you save"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Presets: save a book's look and give it to other books in one click"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Move the defaults and presets to another site in one file"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Site"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "The site-wide switches for reading analytics, lead emails, Google Analytics and books from other flipbook plugins."
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Turn reading analytics on or off"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Leave out your own visits while you work"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Get an email for each new lead"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Send opens and pages read to Google Analytics"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Show the books of a flipbook plugin you left as SoftIcon flipbooks"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "See Pro plans"
 msgstr ""
 
-#: build/dashboard.js:9
+#: build/dashboard.js:10
 msgid "Watch it in action"
 msgstr ""
 

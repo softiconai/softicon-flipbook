@@ -4,7 +4,7 @@ Tags: flipbook, pdf flipbook, flip book, pdf viewer, pdf embed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.1
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -233,6 +233,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 
 == Changelog ==
 
+= 1.9.2 =
+* Improved: during the Black Friday sale (until 5 December 2026), the Pricing and Free vs Pro tabs show the sale price next to the old one, and Get Pro opens the checkout with the 40% coupon already applied, so there is no code to type.
+
 = 1.9.1 =
 * New: Black Friday offer, 26 November to 5 December 2026: 40% off SoftIcon Flipbook Pro, shown on the Flipbook dashboard, the All Flipbooks list and the Plugins page. Close it with × and it stays closed. It disappears by itself after the sale, and never shows with Pro active.
 * New: the Welcome tab links to SoftIcon Document Viewer, our free plugin for Word, Excel and PowerPoint files, with a button to open, activate or install it. The FAQ says when to use it.
@@ -372,6 +375,9 @@ Ask in the [support forum](https://wordpress.org/support/plugin/softicon-flipboo
 * First release.
 
 == Upgrade Notice ==
+
+= 1.9.2 =
+Black Friday sale prices on the Pricing tab, and the coupon applied for you at checkout, until 5 December. Your flipbooks don't change.
 
 = 1.9.1 =
 A link on the Welcome tab to SoftIcon Document Viewer, and a Black Friday offer for Pro until 5 December that you can close. Your flipbooks don't change.
