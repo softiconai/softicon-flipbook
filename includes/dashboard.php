@@ -431,6 +431,9 @@ class dashboard {
             // no image: the checkout shows the product icon set in Freemius (a remote image address is not
             // allowed in a WordPress.org plugin, and the site's own address is not sent)
             'base'    => 'https://checkout.freemius.com/plugin/' . $product[0] . '/',
+            'coupon'  => black_friday::coupon(),
+            // the percent off, for the sale prices on the cards
+            'off'     => black_friday::coupon() ? (int) black_friday::OFF : 0,
         );
         return rest_ensure_response( $data );
     }

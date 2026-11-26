@@ -668,6 +668,49 @@
 	color: rgba(255, 255, 255, 0.75);
 }
 
+/* a sale: the old price struck through, its name, and the code under Get Pro */
+.alfb-price-was {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-top: 20px;
+}
+
+.alfb-price-was s {
+	color: #646970;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.alfb-price-was + .alfb-price {
+	margin-top: 8px;
+}
+
+.alfb-sale {
+	padding: 4px 9px;
+	border-radius: 3px;
+	background: #d63638;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.alfb-sale-note {
+	align-self: stretch;
+	margin-top: 10px;
+	color: #b32d2e;
+	font-size: 13px;
+	text-align: center;
+}
+
+.alfb-plan.is-pro .alfb-price-was s,
+.alfb-plan.is-pro .alfb-sale-note {
+	color: rgba(255, 255, 255, 0.85);
+}
+
 .alfb-plan .alfb-btn-block,
 .alfb-have {
 	align-self: stretch;
